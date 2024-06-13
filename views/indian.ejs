@@ -10,10 +10,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/Javascript/Landing-page.js"></script>
     <script src="/Javascript/nav-bar.js"></script>
+    <link rel="stylesheet" href="/CSS/indian.css">
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
-    
+    <div class="head">
+        <img src="/images/Indian/Firefly 20240613032637.png">
+        <div class="img-text">
+            <p>"A nation's culture resides in the hearts and in the soul of its people." - Mahatma Gandhi</p>
+        </div>
+    </div>
 
+    <div class="filters">
+        <p>filters</p>
+        <div class="toggle-switch">
+            <input type="checkbox" id="toggle" class="toggle-input">
+            <label for="toggle" class="toggle-label"></label>
+        </div>
+    </div>
 </body>
 </html>
