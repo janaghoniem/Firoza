@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indian</title>
-    <link rel="stylesheet" href="/CSS/Landing-page.css">
     <link rel="stylesheet" href="/CSS/nav-bar-white.css">
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="/Javascript/Landing-page.js"></script>
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/indian.css">
+    <link rel="stylesheet" href="/CSS/indian2.css">
+
+    <script src="/Javascript/indian.js"></script>
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
@@ -22,10 +23,239 @@
     </div>
 
     <div class="filters">
-        <p>filters</p>
-        <div class="toggle-switch">
-            <input type="checkbox" id="toggle" class="toggle-input">
-            <label for="toggle" class="toggle-label"></label>
+        <div class="toggle-container">
+            <div class="toggle-switch">
+                <input type="checkbox" id="toggle" class="toggle-input">
+                <label for="toggle" class="toggle-label"></label>
+            </div>
+            <p class="toggle-text">Hide sold out</p>
+        </div>
+        <span class="category filter-buttons" onclick="toggleDropdown(event, 'category-dropdown')">
+            <p>Category</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <span class="color filter-buttons" onclick="toggleDropdown(event, 'color-dropdown')">
+            <p>Color</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <span class="price filter-buttons" onclick="toggleDropdown(event, 'price-dropdown')">
+            <p>Price</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <span class="material filter-buttons" onclick="toggleDropdown(event, 'material-dropdown')">
+            <p>Material</p>
+            <i class="fa-solid fa-chevron-down"></i>
+        </span>
+    </div>
+
+    <!-- Dropdown content -->
+    <div id="category-dropdown" class="dropdown-content">
+        <div class="arrow"></div>
+        <label class="containerr" style="font-size: 12px;">Bracelets 
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr"  style="font-size: 12px;">Necklaces and pendants 
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Earrings (106)
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Rings and accessories
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    
+    <div id="color-dropdown" class="dropdown-content">
+        <div class="arrow"></div>
+        <label class="containerr" style="font-size: 12px;">Red
+            <input type="checkbox" style="font-size: 12px;">
+            <span class="checkmark" style="font-size: 12px;"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Green
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Blue
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Multicolor
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Beige
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Pink
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Black
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Rose gold
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <!-- <div class="price-filter">
+        <div id="price-dropdown" class="dropdown-content">
+            <div class="arrow"></div>
+            <label for="priceRange">Price range: <span id="priceValue">$0 - $2000</span></label>
+            <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)">
+        </div>
+    </div> -->
+    <div id="material-dropdown" class="dropdown-content">
+        <div class="arrow"></div>
+        <label class="containerr" style="font-size: 12px;">Stainless steel
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">gold
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">silver
+            <input type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="#" class="image">
+                        <img class="img-1" src="/images/Indian/img2-removebg-preview.png">
+                        <img class="img-2" src="/images/Indian/img22.jpeg">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <ul class="rating">
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star disable"></li>
+                        <li class="disable">(1 reviews)</li>
+                    </ul>
+                    <h3 class="title"><a href="#">Earring</a></h3>
+                    <div class="price">50,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="#" class="image">
+                        <img class="img-1" src="/images/Indian/img3.jpeg">
+                        <img class="img-2" src="/images/Indian/img33.jpeg">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <ul class="rating">
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star disable"></li>
+                        <li class="disable">(1 reviews)</li>
+                    </ul>
+                    <h3 class="title"><a href="#">Earring</a></h3>
+                    <div class="price">50,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="#" class="image">
+                        <img class="img-1" src="/images/Indian/img4.jpeg">
+                        <img class="img-2" src="/images/Indian/img44.jpeg">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <ul class="rating">
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star disable"></li>
+                        <li class="disable">(1 reviews)</li>
+                    </ul>
+                    <h3 class="title"><a href="#">Earring</a></h3>
+                    <div class="price">50,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="#" class="image">
+                        <img class="img-1" src="/images/Landing/exp/earrings1.png">
+                        <img class="img-2" src="/images/Landing/exp/earrings1.png">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <ul class="rating">
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star disable"></li>
+                        <li class="disable">(1 reviews)</li>
+                    </ul>
+                    <h3 class="title"><a href="#">Earring</a></h3>
+                    <div class="price">50,000</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-grid">
+                <div class="product-image">
+                    <a href="#" class="image">
+                        <img class="img-1" src="/images/Landing/exp/earrings1.png">
+                        <img class="img-2" src="/images/Landing/exp/earrings1.png">
+                    </a>
+                    <ul class="product-links">
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                </div>
+                <div class="product-content">
+                    <ul class="rating">
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star"></li>
+                        <li class="fas fa-star disable"></li>
+                        <li class="disable">(1 reviews)</li>
+                    </ul>
+                    <h3 class="title"><a href="#">Earring</a></h3>
+                    <div class="price">50,000</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

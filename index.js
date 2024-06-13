@@ -42,7 +42,9 @@ app.get('/Collections', (req, res) => {
   app.get('/EditProduct', (req, res) => {
     res.render("EditProduct.ejs")
   })
-
+  app.get('/stores', (req, res) => {
+    res.render("stores.ejs")
+  })
   
 
 app.get('/indian', (req, res) => {
