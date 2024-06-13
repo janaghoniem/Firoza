@@ -51,6 +51,19 @@ app.get('/indian', (req, res) => {
     res.render('indian');
 });
 
+app.get('/shoppingcart', (req, res) => {
+  res.render("ShoppingCart.ejs")
+})
+
+app.get('/WishList', (req, res) => {
+  res.render("wishlist.ejs")
+})
+
+app.get('/Checkout', (req, res) => {
+  res.render("Checkout.ejs")
+})
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
