@@ -6,7 +6,7 @@
 
 
 * {
-    font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+    font-family: 'Nunito Sans', 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
     font-weight: 100;
     padding: 0px;
     margin: 0px;
@@ -44,7 +44,7 @@ body {
 section {
     padding-top: 40px;
     padding-bottom: 10px;
-    margin-bottom:0.2em;
+    margin-bottom: 0.2em;
     /* position:relative; */
 }
 
@@ -73,107 +73,36 @@ section {
     overflow: hidden;
 }
 
-.section-text {
-    /* font-family: 'Montserrat', sans-serif; */
-    z-index: 1;
-    color: #F6E8C0;
-    font-weight: bolder;
-    margin: 480px auto 0 auto;
-    text-align: center;
+
+.responsive-table{
+    display:none;
 }
-
-.section-text1 {
-    font-size: 30px;
-
-    color: #F6E8C0;
-    font-weight: bold;
-    margin: 40px auto;
-    text-align: center;
-}
-
-section.content-row {
-
-    transition: all 0.5s ease-in-out;
-    opacity: 0;
-    transform: translateY(20%);
-}
-
-section.content-row.in-view {
-    opacity: 1;
-    transform: translateY(0);
-}
+@media (max-width: 900px) {
 
 
-
-
-
-@media only screen and (max-width: 800px) {
-    .view-products {
-        background: url(../images/Admin/1.jpeg), url(../images/Admin/Jewelry.jpeg);
-        background-position: left top, calc(100% - 1px) top;
-        background-repeat: no-repeat, no-repeat;
-        background-size: contain;
-        background-attachment: fixed;
-        width: 100vw;
-        /* Adjusted width for smaller viewports */
-        max-width: 800px;
-        /* Limiting the maximum width */
-        position: absolute;
+    table th{
+        font-size: 0.50em;
+    }
+    table td{
+        font-size: 0.7em;
     }
 
-    .editButton1 {
-        margin: 460px 250px;
-
+    .button-container {
+        flex-direction: column;
+        align-items: center;
     }
-}
 
-@media only screen and (max-width: 600px) {
-    .view-products {
-        background: url(../images/Admin/1.jpeg);
-        background-position: calc(50% - 1px) top;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-attachment: fixed;
+    .collection-button {
         width: 100%;
-        /* Adjusted width for even smaller viewports */
-
-        position: absolute;
-    }
-
-    .editButton1 {
-        margin: 460px 150px;
+        text-align: center;
 
     }
 
-}
 
-@media only screen and (max-width: 500px) {
-    .videos-container {
-        display: flex;
-        padding-left: 2px;
-        padding-bottom: 50px;
-
+    .admin-button {
+        padding-right: 50vh;
+        padding-bottom:5vh;
     }
-
-    .editButton {
-        margin: 40px 150px;
-
-    }
-
-}
-
-@media only screen and (max-width: 800px) {
-    .videos-container {
-        display: flex;
-        padding-left: 100px;
-        padding-bottom: 50px;
-    }
-
-    .editButton {
-        margin: 40px 250px;
-
-    }
-
 }
 
 table {
@@ -185,16 +114,17 @@ table {
     margin-top: 300px
 }
 
-td{
+td {
     text-align: center;
     padding: 2px 8px 2px 8px;
     color: white;
     border: none;
 }
 
-th h2{
+th h2 {
     font-weight: bold;
 }
+
 th {
     text-align: right;
     border: none;
@@ -208,18 +138,19 @@ th {
 .first {
     text-align: center;
     border: none;
-   
+
 }
 
 .second,
 .third,
 .forth {
     text-align: center;
-    border-bottom:none;
-    border-top:none;
+    border-bottom: none;
+    border-top: none;
 }
-.forth{
-    border:none;
+
+.forth {
+    border: none;
 }
 
 
@@ -255,22 +186,22 @@ th {
     transition: background-color ease-in-out .2s;
     text-decoration: none;
     cursor: pointer;
-    z-index:999;
+    z-index: 999;
 }
 
 
-.admin-button{
-    padding-left:10vh;
+.admin-button {
+    padding-left: 10vh;
 }
 
-.button-container{
-    display:flex;
-    padding-top:30vh;
-    padding-left:35vh;
+.button-container {
+    display: flex;
+    padding-top: 30vh;
+    padding-left: 35vh;
 
     /* margin-top:800px; */
     /* padding-top:300px; */
-  
+
 }
 
 @media only screen and (max-width: 900px) {
