@@ -4,6 +4,9 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+const dbURI = 'mongodb+srv://firoza:<password>@firoza.okdf9xk.mongodb.net/?retryWrites=true&w=majority&appName=Firoza';
+const passwordAdmin = 'firoza123';
+
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
