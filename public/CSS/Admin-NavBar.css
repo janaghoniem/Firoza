@@ -1,0 +1,291 @@
+@import url(https://db.onlinewebfonts.com/c/2e492ac67105d56ef337489b56a86486?family=Cooper+BT+W03+Md);
+@import url('https://fonts.cdnfonts.com/css/garet');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+* {
+    font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+    font-weight: 100;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    transition: all .3s cubic-bezier(.39, .575, .565, 1);
+    -webkit-font-smoothing: antialiased;
+
+}
+
+body {
+    background-color: #FEF8F1;
+}
+
+header {
+    /* background-color:  rgba(0, 0, 0, 0.1); */
+    /* backdrop-filter: blur(4px); */
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    text-transform: uppercase;
+    /* border-bottom: 2px solid rgba(0, 0, 0, 0.19); */
+}
+
+.header-scrolled {
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    text-transform: uppercase;
+}
+
+header:hover {
+    background-color: white;
+}
+
+header:hover a {
+    color: black;
+}
+
+header:hover #search-button {
+    color: black;
+    border-color: black;
+    background-color: transparent;
+}
+
+header:hover #search,
+header:hover #searchField,
+header:hover #searchField::placeholder {
+    color: black;
+}
+
+.navigation a {
+    color: #F6E8C0;
+    font-size: 1.1em;
+    font-weight: 300;
+    text-decoration: none;
+    padding-left: 20px;
+}
+
+.navigation a:hover {
+    color: rgb(228, 124, 33);
+}
+
+.logo-unscrolled {
+    color: #F6E8C0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.logo-unscrolled:hover {
+    color: #E47C21;
+}
+
+.logo-scrolled {
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 35px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.header-top-unscrolled,
+.header-middle-unscrolled,
+.header-bottom-unscrolled {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: smaller;
+    /* transition: fontSize 0ms ease; */
+}
+
+.header-top-unscrolled {
+    justify-content: space-between;
+}
+
+.header-middle-unscrolled {
+    justify-content: center;
+}
+
+.header-bottom-unscrolled {
+    justify-content: center;
+}
+
+/* SCROLLED */
+
+.header-top-scrolled,
+.header-middle-scrolled,
+.header-bottom-scrolled {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header-top-scrolled {
+    justify-content: flex-end;
+    font-size: medium;
+}
+
+.header-middle-scrolled {
+    justify-content: space-between;
+}
+
+.header-top-scrolled i {
+    color: black;
+}
+
+.header-bottom-scrolled a {
+    color: black;
+}
+
+.header-bottom-scrolled {
+    justify-content: center;
+    font-size: smaller;
+}
+
+.store-services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.store-services a p,
+.user-data a p {
+    display: inline;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.search-button-unscrolled {
+    color: #F6E8C0;
+    border-color: #F6E8C0;
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0, 0.3);
+    width: 40px;
+    margin-left: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.5s ease;
+}
+
+.search-button-scrolled {
+    color: black;
+    border-color: black;
+    border-radius: 20px;
+    background-color: transparent;
+    width: 40px;
+    margin-left: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.5s ease;
+}
+
+#searchField {
+    padding: 10px;
+    color: #F6E8C0;
+    border-color: transparent;
+    background-color: transparent;
+    height: 30px;
+    width: 0px;
+    padding-right: 40px;
+    box-sizing: border-box;
+    transition: width 0.5s ease;
+}
+
+#searchField:focus {
+    outline: none;
+    border-radius: 20px;
+}
+
+#searchField::placeholder {
+    color: #F6E8C0;
+}
+
+#search {
+    /* background-image: url('../images/Landing/magnifying-glass1.png'); */
+    color: #F6E8C0;
+    font-size: 15px;
+    background-color: transparent;
+    border-color: transparent;
+    /* color: #F6E8C0; */
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    /* background-size: contain; 
+    background-repeat: no-repeat; */
+    z-index: 999;
+}
+
+
+
+
+.icon {
+    display: none;
+}
+
+.navigation {
+    display: block;
+}
+
+@media only screen and (max-width: 900px) {
+    .icon {
+        display: block;
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    .logo {
+        margin-right: 0;
+
+    }
+
+    .responsive {
+        margin-right: 70px;
+    }
+
+    .navigation {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        background: white;
+        padding: 10px;
+        z-index: 999;
+    }
+
+    .navigation a {
+        display: block;
+        color: black;
+        text-decoration: none;
+        padding: 5px 0;
+    }
+}
