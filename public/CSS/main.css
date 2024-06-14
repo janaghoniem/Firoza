@@ -73,18 +73,44 @@ section {
     overflow: hidden;
 }
 
-
-.responsive-table{
-    display:none;
+#video-background{
+    width: 100%;
+    overflow: hidden;
 }
+.responsive-table {
+    display: none;
+}
+
 @media (max-width: 900px) {
-
-
-    table th{
-        font-size: 0.50em;
+    .main-section{
+        width:100%;
     }
-    table td{
-        font-size: 0.7em;
+    video{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+    }
+    table {
+        display: none;
+    }
+
+    .responsive-table {
+        display: block;
+        left:0;
+       
+    }
+
+    table th {
+        font-size: 1.0em;
+        border:none;
+    }
+
+    table td {
+        font-size: 1.2em;
     }
 
     .button-container {
@@ -101,7 +127,7 @@ section {
 
     .admin-button {
         padding-right: 50vh;
-        padding-bottom:5vh;
+        padding-bottom: 5vh;
     }
 }
 
