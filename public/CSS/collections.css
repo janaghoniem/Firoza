@@ -1,4 +1,7 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
 .main {
     width: 100%;
     min-height: 100vh;
@@ -36,21 +39,88 @@
     align-items: center;
 }
 
-.button {
-    border: .0625rem solid #FFFFFF;
+.collection-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+.collection-text p {
+    border: none;
     background-color: transparent;
-    color: #fff;
-    font-family: futura-pt, sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: .0625rem;
-    line-height: 1.625rem;
-    white-space: nowrap;
+    color: black;
+    font-family: 'futura pt',sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.4rem;
+    white-space: wrap;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: .75rem 1.875rem;
-    text-transform: uppercase;
     transition: background-color ease-in-out .2s;
     text-decoration: none;
+    text-align: center;
+}
+
+.collection-text h3, .collection-text h4{
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 2rem;
+    text-transform: uppercase;
+}
+
+.collection-text h3{
+    font-size: 27px;
+    letter-spacing: 0.9rem;
+}
+
+.collection-text h4{
+    font-size: 20px;
+    letter-spacing: 0.6rem;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img{
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.darkend-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, .25);
+    padding: .9375rem;
+    margin: -5px 0;
+}
+
+.darkend-div h4, .darkend-div p {
+    color: white;
+    letter-spacing: 0.3rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.darkend-div p {
+    letter-spacing: 0;
+    font-size: 18px;
+    font-weight: 100;
 }
