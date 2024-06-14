@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const prod = require('./models/product');
+const Product = require('./models/product'); 
 const fs = require('fs');
 
 const app = express();
@@ -90,10 +90,19 @@ app.get('/Checkout', (req, res) => {
 
 // MongoDB
 app.get('/add-product', (req, res) => {
-    const product = new prod({
-        ID: 'new-id',  // Replace with appropriate ID
+    const product = new Product({
+        product_id: 'unique-id',  
+        collection_id: 'collection-id',  
         name: 'new product',
-        price: 100  // Replace with appropriate price
+        description: 'product description',
+        category: 'category',
+        price: 100,  
+        img: 'image-url-or-path',  
+        no_pieces: 10,  
+        rating: 4.5,  
+        material: 'material description',
+        color: 'color description',
+        no_sales: 0  
     });
     product.save()
         .then((result) => {
