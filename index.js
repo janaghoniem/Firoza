@@ -9,7 +9,7 @@ const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/databas
 const passwordAdmin = 'firoza123';
 
 mongoose.connect(dbURI).then((result) => {
-    console.log('database connection success');
+    console.log('connected to database!');
   }).catch((err) => {
     console.log(err);
 });
