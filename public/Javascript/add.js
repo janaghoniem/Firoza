@@ -32,6 +32,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+
+    const editButton = document.getElementById('editButton');
+    const containerrr = document.getElementById('container');
+
+    editButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent form submission
+        containerrr.classList.toggle('active'); // Toggle the active class to switch forms
+    });
+    document.getElementById('goBackButton').addEventListener('click', function() {
+        document.getElementById('container').classList.remove('active');
+    });
+
+    function goBackToFirstForm() {
+        document.getElementById('container').classList.remove('active');
+    }
 });
 
 function toggleMenu() {
@@ -179,3 +194,5 @@ function TextOnly(event) {
         return false;
     }
 }
+
+
