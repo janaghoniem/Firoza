@@ -49,7 +49,7 @@ app.get('/indian', (req, res) => {
     res.render('indian');
 });
 
-app.get('/shoppingcartt', (req, res) => {
+app.get('/shoppingcart', (req, res) => {
   res.render("ShoppingCart.ejs")
 })
 
