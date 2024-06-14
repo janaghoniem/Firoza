@@ -1,12 +1,20 @@
-const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
-constSchema=mongoose.Schema;
-const productSchema=new Schema({
-    ID:{
-        type: String,
-        required: true,
-    }
-},{Timestamp: true});
+const Schema = mongoose.Schema;
 
-const producty=mongoose.model('product',constSchema);
-module.exports=producty;
+const productSchema = new Schema({
+    ID: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    }
+}, { timestamps: true });
+
+const Product = mongoose.model('Product', productSchema);
+module.exports = Product;
