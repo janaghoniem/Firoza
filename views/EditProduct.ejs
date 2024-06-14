@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit product</title>
+    <link rel="stylesheet" href="/Add-product.css">
+    <script src="/Javascript/editProduct.js"></script>
+</head>
+
+<body>
+   
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form>
+                <h1>Are you sure ?</h1>
+                <span class="sure"></span>
+
+                <button type="submit" id="submitButton">Sure</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>Edit your Creation</h1>
+                <span>fill in the field where you want to see a change</span>
+                <input type="text" placeholder="Rename Product" pattern="[A-Za-z\s]+" >
+                <input type="number" placeholder="Change the price" min="1000">
+                <select name="Collections" id="Collections">
+                    <option value="" disabled selected>Belongs to</option>
+                    <option value="1">Collection 1</option>
+                    <option value="1">Collection 2</option>
+                    <option value="1">Collection 3</option>
+                    <option value="1">Collection 4</option>
+                </select>
+                <select name="Category" id="Categroy">
+                    <option value="" disabled selected>Categroy</option>
+                    <option value="1">Ring</option>
+                    <option value="1">Necklace</option>
+                    <option value="1">Earrings</option>
+                </select>
+                <div class="uploadOuter">
+                    <label for="uploadFile" class="btn btn-primary">Upload Image</label>
+                    <strong>OR</strong>
+                    <span class="dragBox">
+                        Drag and Drop image here
+                        <input type="file" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
+                            id="uploadFile" />
+                    </span>
+                </div>
+                <h4 class="successful"></h4>
+                <h6 class="s"></h6>
+                <!-- <button>Edit</button> -->
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <!-- <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p> -->
+                    <h3 class="picture-validation"></h3>
+                    <div id="preview" class="image-container"></div>
+                    <button class="hidden" id="login">Continue Editing</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <!-- <div class="cards">
+
+                        <div class="card">
+                            <div class="card__image-holder">
+                                <img class="card__image" />
+                                <div id="preview"></div>
+                            </div>
+                            <div class="card-title">
+                                <a href="#" class="toggle-info btn">
+                                    <span class="left"></span>
+                                    <span class="right"></span>
+                                </a>
+                                <h2>
+                                    Product Name
+                                    <small>Collection:</small>
+                                    <small>price:</small>
+                                </h2>
+                            </div>
+                            <div class="card-flap flap1">
+                                <div class="card-description">
+                                    This is where product description will be displayed, added and edited by the admin
+                                </div>
+                                <div class="card-flap flap2">
+                                    <div class="card-actions">
+                                        <a href="#" class="btn">Save</a>
+                                        <a href="#" class="btn">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <button class="hidden" id="register" onclick=" checkConditions()">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

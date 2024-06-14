@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/Landing-page.css">
+    <link rel="stylesheet" href="/CSS/nav-bar.css">
+    <link rel="stylesheet" href="/CSS/Footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="/Javascript/Landing-page.js"></script>
+    <script src="/Javascript/nav-bar.js"></script>
+    <title>Landing Page</title>
+</head>
+<body>
+    <%- include('./partials/Nav-bar.ejs') %>
+
+    <section class="main" id="main">
+        <video src="/videos/Landing/background.mp4" id="video-background" autoplay loop muted></video>
+        <div class="main-text">
+            <h1>Discover the real you</h1>
+            <a  class="button" href="/">TAKE THE QUIZ</a>
+        </div>
+    </section>
+    <section class="categories" id="categories">
+        <h1 class="headers">OUR INSPIRING CREATIONS</h1>
+        <div class="categories-container">
+            <div class="item">
+                <a href=""></a>
+                <img src="/images/Landing/exp/necklace2.jpg" alt="" class="secondary-img category-img">
+                <img src="/images/Landing/exp/necklace1.png" alt="" class="primary-img category-img">
+                <div class="button">Discover Necklaces</div>
+            </div>
+            <div class="item">
+                <a href=""></a></a>
+                <img src="/images/Landing/exp/earrings2.jpg" alt="" class="secondary-img category-img">
+                <img src="/images/Landing/exp/earrings1.png" alt="" class="primary-img category-img">
+                <div class="button">Discover Earrings</div>
+            </div>
+            <div class="item">
+                <a href=""></a>
+                <img src="/images/Landing/exp/bracelet2.jpg" alt="" class="secondary-img category-img">
+                <img src="/images/Landing/exp/bracelet1.png" alt="" class="primary-img category-img">
+                <div class="button">Discover Bracelets</div>
+            </div>
+            <div class="item">
+                <a href=""></a>
+                <img src="/images/Landing/exp/ring2.jpg" alt="" class="secondary-img category-img">
+                <img src="/images/Landing/exp/ring1.png" alt="" class="primary-img category-img">
+                <div class="button">Discover Rings</div>
+            </div>
+        </div>
+    </section>
+    <section class="collections-section">
+        <div class="indian-collection">
+            <div class="collection">
+                 <img src="/images/Landing/exp/indian-bg.jpg" alt="">
+                 <div class="indian-collection-text collection-text">
+                     <h2>The Indian Collection</h2>
+                     <p>Majestic Splendor: Unveil the Essence of Indian Grandeur</p>
+                     <div class="collection-button">
+                         <a href="/indian" class="indian-collection-button">Explore Collection</a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+         <div class="egyptian-collection">
+             <div class="egyptian-collection collection">
+                 <img src="/images/Landing/exp/egyptian-bg.jpg" alt="">
+                 <div class="egyptian-collection-text collection-text">
+                     <h2>The Egyptian Collection</h2>
+                     <p>Timeless Elegance: Explore the Magnificence of Egyptian Opulence</p>
+                     <div class="collection-button">
+                         <a href="../" class="egyptian-collection-button">Explore Collection</a>
+                     </div>
+                 </div>
+             </div>
+            </div>
+    </section>
+
+    <section class="best-sellers">
+        <h1 class="headers">Best Sellers</h1>
+        <div class="carousel">
+            <button class="carousel__button carousel__button--left is-hidden" id="carousel__button--left">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+
+            <div class="carousel__track-container">
+                <ul class="carousel__track  best-sellers-multiple-card-slide" id = "carousel__track">
+                    <li class="carousel__slide current-slide">
+                        <div class="carousel__content">
+                            <div class="card" id="carousel-card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/bracelet2.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/necklace2.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/earrings2.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product2.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product8.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product4.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product10.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product7.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product6.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel__slide">
+                        <div class="carousel__content">
+                            <div class="card">
+                                <div class="imge">
+                                    <img src="/images/Landing/exp/product1.jpg" height="300" width="250">
+                                    <i class="fa-regular fa-heart"></i>
+                                </div>
+                                <div class="info">
+                                    <p>Gold dangle drop earring.</p>
+                                    <p>EGP 12,000</p>
+                                    <button onclick="showAlert()">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="carousel__button carousel__button--right" id="carousel__button--right">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+    </section>
+    <section id="about-us-section">
+        <div id="about-us-container">
+            <div class="about-us-text-container">
+                <h1>About Firoza</h1>
+                <p> 
+                    Welcome to Firoza, where elegance meets diversity. We specialize in crafting unique, exquisite pieces of jewelry that celebrate the rich tapestry of cultures from around the world. Each piece in our collection is meticulously designed to embody the essence and beauty of various cultural traditions, ensuring that every wearer feels connected to a global heritage of craftsmanship and artistry.
+                </p>
+                <br>
+                <p>
+                    At Firoza, we believe that jewelry is more than just an accessory; it's a reflection of identity, a symbol of heritage, and a statement of individuality. Our artisans draw inspiration from a diverse array of cultural motifs, techniques, and materials, resulting in jewelry that is both timeless and contemporary.
+                    From intricate patterns inspired by the vibrant textiles of India to delicate filigree work reminiscent of ancient Middle Eastern craftsmanship, our pieces are a testament to the richness and diversity of human creativity. Whether you're drawn to the bold symbolism of African tribal motifs or the graceful curves of Art Nouveau design, our collection offers something for every taste and style.
+                </p>
+                <br>
+                
+            </div>
+    
+        </div>    
+    </section>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

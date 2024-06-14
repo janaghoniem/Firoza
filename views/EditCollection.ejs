@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/Edit.css">
+    <script src="/Javascript/editCollection.js"></script>
+    <title>Edit Collection</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container second">
+            <form>
+                <h1>Are you sure ?</h1>
+                <span class="sure"></span>
+
+                <button type="submit" id="submitButton">Sure</button>
+                <!-- <div clas="box">
+                    <input type="checkbox" id="img-landing" name="img-landing" value="">
+                    <label for="img-landing">
+                        <h6>Do you want this collection to show on the landing page</h6>
+                    </label><br>
+                </div> -->
+
+            </form>
+        </div>
+        <div class="form-container first">
+            <form>
+                <h1>Edit your Creation</h1>
+                <span>fill in the field where you want to see a change</span>
+                <input type="text" placeholder="Rename Collection" onkeypress="return  TextOnly(event)"
+                    title="only text is allowed">
+                <textarea placeholder="Change the Description"></textarea>
+                <div class="uploadOuter">
+                    <label for="uploadFile" class="btn btn-primary">Upload Image</label>
+                    <strong>OR</strong>
+                    <span class="dragBox">
+                        Drag and Drop image here
+                        <input type="file" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
+                            id="uploadFile" />
+                    </span>
+
+                </div>
+                <h4 class="successful"></h4>
+                <h6 class="s"></h6>
+                <!-- <button>Edit</button> -->
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <!-- <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p> -->
+                    <h3 class="picture-validation"></h3>
+                    <div id="preview" class="image-container"></div>
+                    <button class="hidden" id="login">Continue Editing</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <!-- <h1></h1> -->
+                    <h4>Current collection name</h4>
+                    <input type="text" placeholder="" readonly>
+                    <h4>Current collection description</h4>
+                    <textarea placeholder=""
+                        readonly></textarea>
+                    <h4>Current Image</h4>
+                    <div class="image-container">
+                        <img src="">
+                    </div>
+                    <button class="hidden" id="register" onclick=" checkConditions()">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
