@@ -1,0 +1,164 @@
+@import url(https://db.onlinewebfonts.com/c/2e492ac67105d56ef337489b56a86486?family=Cooper+BT+W03+Md);
+@import url('https://fonts.cdnfonts.com/css/garet');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+* {
+    font-family: "Nunito Sans", 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
+    font-weight: 100;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    transition: all .3s cubic-bezier(.39, .575, .565, 1);
+    -webkit-font-smoothing: antialiased;
+
+}
+
+body {
+    background-color: #FEF8F1;
+    background: url(../images/Admin/chat-background.jpeg) no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+
+.container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+   padding-top:200px;
+}
+
+h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+
+    small {
+        font-size: 0.5em;
+    }
+}
+.expanding-orders{
+    display:none;
+}
+.responsive-table {
+    
+    li {
+        border-radius: 3px;
+        padding: 25px 30px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+    }
+
+    .table-header {
+        background-color: #F6E8C0;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-weight:bolder;
+    }
+
+    .table-row {
+        background-color: #ffffff;
+        opacity: 92%;;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .col-1 {
+        flex-basis: 20%;
+    }
+
+    .col-2 {
+        flex-basis: 40%;
+    }
+
+    .col-3 {
+        flex-basis: 25%;
+    }
+
+    .col-4 {
+        flex-basis: 25%;
+    }
+
+    @media all and (max-width: 767px) {
+        .table-header {
+            display: none;
+        }
+
+        .table-row {}
+
+        li {
+            display: block;
+        }
+
+        .col {
+
+            flex-basis: 100%;
+
+        }
+
+        .col {
+            display: flex;
+            padding: 10px 0;
+
+            &:before {
+                color: #6C7A89;
+                padding-right: 10px;
+                content: attr(data-label);
+                flex-basis: 50%;
+                text-align: right;
+            }
+        }
+    }
+}
+
+
+
+.icon {
+    display: none;
+}
+
+.navigation {
+    display: block;
+}
+
+@media only screen and (max-width: 900px) {
+    .icon {
+        display: block;
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    .logo {
+        margin-right: 0;
+
+    }
+
+    .responsive {
+        margin-right: 70px;
+    }
+
+    .navigation {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        background: white;
+        padding: 10px;
+        z-index: 999;
+    }
+
+    .navigation a {
+        display: block;
+        color: black;
+        text-decoration: none;
+        padding: 5px 0;
+    }
+}
