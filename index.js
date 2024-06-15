@@ -131,29 +131,29 @@ app.get('/AddAdmin',(req,res)=>{
 });
 
 // MongoDB
-app.get('/add-product', (req, res) => {
-    const product = new Product({
-        product_id: 'unique-id',  
-        collection_id: 'collection-id',  
-        name: 'new product',
-        description: 'product description',
-        category: 'category',
-        price: 100,  
-        img: 'image-url-or-path',  
-        no_pieces: 10,  
-        rating: 4.5,  
-        material: 'material description',
-        color: 'color description',
-        no_sales: 0  
-    });
-    product.save()
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
+// app.get('/add-product', (req, res) => {
+//     const product = new Product({
+//         product_id: 'unique-id',  
+//         collection_id: 'collection-id',  
+//         name: 'new product',
+//         description: 'product description',
+//         category: 'category',
+//         price: 100,  
+//         img: 'image-url-or-path',  
+//         no_pieces: 10,  
+//         rating: 4.5,  
+//         material: 'material description',
+//         color: 'color description',
+//         no_sales: 0  
+//     });
+//     product.save()
+//         .then((result) => {
+//             res.send(result);
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         });
+// });
 
 
 

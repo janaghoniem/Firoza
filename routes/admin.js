@@ -25,6 +25,7 @@ router.post('/addCollection', adminController.addCollection);
 router.get('/users', adminController.GetAllUsers);
 
 router.post('/addProduct', adminController.addProduct);
+
 router.post('/collections', adminController.getAllCollections);
 
 
