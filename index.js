@@ -45,6 +45,12 @@ app.get('/Collections', (req, res) => {
   app.get('/EditProduct', (req, res) => {
     res.render("EditProduct.ejs")
   })
+
+  app.get('/admin/product', (req, res) => {
+    res.render("Admin-products.ejs")
+  })
+
+  //end of shahd's part 
   app.get('/stores', (req, res) => {
     res.render("stores.ejs")
   })
