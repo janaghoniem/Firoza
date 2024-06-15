@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loginFormEmailError.textContent = invalidEmailError;
             loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             valid = false;
-        }
+        } 
     
         if (loginFormPasswordField.value === "") {
             loginFormPasswordField.style.borderColor = 'red';
@@ -271,8 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
         if (valid) {
-            console.log('Validation successful, checking existence...');
-            return true;
+            loginUser(loginFormEmailField.value.trim(), loginFormPasswordField.value.trim());
         } else {
             console.log('Validation failed');
             return false;
@@ -293,10 +292,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
                 // Handle server-side validation errors
                 if (data.error.includes('email')) {
+                    alert('email not found');
                     loginFormEmailField.style.borderColor = 'red';
                     loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
                     loginFormEmailError.textContent = data.error;
                 } else if (data.error.includes('password')) {
+                    alert('password invalid.')
                     loginFormPasswordField.style.borderColor = 'red';
                     loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
                     loginFormPasswordError.textContent = data.error;
@@ -320,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     
         if (await validateLogin()) {
+            alert('valid.');
             const email = loginFormEmailField.value.trim();
             const password = loginFormPasswordField.value.trim();
     
@@ -376,52 +378,6 @@ document.addEventListener('DOMContentLoaded', function() {
             signUpFormLastNameError.textContent = requiredFieldError;
             valid = false;
         }
-
-        if(signUpFormEmailField.value === ""){
-            signUpFormEmailField.style.borderColor = 'red';
-            signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormEmailError.textContent = requiredFieldError;
-            valid = false;
-        } else if (!isValidEmail(signUpFormEmailField.value.trim())){
-            signUpFormEmailField.style.borderColor = 'red';
-            signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormEmailError.textContent = invalidEmailError;
-            valid = false;
-        }
-        if(signUpFormConfirmEmailField.value === ""){
-            signUpFormConfirmEmailField.style.borderColor = 'red';
-            signUpFormConfirmEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormConfirmEmailError.textContent = requiredFieldError;
-            valid = false;
-        } else if (signUpFormEmailField.value !== signUpFormConfirmEmailField.value){
-            signUpFormConfirmEmailField.style.borderColor = 'red';
-            signUpFormConfirmEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormConfirmEmailError.textContent = emailConfirmationError;
-            valid = false;
-        }
-        if(signUpFormPasswordField.value === ""){
-            signUpFormPasswordField.style.borderColor = 'red';
-            signUpFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormPasswordError.textContent = requiredFieldError;
-            valid = false;
-        } else if (!isValidPassword(signUpFormPasswordField.value.trim())){
-            signUpFormPasswordField.style.borderColor = 'red';
-            signUpFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormPasswordError.textContent = invalidPasswordError;
-            valid = false;
-        }
-        if(signUpFormConfirmPasswordField.value === ""){
-            signUpFormConfirmPasswordField.style.borderColor = 'red';
-            signUpFormConfirmPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormConfirmPasswordError.textContent = requiredFieldError;
-            valid = false;
-        } else if (signUpFormConfirmPasswordField.value !== signUpFormPasswordField.value){
-            signUpFormConfirmPasswordField.style.borderColor = 'red';
-            signUpFormConfirmPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            signUpFormConfirmPasswordError.textContent = passwordConfirmationError;
-            valid = false;
-        }
-
         return valid;
     }
 
@@ -433,17 +389,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email })
+                body: JSON.stringify({ address: email })
             });
             if (!response.ok) {
-                // throw new Error('Network response was not ok');
-                alert('Fetch error:' + response.statusText + responseText);
                 return false;
             }
-            return true; // true if available, false if taken
-            // return true;
+            return true;
         } catch (error) {
-            console.error('Error checking email availability:', error);
+            alert('Error checking email availability:' + error);
             return false; // Default to false in case of errors
         }
     }
@@ -461,7 +414,6 @@ document.addEventListener('DOMContentLoaded', function() {
             signUpFormEmailError.textContent = invalidEmailError;
             return;
         }
-
         const available = await checkEmailAvailability(email);
         if (!available) {
             signUpFormEmailField.style.borderColor = 'red';
@@ -472,58 +424,111 @@ document.addEventListener('DOMContentLoaded', function() {
             signUpFormEmailError.textContent = '';
         }
     });
+    
 
-    createAccountSubmitButton.addEventListener('click', async () => {
+    signUpFormConfirmEmailField.addEventListener('input', async () => {
+        const email = signUpFormConfirmEmailField.value.trim();
+        if (email === '') {
+            noErrorStyling(signUpFormConfirmEmailField);
+            signUpFormConfirmEmailError.textContent = '';
+            return;
+        }
+        else if (signUpFormEmailField.value.trim() !== email){
+            signUpFormConfirmEmailField.style.borderColor = 'red';
+            signUpFormConfirmEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            signUpFormConfirmEmailError.textContent = emailConfirmationError;
+            valid = false;
+        }
+        else {
+            noErrorStyling(signUpFormConfirmEmailField);
+            signUpFormConfirmEmailError.textContent = '';
+        }
+    });
+
+    signUpFormPasswordField.addEventListener('input', async () => {
+        const password = signUpFormPasswordField.value.trim();
+        if (password === '') {
+            noErrorStyling(signUpFormPasswordField);
+            signUpFormPasswordError.textContent = '';
+            return;
+        }
+        else if (!isValidPassword(signUpFormPasswordField.value.trim())){
+            signUpFormPasswordField.style.borderColor = 'red';
+            signUpFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
+            signUpFormPasswordError.textContent = invalidPasswordError;
+            valid = false;
+        }
+        else {
+            noErrorStyling(signUpFormPasswordField);
+            signUpFormPasswordError.textContent = '';
+        }
+    });
+
+    signUpFormConfirmPasswordField.addEventListener('input', async () => {
+        const password = signUpFormConfirmPasswordField.value.trim();
+        if (password === '') {
+            noErrorStyling(signUpFormConfirmPasswordField);
+            signUpFormConfirmPasswordError.textContent = '';
+            return;
+        }
+        else if (password !== signUpFormPasswordField.value.trim()){
+            signUpFormConfirmPasswordField.style.borderColor = 'red';
+            signUpFormConfirmPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
+            signUpFormConfirmPasswordError.textContent = passwordConfirmationError;
+            valid = false;
+        }
+        else {
+            noErrorStyling(signUpFormConfirmPasswordField);
+            signUpFormConfirmPasswordError.textContent = '';
+        }
+    });
+
+    createAccountSubmitButton.addEventListener('click', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+    
         if (validateSignUp()) {
             const email = signUpFormEmailField.value.trim();
             const password = signUpFormPasswordField.value.trim();
     
-            // Check email availability one more time before submission
-            const available = await checkEmailAvailability(email);
-            if (!available) {
-                signUpFormEmailField.style.borderColor = 'red';
-                signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-                signUpFormEmailError.textContent = 'Email already in use';
-                event.preventDefault();
-                return;
-            }
+            // // Check email availability one more time before submission
+            // const available = await checkEmailAvailability(email);
+            // if (!available) {
+            //     signUpFormEmailField.style.borderColor = 'red';
+            //     signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            //     signUpFormEmailError.textContent = 'Email already in use';
+            //     return;
+            // }
     
             // Assuming validation is successful, proceed with form submission
             const formData = {
                 firstname: signUpFormFirstNameField.value.trim(),
                 lastname: signUpFormLastNameField.value.trim(),
                 email: email,
-                password: password,
-                address: '' // Add address if needed
+                password: password
             };
     
-            fetch('/user/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
+            try {
+                const response = await fetch('/user/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+    
+                const data = await response.json();
                 if (response.ok) {
-                    // Replace with your desired success handling
                     alert("Account created successfully!");
                     exitPopupButton.click();
-                    // Optionally redirect after successful signup
-                    // window.location.href = '/user/profile';
                 } else {
-                    return response.json().then(data => {
-                        alert(data.error); // Display error message
-                    });
+                    alert(data.error); // Display error message
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
-            });
-        } else {
-            event.preventDefault();
+            }
         }
     });
+    
 
 
     // 7agat el search

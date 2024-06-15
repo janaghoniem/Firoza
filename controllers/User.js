@@ -70,7 +70,7 @@ const AddUser = async (req, res) => {
         });
 
         await newUser.save();
-        req.session.user = user;
+        req.session.user = newUser;
         console.log('saved el new user');
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
@@ -83,20 +83,25 @@ const AddUser = async (req, res) => {
 const checkAddress = async (req, res) => {
     console.log('enta beted5ol hena aslun?');
     const { address } = req.body;
+    console.log("address: " + address);
 
-    try {
-        const userExists = await User.findOne({ address });
-        if (userExists) {
-            console.log('msh el mafrood yed5ol hena');
-            return res.status(400).json({ error: 'Address already taken' });
+    if(address) {
+        try {
+            const userExists = await User.findOne({ email: address });
+            if (userExists) {
+                console.log('msh el mafrood yed5ol hena');
+                return res.status(400).json({ error: 'Address already taken' });
+            }
+            console.log('el mafrood yed5ol hena');
+            res.status(200).json({ message: 'Address is available' });
+        } catch (error) {
+            console.log('hal fy error masalan?')
+            res.status(500).json({ error: "catch el checkAddress fy error" });
         }
-        console.log('el mafrood yed5ol hena');
-        res.status(200).json({ message: 'Address is available' });
-    } catch (error) {
-        console.log('hal fy error masalan?')
-        res.status(500).json({ error: error.message });
+    } else {
+        res.status(500).json({error: "undefined email"})
     }
-    }
+}
 
 module.exports = {
     GetUser,
