@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Product = require('./models/product'); 
 const fs = require('fs');
 const userRouter = require('./routes/user'); 
+const AdminRouter = require('./routes/admin'); 
 
 
 const app = express();
@@ -16,6 +17,7 @@ const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/databas
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
+app.use('/admin',AdminRouter);
 
 mongoose.connect(dbURI).then((result) => {
     console.log('connected to database!');
@@ -99,7 +101,7 @@ app.get('/Checkout', (req, res) => {
     res.render("Checkout.ejs");
 });
 
-app.get('/AddUser',(req,res)=>{
+app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
 
