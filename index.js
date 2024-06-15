@@ -77,7 +77,7 @@ app.get('/Orders', (req, res) => {
     res.render("admin-orders.ejs");
 });
 
-app.get('/layout', (req, res) => {
+app.get('/EditLayout', (req, res) => {
     res.render("EditLayout.ejs");
 });
 
@@ -133,7 +133,11 @@ app.get('/add-product', (req, res) => {
 });
 
 
+// app.post("".function(req,res){
+//     let newColl=new collection({
 
+//     })
+// })
 //hala -> order
 
 
