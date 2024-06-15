@@ -39,5 +39,5 @@ const CollectionSchema = new Schema({
     }]
 }, { timestamps: true });
 
-const Product = mongoose.model('Collections', productSchema);
+const Product = mongoose.model('layout-collection', productSchema);
 module.exports = Product;
