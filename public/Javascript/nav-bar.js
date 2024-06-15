@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
     const searchButton = document.getElementById('search-button');
     const searchButton2 = document.getElementById('search-button2');
     const middleDiv = document.getElementById('top-move-on-scroll');

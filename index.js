@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product'); 
@@ -15,6 +16,8 @@ mongoose.connect(dbURI).then((result) => {
 }).catch((err) => {
     console.log(err);
 });
+
+app.use(session({ secret: 'Your_Secret_Key' }))
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
