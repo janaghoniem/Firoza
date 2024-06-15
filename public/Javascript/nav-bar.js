@@ -204,17 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     //LOGIN HANDLING
-    const currentUsers = [{"Email": "admin@mail.com", "Password":"123admin"},
-        {"Email": "user@mail.com", "Password":"1234user"}
-    ];
-
-    function userExists(email) {
-        return currentUsers.some(user => user.Email === email);
-    }
-    
-    function addUser(email, password) {
-        currentUsers.push({ "Email": email, "Password": password });
-    }
 
     function isValidEmail(email) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -241,59 +230,94 @@ document.addEventListener('DOMContentLoaded', function() {
     let invalidEmailError = "Invalid E-mail Address";
     let invalidPasswordError = "Use 8 or more characters";
 
-    function validateLogin() {
+    async function validateLogin() {
         let valid = true;
         loginFormEmailError.textContent = '';
         loginFormPasswordError.textContent = '';
-        
+    
         noErrorStyling(loginFormEmailField);
         noErrorStyling(loginFormPasswordField);
-
-        if(loginFormEmailField.value === ""){
+    
+        if (loginFormEmailField.value === "") {
             loginFormEmailField.style.borderColor = 'red';
             loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             loginFormEmailError.textContent = requiredFieldError;
             valid = false;
-        } else if (!isValidEmail(loginFormEmailField.value.trim())){
+        } else if (!isValidEmail(loginFormEmailField.value.trim())) {
             loginFormEmailError.textContent = invalidEmailError;
             loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             valid = false;
-        } 
-
+        }
+    
         if (loginFormPasswordField.value === "") {
             loginFormPasswordField.style.borderColor = 'red';
             loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             loginFormPasswordError.textContent = requiredFieldError;
             valid = false;
-        }else if (!isValidPassword(loginFormPasswordField.value.trim())){
+        } else if (!isValidPassword(loginFormPasswordField.value.trim())) {
             loginFormPasswordError.textContent = invalidPasswordError;
             loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             valid = false;
         }
-
-        return valid;
-    }
-
-    loginSubmitButton.addEventListener('click', () => {
-        if(validateLogin()) {
-            if(userExists(loginFormEmailField.value)) {
-                //el mafrood hena ye3mel login baa
-                if(loginFormEmailField.value === "admin@mail.com" && loginFormPasswordField.value === "123admin") {
-                    //neroo7 le page shahd
-                    // console.log('admin logged in');
-                    // window.location.href("..//HTML/main.html");
-                } else {
-                    //user 3ady
-                    // loginIconTrigger.href = "../HTML/"
-                }
-            } else {
-                //replace dy b fading pop up
-                alert("User does not exist. Please sign up.");
-            }
+    
+        if (valid) {
+            console.log('Validation successful, checking existence...');
+            return true;
         } else {
-            event.preventDefault();
+            console.log('Validation failed');
+            return false;
+        }
+    }
+    
+    async function loginUser(email, password) {
+        try {
+            const response = await fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+    
+            if (!response.ok) {
+                const data = await response.json();
+                // Handle server-side validation errors
+                if (data.error.includes('email')) {
+                    loginFormEmailField.style.borderColor = 'red';
+                    loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+                    loginFormEmailError.textContent = data.error;
+                } else if (data.error.includes('password')) {
+                    loginFormPasswordField.style.borderColor = 'red';
+                    loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
+                    loginFormPasswordError.textContent = data.error;
+                }
+                throw new Error(data.error);
+            }
+    
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message); // Handle success (e.g., redirect to dashboard)
+            } else {
+                console.log('Login error:', data.error); // Log the error message for debugging
+                throw new Error(data.error); // Throw an error to trigger catch block
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    
+    loginSubmitButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+    
+        if (await validateLogin()) {
+            const email = loginFormEmailField.value.trim();
+            const password = loginFormPasswordField.value.trim();
+    
+            // Call loginUser function to send login request to backend
+            await loginUser(email, password);
         }
     });
+    
 
     //Validate sign-up
     const createAccountSubmitButton = document.getElementById('create-account-button');
@@ -390,12 +414,98 @@ document.addEventListener('DOMContentLoaded', function() {
         return valid;
     }
 
-    createAccountSubmitButton.addEventListener('click', () => {
-        if(validateSignUp()) {
-            //add el user lel dictionary beta3ty
-            addUser(signUpFormEmailField.value, signUpFormPasswordField.value);
-            //replace with cute fading popup
-            alert("Account created successfully!");
+    // Function to check if email is already taken (asynchronously)
+    async function checkEmailAvailability(email) {
+        try {
+            const response = await fetch('/user/checkEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data.available; // true if available, false if taken
+        } catch (error) {
+            console.error('Error checking email availability:', error);
+            return false; // Default to false in case of errors
+        }
+    }
+
+    signUpFormEmailField.addEventListener('input', async () => {
+        const email = signUpFormEmailField.value.trim();
+        if (email === '') {
+            noErrorStyling(signUpFormEmailField);
+            signUpFormEmailError.textContent = '';
+            return;
+        }
+        if (!isValidEmail(email)) {
+            signUpFormEmailField.style.borderColor = 'red';
+            signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            signUpFormEmailError.textContent = invalidEmailError;
+            return;
+        }
+
+        const available = await checkEmailAvailability(email);
+        if (!available) {
+            signUpFormEmailField.style.borderColor = 'red';
+            signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            signUpFormEmailError.textContent = 'Email already in use';
+        } else {
+            noErrorStyling(signUpFormEmailField);
+            signUpFormEmailError.textContent = '';
+        }
+    });
+
+    createAccountSubmitButton.addEventListener('click', async () => {
+        if (validateSignUp()) {
+            const email = signUpFormEmailField.value.trim();
+            const password = signUpFormPasswordField.value.trim();
+    
+            // Check email availability one more time before submission
+            const available = await checkEmailAvailability(email);
+            if (!available) {
+                signUpFormEmailField.style.borderColor = 'red';
+                signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+                signUpFormEmailError.textContent = 'Email already in use';
+                event.preventDefault();
+                return;
+            }
+    
+            // Assuming validation is successful, proceed with form submission
+            const formData = {
+                firstname: signUpFormFirstNameField.value.trim(),
+                lastname: signUpFormLastNameField.value.trim(),
+                email: email,
+                password: password,
+                address: '' // Add address if needed
+            };
+    
+            fetch('/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Replace with your desired success handling
+                    alert("Account created successfully!");
+                    // Optionally redirect after successful signup
+                    // window.location.href = '/user/profile';
+                } else {
+                    return response.json().then(data => {
+                        alert(data.error); // Display error message
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         } else {
             event.preventDefault();
         }

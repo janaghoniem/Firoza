@@ -4,12 +4,18 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product'); 
 const fs = require('fs');
+const userRouter = require('./routes/user'); 
+
 
 const app = express();
 const port = 3000;
 
 const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
-const passwordAdmin = 'firoza123';
+// const passwordAdmin = 'firoza123';
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/user', userRouter);
 
 mongoose.connect(dbURI).then((result) => {
     console.log('connected to database!');
@@ -17,7 +23,9 @@ mongoose.connect(dbURI).then((result) => {
     console.log(err);
 });
 
-app.use(session({ secret: 'Your_Secret_Key' }))
+app.use(session({ secret: 'Your_Secret_Key',  resave: false, 
+  saveUninitialized: false  }));
+
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
