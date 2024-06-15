@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/nav-bar-white.css">
+    <link rel="stylesheet" href="/CSS/Footer.css">
+    <link rel="stylesheet" href="/CSS/navBar.css">
+    <link rel="stylesheet" href="/CSS/productCardDetails.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <title>product details</title>
+</head>
+<body>
+    <%- include('./partials/Nav-Bar.ejs') %>
+    <div class="whole-prod-page">
+
+        <div class="upper-half-prod">
+            <div class="prod-pic">
+
+                <img src="../images/middleEastimages/Moroccan Aesthetic.jpg" alt="image not found" >
+            </div>
+            <div class="price-rating">
+
+                <h2>Moroccan Inspired Necklace</h2>
+                <br>
+                <p>EGP 95,000</p>
+                <br><br>
+                <div class="rate-stat">
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star5">&#9733;</span>
+                
+                <a href="#reviews" class="stat"> (4) </a>
+                <a href="#reviews" class="stat"> (3 reviews) </a>
+                </div>
+                <div class="button-container">
+                <span class="button add-to-bag" onclick="addToCart()"><i class="fas fa-shopping-bag"></i>Add to bag</span>
+                <span class="button add-to-wishlist" onclick="addToWishlist()"><i class="fas fa-heart"></i>Add to wishlist</span>
+            </div>
+
+            <div class="prod-details">
+                <hr class="details-divider">
+                <span class="description-part">
+                    Product Description
+                    <i class="fas fa-plus"></i>
+                </span>
+                <div class="details-content">
+                    <p>Experience the enchantment of our Moroccan-inspired diamond necklace, a harmonious blend of luxury and cultural allure. Adorned with radiant diamonds and vibrant emeralds, this exquisite piece captivates with its intricate patterns and exotic charm. Embrace the spirit of sophistication and adventure as you adorn yourself with the timeless beauty of Moroccan culture.</p>
+                </div>
+                <hr class="details-divider">
+                <span class="description-part">
+                    Shipping and returns
+                    <i class="fas fa-plus"></i>
+                </span>
+                <div class="details-content">
+                    <p>Standard Shipping
+                        <br>• FREE on all orders EGP 50,000+.
+                       <br> • Arrives in 3-4 business days</p>
+                        <br>
+                        <p>Returns
+                           <br> • Free and easy returns within 30 days, online or in-store.</p>
+                        
+                </div>
+                <hr class="details-divider">
+                <span class="description-part">
+                    Similar Products
+                    <i class="fas fa-plus"></i>
+                </span>
+                <div class="details-content">
+                   <div class="similar-products">
+                    <div class="coll-card">
+                        <div class="c-pic">
+                            <img src="../images/middleEastimages/golden coins headpiece.jpg" height="300" width="270">
+                            <i id="heartIcon" class="fa-regular fa-heart"></i>
+                            <div class="curtain-btn" onclick="addToCart()">add to cart</div>
+                        </div>
+                        <div class="c-info">
+                            <br><p>Gold dangle drop earring.</p><br>
+                            <p>EGP 12,000</p><br>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <div class="c-pic">
+                            <img src="../images/Admin/egyptian2.jpeg" height="300" width="270">
+                            <i id="heartIcon" class="fa-regular fa-heart"></i>
+                            <div class="curtain-btn" onclick="addToCart()">add to cart</div>
+                        </div>
+                        <div class="c-info">
+                            <br><p>Gold dangle drop earring.</p><br>
+                            <p>EGP 12,000</p><br>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <div class="c-pic">
+                            <img src="../images/Indian/cards/Jwellery.jpeg" height="300" width="270">
+                            <i id="heartIcon" class="fa-regular fa-heart"></i>
+                            <div class="curtain-btn" onclick="addToCart()">add to cart</div>
+                        </div>
+                        <div class="c-info">
+                            <br><p>Gold dangle drop earring.</p><br>
+                            <p>EGP 12,000</p><br>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <div class="c-pic">
+                            <img src="../images/middleEastimages/islamic art.jpg" height="300" width="270">
+                            <i id="heartIcon" class="fa-regular fa-heart"></i>
+                            <div class="curtain-btn" onclick="addToCart()">add to cart</div>
+                        </div>
+                        <div class="c-info">
+                            <br><p>Gold dangle drop earring.</p><br>
+                            <p>EGP 12,000</p><br>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+                <hr class="details-divider">
+            </div>
+            </div>
+
+           
+
+
+        </div>
+        <div class="lower-half-prod">
+            <h3>
+                Reviews
+            </h3>
+            <hr class="details-divider">
+            <div class="review-box" id="reviews">
+               
+                <div class="review-left">
+                <div class="review-header">
+                    <div class="review-avatar">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                    <div class="review-info">
+                        <p class="reviewer-name">Hala Elaby</p>
+                       
+                        <p class="review-date">2 days ago</p>
+                        
+                    </div>
+                    
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="review-text">Very Good product</p>
+    
+                </div>
+            </div>
+              
+               
+            </div>
+            <hr class="details-divider">
+            <div class="review-box">
+               
+                <div class="review-left">
+                <div class="review-header">
+                    <div class="review-avatar">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                    <div class="review-info">
+                        <p class="reviewer-name">Shahd Emad</p>
+                       
+                        <p class="review-date">5 days ago</p>
+                        
+                    </div>
+                    
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="review-text">LOVE IT!</p>
+    
+                </div>
+            </div>
+              
+               
+            </div>
+            <hr class="details-divider">
+            <div class="review-box">
+               
+                <div class="review-left">
+                <div class="review-header">
+                    <div class="review-avatar">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                    <div class="review-info">
+                        <p class="reviewer-name">Habiba Darwish</p>
+                       
+                        <p class="review-date">2 weeks ago</p>
+                        
+                    </div>
+                    
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <p class="review-text"> Good product</p>
+    
+                </div>
+            </div>
+              
+               
+            </div>
+            <hr class="details-divider">
+            <div class="review-box">
+               
+                <div class="review-left">
+                <div class="review-header">
+                    <div class="review-avatar">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                    <div class="review-info">
+                        <p class="reviewer-name">Jana Ghoneim</p>
+                       
+                        <p class="review-date">3 weeks ago</p>
+                        
+                    </div>
+                    
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                       
+                    </div>
+                    <p class="review-text">Very Good product</p>
+    
+                </div>
+            </div>
+              
+               
+            </div>
+            <hr class="details-divider">
+            <div class="review-box">
+               
+                <div class="review-left">
+                <div class="review-header">
+                    <div class="review-avatar">
+                        <i class="fa-regular fa-circle-user"></i>
+                    </div>
+                    <div class="review-info">
+                        <p class="reviewer-name">Haya Walid</p>
+                       
+                        <p class="review-date">a month ago</p>
+                        
+                    </div>
+                    
+                </div>
+                <div class="review-content">
+                    <div class="review-rating">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        
+                    </div>
+                    <p class="review-text">Did not like it</p>
+    
+                </div>
+            </div>
+              
+               
+            </div>
+            <hr class="details-divider">
+
+
+
+        </div>
+    </div>
+    <script src="../Javascript/productCardDetails.js"></script>
+    <script src="../Javascript/landing-script.js"></script>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
