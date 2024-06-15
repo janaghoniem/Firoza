@@ -82,6 +82,7 @@ app.get('/layout', (req, res) => {
 });
 
 // End of Shahd's part 
+
 app.get('/stores', (req, res) => {
     res.render("stores.ejs");
 });
