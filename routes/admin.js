@@ -23,4 +23,8 @@ router.post('/addCollection', adminController.addCollection);
 
 
 
+router.post('/addProduct', adminController.addProduct);
+
+
+
 module.exports = router;

@@ -74,9 +74,59 @@ const editCollection = async (req, res) => {
     }
 };
 
+//Function to add a product
+const addProduct = async (req, res) => {
+    const {
+        product_id,
+        collection_id,
+        name,
+        description,
+        category,
+        price,
+        img,
+        sizes,
+        rating,
+        material,
+        color,
+        no_sales
+    } = req.body;
+
+    try {
+        // Validate input (example of basic validation)
+        if (!product_id || !collection_id || !name || !description || !category || !price || !img || !material || !color) {
+            return res.status(400).json({ message: 'All fields are required except sizes, rating, and no_sales' });
+        }
+
+        // Create a new Product object based on the schema
+        const newProduct = new Product({
+            product_id,
+            collection_id,
+            name,
+            description,
+            category,
+            price,
+            img,
+            sizes: sizes || [], // If sizes are not provided, default to an empty array
+            rating: rating || 0, // Default rating to 0 if not provided
+            material,
+            color,
+            no_sales: no_sales || 0 // Default no_sales to 0 if not provided
+        });
+
+        // Save the product to the database
+        await newProduct.save();
+
+        res.status(201).json({ message: 'Product added successfully', data: newProduct });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+};
 module.exports = {
     addAdmin,
-    addCollection
+    addCollection,
+    addProduct
 };
 
-//Function to add a product
+
+
