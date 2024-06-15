@@ -61,9 +61,9 @@
             <div class="responsive">
                 <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
                     <i class="fa fa-bars"></i>
-                  </a>
+                </a>
             </div>
-           
+
             <a href="#main" class="logo-unscrolled" id="logo">FIROZA</a>
             <div id="top-move-on-scroll"></div>
         </div>
@@ -81,7 +81,7 @@
                 <a href="#">Head Pieces</a> -->
             </nav>
         </div>
-       
+
     </header>
 
 
@@ -108,63 +108,50 @@
         <!-- <div class="text">
             Contact us Form
         </div> -->
-        <form action="#">
+        <form id="addAdminForm" action="/admin/addAdmin" method="POST">
             <h2>Add Admin</h2>
             <div class="form-row">
-
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="text" name="firstName" required>
                     <div class="underline"></div>
                     <label for="">First Name</label>
                 </div>
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="text" name="lastName" required>
                     <div class="underline"></div>
                     <label for="">Last Name</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="email" name="email" required>
                     <div class="underline"></div>
                     <label for="">Email Address</label>
                 </div>
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="password" name="password" required>
                     <div class="underline"></div>
-                    <label for="">Role</label>
+                    <label for="">Password</label>
                 </div>
-                
             </div>
             <div class="form-row">
                 <div class="input-data">
-                    <input type="text" required>
+                    <input type="text" name="contactNumber" required>
                     <div class="underline"></div>
                     <label for="">Contact Number</label>
                 </div>
-                <div class="input-data">
-                    <input type="text" required>
-                    <div class="underline"></div>
-                    <label for="">Permissions</label>
-                </div>
-                
             </div>
-            <div class="form-row">
-                <div class="input-data textarea">
-                    <textarea rows="8" cols="80" required></textarea>
-                    <br />
-                    <div class="underline"></div>
-                    <label for="">Note</label>
-                    <br />
-                    <div class="form-row submit-btn">
-                        <div class="input-data">
-                            <div class="inner"></div>
-                            <input type="submit" value="Add">
-                        </div>
-                    </div>
+            <div class="form-row submit-btn">
+                <div class="input-data">
+                    <div class="inner"></div>
+                    <input type="submit" value="Add">
+
+
+
                 </div>
             </div>
         </form>
+
     </div>
 
 </body>

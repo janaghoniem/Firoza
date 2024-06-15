@@ -3,6 +3,6 @@ const router = express.Router();
 const adminController = require('../controllers/admin');
 
 // Route to add a User
-router.post('/addUser', adminController.addAdmin);
+router.post('/addAdmin', adminController.addAdmin);
 
 module.exports = router;
