@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    height: 100vh;
+    width: 100vw;
+    margin-top:0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    margin-top: 10%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-container {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 800px;  
+    overflow: hidden;
+    background-color: white;
+}
+
+.reviewer-info {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 250px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    margin-bottom: 10px;
+}
+
+.reviewer-info .reviewer-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.review-content {
+    background-color: white;
+    padding: 20px;
+    width: 550px; 
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.review-header .stars {
+    color: #f5a623;
+    font-size: 16px;
+}
+
+.review-body {
+    font-size: 16px;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #888;
+}
+
+.review-footer .action-button {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.review-footer .action-button i {
+    margin-right: 5px;
+}
+
+.review-footer .action-button:hover {
+    color: #000;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: relative;
+}
