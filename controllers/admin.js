@@ -164,6 +164,7 @@ const GetAllUsers = (req, res) => {
         });
 };
 
+
 module.exports = {
     addAdmin,
     addCollection,
