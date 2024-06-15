@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit product</title>
+    <title>Add product</title>
     <link rel="stylesheet" href="/CSS/Add-product.css">
     <script src="/Javascript/addProduct.js"></script>
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
@@ -22,16 +22,15 @@
                 <h1>Add product</h1>
                 <span>All fields is a must to fill</span>
                 <input type="text" name="product_id" placeholder="Product ID" required>
-                <input type="text" name="name" placeholder="Name Product" pattern="[A-Za-z\s]+" required>
+                <input type="text" name="name" placeholder="Name Product"  required>
                 <input type="number" name="price" placeholder="Price" min="1000" required>
                 <select name="collection_id" id="Collections" required>
                     <option value="" disabled selected>Belongs to</option>
                     <option value="1">None</option>
 
-                    <option value="1">Collection 1</option>
-                    <option value="2">Collection 2</option>
-                    <option value="3">Collection 3</option>
-                    <option value="4">Collection 4</option>
+                    <option value="1">Indian</option>
+                    <option value="2">Egyptian</option>
+                    
                 </select>
                 <select name="category" id="Category" required>
                     <option value="" disabled selected>Category</option>
@@ -62,12 +61,13 @@
                     <button class="hidden" id="login">Continue Editing</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <input type="text" name="description" placeholder="Product Description" pattern="[A-Za-z\s]+" required>
+                    <input type="text" name="description" placeholder="Product Description" required>
                     <div id="sizes-container">
                         <div class="size-quantity-pair">
                             <select name="sizes[]" class="size-select" required>
                                 <option value="" disabled selected>Size</option>
-                                <option value="9">adjustable</option>
+                                <option value="0">standard</option>
+                                <option value="1">adjustable</option>
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                                 <option value="11">11</option>
@@ -92,6 +92,8 @@
                         <option value="Yellow">Yellow</option>
                         <option value="Black">Black</option>
                         <option value="White">White</option>
+                        <option value="Multi">Multicolor</option>
+
                     </select>
                     <button type="submit" id="submitButton">Save</button>
                 </div>
