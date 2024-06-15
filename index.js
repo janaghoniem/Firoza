@@ -99,6 +99,10 @@ app.get('/Checkout', (req, res) => {
     res.render("Checkout.ejs");
 });
 
+app.get('/AddUser',(req,res)=>{
+    res.render("AddAdmin.ejs");
+});
+
 // MongoDB
 app.get('/add-product', (req, res) => {
     const product = new Product({
