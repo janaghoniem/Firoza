@@ -1,11 +1,18 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const app = express();
 const port = 3000;
 
-const dbURI = 'mongodb+srv://firoza:<password>@firoza.okdf9xk.mongodb.net/?retryWrites=true&w=majority&appName=Firoza';
+const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
 const passwordAdmin = 'firoza123';
+
+mongoose.connect(dbURI).then((result) => {
+    console.log('database connection success');
+  }).catch((err) => {
+    console.log(err);
+});
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
