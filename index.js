@@ -53,6 +53,10 @@ app.get('/Collections', (req, res) => {
     res.render("admin-orders.ejs")
   })
 
+  app.get('/layout', (req, res) => {
+    res.render("EditLayout.ejs")
+  })
+
   //end of shahd's part 
   app.get('/stores', (req, res) => {
     res.render("stores.ejs")
