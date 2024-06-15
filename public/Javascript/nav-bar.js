@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const middleDiv = document.getElementById('top-move-on-scroll');
     const middleDivanchors = middleDiv.querySelectorAll('a');
     const headerMiddle = document.getElementById('header-middle');
+    const headerBottom = document.getElementById('header-bottom');
+    const header = document.querySelector('header');
 
     window.addEventListener('resize', () => {
         if(window.innerWidth < 1100)
@@ -28,10 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //nav bar scroll
     window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
         const headerTop = document.getElementById('header-top');
         const sideicon = document.getElementById('side-icon');
-        const headerBottom = document.getElementById('header-bottom');
         const logo = document.getElementById('logo');
         
     
@@ -545,6 +545,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchField = document.getElementById('searchField');
     const searchDiv = document.getElementById('search-button');
     let buttonCount = 0;
+
+    const searchExtension = document.getElementById('search-extension');
+    const searchResultsDiv = document.getElementById('search-results');
+    const recommendations = document.getElementById('search-filter-link');
+
     // search functionality
     if (searchButtonclick && searchField) { 
         searchButtonclick.addEventListener('click', expandSearch);
@@ -568,10 +573,76 @@ document.addEventListener('DOMContentLoaded', function() {
             searchDiv.style.width = '40px';
             buttonCount--;
         }
-        else {
-            alert("Hena its supposed to search");
-        }
     }
+
+    searchField.addEventListener('input', async () => {
+        const query = searchField.value.trim();
+        if (query.length > 2) {
+            headerBottom.style.display = 'none';
+            header.classList.remove('header-unscrolled');
+            header.classList.add('header-scrolled');
+            searchExtension.style.display = 'flex';
+            if (query.length > 0) {
+                const response = await fetch('/user/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query })
+                });
+                
+                const { products } = await response.json();
+                displaySearchResults(products);
+            } else {
+                searchResultsDiv.innerHTML = ''; // Clear results if input is empty
+                searchExtension.style.display = 'none'; // Hide the extension
+            }
+        } else {
+            searchExtension.style.display = 'none';
+            header.classList.remove('header-scrolled');
+            header.classList.add('header-unscrolled');
+        }
+    });
+
+    function displaySearchResults(products) {
+        searchResultsDiv.innerHTML = ''; // Clear previous results
+        // recommendations.innerHTML = didYouMean;
+
+        if (products.length === 0) {
+            searchExtension.style.display = 'none';
+        }
+    
+        products.forEach(product => {
+            const a = document.createElement('a');
+            a.classList.add('search-result-item');
+
+            const imgDiv = document.createElement('div');
+            imgDiv.classList.add('search-result-item-img-cont');
+
+            const image = document.createElement('img');
+            image.classList.add('search-result-item-img');
+
+            imgDiv.appendChild(image);
+
+            const name = document.createElement('a');
+            name.classList.add('search-extension-a');
+
+            image.src = 'images/indian/Newfolder/' + product.img;
+            
+            name.innerHTML = product.name;
+            a.appendChild(imgDiv);
+            a.appendChild(name);
+            searchResultsDiv.appendChild(a);
+        });
+        searchExtension.style.display = 'flex';
+    }
+    
+    document.getElementById('exit-search-extension-button').addEventListener('click', () => {
+        searchExtension.style.display = 'none';
+        searchField.value = '';
+        header.classList.remove('header-scrolled');
+        header.classList.add('header-unscrolled');
+    });
 
     //second search
     const searchButtonclick2 = document.getElementById('search2');
