@@ -219,6 +219,16 @@ document.addEventListener('DOMContentLoaded', function() {
         field.style.backgroundColor = 'transparent';
     }
 
+    //exiting el popup login
+    const exitPopupButton = document.getElementById('exit-popup-button');
+
+    exitPopupButton.addEventListener('click', () => {
+        popupContainer.style.display = 'none';
+        document.body.style.overflow = 'scroll';
+    });
+    
+        
+
     //validate login
     const loginSubmitButton = document.getElementById('login-form-button');
     const loginFormEmailField = document.getElementById('login-form-email-field');
@@ -315,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             // Call loginUser function to send login request to backend
             await loginUser(email, password);
+            exitPopupButton.click();
         }
     });
     
@@ -382,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
             signUpFormConfirmEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             signUpFormConfirmEmailError.textContent = requiredFieldError;
             valid = false;
-        } else if (signUpFormEmailField.value !== signUpFormConfirmEmailField){
+        } else if (signUpFormEmailField.value !== signUpFormConfirmEmailField.value){
             signUpFormConfirmEmailField.style.borderColor = 'red';
             signUpFormConfirmEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             signUpFormConfirmEmailError.textContent = emailConfirmationError;
@@ -404,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
             signUpFormConfirmPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             signUpFormConfirmPasswordError.textContent = requiredFieldError;
             valid = false;
-        } else if (signUpFormConfirmPasswordField.value !== signUpFormPasswordField){
+        } else if (signUpFormConfirmPasswordField.value !== signUpFormPasswordField.value){
             signUpFormConfirmPasswordField.style.borderColor = 'red';
             signUpFormConfirmPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             signUpFormConfirmPasswordError.textContent = passwordConfirmationError;
@@ -417,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to check if email is already taken (asynchronously)
     async function checkEmailAvailability(email) {
         try {
-            const response = await fetch('/user/checkEmail', {
+            const response = await fetch('/user/checkAddress', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -425,10 +436,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ email })
             });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                // throw new Error('Network response was not ok');
+                alert('Fetch error:' + response.statusText + responseText);
+                return false;
             }
-            const data = await response.json();
-            return data.available; // true if available, false if taken
+            return true; // true if available, false if taken
+            // return true;
         } catch (error) {
             console.error('Error checking email availability:', error);
             return false; // Default to false in case of errors
@@ -495,6 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     // Replace with your desired success handling
                     alert("Account created successfully!");
+                    exitPopupButton.click();
                     // Optionally redirect after successful signup
                     // window.location.href = '/user/profile';
                 } else {
@@ -511,15 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    //exiting el popup login
-    const exitPopupButton = document.getElementById('exit-popup-button');
 
-    exitPopupButton.addEventListener('click', () => {
-        popupContainer.style.display = 'none';
-        document.body.style.overflow = 'scroll';
-    });
-
-    
     // 7agat el search
     const searchButtonclick = document.getElementById('search');
     const searchField = document.getElementById('searchField');

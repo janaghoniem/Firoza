@@ -5,8 +5,10 @@ const User = require('../controllers/User'); // Import your user controller
 // Handle POST request for login
 router.post('/login', User.GetUser);
 
-
 // Handle POST request for signup
 router.post('/signup', User.AddUser);
+
+// Handle POST request for checkAddress
+router.post('/checkAddress', User.checkAddress);
 
 module.exports = router;

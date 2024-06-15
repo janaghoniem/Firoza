@@ -37,7 +37,16 @@ const GetUser = async (req, res) => {
 
 // Handle User signup
 const AddUser = async (req, res) => {
+    console.log('da5alt fel add user?');
     const { firstname, lastname, email, password, address } = req.body;
+
+    console.log('Received fields:', { firstname, lastname, email, password, address });
+
+    if (!firstname || !lastname || !email || !password) {
+        console.log('fy fields fadya');
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
 
     try {
         // Check if user already exists
@@ -45,6 +54,8 @@ const AddUser = async (req, res) => {
         if (userExists) {
             return res.status(400).json({ error: 'User already exists' });
         }
+
+        console.log('password before hashing: ' + password);
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -59,13 +70,36 @@ const AddUser = async (req, res) => {
         });
 
         await newUser.save();
+        req.session.user = user;
+        console.log('saved el new user');
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
+        console.log('yarab maykonsh feeh error. Ha3ayat walahy.')
         res.status(500).json({ error: error.message });
     }
 };
 
+// Check Address
+const checkAddress = async (req, res) => {
+    console.log('enta beted5ol hena aslun?');
+    const { address } = req.body;
+
+    try {
+        const userExists = await User.findOne({ address });
+        if (userExists) {
+            console.log('msh el mafrood yed5ol hena');
+            return res.status(400).json({ error: 'Address already taken' });
+        }
+        console.log('el mafrood yed5ol hena');
+        res.status(200).json({ message: 'Address is available' });
+    } catch (error) {
+        console.log('hal fy error masalan?')
+        res.status(500).json({ error: error.message });
+    }
+    }
+
 module.exports = {
     GetUser,
-    AddUser
+    AddUser,
+    checkAddress
 };
