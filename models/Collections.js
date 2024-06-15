@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 const CollectionSchema = new Schema({
     Collection_Name: {
         type: String,
-        required: true
+       
     },
     collection_id: {
         type: String,
-        required: true
+        // required: true
     },
     Collection_Description: {
         type: String,
-        required: true
+        required: false
     },
     No_of_products: {
         type: Number,
-        required: true
+        // required: true
     },
     No_of_sales: {
         type: Number,
@@ -25,11 +25,11 @@ const CollectionSchema = new Schema({
     },
     img: {
         type: String, // Assuming it's a URL or file path to the image
-        required: true
+        // required: true
     },
    Date: {
         type: Date,
-        required: true
+        // required: true
     },
     item_products: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -39,5 +39,5 @@ const CollectionSchema = new Schema({
     }]
 }, { timestamps: true });
 
-const Product = mongoose.model('layout-collection', productSchema);
-module.exports = Product;
+const collection = mongoose.model('layout-collection', CollectionSchema);
+module.exports = collection;
