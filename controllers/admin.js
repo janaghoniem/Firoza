@@ -115,7 +115,7 @@ const addProduct = async (req, res) => {
 
         // Ensure sizes and quantities arrays are the same length
         if (sizes.length !== quantities.length) {
-            return res.status(400).json({ message: 'Sizes and quantities must have the same length' });
+            return res.status(400).json({ message: 'Add a size or quantity' });
         }
 
         // Create size-quantity pairs

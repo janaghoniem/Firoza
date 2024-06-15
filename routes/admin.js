@@ -23,7 +23,7 @@ router.post('/addCollection', adminController.addCollection);
 //Route to edit collection
 
 router.get('/users', adminController.GetAllUsers);
-
+//route to add a product
 router.post('/addProduct', adminController.addProduct);
 
 router.post('/collections', adminController.getAllCollections);
