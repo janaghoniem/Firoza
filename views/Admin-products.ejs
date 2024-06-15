@@ -2,77 +2,82 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/CSS/adminproduct.css">
-  <script src="/Javascript/AdminProduct.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products view</title>
+    <link rel="stylesheet" href="/CSS/adminproduct.css">
+    <script src="/Javascript/AdminProduct.js"></script>
+    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
+    <script src="/Javascript/nav-bar.js"></script>
+    <script src="/Javascript/adminNavbar.js"></script>
 
 </head>
 
 <body>
-   
-<!-- dah container el cards ya haya -->
-  <div class="cards">
 
-    <!-- w dah el card nafso -->
-    <div class="card">
-      <div class="card__image-holder">
-        <img class="card__image" src="../images/Admin/img4.jpg" />
-      </div>
-      <div class="card-title">
-        <a href="#" class="toggle-info btn">
-          <span class="left"></span>
-          <span class="right"></span>
-        </a>
-        <h2>
-          Product Name
-          <small>Collection:</small>
-        </h2>
-      </div>
-      <div class="card-flap flap1">
-        <div class="card-description">
-          This is where product description will be displayed, added and edited by the admin
-        </div>
-        <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="edit-product.html" class="btn">Edit</a>
-            <a href="" class="btn">Delete</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%- include('./partials/Admin-NavBar.ejs') %>
 
+        <!-- dah container el cards ya haya -->
+        <div class="cards">
 
-
-    <!-- The add card hena -->
+            <!-- w dah el card nafso -->
+            <div class="card">
+                <div class="card__image-holder">
+                    <img class="card__image" src="../images/Admin/img4.jpg" />
+                </div>
+                <div class="card-title">
+                    <a href="#" class="toggle-info btn">
+                        <span class="left"></span>
+                        <span class="right"></span>
+                    </a>
+                    <h2>
+                        Product Name
+                        <small>Collection:</small>
+                    </h2>
+                </div>
+                <div class="card-flap flap1">
+                    <div class="card-description">
+                        This is where product description will be displayed, added and edited by the admin
+                    </div>
+                    <div class="card-flap flap2">
+                        <div class="card-actions">
+                            <a href="edit-product.html" class="btn">Edit</a>
+                            <a href="" class="btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-    <div class="card">
-      <div class="card__image-holder">
-        <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
-      </div>
-      <div class="card-title">
-        <a href="#" class="toggle-info btn">
-          <span class="left"></span>
-          <span class="right"></span>
-        </a>
-        <h2>
-          Add Product
-          <!-- <small>Collection:</small> -->
-        </h2>
-      </div>
-      <div class="card-flap flap1">
-        <div class="card-description">
-         Click on the add button to add a product
-        </div>
-        <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="edit-product.html" class="btn">Add</a>
-          </div>
-        </div>
-      </div>
-  </div>
+
+            <!-- The add card hena -->
+
+
+            <div class="card">
+                <div class="card__image-holder">
+                    <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
+                </div>
+                <div class="card-title">
+                    <a href="#" class="toggle-info btn">
+                        <span class="left"></span>
+                        <span class="right"></span>
+                    </a>
+                    <h2>
+                        Add Product
+                        <!-- <small>Collection:</small> -->
+                    </h2>
+                </div>
+                <div class="card-flap flap1">
+                    <div class="card-description">
+                        Click on the add button to add a product
+                    </div>
+                    <div class="card-flap flap2">
+                        <div class="card-actions">
+                            <a href="edit-product.html" class="btn">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
