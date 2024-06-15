@@ -1,6 +1,6 @@
 const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
-const schema= mongoose.Schema;
+const Schema= mongoose.Schema;
 
 const ordersSchema= new Schema({
 user_id:{

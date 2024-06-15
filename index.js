@@ -3,6 +3,7 @@ const session = require('express-session');
 const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product'); 
+const Order = require('./models/Orders'); 
 const fs = require('fs');
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
@@ -129,6 +130,11 @@ app.get('/add-product', (req, res) => {
             console.log(err);
         });
 });
+
+
+
+//hala -> order
+
 
 // Start the server
 app.listen(port, () => {
