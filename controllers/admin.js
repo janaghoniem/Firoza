@@ -98,18 +98,30 @@ const addProduct = async (req, res) => {
         category,
         price,
         img,
-        sizes,
-        rating,
         material,
         color,
-        no_sales
+        rating,
+        no_sales,
+        sizes,
+        quantities
     } = req.body;
 
     try {
-        // Validate input (example of basic validation)
-        if (!product_id || !collection_id || !name || !description || !category || !price || !img || !material || !color) {
-            return res.status(400).json({ message: 'All fields are required except sizes, rating, and no_sales' });
+        // Validate input
+        if (!product_id || !collection_id || !name || !description || !category || !price || !img || !material || !color || !sizes || !quantities) {
+            return res.status(400).json({ message: 'All fields are required' });
         }
+
+        // Ensure sizes and quantities arrays are the same length
+        if (sizes.length !== quantities.length) {
+            return res.status(400).json({ message: 'Sizes and quantities must have the same length' });
+        }
+
+        // Create size-quantity pairs
+        const sizeQuantityPairs = sizes.map((size, index) => ({
+            size,
+            quantity: quantities[index]
+        }));
 
         // Create a new Product object based on the schema
         const newProduct = new Product({
@@ -120,11 +132,11 @@ const addProduct = async (req, res) => {
             category,
             price,
             img,
-            sizes: sizes || [], // If sizes are not provided, default to an empty array
-            rating: rating || 0, // Default rating to 0 if not provided
+            sizes: sizeQuantityPairs, // Store size-quantity pairs
+            rating: rating || 0,
             material,
             color,
-            no_sales: no_sales || 0 // Default no_sales to 0 if not provided
+            no_sales: no_sales || 0
         });
 
         // Save the product to the database
