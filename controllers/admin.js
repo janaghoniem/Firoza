@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const Product = require('../models/product');
 
 // Function to add an admin
 const addAdmin = async (req, res) => {
@@ -33,3 +34,5 @@ const addAdmin = async (req, res) => {
 module.exports = {
     addAdmin
 };
+
+//Function to add a product

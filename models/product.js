@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const sizeQuantitySchema = new Schema({
+    size: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+}, { _id: false });
+
 const productSchema = new Schema({
     product_id: {
         type: String,
@@ -30,10 +41,7 @@ const productSchema = new Schema({
         type: String, // Assuming it's a URL or file path to the image
         required: true
     },
-    no_pieces: {
-        type: Number,
-        required: true
-    },
+    sizes: [sizeQuantitySchema], // Array of size and quantity objects
     rating: {
         type: Number,
         required: false,
