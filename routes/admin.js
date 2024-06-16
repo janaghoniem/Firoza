@@ -42,6 +42,7 @@ router.get('/indian', async (req, res) => {
     }
 });
 router.get('/product', adminController.getProducts);
+router.delete('/deleteProduct/:id', adminController.deleteProduct);
 
 //route ll orders "admin pov"
 router.get('/orders', async (req, res, next) => {

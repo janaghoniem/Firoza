@@ -16,7 +16,7 @@
     <!-- Container for the product cards -->
     <div class="cards">
         <% products.forEach(product => { %>
-            <div class="card">
+            <div class="card" data-id="<%= product._id %>">
                 <div class="card__image-holder">
                     <img class="card__image" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>" />
                 </div>
@@ -37,7 +37,7 @@
                     <div class="card-flap flap2">
                         <div class="card-actions">
                             <a href="/admin/editProduct/<%= product._id %>" class="btn">Edit</a>
-                            <a href="/admin/deleteProduct/<%= product._id %>" class="btn">Delete</a>
+                            <button class="btn delete-btn">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -71,5 +71,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const card = this.closest('.card');
+                const productId = card.getAttribute('data-id');
+                
+                const response = await fetch(`/admin/deleteProduct/${productId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    card.remove();
+                } else {
+                    alert('Failed to delete product');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
