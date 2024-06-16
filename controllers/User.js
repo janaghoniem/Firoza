@@ -29,7 +29,10 @@ const GetUser = async (req, res) => {
 
         // Set session
         req.session.user = user;
-        res.status(200).json({ message: 'Login successful' });
+        const isAdmin = user.isAdmin;
+
+        // Return user data including isAdmin flag
+        res.status(200).json({ isAdmin, user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

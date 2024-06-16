@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
             const userData = await response.json();
             if (userData.isAdmin) {
-                sessionStorage.setItem('isAdmin', true); // Ensure 'isAdmin' is set correctly
+                sessionStorage.setItem('isAdmin', true); 
             }
     
             alert('Login Successful.');
@@ -332,7 +332,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (await loginUser(email, password)) {
                 exitPopupButton.click();
                 if (sessionStorage.getItem('isAdmin')) {
-                    alert('Admin login detected.'); // Debug alert
                     window.location.href = '/admin'; // Redirect to admin page
                 }
             }
