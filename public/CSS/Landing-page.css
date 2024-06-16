@@ -396,16 +396,10 @@
 }
 
 #about-us-section {
-    height: 500px;
-    width: 100vw;
-    overflow: hidden;
-}
-
-#about-us-container {
-    background-image: url(../images/Landing/about-us-img.png);
-    width: 100vw;
     height: 100%;
+    width: 100%;
     overflow: hidden;
+    background-image: url(../images/Landing/about-us-img.png);
 }
 
 .about-us-text-container{
@@ -416,7 +410,7 @@
     margin-left: 650px;
     padding-top: 60px;
     width: 800px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .about-us-text-container h1, p {
