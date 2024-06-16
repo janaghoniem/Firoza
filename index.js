@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product'); 
 const Order = require('./models/Orders'); 
+const collectiona = require('./models/Collections'); 
 const fs = require('fs');
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
@@ -89,10 +90,10 @@ app.get('/EditLayout', (req, res) => {
 
 app.get('/EditLayout', async (req, res) => {
     try {
-        const collections = await Collection.find();
-        res.render('layout', { collections });
+        const collections = await collectiona.find({});
+        res.status(500).json(collections);
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).json({messege: err.messege});
     }
 });
 

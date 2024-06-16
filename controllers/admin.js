@@ -70,6 +70,7 @@ const getAllCollections = async (req, res) => {
     }
 };
 
+
 //edit collection on the server side
 const editCollection = async (req, res) => {
     const { id, collectionName, description, launchDate } = req.body;

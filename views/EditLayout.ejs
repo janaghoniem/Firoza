@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -14,27 +13,19 @@
   <script src="/Javascript/nav-bar.js"></script>
   <script src="/Javascript/adminNavbar.js"></script>
   <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
-  <title>Layout</title>
+  <title>Collections</title>
 </head>
 
 <body>
-
-    <%- include('./partials/Admin-NavBar.ejs') %>
+  <%- include('./partials/Admin-NavBar.ejs') %>
   <div class="content">
-
     <div class="container">
-      <!-- <h2 class="mb-5">Table #10</h2> -->
-
       <div class="table-responsive">
-
         <table class="table table-striped custom-table">
           <thead>
             <tr class="active">
               <th scope="col">
-                <label class="control control--checkbox">
-                  <!-- <input type="checkbox" class="js-check-all" />
-                  <div class="control__indicator"></div> -->
-                </label>
+                <label class="control control--checkbox"></label>
               </th>
               <th scope="col">ID</th>
               <th scope="col">Collection Name</th>
@@ -50,138 +41,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row" class="active">
-              <td>
-                <label class="control control--checkbox">
-                  <!-- <input type="checkbox" /> -->
-                  <!-- <div class="control__indicator"></div> -->
-                </label>
-              </td>
-              <td>
-                1392
-              </td>
-              <td class="pl-0">
-                <div class="d-flex align-items-center">
-      
-                  <a href="#" class="name">
-                    <span class="editable" contenteditable="false">The Indian Collection</span>
-                  </a>
-
-                </div>
-              </td>
-
-              <td>
-                <span class="editable" contenteditable="false">Web Designer</span>
-                            <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
-              </td>
-
-              <td>5th of June 2023</td>
-
-              <td><button class="edit-btn btn btn-primary">Edit</button></td>
-
-              <td>
-                <label class="custom-control ios-switch">
-                  <input type="checkbox" class="ios-switch-control-input" checked="">
-                  <span class="ios-switch-control-indicator"></span>
-                </label>
-              </td>
-
-            </tr>
-
+            <% collections.forEach(function(collection) { %>
             <tr class="active">
-
               <td>
-                <label class="control control--checkbox">
-                  <!-- <input type="checkbox" />
-                  <div class="control__indicator"></div> -->
-                </label>
+                <label class="control control--checkbox"></label>
               </td>
-
-              <td>4616</td>
+              <td><%= collection._id %></td>
               <td class="pl-0">
                 <div class="d-flex align-items-center">
-
-
                   <a href="#" class="name">
-                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
-                  </a>
-
-                </div>
-
-              </td>
-              <td>
-                <span class="editable" contenteditable="false">Web Designer</span>
-                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
-              </td>
-              <td>10 May 2020</td>
-              <td><button class="edit-btn btn btn-primary">Edit</button></td>
-              
-              <td>
-                <label class="custom-control ios-switch">
-                  <input type="checkbox" class="ios-switch-control-input" checked="">
-                  <span class="ios-switch-control-indicator"></span>
-                </label>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <label class="control control--checkbox">
-                  <!-- <input type="checkbox" />
-                  <div class="control__indicator"></div> -->
-                </label>
-              </td>
-              <td>9841</td>
-              <td class="pl-0">
-                <div class="d-flex align-items-center">
-
-
-                  <a href="#" class="name">
-                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
+                    <span class="editable" contenteditable="false"><%= collection.Collection_Name %></span>
                   </a>
                 </div>
-
               </td>
               <td>
-                <span class="editable" contenteditable="false">Web Designer</span>
-                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
+                <span class="editable" contenteditable="false"><%= collection.Collection_Description %></span>
               </td>
-              <td>15 Feb 2024</td>
-               <td><button class="edit-btn btn btn-primary">Edit</button></td>
-              <td>
-                <label class="custom-control ios-switch">
-                  <input type="checkbox" class="ios-switch-control-input">
-                  <span class="ios-switch-control-indicator"></span>
-                </label>
-              </td>
-            </tr>
-
-
-            <tr>
-              <td>
-                <label class="control control--checkbox">
-                  <!-- <input type="checkbox" />
-                  <div class="control__indicator"></div> -->
-                </label>
-              </td>
-              <td>9548</td>
-
-              <td class="pl-0">
-                <div class="d-flex align-items-center">
-
-
-                  <a href="#" class="name">
-                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
-                  </a>
-                </div>
-
-              </td>
-
-              <td>
-                <span class="editable" contenteditable="false">Web Designer</span>
-                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
-              </td>
-              <td>1 july 2023</td>
+              <td><%= collection.createdAt.toDateString() %></td>
               <td><button class="edit-btn btn btn-primary">Edit</button></td>
               <td>
                 <label class="custom-control ios-switch">
@@ -190,26 +66,15 @@
                 </label>
               </td>
             </tr>
-
-           
-            
-
+            <% }) %>
           </tbody>
         </table>
       </div>
-
-
     </div>
-
   </div>
 
-
-
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <!-- <script src="js/popper.min.js"></script> -->
-  <!-- <script src="js/bootstrap.min.js"></script> -->
   <script src="Javascript/layout.js"></script>
   <script src="Javascript/editable.js"></script>
 </body>
-
 </html>
