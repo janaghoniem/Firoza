@@ -15,11 +15,6 @@ const port = 3000;
 const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
 // const passwordAdmin = 'firoza123';
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/user', userRouter);
-app.use('/admin',AdminRouter);
-
 mongoose.connect(dbURI).then((result) => {
     console.log('connected to database!');
 }).catch((err) => {
@@ -28,6 +23,12 @@ mongoose.connect(dbURI).then((result) => {
 
 app.use(session({ secret: 'Your_Secret_Key',  resave: false, 
   saveUninitialized: false  }));
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/user', userRouter);
+app.use('/admin',AdminRouter);
 
 
 // Set the view engine to EJS

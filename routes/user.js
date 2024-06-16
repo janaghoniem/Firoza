@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../controllers/User'); // Import your user controller
+const User = require('../controllers/User'); 
 
 // Handle POST request for login
 router.post('/login', User.GetUser);

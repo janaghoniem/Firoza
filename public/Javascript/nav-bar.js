@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
         
-
     //validate login
     const loginSubmitButton = document.getElementById('login-form-button');
     const loginFormEmailField = document.getElementById('login-form-email-field');
@@ -240,44 +239,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let invalidEmailError = "Invalid E-mail Address";
     let invalidPasswordError = "Use 8 or more characters";
 
-    async function validateLogin() {
-        let valid = true;
-        loginFormEmailError.textContent = '';
-        loginFormPasswordError.textContent = '';
-    
-        noErrorStyling(loginFormEmailField);
-        noErrorStyling(loginFormPasswordField);
-    
-        if (loginFormEmailField.value === "") {
-            loginFormEmailField.style.borderColor = 'red';
-            loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            loginFormEmailError.textContent = requiredFieldError;
-            valid = false;
-        } else if (!isValidEmail(loginFormEmailField.value.trim())) {
-            loginFormEmailError.textContent = invalidEmailError;
-            loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            valid = false;
-        } 
-    
-        if (loginFormPasswordField.value === "") {
-            loginFormPasswordField.style.borderColor = 'red';
-            loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            loginFormPasswordError.textContent = requiredFieldError;
-            valid = false;
-        } else if (!isValidPassword(loginFormPasswordField.value.trim())) {
-            loginFormPasswordError.textContent = invalidPasswordError;
-            loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-            valid = false;
-        }
-    
-        if (valid) {
-            loginUser(loginFormEmailField.value.trim(), loginFormPasswordField.value.trim());
-        } else {
-            console.log('Validation failed');
-            return false;
-        }
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
-    
+
+    function isValidPassword(password) {
+        return password.length >= 8; // Simple validation
+    }
+
+    function noErrorStyling(element) {
+        element.style.borderColor = '';
+        element.style.backgroundColor = '';
+    }
+
     async function loginUser(email, password) {
         try {
             const response = await fetch('/user/login', {
@@ -287,49 +262,76 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({ email, password })
             });
-    
+
+            const data = await response.json();
+
             if (!response.ok) {
-                const data = await response.json();
-                // Handle server-side validation errors
                 if (data.error.includes('email')) {
-                    alert('email not found');
                     loginFormEmailField.style.borderColor = 'red';
                     loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
                     loginFormEmailError.textContent = data.error;
                 } else if (data.error.includes('password')) {
-                    alert('password invalid.')
                     loginFormPasswordField.style.borderColor = 'red';
                     loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
                     loginFormPasswordError.textContent = data.error;
                 }
-                throw new Error(data.error);
+                return false;
             }
-    
-            const data = await response.json();
+
             if (response.ok) {
                 alert(data.message); // Handle success (e.g., redirect to dashboard)
-            } else {
-                console.log('Login error:', data.error); // Log the error message for debugging
-                throw new Error(data.error); // Throw an error to trigger catch block
+                return true;
             }
         } catch (error) {
             console.error('Error:', error);
         }
+        return false;
     }
-    
+
     loginSubmitButton.addEventListener('click', async (event) => {
         event.preventDefault();
-    
-        if (await validateLogin()) {
-            alert('valid.');
-            const email = loginFormEmailField.value.trim();
-            const password = loginFormPasswordField.value.trim();
-    
-            // Call loginUser function to send login request to backend
-            await loginUser(email, password);
-            exitPopupButton.click();
+
+        // Reset error messages and styling
+        loginFormEmailError.textContent = '';
+        loginFormPasswordError.textContent = '';
+        noErrorStyling(loginFormEmailField);
+        noErrorStyling(loginFormPasswordField);
+
+        const email = loginFormEmailField.value.trim();
+        const password = loginFormPasswordField.value.trim();
+
+        let valid = true;
+
+        // Client-side validation
+        if (email === "") {
+            loginFormEmailField.style.borderColor = 'red';
+            loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            loginFormEmailError.textContent = requiredFieldError;
+            valid = false;
+        } else if (!isValidEmail(email)) {
+            loginFormEmailError.textContent = invalidEmailError;
+            loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
+            valid = false;
+        }
+
+        if (password === "") {
+            loginFormPasswordField.style.borderColor = 'red';
+            loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
+            loginFormPasswordError.textContent = requiredFieldError;
+            valid = false;
+        } else if (!isValidPassword(password)) {
+            loginFormPasswordError.textContent = invalidPasswordError;
+            loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
+            valid = false;
+        }
+
+        if (valid) {
+            if (await loginUser(email, password)) {
+                exitPopupButton.click(); // Assuming you have a button to close the popup
+            }
         }
     });
+
     
 
     //Validate sign-up
