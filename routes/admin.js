@@ -44,6 +44,19 @@ router.get('/indian', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+
+router.get('/shopAll', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('shopAll', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+
+
 router.get('/getProduct/:id', async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);

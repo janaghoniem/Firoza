@@ -1,6 +1,261 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+.filters {
+    margin-top: 10vw;
+    display: flex;
+    align-items: center;
+    gap: 35px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.filters p {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+}
+.toggle-switch {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 35px;
+    height: 20px;
+    background-color: #bcbaba;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    top: 2px; 
+    left: 2px; 
+    width: 16px; 
+    height: 16px; 
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-input:checked + .toggle-label {
+    background-color: black;
+}
+
+.toggle-input:checked + .toggle-label::before {
+    transform: translateX(15px);
+}
+.toggle-container {
+    margin-left: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+
+.filter-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative; /* Added for arrow positioning */
+}
+
+.fa-chevron-down {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 4px solid rgb(243, 243, 243);
+    z-index: 1;
+    padding: 50px;
+    z-index: 1000;
+}
+
+.dropdown-content label {
+    padding: 5px 60px; 
+    cursor: pointer;
+    flex: 1 1 25% !important;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: black;
+}
+
+.dropdown-content checkbox :checked{
+    color: black;
+}
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent; /* Transparent left border */
+    border-right: 10px solid transparent; /* Transparent right border */
+    border-bottom: 10px solid rgb(231, 231, 231); /* Black bottom border */
+    position: absolute;
+    top: -10px;
+    z-index: 2;
+}
+/* Ensure the container is block-level and positioned */
+.containerr {
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 10px;
+    color: black;
+    line-height: 1.5;
+  }
+  
+  /* Hide the default checkbox */
+  .containerr input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Style the custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border: 1px solid black;
+    transform: translateY(-50%); /* Adjust for centering */
+    margin-left: 35px;
+  }
+  
+  /* When checkbox is checked, change background color */
+  .containerr input:checked + .checkmark {
+    background-color: white;
+  }
+  
+  /* Customize checkmark indicator */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .containerr input:checked + .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark shape */
+  .checkmark:after {
+    left:4px;
+    top: -0px;
+    width: 3px;
+    height: 7px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  /* .price-filter {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.price-filter button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#priceRange {
+    width: 100%;
+    margin-top: 10px;
+} */
+
+
+  .cards{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.imge{
+    position: relative;
+    overflow: hidden;
+    
+}
+.imge i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+/* 
+.imge i:hover{
+    transform: scale(1.1);
+    color: rgb(158, 2, 2);
+    font-weight: bolder;
+} */
+/* .imge img:hover{
+    transform: scale(1.2);
+    transition: transform 0.4s ease;
+} */
+.card1{
+    position: relative;
+    
+    margin-right: 20px;
+    margin-top: 3%;
+    width: 500px;
+    height: 500px;
+}
+
+.info {
+    font-weight: 100;
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 250px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the content horizontally */
+    font-weight: 200;
+    color: black;
+}
+
+#price{
+    font-weight: 300;
+}
+.info button{
+    padding: 3%;
+    width: 60%;
+    color: white;
+    background-color: black;
+    border: black 1px solid;
+    margin-top: 5%;
+    cursor: pointer;
+}
+.info button:hover{
+    color: black;
+    background-color: white;
+}
+
 
 .row {
     display: flex;

@@ -56,9 +56,7 @@ app.get('/Collections', (req, res) => {
     res.render("Collections");
 });
 
-app.get('/shopAll', (req, res) => {
-    res.render("shopAll.ejs");
-});
+
 
 app.get('/AddCollection', (req, res) => {
     res.render("AddCollection.ejs");
@@ -111,6 +109,15 @@ app.get('/indian', async (req, res) => {
     try {
         const products = await Product.find();
         res.render('indian', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
+app.get('/shopAll', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('shopAll', { products });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');

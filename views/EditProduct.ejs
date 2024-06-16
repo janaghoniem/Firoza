@@ -148,6 +148,24 @@
             const addButton = document.getElementById('addB');
             addButton.addEventListener('click', addSizeQuantityPair);
         });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    const sizeSelects = document.querySelectorAll('.size-select');
+
+    sizeSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            const selectedSize = this.value;
+            sizeSelects.forEach(otherSelect => {
+                if (otherSelect !== this) {
+                    const sameSizeOption = otherSelect.querySelector(`option[value="${selectedSize}"]`);
+                    if (sameSizeOption) {
+                        sameSizeOption.disabled = true;
+                    }
+                }
+            });
+        });
+    });
+});
 
     </script>
 </body>
