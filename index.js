@@ -56,6 +56,10 @@ app.get('/Collections', (req, res) => {
     res.render("Collections");
 });
 
+app.get('/shopAll', (req, res) => {
+    res.render("shopAll.ejs");
+});
+
 app.get('/AddCollection', (req, res) => {
     res.render("AddCollection.ejs");
 });
@@ -112,7 +116,18 @@ app.get('/indian', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
-
+// app.getEditProductPage('/EditProduct',async (req, res) => {
+//     try {
+//         const productId = req.params.id;
+//         const product = await Product.findById(productId);
+        
+//         res.render('EditProduct',  { product } ); 
+//     } catch (error) {
+//         console.error('Error fetching product:', error);
+//         res.status(500).send('Server error');
+//     }
+// }); 
+    
 app.get('/ShoppingCart', async(req, res) => {
     if (!req.session.user) {
         console.log('no session')

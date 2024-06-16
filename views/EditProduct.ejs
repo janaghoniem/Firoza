@@ -3,104 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit product</title>
+    <title>Edit Product</title>
     <link rel="stylesheet" href="/CSS/Add-product.css">
     <script src="/Javascript/editProduct.js"></script>
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
 </head>
-
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
-
     <div class="container" id="container">
-        <div class="form-container sign-up"></div>
-        <div class="form-container sign-in">
-            <form action="/admin/editProduct" method="POST">
-                <h1>Edit product</h1>
-                <span>All fields is a must to fill</span>
-                <input type="text" name="product_id" placeholder="Product ID" required>
-                <input type="text" name="name" placeholder="Name Product"  required>
-                <input type="number" name="price" placeholder="Price" min="1000" required>
-                <select name="collection_id" id="Collections" required>
-                    <option value="" disabled selected>Belongs to</option>
-                    <option value="1">None</option>
-
-                    <option value="1">Indian</option>
-                    <option value="2">Egyptian</option>
-                    
-                </select>
-                <select name="category" id="Category" required>
-                    <option value="" disabled selected>Category</option>
-                    <option value="Ring">Ring</option>
-                    <option value="Necklace">Necklace</option>
-                    <option value="Earrings">Earrings</option>
-                    <option value="Earrings">Bracelet</option>
-
-                </select>
-                <div class="uploadOuter">
-                    <label for="uploadFile" class="btn btn-primary">Upload Image</label>
-                    <strong>OR</strong>
-                    <span class="dragBox">
-                        Drag and Drop image here
-                        <input type="file" name="img" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile" required />
-                    </span>
-                </div>
-                <h4 class="successful"></h4>
-                <h6 class="s"></h6>
-                <span class="sure"></span>
-                <button type="submit" id="submitButton">Sure</button>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h3 class="picture-validation"></h3>
-                    <div id="preview" class="image-container"></div>
-                    <button class="hidden" id="login">Continue Editing</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <input type="text" name="description" placeholder="Product Description" required>
-                    <div id="sizes-container">
-                        <div class="size-quantity-pair">
-                            <select name="sizes[]" class="size-select" required>
-                                <option value="" disabled selected>Size</option>
-                                <option value="0">standard</option>
-                                <option value="1">adjustable</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
-                        </div>
-                    </div>
-                    <button type="button" onclick="addSizeQuantityPair()">Add Size</button>
-                    <select name="material" id="Material" required>
-                        <option value="" disabled selected>Material</option>
-                        <option value="Gold">Gold</option>
-                        <option value="Silver">Silver</option>
-                        <option value="Platinum">Platinum</option>
-                        <option value="Titanium">Titanium</option>
-                    </select>
-                    <select name="color" id="Color" required>
-                        <option value="" disabled selected>Color</option>
-                        <option value="Red">Red</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Green">Green</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Black">Black</option>
-                        <option value="White">White</option>
-                        <option value="Multi">Multicolor</option>
-
-                    </select>
-                    <button type="submit" id="submitButton">Save</button>
-                </div>
+        <form action="/admin/editProduct/<%= product._id %>" method="POST">
+            <h1>Edit product</h1>
+            <span>All fields are a must to fill</span>
+            <input type="text" name="product_id" placeholder="Product ID" value="<%= product.product_id %>" required>
+            <input type="text" name="name" placeholder="Product Name" value="<%= product.name %>" required>
+            <input type="number" name="price" placeholder="Price" min="1000" value="<%= product.price %>" required>
+            <select name="collection_id" id="Collections" required>
+                <option value="" disabled selected>Belongs to</option>
+                <option value="1" <%= product.collection_id === "1" ? "selected" : "" %>>None</option>
+                <option value="1" <%= product.collection_id === "1" ? "selected" : "" %>>Indian</option>
+                <option value="2" <%= product.collection_id === "2" ? "selected" : "" %>>Egyptian</option>
+            </select>
+            <select name="category" id="Category" required>
+                <option value="" disabled selected>Category</option>
+                <option value="Ring" <%= product.category === "Ring" ? "selected" : "" %>>Ring</option>
+                <option value="Necklace" <%= product.category === "Necklace" ? "selected" : "" %>>Necklace</option>
+                <option value="Earrings" <%= product.category === "Earrings" ? "selected" : "" %>>Earrings</option>
+                <option value="Bracelet" <%= product.category === "Bracelet" ? "selected" : "" %>>Bracelet</option>
+            </select>
+            <div class="uploadOuter">
+                <label for="uploadFile" class="btn btn-primary">Upload Image</label>
+                <strong>OR</strong>
+                <span class="dragBox">
+                    Drag and Drop image here
+                    <input type="file" name="img" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile" />
+                </span>
             </div>
-            </form>
-        </div>
+            <h4 class="successful"></h4>
+            <h6 class="s"></h6>
+            <span class="sure"></span>
+            <button type="submit" id="submitButton">Sure</button>
+            <input type="text" name="description" placeholder="Product Description" value="<%= product.description %>" required>
+            <div id="sizes-container">
+                <% product.sizes.forEach(size => { %>
+                    <div class="size-quantity-pair">
+                        <select name="sizes[]" class="size-select" required>
+                            <option value="" disabled <%= !size.size ? "selected" : "" %>>Size</option>
+                            <option value="0" <%= size.size === "0" ? "selected" : "" %>>Standard</option>
+                            <option value="1" <%= size.size === "1" ? "selected" : "" %>>Adjustable</option>
+                            <option value="9" <%= size.size === "9" ? "selected" : "" %>>9</option>
+                            <option value="10" <%= size.size === "10" ? "selected" : "" %>>10</option>
+                            <option value="11" <%= size.size === "11" ? "selected" : "" %>>11</option>
+                            <option value="12" <%= size.size === "12" ? "selected" : "" %>>12</option>
+                        </select>
+                        <input type="number" name="quantities[]" placeholder="Quantity" min="1" value="<%= size.quantity %>" required>
+                    </div>
+                <% }) %>
+            </div>
+            <button type="button" onclick="addSizeQuantityPair()">Add Size</button>
+            <select name="material" id="Material" required>
+                <option value="" disabled selected>Material</option>
+                <option value="Gold" <%= product.material === "Gold" ? "selected" : "" %>>Gold</option>
+                <option value="Silver" <%= product.material === "Silver" ? "selected" : "" %>>Silver</option>
+                <option value="Platinum" <%= product.material === "Platinum" ? "selected" : "" %>>Platinum</option>
+                <option value="Titanium" <%= product.material === "Titanium" ? "selected" : "" %>>Titanium</option>
+            </select>
+            <select name="color" id="Color" required>
+                <option value="" disabled selected>Color</option>
+                <option value="Red" <%= product.color === "Red" ? "selected" : "" %>>Red</option>
+                <option value="Blue" <%= product.color === "Blue" ? "selected" : "" %>>Blue</option>
+                <option value="Green" <%= product.color === "Green" ? "selected" : "" %>>Green</option>
+                <option value="Yellow" <%= product.color === "Yellow" ? "selected" : "" %>>Yellow</option>
+                <option value="Black" <%= product.color === "Black" ? "selected" : "" %>>Black</option>
+                <option value="White" <%= product.color === "White" ? "selected" : "" %>>White</option>
+                <option value="Multi" <%= product.color === "Multi" ? "selected" : "" %>>Multicolor</option>
+            </select>
+            <button type="submit" id="submitButton">Save</button>
+        </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded and parsed');
+        });
 
+        function dragNdrop(event) {
+            console.log('File selected for upload:', event.target.files);
+            // Other drag and drop related code
+        }
+
+        function addSizeQuantityPair() {
+            console.log('Add size and quantity pair button clicked');
+            // Function to add new size and quantity input fields
+        }
+    </script>
 </body>
-
 </html>

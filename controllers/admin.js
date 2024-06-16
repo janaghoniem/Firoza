@@ -3,6 +3,7 @@ const collections = require('../models/Collections');
 const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
+
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -206,6 +207,51 @@ const getOrders = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
+// const editProduct = async (req, res) => {
+//     try {
+//         const productId = req.params.id;
+//         const { name, price, collection_id, category, description, sizes, quantities, material, color } = req.body;
+//         const img = req.file ? req.file.path : undefined; 
+
+//         if (sizes.length !== quantities.length) {
+//             return res.status(400).json({ message: 'Sizes and quantities must match' });
+//         }
+
+//         const sizeQuantityPairs = sizes.map((size, index) => ({
+//             size,
+//             quantity: quantities[index]
+//         }));
+
+//         const updatedData = {
+//             name,
+//             price,
+//             collection_id,
+//             category,
+//             description,
+//             sizes: sizeQuantityPairs,
+//             material,
+//             color
+//         };
+
+//         if (img) {
+//             updatedData.img = img;
+//         }
+
+//         const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
+
+//         if (!updatedProduct) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+
+//         res.status(200).json({ message: 'Product updated successfully', data: updatedProduct });
+//     } catch (error) {
+//         console.error('Error updating product:', error);
+//         res.status(500).json({ error: 'Server error' });
+
+//     }
+// };
+
 const getProducts = async (req, res) => {
     try {
         const products = await Product.find({});
@@ -277,7 +323,49 @@ const deleteProduct = async (req, res) => {
 //         res.status(500).json({ error: 'Server error' });
 //     }
 // };
+const getEditProductPage = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        console.log("Get Edit Product Page - Product ID:", productId);
 
+        const product = await Product.findById(productId);
+        console.log("Get Edit Product Page - Fetched Product:", product);
+
+        if (!product) {
+            console.error("Get Edit Product Page - Product not found");
+            return res.status(404).send('Product not found');
+        }
+
+        res.render('EditProduct', { product });
+        console.log("Get Edit Product Page - Rendered EditProduct page with product");
+    } catch (error) {
+        console.error("Get Edit Product Page - Error:", error);
+        res.status(500).send('Server error');
+    }
+};
+
+// Function to handle product edits
+const editProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const updatedData = req.body;
+        console.log("Edit Product - Product ID:", productId);
+        console.log("Edit Product - Updated Data:", updatedData);
+
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
+        console.log("Edit Product - Updated Product:", updatedProduct);
+
+        if (!updatedProduct) {
+            console.error("Edit Product - Product not found");
+            return res.status(404).send('Product not found');
+        }
+
+        res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+    } catch (error) {
+        console.error("Edit Product - Error:", error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
 
 module.exports = {
     addAdmin,
@@ -290,6 +378,8 @@ module.exports = {
     getOrders,
     getProducts,
     deleteProduct,
+    getEditProductPage,
+    editProduct
 // editProduct 
 };
 

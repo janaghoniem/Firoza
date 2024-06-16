@@ -9,7 +9,6 @@ const path = require('path');
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
 
-
 // check if admin
 // router.use((req, res, next) => {
 //     if (req.session.user !== undefined && req.session.user.isAdmin) {
@@ -57,6 +56,9 @@ router.get('/getProduct/:id', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+// router.get('/editProduct/:id', adminController.getEditProductPage);
+// router.post('/editProduct/:id', adminController.editProduct);
+
 router.get('/product', adminController.getProducts);
 router.delete('/deleteProduct/:id', adminController.deleteProduct);
 
@@ -82,6 +84,21 @@ router.get('/orders', async (req, res, next) => {
         next(err);
     }
 });
+router.get('/editProduct/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId); // Fetch the product from the database
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+        res.render('editProduct', { product }); // Render the edit product page with the product data
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).send('Server error');
+    }
+});
+router.get('/editProduct/:id', adminController.getEditProductPage);
+
 
 
 router.put('/EditLayout/${id}',adminController.editCollection );
