@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="stylesheet" href="/CSS/Orders.css">
+  <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
+  <script src="/Javascript/nav-bar.js"></script>
+  <script src="/Javascript/adminNavbar.js"></script>
+</head>
+
+<body>
+    <%- include('./partials/Admin-NavBar.ejs') %>
+
+  <div class="container">
+
+    <ul class="responsive-table">
+      <li class="table-header">
+        <div class="col col-1">Order Id</div>
+        <div class="col col-2">Customer Name</div>
+        <div class="col col-3">Total Amount</div>
+        <div class="col col-4">Ordered</div>
+        <div class="col col-5">Status</div>
+      </li>
+      <li  class="table-row">
+        <div class="col col-1" data-label="Job Id">42235</div>
+        <div class="col col-2" data-label="Customer Name">John Doe</div>
+        <div class="col col-3" data-label="Amount">$350</div>
+        <div class="col col-4" data-label="Ordered">Ring <br> Necklace</div>
+        <div class="col col-5" data-label="Payment Status">Delivered</div>
+      </li>
+      <li class="table-row">
+        <div class="col col-1" data-label="Job Id">42442</div>
+        <div class="col col-2" data-label="Customer Name">Jennifer Smith</div>
+        <div class="col col-3" data-label="Amount">$220</div>
+        <div class="col col-4" data-label="Ordered">Ring <br> Necklace</div>
+        <div class="col col-5" data-label="Payment Status">Preparing</div>
+      </li>
+      <li class="table-row">
+        <div class="col col-1" data-label="Job Id">42257</div>
+        <div class="col col-2" data-label="Customer Name">John Smith</div>
+        <div class="col col-3" data-label="Amount">$341</div>
+        <div class="col col-4" data-label="Ordered">Ring <br> Necklace</div>
+        <div class="col col-5" data-label="Payment Status">Pending</div>
+      </li>
+      <li class="table-row">
+        <div class="col col-1" data-label="Job Id">42311</div>
+        <div class="col col-2" data-label="Customer Name">John Carpenter</div>
+        <div class="col col-3" data-label="Amount">$115</div>
+        <div class="col col-4" data-label="Ordered">Ring <br> Necklace</div>
+        <div class="col col-5" data-label="Payment Status">Delivered</div>
+      </li>
+      <li class="table-row">
+        <div class="col col-1" data-label="Job Id">42671</div>
+        <div class="col col-2" data-label="Customer Name">Amy John</div>
+        <div class="col col-3" data-label="Amount">$115</div>
+        <div class="col col-4" data-label="Ordered">Ring <br> Necklace</div>
+        <div class="col col-5" data-label="Payment Status">On the way</div>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>

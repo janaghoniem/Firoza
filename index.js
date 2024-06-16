@@ -83,7 +83,15 @@ app.get('/Orders', (req, res) => {
     res.render("admin-orders.ejs");
 });
 
+<<<<<<< Updated upstream
 app.get('/EditLayout', (req, res) => {
+=======
+app.get('/Users', (req, res) => {
+    res.render("Users.ejs");
+});
+
+app.get('/layout', (req, res) => {
+>>>>>>> Stashed changes
     res.render("EditLayout.ejs");
 });
 
