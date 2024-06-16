@@ -58,6 +58,18 @@ const addCollection = async (req, res) => {
     }
 };
 
+
+// Function to get all collections
+const getAllCollections = async (req, res) => {
+    try {
+        const allCollections = await collections.find();
+        res.render('collections', { collections: allCollections });
+    } catch (error) {
+        console.error('Error retrieving collections', error);
+        res.status(500).send('Error retrieving collections');
+    }
+};
+
 //edit collection on the server side
 const editCollection = async (req, res) => {
     const { id, collectionName, description, launchDate } = req.body;
@@ -144,6 +156,7 @@ module.exports = {
     addCollection,
     addProduct,
     editCollection,
+    getAllCollections,
     GetAllUsers
 };
 
