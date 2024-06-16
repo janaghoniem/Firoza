@@ -143,7 +143,8 @@ module.exports = {
     addAdmin,
     addCollection,
     addProduct,
-    editCollection
+    editCollection,
+    GetAllUsers
 };
 
 
