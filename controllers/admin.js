@@ -78,6 +78,17 @@ const getCollections = async (req, res) => {
     }
 };
 
+//delete collection
+const deleteCollection = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await collections.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Collection deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 //edit collection on the server side
 const editCollection = async (req, res) => {
     const { id, collectionName, description, launchDate } = req.body;
@@ -178,6 +189,7 @@ module.exports = {
     addProduct,
     editCollection,
     getCollections,
+    deleteCollection,
     GetAllUsers
 };
 
