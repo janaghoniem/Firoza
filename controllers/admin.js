@@ -122,11 +122,33 @@ const addProduct = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+
+const GetAllUsers = (req, res) => {
+    User.find()
+        .then(result => {
+            
+            res.render('Users', { users: result }); // Note the lowercase 'users'
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Error retrieving users');
+        });
+};
+
 module.exports = {
     addAdmin,
     addCollection,
-    addProduct
-};
+    addProduct, 
+    GetAllUsers
+}
+
+
+
+
+
+
 
 
 
