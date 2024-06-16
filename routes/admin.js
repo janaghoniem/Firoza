@@ -3,6 +3,8 @@ const session = require('express-session');
 const router = express.Router();
 const adminController = require('../controllers/admin');
 const Product = require('../models/product'); 
+const getCollections  = require('../models/Collections'); 
+
 // check if admin
 // router.use((req, res, next) => {
 //     if (req.session.user !== undefined && req.session.user.isAdmin) {
@@ -26,7 +28,8 @@ router.get('/users', adminController.GetAllUsers);
 //route to add a product
 router.post('/addProduct', adminController.addProduct);
 
-router.post('/collections', adminController.getAllCollections);
+router.get('/EditLayout', adminController.getCollections );
+
 
 router.get('/indian', async (req, res) => {
     try {

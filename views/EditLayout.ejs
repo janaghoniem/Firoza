@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="vewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -13,19 +14,27 @@
   <script src="/Javascript/nav-bar.js"></script>
   <script src="/Javascript/adminNavbar.js"></script>
   <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
-  <title>Collections</title>
+  <title>Layout</title>
 </head>
 
 <body>
-  <%- include('./partials/Admin-NavBar.ejs') %>
+
+    <%- include('./partials/Admin-NavBar.ejs') %>
   <div class="content">
+
     <div class="container">
+      <!-- <h2 class="mb-5">Table #10</h2> -->
+
       <div class="table-responsive">
+
         <table class="table table-striped custom-table">
           <thead>
             <tr class="active">
               <th scope="col">
-                <label class="control control--checkbox"></label>
+                <label class="control control--checkbox">
+                  <!-- <input type="checkbox" class="js-check-all" />
+                  <div class="control__indicator"></div> -->
+                </label>
               </th>
               <th scope="col">ID</th>
               <th scope="col">Collection Name</th>
@@ -41,10 +50,13 @@
             </tr>
           </thead>
           <tbody>
-            <% collections.forEach(function(collection) { %>
-            <tr class="active">
+            <% collections.forEach(collection => { %>
+            <tr scope="row" class="active">
               <td>
-                <label class="control control--checkbox"></label>
+                <label class="control control--checkbox">
+                  <!-- <input type="checkbox" /> -->
+                  <!-- <div class="control__indicator"></div> -->
+                </label>
               </td>
               <td><%= collection._id %></td>
               <td class="pl-0">
@@ -57,11 +69,13 @@
               <td>
                 <span class="editable" contenteditable="false"><%= collection.Collection_Description %></span>
               </td>
-              <td><%= collection.createdAt.toDateString() %></td>
+              <td> <!-- Placeholder date, you can add a date field to your collection model if necessary -->
+                5th of June 2023
+              </td>
               <td><button class="edit-btn btn btn-primary">Edit</button></td>
               <td>
                 <label class="custom-control ios-switch">
-                  <input type="checkbox" class="ios-switch-control-input">
+                  <input type="checkbox" class="ios-switch-control-input" checked="">
                   <span class="ios-switch-control-indicator"></span>
                 </label>
               </td>
@@ -74,7 +88,10 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!-- <script src="js/popper.min.js"></script> -->
+  <!-- <script src="js/bootstrap.min.js"></script> -->
   <script src="Javascript/layout.js"></script>
   <script src="Javascript/editable.js"></script>
 </body>
+
 </html>

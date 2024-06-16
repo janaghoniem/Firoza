@@ -60,16 +60,23 @@ const addCollection = async (req, res) => {
 
 
 // Function to get all collections
-const getAllCollections = async (req, res) => {
+// const getAllCollections = async (req, res) => {
+//     try {
+//         const allCollections = await collections.find();
+//         res.render('collections', { collections: allCollections });
+//     } catch (error) {
+//         console.error('Error retrieving collections', error);
+//         res.status(500).send('Error retrieving collections');
+//     }
+// };
+const getCollections = async (req, res) => {
     try {
-        const allCollections = await collections.find();
-        res.render('collections', { collections: allCollections });
+        const collections = await Collection.find({});
+        res.render('EditLayout', { collections });
     } catch (error) {
-        console.error('Error retrieving collections', error);
-        res.status(500).send('Error retrieving collections');
+        res.status(500).json({ error: error.message });
     }
 };
-
 
 //edit collection on the server side
 const editCollection = async (req, res) => {
@@ -170,7 +177,7 @@ module.exports = {
     addCollection,
     addProduct,
     editCollection,
-    getAllCollections,
+    getCollections,
     GetAllUsers
 };
 
