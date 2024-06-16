@@ -143,9 +143,51 @@ const Search = async (req, res) => {
     }
 }
 
+const AddToCart = async (req, res) => {
+    const { productId, price } = req.body;
+
+    if (!req.session.user) {
+        return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    const userId = req.session.user._id; 
+
+
+    if (!productId || !price) {
+        return res.status(400).json({ error: 'Product ID and price are required' });
+    }
+
+
+    try {
+        // Find the user by userId and update the cart array
+        const user = await User.findById(userId);
+
+        if (!user) {
+            console.log('moshkela fel user.');
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Add product to cart
+        user.cart.push({
+            product_id: productId,
+            quantity: 1, // You can adjust this based on your logic
+            price: price
+        });
+
+        await user.save();
+
+        res.status(200).json({ message: 'Product added to cart successfully' });
+
+    } catch (error) {
+        console.error('Error adding product to cart:', error);
+        res.status(500).json({ error: 'Failed to add product to cart' });
+    }
+}
+
 module.exports = {
     GetUser,
     AddUser,
     checkAddress,
-    Search
+    Search,
+    AddToCart
 };

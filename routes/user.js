@@ -14,4 +14,7 @@ router.post('/checkAddress', User.checkAddress);
 // Handle POST request for search
 router.post('/search', User.Search);
 
+// Handle POST request for add to cart
+router.post('/add-to-cart', User.AddToCart)
+
 module.exports = router;
