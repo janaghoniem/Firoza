@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginform = document.getElementById('login-form');
     const createAccountButton = document.getElementById('Create-an-account-nav');
     const createAccountForm = document.getElementById('create-account-form');
+    const loginMessage = document.getElementById('login-message-popup');
 
     loginIconTrigger.addEventListener('click', () => {
         event.preventDefault();
@@ -239,6 +240,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let invalidEmailError = "Invalid E-mail Address";
     let invalidPasswordError = "Use 8 or more characters";
 
+    let userData;
+
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -278,12 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
     
-            const userData = await response.json();
-            if (userData.isAdmin) {
-                sessionStorage.setItem('isAdmin', true); 
-            }
-    
-            alert('Login Successful.');
+            userData = await response.json();
             return true;
         } catch (error) {
             console.error('Error:', error);
@@ -331,16 +329,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (valid) {
             if (await loginUser(email, password)) {
                 exitPopupButton.click();
-                if (sessionStorage.getItem('isAdmin')) {
+                showPopup('Login Successful');
+                if (userData.isAdmin) {
                     window.location.href = '/admin'; // Redirect to admin page
                 }
             }
         }
     });
     
-
-    
-
     //Validate sign-up
     const createAccountSubmitButton = document.getElementById('create-account-button');
     const signUpFormFirstNameField = document.getElementById('sign-up-first-name-field');
@@ -499,15 +495,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = signUpFormEmailField.value.trim();
             const password = signUpFormPasswordField.value.trim();
     
-            // // Check email availability one more time before submission
-            // const available = await checkEmailAvailability(email);
-            // if (!available) {
-            //     signUpFormEmailField.style.borderColor = 'red';
-            //     signUpFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-            //     signUpFormEmailError.textContent = 'Email already in use';
-            //     return;
-            // }
-    
             // Assuming validation is successful, proceed with form submission
             const formData = {
                 firstname: signUpFormFirstNameField.value.trim(),
@@ -527,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 const data = await response.json();
                 if (response.ok) {
-                    alert("Account created successfully!");
+                    showPopup("Account created successfully!");
                     exitPopupButton.click();
                 } else {
                     alert(data.error); // Display error message
@@ -538,7 +525,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-
+    
+    function showPopup(message) {
+        const popup = document.querySelector('.login-message-popup');
+        const popupMessage = popup.querySelector('h2');
+        popupMessage.textContent = message;
+        
+        // Show the popup
+        popup.classList.add('show');
+        
+        // Automatically hide popup after 3 seconds
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); // Adjust timing as needed
+    }
 
     // 7agat el search
     const searchButtonclick = document.getElementById('search');

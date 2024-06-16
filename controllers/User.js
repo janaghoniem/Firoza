@@ -32,7 +32,7 @@ const GetUser = async (req, res) => {
         const isAdmin = user.isAdmin;
 
         // Return user data including isAdmin flag
-        res.status(200).json({ isAdmin, user });
+        res.status(200).json({user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
