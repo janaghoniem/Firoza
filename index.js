@@ -131,3 +131,53 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+
+
+
+
+
+
+
+//adding orders manually
+//jana
+const order1 = new Order({
+  user_id: new mongoose.Types.ObjectId('666d4bab11f46b6fccab7641'),
+  product_ids: [
+    new mongoose.Types.ObjectId('666d44c7963359f83c31c1ba'),
+    new mongoose.Types.ObjectId('666d47a9963359f83c31c1c0')
+  ],
+  total_price: 320000,
+  status: 'pending',
+  shipping_address: {
+    country: 'Egypt',
+    city: 'Cairo',
+    street: 'fifth settlement',
+    postal_code: 12345
+  },
+  Payment_method: 'credit_card'
+});
+order1.save()
+  .then(() => console.log('Order 1 saved successfully'))
+  .catch(err => console.error('Error saving Order 1:', err));
+
+//habiba
+const order2 = new Order({
+  user_id: new mongoose.Types.ObjectId('666d8f537cac2fc2cd7bec5f'),
+  product_ids: [
+    new mongoose.Types.ObjectId('666d44c7963359f83c31c1ba')
+  ],
+  total_price: 120000,
+  status: 'pending',
+  shipping_address: {
+    country: 'Egypt',
+    city: 'cairo',
+    street: 'obour',
+    postal_code: 54321
+  },
+  Payment_method: 'paypal'
+});
+order2.save()
+  .then(() => console.log('Order 2 saved successfully'))
+  .catch(err => console.error('Error saving Order 2:', err));
