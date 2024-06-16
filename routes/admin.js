@@ -100,6 +100,7 @@ router.get('/orders', async (req, res, next) => {
 //router.get('/editProduct/:id', adminController.getEditProductPage);
 
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
- 
+router.post('/EditProduct/:id', adminController.editProduct);
+
 
 module.exports = router;

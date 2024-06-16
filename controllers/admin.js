@@ -358,24 +358,23 @@ const editProduct = async (req, res) => {
     try {
         const productId = req.params.id;
         const updatedData = req.body;
-        console.log("Edit Product - Product ID:", productId);
-        console.log("Edit Product - Updated Data:", updatedData);
-
+        
+        // Ensure the sizes are processed correctly if they come as arrays
+        if (Array.isArray(updatedData.sizes)) {
+            updatedData.sizes = updatedData.sizes.map((size, index) => ({
+                size,
+                quantity: updatedData.quantities[index]
+            }));
+        }
         const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
-        console.log("Edit Product - Updated Product:", updatedProduct);
-
         if (!updatedProduct) {
-            console.error("Edit Product - Product not found");
             return res.status(404).send('Product not found');
         }
-
         res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
     } catch (error) {
-        console.error("Edit Product - Error:", error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
-
 module.exports = {
     addAdmin,
     addCollection,

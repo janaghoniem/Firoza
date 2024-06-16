@@ -13,9 +13,8 @@
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
     <div class="container" id="container">
-        <form action="admin/EditProduct/<%= product._id %>" method="POST">
+        <form action="/admin/EditProduct/<%= product._id %>" method="POST">
             <h1>Edit product</h1>
-            <span>All fields are a must to fill</span>
             <input type="text" name="product_id" placeholder="Product ID" value="<%= product.product_id %>" required>
             <input type="text" name="name" placeholder="Product Name" value="<%= product.name %>" required>
             <input type="number" name="price" placeholder="Price" min="1000" value="<%= product.price %>" required>
@@ -43,7 +42,6 @@
             <h4 class="successful"></h4>
             <h6 class="s"></h6>
             <span class="sure"></span>
-            <button type="submit" id="submitButton">Sure</button>
             <input type="text" name="description" placeholder="Product Description" value="<%= product.description %>" required>
             <div id="sizes-container">
                 <% product.sizes.forEach(size => { %>
@@ -83,19 +81,37 @@
         </form>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM fully loaded and parsed');
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById('submitButton');
 
-        function dragNdrop(event) {
-            console.log('File selected for upload:', event.target.files);
-            // Other drag and drop related code
+    submitButton.addEventListener('click', function(event) {
+        const inputField = document.querySelector('input[name="name"]');
+        const numberField = document.querySelector('input[name="price"]');
+        const categories = document.getElementById('Category');
+        const collections = document.getElementById('Collections');
+        
+        const sureMessage = document.querySelector('.sure');
+        
+        if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
+            event.preventDefault(); // Prevent form submission
+            sureMessage.innerHTML = "Please fill all required fields.";
         }
+    });
+});
 
-        function addSizeQuantityPair() {
-            console.log('Add size and quantity pair button clicked');
-            // Function to add new size and quantity input fields
-        }
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     console.log('DOM fully loaded and parsed');
+        // });
+
+        // function dragNdrop(event) {
+        //     console.log('File selected for upload:', event.target.files);
+        //     // Other drag and drop related code
+        // }
+
+        // function addSizeQuantityPair() {
+        //     console.log('Add size and quantity pair button clicked');
+        //     // Function to add new size and quantity input fields
+        // }
     </script>
 </body>
 </html>
