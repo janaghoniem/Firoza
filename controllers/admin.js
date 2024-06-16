@@ -345,7 +345,7 @@ const getEditProductPage = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        res.render('EditProduct',  product );
+        res.render('EditProduct', {product});
         console.log("Get Edit Product Page - Rendered EditProduct page with product");
     } catch (error) {
         console.error("Get Edit Product Page - Error:", error);
@@ -389,7 +389,6 @@ module.exports = {
     deleteProduct,
     getEditProductPage,
     editProduct
-// editProduct 
 };
 
 //function to get orders

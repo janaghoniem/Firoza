@@ -168,26 +168,6 @@ app.use((req, res) => {
     res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
 });
 
-app.get(`/admin/EditProduct/:id` , async (req, res) => {
-    try {
-        const productId = req.params.id;
-        console.log("Get Edit Product Page - Product ID:", productId);
-
-        const product = await Product.findById(productId);
-        console.log("Get Edit Product Page - Fetched Product:", product);
-
-        if (!product) {
-            console.error("Get Edit Product Page - Product not found");
-            return res.status(404).send('Product not found');
-        }
-
-        res.render('EditProduct',  product );
-        console.log("Get Edit Product Page - Rendered EditProduct page with product");
-    } catch (error) {
-        console.error("Get Edit Product Page - Error:", error);
-        res.status(500).send('Server error');
-    }
-});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
