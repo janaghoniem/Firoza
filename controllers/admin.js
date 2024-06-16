@@ -2,7 +2,7 @@ const User = require('../models/User');
 const collections = require('../models/Collections');
 const bcrypt = require('bcrypt');
 const Product = require('../models/product');
-
+const Order = require('../models/Orders');
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -193,5 +193,23 @@ module.exports = {
     GetAllUsers
 };
 
+//function to get orders
 
+exports.getOrders = async (req, res) => {
+    try {
+        const orders = await Order.find()
+            .populate({
+                path: 'user_id',
+                model: 'User' 
+            })
+            .populate({
+                path: 'product_ids',
+                model: 'Product' 
+            });
 
+        res.render('admin-orders', { orders });
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        res.status(500).send('Server Error');
+    }
+};

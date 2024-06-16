@@ -4,6 +4,7 @@ const router = express.Router();
 const adminController = require('../controllers/admin');
 const Product = require('../models/product'); 
 const getCollections  = require('../models/Collections'); 
+const Order = require('../models/Orders');
 
 // check if admin
 // router.use((req, res, next) => {
@@ -41,5 +42,13 @@ router.get('/indian', async (req, res) => {
     }
 });
 
+//route ll orders "admin pov"
+router.get('/orders', async (req, res, next) => {
+    try {
+        await adminController.getOrders(req, res);
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = router;
