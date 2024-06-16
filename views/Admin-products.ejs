@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +9,16 @@
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
-
 </head>
-
 <body>
-
     <%- include('./partials/Admin-NavBar.ejs') %>
 
-        <!-- dah container el cards ya haya -->
-        <div class="cards">
-
-            <!-- w dah el card nafso -->
+    <!-- Container for the product cards -->
+    <div class="cards">
+        <% products.forEach(product => { %>
             <div class="card">
                 <div class="card__image-holder">
-                    <img class="card__image" src="../images/Admin/img4.jpg" />
+                    <img class="card__image" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>" />
                 </div>
                 <div class="card-title">
                     <a href="#" class="toggle-info btn">
@@ -31,57 +26,50 @@
                         <span class="right"></span>
                     </a>
                     <h2>
-                        Product Name
-                        <small>Collection:</small>
+                        <%= product.name %>
+                        <small>Collection: <%= product.collection_id %></small>
                     </h2>
                 </div>
                 <div class="card-flap flap1">
                     <div class="card-description">
-                        This is where product description will be displayed, added and edited by the admin
+                        <%= product.description %>
                     </div>
                     <div class="card-flap flap2">
                         <div class="card-actions">
-                            <a href="edit-product.html" class="btn">Edit</a>
-                            <a href="" class="btn">Delete</a>
+                            <a href="/admin/editProduct/<%= product._id %>" class="btn">Edit</a>
+                            <a href="/admin/deleteProduct/<%= product._id %>" class="btn">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
+        <% }) %>
 
-
-
-            <!-- The add card hena -->
-
-
-            <div class="card">
-                <div class="card__image-holder">
-                    <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
+        <!-- Add Product Card -->
+        <div class="card">
+            <div class="card__image-holder">
+                <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
+            </div>
+            <div class="card-title">
+                <a href="#" class="toggle-info btn">
+                    <span class="left"></span>
+                    <span class="right"></span>
+                </a>
+                <h2>
+                    Add Product
+                    <!-- <small>Collection:</small> -->
+                </h2>
+            </div>
+            <div class="card-flap flap1">
+                <div class="card-description">
+                    Click on the add button to add a product
                 </div>
-                <div class="card-title">
-                    <a href="#" class="toggle-info btn">
-                        <span class="left"></span>
-                        <span class="right"></span>
-                    </a>
-                    <h2>
-                        Add Product
-                        <!-- <small>Collection:</small> -->
-                    </h2>
-                </div>
-                <div class="card-flap flap1">
-                    <div class="card-description">
-                        Click on the add button to add a product
-                    </div>
-                    <div class="card-flap flap2">
-                        <div class="card-actions">
-                            <a href="edit-product.html" class="btn">Add</a>
-                        </div>
+                <div class="card-flap flap2">
+                    <div class="card-actions">
+                        <a href="/admin/addProduct" class="btn">Add</a>
                     </div>
                 </div>
             </div>
-
-
-
-
+        </div>
+    </div>
 </body>
-
 </html>

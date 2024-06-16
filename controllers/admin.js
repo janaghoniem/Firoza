@@ -226,6 +226,16 @@ const GetAllUsers = (req, res) => {
 };
 
 
+const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find({});
+        res.render('Admin-products', { products });
+    } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).send('Server error');
+    }
+};
+
 module.exports = {
     addAdmin,
     addCollection,
@@ -233,8 +243,10 @@ module.exports = {
     editCollection,
     getCollections,
     deleteCollection,
-    GetAllUsers
+    GetAllUsers,
+    getProducts
 };
+
 
 //function to get orders
 

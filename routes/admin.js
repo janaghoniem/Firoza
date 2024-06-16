@@ -41,6 +41,7 @@ router.get('/indian', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+router.get('/product', adminController.getProducts);
 
 //route ll orders "admin pov"
 router.get('/orders', async (req, res, next) => {
