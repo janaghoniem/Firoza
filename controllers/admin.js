@@ -61,16 +61,18 @@ const addCollection = async (req, res) => {
 //edit collection on the server side
 const editCollection = async (req, res) => {
     const { id, collectionName, description, launchDate } = req.body;
+
     try {
-        const updatedCollection = await Collection.findByIdAndUpdate(id, {
+        await Collection.updateOne({ collection_id: id }, {
             Collection_Name: collectionName,
             Collection_Description: description,
-            Date: new Date(launchDate) // Ensure the date is correctly formatted
-        }, { new: true });
-        res.status(200).json({ success: true, data: updatedCollection });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, error: error.message });
+            createdAt: new Date(launchDate)
+        });
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error('Failed to update collection', err);
+        res.json({ success: false });
     }
 };
 
@@ -125,7 +127,8 @@ const addProduct = async (req, res) => {
 module.exports = {
     addAdmin,
     addCollection,
-    addProduct
+    addProduct,
+    editCollection
 };
 
 

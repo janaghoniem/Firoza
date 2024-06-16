@@ -83,18 +83,18 @@ app.get('/Orders', (req, res) => {
     res.render("admin-orders.ejs");
 });
 
-<<<<<<< Updated upstream
 app.get('/EditLayout', (req, res) => {
-=======
-// app.get('/Users', (req, res) => {
-//     res.render("Users.ejs");
-// });
-
-app.get('/layout', (req, res) => {
->>>>>>> Stashed changes
     res.render("EditLayout.ejs");
 });
 
+app.get('/EditLayout', async (req, res) => {
+    try {
+        const collections = await Collection.find();
+        res.render('layout', { collections });
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 
 // app.get('/layout', (req, res) => {
 //     res.render("EditLayout.ejs");
