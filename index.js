@@ -79,6 +79,7 @@ app.get('/EditLayout', (req, res) => {
     res.render("EditLayout.ejs");
 });
 
+
 app.get('/EditLayout', async (req, res) => {
     try {
         const collections = await collectiona.find({});
