@@ -16,7 +16,7 @@ body {
     /* justify-content: center; */
     flex-direction: column;
     height: 100vh;
-    background: url(/Admin/orange.jpeg);
+    background: url(/images/Admin/orange.jpeg);
 }
 
 .container {

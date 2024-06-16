@@ -17,7 +17,7 @@ body {
     flex-direction: column;
     height: 100vh;
     /* background-color:#acb5ba; */
-    background: url(/Admin/orange.jpeg);
+    background: url(/images/Admin/orange.jpeg);
     background-size: contain;
     background-attachment: fixed;
     width: 100%;
