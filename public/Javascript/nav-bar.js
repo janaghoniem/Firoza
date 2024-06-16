@@ -263,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ email, password })
             });
 
-            const data = await response.json();
 
             if (!response.ok) {
                 if (data.error.includes('email')) {
@@ -278,10 +277,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            if (response.ok) {
-                alert(data.message); // Handle success (e.g., redirect to dashboard)
-                return true;
+            const userdata = await response.json();
+            if(userdata.isAdmin) {
+                sessionStorage.setItem(isAdmin, true);
             }
+
+            alert('Login Successful.')
+            return true;
         } catch (error) {
             console.error('Error:', error);
         }
@@ -327,7 +329,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (valid) {
             if (await loginUser(email, password)) {
-                exitPopupButton.click(); // Assuming you have a button to close the popup
+                exitPopupButton.click();
+                if(session.isAdmin) {
+                    window.location.href = '/admin';
+                }
             }
         }
     });
