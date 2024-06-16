@@ -74,7 +74,6 @@ const editCollection = async (req, res) => {
     }
 };
 
-<<<<<<< Updated upstream
 //Function to add a product
 const addProduct = async (req, res) => {
     const {
@@ -127,27 +126,6 @@ module.exports = {
     addAdmin,
     addCollection,
     addProduct
-=======
-
-const GetAllUsers = (req, res) => {
-    User.find()
-        .then(result => {
-            
-            res.render('Users', { users: result }); // Note the lowercase 'users'
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).send('Error retrieving users');
-        });
-};
-
-
-
-module.exports = {
-    addAdmin,
-    addCollection,
-    GetAllUsers
->>>>>>> Stashed changes
 };
 
 

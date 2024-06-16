@@ -4,15 +4,15 @@ const router = express.Router();
 const adminController = require('../controllers/admin');
 
 // check if admin
-router.use((req, res, next) => {
-    if (req.session.user !== undefined && req.session.user.isAdmin) {
-        next();
-    }
-    else {
-        console.log(req.session.user);
-        console.log('You are not an Admin')
-    }
-});
+// router.use((req, res, next) => {
+//     if (req.session.user !== undefined && req.session.user.isAdmin) {
+//         next();
+//     }
+//     else {
+//         console.log(req.session.user);
+//         console.log('You are not an Admin')
+//     }
+// });
 
 // Route to add a User
 router.post('/addAdmin', adminController.addAdmin);
