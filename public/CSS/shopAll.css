@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Spirax&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+body{
+    background-color: rgb(243, 243, 243);
+    margin: 0;
+    padding: 0;
+    
+}
+.head{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-top: 170px;
+}
+.head img{
+    width: 22vw;
+}
+.head p{
+    font-size: 15px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+}
+
+.filters {
+    margin-top: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 35px; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.filters p {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+} 
+.filters p:hover{
+    cursor: pointer;
+}
+
+.toggle-switch {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-switch {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 35px;
+    height: 20px;
+    background-color: #bcbaba;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    top: 2px; 
+    left: 2px; 
+    width: 16px; 
+    height: 16px; 
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-input:checked + .toggle-label {
+    background-color: black;
+}
+
+.toggle-input:checked + .toggle-label::before {
+    transform: translateX(15px);
+}
+.toggle-container {
+    margin-left: 2vw;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+
+.filter-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    position: relative; /* Added for arrow positioning */
+}
+
+.fa-chevron-down {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 4px solid rgb(243, 243, 243);
+    z-index: 1;
+    padding: 50px;
+    z-index: 1000;
+}
+
+.dropdown-content label {
+    padding: 5px 60px; 
+    cursor: pointer;
+    flex: 1 1 25% !important;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: black;
+}
+
+.dropdown-content checkbox :checked{
+    color: black;
+}
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent; /* Transparent left border */
+    border-right: 10px solid transparent; /* Transparent right border */
+    border-bottom: 10px solid rgb(231, 231, 231); /* Black bottom border */
+    position: absolute;
+    top: -10px;
+    z-index: 2;
+}
+/* Ensure the container is block-level and positioned */
+.containerr {
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 10px;
+    color: black;
+    line-height: 1.5;
+  }
+  
+  /* Hide the default checkbox */
+  .containerr input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Style the custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border: 1px solid black;
+    transform: translateY(-50%); /* Adjust for centering */
+    margin-left: 35px;
+  }
+  
+  /* When checkbox is checked, change background color */
+  .containerr input:checked + .checkmark {
+    background-color: white;
+  }
+  
+  /* Customize checkmark indicator */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .containerr input:checked + .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark shape */
+  .checkmark:after {
+    left:4px;
+    top: -0px;
+    width: 3px;
+    height: 7px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  /* .price-filter {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.price-filter button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#priceRange {
+    width: 100%;
+    margin-top: 10px;
+} */
+
+
+  .cards{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.imge{
+    position: relative;
+    overflow: hidden;
+    
+}
+.imge i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+/* 
+.imge i:hover{
+    transform: scale(1.1);
+    color: rgb(158, 2, 2);
+    font-weight: bolder;
+} */
+/* .imge img:hover{
+    transform: scale(1.2);
+    transition: transform 0.4s ease;
+} */
+.card1{
+    position: relative;
+    
+    margin-right: 20px;
+    margin-top: 3%;
+    width: 500px;
+    height: 500px;
+}
+
+.info {
+    font-weight: 100;
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 250px; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the content horizontally */
+    font-weight: 200;
+    color: black;
+}
+
+#price{
+    font-weight: 300;
+}
+.info button{
+    padding: 3%;
+    width: 60%;
+    color: white;
+    background-color: black;
+    border: black 1px solid;
+    margin-top: 5%;
+    cursor: pointer;
+}
+.info button:hover{
+    color: black;
+    background-color: white;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Centers the cards horizontally */
+    margin: 70px;
+}
+
+.col {
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
+    box-sizing: border-box;
+    max-width: 400px; /* Maximum width for the cards */
+    min-width: 350px; /* Minimum width for the cards */
+}
+
+.product-grid {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    padding: 20px;
+    position: relative;
+    text-align: left; /* Align text to the left */
+    /* height: 90%;  Remove this line to let the card height adjust automatically */
+    border: none; /* Removes border around the cards */
+    display: flex;
+    flex-direction: column; /* Ensure that the card content stacks vertically */
+}
+
+.product-grid .product-image {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    height: 350px; /* Fixed height for the image container */
+    width: 100%;
+}
+
+.product-grid .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire container, cropping if necessary */
+    transition: all 0.3s ease;
+}
+
+.product-grid .product-image a.image {
+    display: block;
+}
+
+
+.product-grid .product-image .img-1 {
+    transition: all 0.3s ease 0s;
+}
+
+.product-grid:hover .product-image .img-1 {
+    opacity: 0;
+}
+
+.product-grid .product-image .img-2 {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    backface-visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: all 0.5s ease 0s;
+}
+
+.product-grid:hover .product-image .img-2 {
+    opacity: 1;
+}
+
+.product-grid .product-hot-label,
+.product-grid .product-discount-label {
+    color: #fff;
+    background: #ff6f00;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.product-grid .product-discount-label {
+    background: #ff3939;
+    left: auto;
+    right: 10px;
+}
+
+.product-grid .product-view {
+    color: #fff;
+    background: #000;
+    font-size: 16px;
+    text-align: right;
+    line-height: 50px;
+    width: 60px;
+    height: 60px;
+    padding: 0 16px 0 0;
+    border-radius: 50px;
+    opacity: 0;
+    transform: scale(0);
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    transition: all .3s ease;
+}
+
+.product-grid:hover .product-view {
+    opacity: 1;
+    transform: scale(1);
+    bottom: -20px;
+    left: -20px;
+}
+
+.product-grid .product-view:hover {
+    background: #ff6f00;
+}
+
+.product-grid .product-links {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transform: translateY(50%);
+    position: absolute;
+    bottom: 50%;
+    right: 10px;
+    z-index: 1;
+}
+
+.product-grid .product-links li {
+    margin: 5px 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all .3s ease;
+}
+
+.product-grid .product-links li:nth-child(2) {
+    transition-delay: .1s;
+}
+
+.product-grid .product-links li:nth-child(3) {
+    transition-delay: .2s;
+}
+
+.product-grid:hover .product-links li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.product-grid .product-links li a {
+    color: #000;
+    background: #fff;
+    font-size: 18px;
+    text-align: center;
+    line-height: 33px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #000;
+    display: block;
+    transition: all .3s ease;
+    text-decoration: none; /* Removes text decoration */
+}
+
+.product-grid .product-links li a:hover {
+    color: #fff;
+    background: black;
+    border-color: black;
+}
+
+.product-grid .product-content {
+    padding: 15px 0 0;
+}
+
+.product-grid .rating {
+    color: #f7bc3d;
+    font-size: 11px;
+    padding: 0;
+    margin: 0 0 8px;
+    list-style: none;
+}
+
+.product-grid .rating li {
+    display: inline-block;
+}
+
+.product-grid .rating .disable {
+    color: #a3a3a3;
+}
+
+.product-grid .title {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    text-transform: capitalize;
+    margin: 0 0 8px;
+}
+
+.product-grid .title a {
+    color: #333;
+    transition: all 0.3s ease 0s;
+    text-decoration: none; /* Removes text decoration */
+}
+
+.product-grid .title a:hover {
+    color: black;
+}
+
+.product-grid .price {
+    color: #a3a3a3;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.product-grid .price span {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 5px;
+    text-decoration: none; 
+}
+
+
+.product-grid:hover .img-2 {
+    display: block; 
+}
+
+@media screen and (max-width: 990px) {
+    .col {
+        flex: 1 1 100%; /* Adjusts columns to stack on smaller screens */
+    }
+}

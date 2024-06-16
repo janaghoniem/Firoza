@@ -149,7 +149,7 @@ const addProduct = async (req, res) => {
 
     try {
         // Validate input
-        if (!product_id || !collection_id || !name || !description || !category || !price || !img || !material || !color || !sizes || !quantities) {
+        if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !sizes || !quantities) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
