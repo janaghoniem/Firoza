@@ -262,50 +262,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({ email, password })
             });
-
-
+    
             if (!response.ok) {
-                if (data.error.includes('email')) {
+                // Handle server errors or incorrect login credentials
+                const errorData = await response.json();
+                if (errorData.error.includes('email')) {
                     loginFormEmailField.style.borderColor = 'red';
                     loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
-                    loginFormEmailError.textContent = data.error;
-                } else if (data.error.includes('password')) {
+                    loginFormEmailError.textContent = errorData.error;
+                } else if (errorData.error.includes('password')) {
                     loginFormPasswordField.style.borderColor = 'red';
                     loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
-                    loginFormPasswordError.textContent = data.error;
+                    loginFormPasswordError.textContent = errorData.error;
                 }
                 return false;
             }
-
-            const userdata = await response.json();
-            if(userdata.isAdmin) {
-                sessionStorage.setItem(isAdmin, true);
+    
+            const userData = await response.json();
+            if (userData.isAdmin) {
+                sessionStorage.setItem('isAdmin', true); // Ensure 'isAdmin' is set correctly
             }
-
-            alert('Login Successful.')
+    
+            alert('Login Successful.');
             return true;
         } catch (error) {
             console.error('Error:', error);
+            return false;
         }
-        return false;
     }
-
+    
     loginSubmitButton.addEventListener('click', async (event) => {
         event.preventDefault();
-
+    
         // Reset error messages and styling
         loginFormEmailError.textContent = '';
         loginFormPasswordError.textContent = '';
         noErrorStyling(loginFormEmailField);
         noErrorStyling(loginFormPasswordField);
-
+    
         const email = loginFormEmailField.value.trim();
         const password = loginFormPasswordField.value.trim();
-
+    
         let valid = true;
-
+    
         // Client-side validation
-        if (email === "") {
+        if (email === '') {
             loginFormEmailField.style.borderColor = 'red';
             loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             loginFormEmailError.textContent = requiredFieldError;
@@ -315,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
             loginFormEmailField.style.backgroundColor = 'rgb(255, 242, 242)';
             valid = false;
         }
-
-        if (password === "") {
+    
+        if (password === '') {
             loginFormPasswordField.style.borderColor = 'red';
             loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             loginFormPasswordError.textContent = requiredFieldError;
@@ -326,16 +327,18 @@ document.addEventListener('DOMContentLoaded', function() {
             loginFormPasswordField.style.backgroundColor = 'rgb(255, 242, 242)';
             valid = false;
         }
-
+    
         if (valid) {
             if (await loginUser(email, password)) {
                 exitPopupButton.click();
-                if(session.isAdmin) {
-                    window.location.href = '/admin';
+                if (sessionStorage.getItem('isAdmin')) {
+                    alert('Admin login detected.'); // Debug alert
+                    window.location.href = '/admin'; // Redirect to admin page
                 }
             }
         }
     });
+    
 
     
 
