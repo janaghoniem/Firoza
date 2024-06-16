@@ -103,22 +103,60 @@
     </div>
 
     <script>
-        function addSizeQuantityPair() {
-            const container = document.getElementById('sizes-container');
-            const pairDiv = document.createElement('div');
-            pairDiv.className = 'size-quantity-pair';
-            pairDiv.innerHTML = `
-                <select name="sizes[]" class="size-select" required>
-                    <option value="" disabled selected>Size</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
-            `;
-            container.appendChild(pairDiv);
+        document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById('submitButton');
+
+    submitButton.addEventListener('click', function(event) {
+        const inputField = document.querySelector('input[name="name"]');
+        const numberField = document.querySelector('input[name="price"]');
+        const categories = document.getElementById('Category');
+        const collections = document.getElementById('Collections');
+        
+        const sureMessage = document.querySelector('.sure');
+        
+        if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
+            event.preventDefault(); // Prevent form submission
+            sureMessage.innerHTML = "Please fill all required fields.";
         }
+    });
+});
+
+function addSizeQuantityPair() {
+    const container = document.getElementById('sizes-container');
+    const pairDiv = document.createElement('div');
+    pairDiv.className = 'size-quantity-pair';
+    pairDiv.innerHTML = `
+        <select name="sizes[]" class="size-select" required>
+            <option value="" disabled selected>Size</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
+    `;
+    container.appendChild(pairDiv);
+
+    // Update the count and check if button should be disabled
+    updateAddButtonState();
+}
+
+let Count = 0;
+
+function updateAddButtonState() {
+    Count++;
+    if (Count === 3) {
+        const addButton = document.getElementById('addB');
+        addButton.disabled = true;
+    }
+}
+
+// Add event listener to the button
+document.addEventListener('DOMContentLoaded', () => {
+    const addButton = document.getElementById('addButton');
+    addButton.addEventListener('click', addSizeQuantityPair);
+});
+
     </script>
 </body>
 

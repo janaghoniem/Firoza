@@ -11,7 +11,7 @@
     <script src="/Javascript/adminNavbar.js"></script>
 </head>
 <body>
-    <%- include('./partials/Admin-NavBar.ejs') %>
+    <% include('./partials/Admin-NavBar.ejs') %>
     <div class="container" id="container">
         <form action="/admin/EditProduct/<%= product._id %>" method="POST">
             <h1>Edit product</h1>
@@ -36,8 +36,10 @@
                 <strong>OR</strong>
                 <span class="dragBox">
                     Drag and Drop image here
-                    <input type="file" name="img" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile" />
+                    <input type="file" name="img" id="uploadFile" accept="image/*" onchange="previewImage(event)" />
                 </span>
+                <!-- Image preview -->
+                <div id="imagePreview" class="image-preview"></div>
             </div>
             <h4 class="successful"></h4>
             <h6 class="s"></h6>
@@ -59,7 +61,7 @@
                     </div>
                 <% }) %>
             </div>
-            <button type="button" onclick="addSizeQuantityPair()">Add Size</button>
+            <button type="button" onclick="addSizeQuantityPair()" id="addB">Add Size</button>
             <select name="material" id="Material" required>
                 <option value="" disabled selected>Material</option>
                 <option value="Gold" <%= product.material === "Gold" ? "selected" : "" %>>Gold</option>
@@ -81,37 +83,65 @@
         </form>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const submitButton = document.getElementById('submitButton');
-
-    submitButton.addEventListener('click', function(event) {
-        const inputField = document.querySelector('input[name="name"]');
-        const numberField = document.querySelector('input[name="price"]');
-        const categories = document.getElementById('Category');
-        const collections = document.getElementById('Collections');
-        
-        const sureMessage = document.querySelector('.sure');
-        
-        if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
-            event.preventDefault(); // Prevent form submission
-            sureMessage.innerHTML = "Please fill all required fields.";
+        function viewImage(imageUrl) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.innerHTML = `<img src="${imageUrl}" alt="Product Image" style="max-width: 100%; height: auto;">`;
         }
-    });
-});
 
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     console.log('DOM fully loaded and parsed');
-        // });
+        document.addEventListener("DOMContentLoaded", function () {
+            const submitButton = document.getElementById('submitButton');
 
-        // function dragNdrop(event) {
-        //     console.log('File selected for upload:', event.target.files);
-        //     // Other drag and drop related code
-        // }
+            submitButton.addEventListener('click', function(event) {
+                const inputField = document.querySelector('input[name="name"]');
+                const numberField = document.querySelector('input[name="price"]');
+                const categories = document.getElementById('Category');
+                const collections = document.getElementById('Collections');
 
-        // function addSizeQuantityPair() {
-        //     console.log('Add size and quantity pair button clicked');
-        //     // Function to add new size and quantity input fields
-        // }
+                const sureMessage = document.querySelector('.sure');
+
+                if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
+                    event.preventDefault(); // Prevent form submission
+                    sureMessage.innerHTML = "Please fill all required fields.";
+                }
+            });
+        });
+
+        function addSizeQuantityPair() {
+            const container = document.getElementById('sizes-container');
+            const pairDiv = document.createElement('div');
+            pairDiv.className = 'size-quantity-pair';
+            pairDiv.innerHTML = `
+                <select name="sizes[]" class="size-select" required>
+                    <option value="" disabled selected>Size</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
+            `;
+            container.appendChild(pairDiv);
+
+            // Update the count and check if button should be disabled
+            updateAddButtonState();
+        }
+
+        let Count = 0;
+
+        function updateAddButtonState() {
+            Count++;
+            if (Count === 3) {
+                const addButton = document.getElementById('addB');
+                addButton.disabled = true;
+            }
+        }
+
+        // Add event listener to the button
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButton = document.getElementById('addB');
+            addButton.addEventListener('click', addSizeQuantityPair);
+        });
+
     </script>
 </body>
 </html>
