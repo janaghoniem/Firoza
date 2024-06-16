@@ -4,7 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="vewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -50,7 +50,6 @@
             </tr>
           </thead>
           <tbody>
-            <% collections.forEach(collection => { %>
             <tr scope="row" class="active">
               <td>
                 <label class="control control--checkbox">
@@ -58,21 +57,65 @@
                   <!-- <div class="control__indicator"></div> -->
                 </label>
               </td>
-              <td><%= collection._id %></td>
+              <td>
+                1392
+              </td>
               <td class="pl-0">
                 <div class="d-flex align-items-center">
+      
                   <a href="#" class="name">
-                    <span class="editable" contenteditable="false"><%= collection.Collection_Name %></span>
+                    <span class="editable" contenteditable="false">The Indian Collection</span>
                   </a>
+
                 </div>
               </td>
+
               <td>
-                <span class="editable" contenteditable="false"><%= collection.Collection_Description %></span>
+                <span class="editable" contenteditable="false">Web Designer</span>
+                            <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
               </td>
-              <td> <!-- Placeholder date, you can add a date field to your collection model if necessary -->
-                5th of June 2023
-              </td>
+
+              <td>5th of June 2023</td>
+
               <td><button class="edit-btn btn btn-primary">Edit</button></td>
+
+              <td>
+                <label class="custom-control ios-switch">
+                  <input type="checkbox" class="ios-switch-control-input" checked="">
+                  <span class="ios-switch-control-indicator"></span>
+                </label>
+              </td>
+
+            </tr>
+
+            <tr class="active">
+
+              <td>
+                <label class="control control--checkbox">
+                  <!-- <input type="checkbox" />
+                  <div class="control__indicator"></div> -->
+                </label>
+              </td>
+
+              <td>4616</td>
+              <td class="pl-0">
+                <div class="d-flex align-items-center">
+
+
+                  <a href="#" class="name">
+                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
+                  </a>
+
+                </div>
+
+              </td>
+              <td>
+                <span class="editable" contenteditable="false">Web Designer</span>
+                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
+              </td>
+              <td>10 May 2020</td>
+              <td><button class="edit-btn btn btn-primary">Edit</button></td>
+              
               <td>
                 <label class="custom-control ios-switch">
                   <input type="checkbox" class="ios-switch-control-input" checked="">
@@ -80,12 +123,87 @@
                 </label>
               </td>
             </tr>
-            <% }) %>
+
+            <tr>
+              <td>
+                <label class="control control--checkbox">
+                  <!-- <input type="checkbox" />
+                  <div class="control__indicator"></div> -->
+                </label>
+              </td>
+              <td>9841</td>
+              <td class="pl-0">
+                <div class="d-flex align-items-center">
+
+
+                  <a href="#" class="name">
+                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
+                  </a>
+                </div>
+
+              </td>
+              <td>
+                <span class="editable" contenteditable="false">Web Designer</span>
+                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
+              </td>
+              <td>15 Feb 2024</td>
+               <td><button class="edit-btn btn btn-primary">Edit</button></td>
+              <td>
+                <label class="custom-control ios-switch">
+                  <input type="checkbox" class="ios-switch-control-input">
+                  <span class="ios-switch-control-indicator"></span>
+                </label>
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <label class="control control--checkbox">
+                  <!-- <input type="checkbox" />
+                  <div class="control__indicator"></div> -->
+                </label>
+              </td>
+              <td>9548</td>
+
+              <td class="pl-0">
+                <div class="d-flex align-items-center">
+
+
+                  <a href="#" class="name">
+                    <span class="editable" contenteditable="false">The Egyptian Collection</span>
+                  </a>
+                </div>
+
+              </td>
+
+              <td>
+                <span class="editable" contenteditable="false">Web Designer</span>
+                <small class="d-block editable" contenteditable="false">Far far away, behind the word mountains</small>
+              </td>
+              <td>1 july 2023</td>
+              <td><button class="edit-btn btn btn-primary">Edit</button></td>
+              <td>
+                <label class="custom-control ios-switch">
+                  <input type="checkbox" class="ios-switch-control-input">
+                  <span class="ios-switch-control-indicator"></span>
+                </label>
+              </td>
+            </tr>
+
+           
+            
+
           </tbody>
         </table>
       </div>
+
+
     </div>
+
   </div>
+
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <!-- <script src="js/popper.min.js"></script> -->

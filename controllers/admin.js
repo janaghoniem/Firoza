@@ -71,8 +71,8 @@ const addCollection = async (req, res) => {
 // };
 const getCollections = async (req, res) => {
     try {
-        const collections = await Collection.find({});
-        res.render('EditLayout', { collections });
+        const C = await collections.find({});
+        res.render('EditLayout', { C });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
