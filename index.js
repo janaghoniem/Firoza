@@ -7,7 +7,7 @@ const Order = require('./models/Orders');
 const fs = require('fs');
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
-
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
@@ -45,6 +45,11 @@ app.get('/', (req, res) => {
 });
 
 // Shahd's part
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(AdminRouter());
+
 app.get('/admin', (req, res) => {
     res.render("main.ejs");
 });
@@ -133,11 +138,7 @@ app.get('/add-product', (req, res) => {
 });
 
 
-// app.post("".function(req,res){
-//     let newColl=new collection({
 
-//     })
-// })
 //hala -> order
 
 

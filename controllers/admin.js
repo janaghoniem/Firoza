@@ -41,7 +41,8 @@ const addCollection = async (req, res) => {
 
         // Hash the password before saving
         // const hashedPassword = await bcrypt.hash(password, 10);
-
+        console.log(CollectionName);
+        console.log(CollectionName);
         const newCollection = new collections ({
             Collection_Name: CollectionName,
             Collection_Description:CollectionDescription,

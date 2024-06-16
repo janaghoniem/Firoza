@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitButton = document.getElementById('submitButton');
     const sureMessage = document.querySelector('.sure');
 
-    submitButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent form submission by default
+      submitButton.addEventListener('click', function(event) {
+       // event.preventDefault(); // Prevent form submission by default
 
         // Check if any of the required fields are empty
         const inputField = document.querySelector('input[type=text]');
@@ -28,7 +28,36 @@ document.addEventListener("DOMContentLoaded", function () {
             sureMessage.innerHTML = "This form will not submit as all fields are mandatory";
         } else {
             // If all fields are filled, submit the form
-            document.querySelector('form').submit();
+            const formData = {
+                CollectionName: inputField.value,
+                CollectionDescription: textareaField.value,
+                // Add other necessary data if needed
+            };
+
+            fetch('/AddCollection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    sureMessage.innerHTML = data.message;
+                }
+                // Handle success or error messages
+                if (data.error) {
+                    sureMessage.innerHTML = data.error;
+                } else {
+                    // Redirect or update UI on success
+                    sureMessage.innerHTML = 'Collection added successfully';
+                    // Optionally redirect or update the page
+                }
+            })
+            .catch(error => {
+                sureMessage.innerHTML = `Error: ${error.message}`;
+            });
         }
     });
 
