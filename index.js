@@ -122,7 +122,11 @@ app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
 
-app.use('/', Product);
+// app.use('/', Product);
+
+app.use((req, res) => {
+    res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+
+.main {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.main h1 {
+    font-family: "Libre Caslon Text", serif;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
