@@ -78,11 +78,16 @@ const getCollections = async (req, res) => {
     }
 };
 
-//delete collection
+// Function to delete a collection
 const deleteCollection = async (req, res) => {
     try {
         const { id } = req.params;
-        await collections.findByIdAndDelete(id);
+        const deletedCollection = await collections.findByIdAndDelete(id);
+
+        if (!deletedCollection) {
+            return res.status(404).json({ error: 'Collection not found' });
+        }
+
         res.status(200).json({ message: 'Collection deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
