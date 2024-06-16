@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account</title>
+    <link rel="stylesheet" href="/CSS/nav-bar-white.css">
+    
+    <link rel="stylesheet" href="/CSS/Footer.css">
+    <script src="/Javascript/nav-bar.js"></script>
+    <link rel="stylesheet" href="/CSS/myAccount.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+
+<%- include('./partials/Nav-bar.ejs') %>
+<body>
+    
+
+    
+        <div class="wrapper">
+        <div class="account-container">
+            <h2>MY ACCOUNT</h2>
+            <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p>
+            <section class="personal-info">
+                <h3>YOUR PERSONAL INFORMATION <a href="#">Edit</a></h3>
+                <p>First Name: Hala</p>
+                <p>Last Name: Elaby</p>
+                <p>Email Address: halaelaby@gmail.com</p>
+                <p>Phone:</p>
+            </section>
+            <section class="password-info">
+                <h3>PASSWORD <a href="#">Edit</a></h3>
+                <p>Password</p>
+            </section>
+            <section class="order-history">
+                <h3>ORDER HISTORY</h3>
+                <p>This list is empty.</p>
+            </section>
+            <section class="wishlist">
+                <h3>WISHLIST</h3>
+                <p>This list is empty.</p>
+            </section>
+        </div>
+    </div>
+   
+    <%- include('./partials/footer.ejs') %>
+
+</body>
+</html>

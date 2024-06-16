@@ -1,0 +1,44 @@
+
+ body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+   
+    height: 100vh;
+    width:100vw;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+
+.account-container {
+    margin-top:10%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.account-container h2 {
+    text-align: center;
+}
+
+.account-container section {
+    margin: 20px 0;
+}
+
+.account-container h3 {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
