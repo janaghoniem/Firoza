@@ -1,35 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById('container');
-    const registerBtn = document.getElementById('register');
+    // const registerBtn = document.getElementById('register');
     const loginBtn = document.getElementById('login');
 
-    registerBtn.addEventListener('click', () => {
-        container.classList.add("active");
-    });
+    // registerBtn.addEventListener('click', () => {
+    //     container.classList.add("active");
+    // });
 
     loginBtn.addEventListener('click', () => {
         container.classList.remove("active");
     });
 
-   
+
 
     const submitButton = document.getElementById('submitButton');
     const sureMessage = document.querySelector('.sure');
 
-    submitButton.addEventListener('click', function(event) {
+    submitButton.addEventListener('click', function (event) {
         event.preventDefault(); // Prevent form submission by default
 
         // Check if any of the required fields are empty
         const inputField = document.querySelector('input[type=text]');
-    const numberField = document.querySelector('input[type=number]');
-    const uploadFile = document.getElementById('uploadFile');
-    const categories = document.getElementById('Categroy');
-    const collections = document.getElementById('Collections');
+        const numberField = document.querySelector('input[type=number]');
+        const uploadFile = document.getElementById('uploadFile');
+        const categories = document.getElementById('Categroy');
+        const collections = document.getElementById('Collections');
 
-    if (inputField.value === "" || numberField.value === "" || uploadFile.value === "" || categories.value === "" && collections.value === "" ||!fileValidation()) {
+        const isValid = inputField.value !== "" && numberField.value !== "" && uploadFile.value !== "" && categories.value !== "" && collections.value !== "" && fileValidation();
+
+        if (!isValid) {
             sureMessage.innerHTML = "This form will not submit as all fields are mandatory";
         } else {
-            // If all fields are filled, submit the form
+            console.log("form submitted");
             document.querySelector('form').submit();
         }
     });
@@ -62,7 +64,7 @@ function fileValidation() {
         suc.innerHTML = 'Extension file not supported';
         var suc1 = document.querySelector('.s');
         suc1.innerHTML = 'please upload jpg, jpeg or png';
-    }else{
+    } else {
         dragNdrop(event);
     }
 }
@@ -108,10 +110,10 @@ function dragNdrop(event) {
         preview.appendChild(previewImg);
         var pictureValidation = document.querySelector('.picture-validation');
         pictureValidation.innerHTML = 'Picture you uploaded';
-    
+
         var suc = document.querySelector('.successful');
         suc.innerHTML = 'Uploaded successfully';
-    
+
         var suc1 = document.querySelector('.s');
         suc1.innerHTML = 'Click on edit button to view image';
     }

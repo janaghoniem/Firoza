@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 
 // Shahd's part
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(AdminRouter());
 
 app.get('/admin', (req, res) => {

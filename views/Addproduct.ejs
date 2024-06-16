@@ -18,17 +18,17 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form method="post" action="/admin/addProduct">
+            <!-- <form>
                 <h1>Are you sure ?</h1>
                 <span class="sure"></span>
 
                 <button type="submit" id="submitButton">Sure</button>
-            </form>
+            </form> -->
         </div>
         <div class="form-container sign-in">
             <form>
-                <h1>Edit your Creation</h1>
-                <span>fill in the field where you want to see a change</span>
+                <h1>Add product</h1>
+                <span>All fields is a must to fill</span>
                 <input type="text" placeholder="Rename Product" pattern="[A-Za-z\s]+" >
                 <input type="number" placeholder="Change the price" min="1000">
                 <select name="Collections" id="Collections">
@@ -55,8 +55,11 @@
                 </div>
                 <h4 class="successful"></h4>
                 <h6 class="s"></h6>
+                <span class="sure"></span>
+
+                <button type="submit" id="submitButton">Sure</button>
                 <!-- <button>Edit</button> -->
-            </form>
+            
         </div>
         <div class="toggle-container">
             <div class="toggle">
@@ -68,39 +71,11 @@
                     <button class="hidden" id="login">Continue Editing</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <!-- <div class="cards">
-
-                        <div class="card">
-                            <div class="card__image-holder">
-                                <img class="card__image" />
-                                <div id="preview"></div>
-                            </div>
-                            <div class="card-title">
-                                <a href="#" class="toggle-info btn">
-                                    <span class="left"></span>
-                                    <span class="right"></span>
-                                </a>
-                                <h2>
-                                    Product Name
-                                    <small>Collection:</small>
-                                    <small>price:</small>
-                                </h2>
-                            </div>
-                            <div class="card-flap flap1">
-                                <div class="card-description">
-                                    This is where product description will be displayed, added and edited by the admin
-                                </div>
-                                <div class="card-flap flap2">
-                                    <div class="card-actions">
-                                        <a href="#" class="btn">Save</a>
-                                        <a href="#" class="btn">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <button class="hidden" id="register" onclick=" checkConditions()">Edit</button>
+                    
+                    <!-- <button class="hidden" id="register" onclick=" checkConditions()"></button> -->
+               
                 </div>
+                </form>
             </div>
         </div>
     </div>
