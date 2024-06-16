@@ -83,9 +83,16 @@
         </form>
     </div>
     <script>
-        function viewImage(imageUrl) {
-            const imagePreview = document.getElementById('imagePreview');
-            imagePreview.innerHTML = `<img src="${imageUrl}" alt="Product Image" style="max-width: 100%; height: auto;">`;
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.innerHTML = `<img src="${event.target.result}" alt="Preview Image" style="max-width: 100%; height: auto;">`;
+            }
+
+            reader.readAsDataURL(file);
         }
 
         document.addEventListener("DOMContentLoaded", function () {

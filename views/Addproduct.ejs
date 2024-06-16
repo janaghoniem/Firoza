@@ -45,8 +45,10 @@
                     <strong>OR</strong>
                     <span class="dragBox">
                         Drag and Drop image here
-                        <input type="file" name="img" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile" required />
+                        <input type="file" name="img" id="uploadFile" accept="image/*" onchange="previewImage(event)" />
                     </span>
+                    <!-- Image preview -->
+                    <div id="imagePreview" class="image-preview"></div>
                 </div>
                 <h4 class="successful"></h4>
                 <h6 class="s"></h6>
@@ -156,7 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('addButton');
     addButton.addEventListener('click', addSizeQuantityPair);
 });
+function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
 
+            reader.onload = function(event) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.innerHTML = `<img src="${event.target.result}" alt="Preview Image" style="max-width: 100%; height: auto;">`;
+            }
+
+            reader.readAsDataURL(file);
+        }
     </script>
 </body>
 
