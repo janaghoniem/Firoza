@@ -13,10 +13,6 @@ const sizeQuantitySchema = new Schema({
 }, { _id: false });
 
 const productSchema = new Schema({
-    product_id: {
-        type: String,
-        required: true
-    },
     collection_id: {
         type: String,
         required: true
