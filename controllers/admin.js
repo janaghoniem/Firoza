@@ -329,7 +329,7 @@ const editProduct = async (req, res) => {
     }
 };
 
-con
+
 module.exports = {
     addAdmin,
     addCollection,
