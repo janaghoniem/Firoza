@@ -11,4 +11,7 @@ router.post('/signup', User.AddUser);
 // Handle POST request for checkAddress
 router.post('/checkAddress', User.checkAddress);
 
+// Handle POST request for search
+router.post('/search', User.Search);
+
 module.exports = router;
