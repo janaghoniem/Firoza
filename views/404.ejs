@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/nav-bar-white.css">
+    <!-- <link rel="stylesheet" href="/CSS/nav-bar-white.css"> -->
+    <link rel="stylesheet" href="/CSS/404.css">
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="/Javascript/nav-bar.js"></script>
+    <!-- <script src="/Javascript/nav-bar.js"></script> -->
     <title>Landing Page</title>
 </head>
 <body>
-    <%- include('./partials/Nav-bar.ejs') %>
-
     <section class="main" id="main">
 
-        <h1>4<i class="fa-regular fa-gem"></i>4 - Page Not Found</h1>
-        
-    </section>
+        <h1>4<img src="/images/Landing/exp/ring_86389.png" alt="">4 - Page Not Found</h1>
+        <h2>Looks like this page doesn't exist</h2>
+        <h3>Go back to home and continue exploring</h3>
+        <button class="button">Return to Home Page</button>
 
+    </section>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

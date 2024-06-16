@@ -1,14 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+
 
 .main {
-    display: block;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    padding: 70px;
 }
 
-.main h1 {
-    font-family: "Libre Caslon Text", serif;
+.main h1, h2, h3 {
+    font-family: 'futura pt',"Libre Caslon Text", serif;
     font-weight: 600;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.main h1 {
+    font-size: 100px;
+}
+
+.main h2 {
+    font-size: 50px;
+}
+
+.main h3 {
+    font-size: 30px;
+}
+
+.main h1, .fa-gem {
+    text-align: center;
+}
+
+.fa-gem {
+    font-size: 100px;
+}
+
+.main img {
+    width: 80px;
+    height: 80px;
+}
+
+.button {
+    border: .0625rem solid #000000;
+    background-color: transparent;
+    color: #000000;
+    font-family: futura-pt, sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .0625rem;
+    line-height: 1.625rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .75rem 1.875rem;
+    text-transform: uppercase;
+    transition: background-color ease-in-out .2s;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+.button:hover {
+    border: .0625rem solid #ffffff;
+    background-color: black;
+    color: #ffffff;
 }
