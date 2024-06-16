@@ -35,6 +35,7 @@ function addToCart(){
 
    
 }
+
 function addToWishlist(){
     var popup = document.createElement("div");
     popup.classList.add("popupMessage");
