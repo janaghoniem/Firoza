@@ -18,7 +18,7 @@
     <div class="container" id="container">
         <div class="form-container sign-up"></div>
         <div class="form-container sign-in">
-            <form action="/admin/addProduct" method="POST" >
+            <form action="/admin/addProduct" method="POST">
                 <h1>Add product</h1>
                 <span>All fields is a must to fill</span>
                 <input type="text" name="product_id" placeholder="Product ID" required>
@@ -26,6 +26,8 @@
                 <input type="number" name="price" placeholder="Price" min="1000" required>
                 <select name="collection_id" id="Collections" required>
                     <option value="" disabled selected>Belongs to</option>
+                    <option value="1">None</option>
+
                     <option value="1">Collection 1</option>
                     <option value="2">Collection 2</option>
                     <option value="3">Collection 3</option>
@@ -36,6 +38,8 @@
                     <option value="Ring">Ring</option>
                     <option value="Necklace">Necklace</option>
                     <option value="Earrings">Earrings</option>
+                    <option value="Earrings">Bracelet</option>
+
                 </select>
                 <div class="uploadOuter">
                     <label for="uploadFile" class="btn btn-primary">Upload Image</label>
@@ -59,24 +63,61 @@
                 </div>
                 <div class="toggle-panel toggle-right">
                     <input type="text" name="description" placeholder="Product Description" pattern="[A-Za-z\s]+" required>
-                    <select name="size" id="Sizes">
-                        <option value="" disabled selected>Size</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
+                    <div id="sizes-container">
+                        <div class="size-quantity-pair">
+                            <select name="sizes[]" class="size-select" required>
+                                <option value="" disabled selected>Size</option>
+                                <option value="9">adjustable</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addSizeQuantityPair()">Add Size</button>
+                    <select name="material" id="Material" required>
+                        <option value="" disabled selected>Material</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Platinum">Platinum</option>
+                        <option value="Titanium">Titanium</option>
                     </select>
-                    <input type="number" name="quantity" placeholder="Quantity" min="1" required>
-                    <input type="text" name="material" placeholder="Material" required>
-                    <input type="text" name="color" placeholder="Color" required>
-                    <input type="number" name="rating" placeholder="Rating" min="0" max="5">
-                    <input type="number" name="no_sales" placeholder="Number of Sales" min="0">
+                    <select name="color" id="Color" required>
+                        <option value="" disabled selected>Color</option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Green">Green</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                    </select>
                     <button type="submit" id="submitButton">Save</button>
                 </div>
             </div>
             </form>
         </div>
     </div>
+
+    <script>
+        function addSizeQuantityPair() {
+            const container = document.getElementById('sizes-container');
+            const pairDiv = document.createElement('div');
+            pairDiv.className = 'size-quantity-pair';
+            pairDiv.innerHTML = `
+                <select name="sizes[]" class="size-select" required>
+                    <option value="" disabled selected>Size</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
+            `;
+            container.appendChild(pairDiv);
+        }
+    </script>
 </body>
 
 </html>

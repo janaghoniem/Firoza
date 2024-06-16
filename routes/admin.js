@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const router = express.Router();
 const adminController = require('../controllers/admin');
-
+const Product = require('../models/product'); 
 // check if admin
 // router.use((req, res, next) => {
 //     if (req.session.user !== undefined && req.session.user.isAdmin) {
@@ -23,11 +23,20 @@ router.post('/addCollection', adminController.addCollection);
 //Route to edit collection
 
 router.get('/users', adminController.GetAllUsers);
-
+//route to add a product
 router.post('/addProduct', adminController.addProduct);
 
 router.post('/collections', adminController.getAllCollections);
 
+router.get('/indian', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('indian', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
 
 
 module.exports = router;

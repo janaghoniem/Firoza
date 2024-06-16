@@ -127,137 +127,26 @@
         </label>
     </div>
     <div class="row">
-        <div class="col">
+        <% products.forEach(product => { %>
+          <div class="col">
             <div class="product-grid">
-                <div class="product-image">
-                    <a href="#" class="image">
-                        <img class="img-1" src="/images/Indian/New folder/355657603_1338912980303579_8864011709539681375_n.jpg">
-                        <!-- <img class="img-2" src="/images/Indian/img22.jpeg"> -->
-                         <video class="img-2" src="/images/Indian/New folder/An8wdpt52JK_qcj2tp-p4y8trM8vUJL-PzaWgVFIUEf4vE-boClatvZpn2hy3cJNBrxeEQkpvW34fKIPpZmjBNM.mp4" autoplay muted loop></video>
-                    </a>
-                    <ul class="product-links">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product-content">
-                    <ul class="rating">
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star disable"></li>
-                        <li class="disable">(1 reviews)</li>
-                    </ul>
-                    <h3 class="title"><a href="#">Earring</a></h3>
-                    <div class="price">50,000</div>
-                </div>
+              <div class="product-image">
+                <a href="#" class="image">
+                  <img class="img-1" src="<%= product.img %>"> <!-- Assuming 'img' is the field in your Product model storing image URLs -->
+                </a>
+                <ul class="product-links">
+                  <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                  <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+              </div>
+              <div class="product-content">
+                <!-- Display other product details -->
+                <h3 class="title"><a href="#"><%= product.name %></a></h3>
+                <div class="price"><%= product.price %></div>
+              </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="product-grid">
-                <div class="product-image">
-                    <a href="#" class="image">
-                        <img class="img-1" src="/images/Indian/New folder/355145277_236755832462605_1166877337269483449_n.jpg">
-                        <img class="img-2" src="/images/Indian/New folder/355232505_992434905422191_1494971363482126230_n.jpg">
-                    </a>
-                    <ul class="product-links">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product-content">
-                    <ul class="rating">
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star disable"></li>
-                        <li class="disable">(1 reviews)</li>
-                    </ul>
-                    <h3 class="title"><a href="#">Earring</a></h3>
-                    <div class="price">50,000</div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="product-grid">
-                <div class="product-image">
-                    <a href="#" class="image">
-                        <img class="img-1" src="/images/Indian/img44.jpeg">
-                        <img class="img-2" src="/images/Indian/img4.jpeg">
-                    </a>
-                    <ul class="product-links">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product-content">
-                    <ul class="rating">
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star disable"></li>
-                        <li class="disable">(1 reviews)</li>
-                    </ul>
-                    <h3 class="title"><a href="#">Earring</a></h3>
-                    <div class="price">50,000</div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="product-grid">
-                <div class="product-image">
-                    <a href="#" class="image">
-                        <img class="img-1" src="/images/Indian/New folder/412060436_391670879959835_1314156825011335646_n.jpg">
-                        <img class="img-2" src="/images/Indian/New folder/412052709_885021703122831_9118338294530884027_n.jpg">
-                    </a>
-                    <ul class="product-links">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product-content">
-                    <ul class="rating">
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star disable"></li>
-                        <li class="disable">(1 reviews)</li>
-                    </ul>
-                    <h3 class="title"><a href="#">Earring</a></h3>
-                    <div class="price">50,000</div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="product-grid">
-                <div class="product-image">
-                    <a href="#" class="image">
-                        <img class="img-1" src="/images/Indian/New folder/425523317_1136253160866498_1195497039618306294_n.jpg">
-                        <img class="img-2" src="/images/Indian/New folder/425495140_1456006305337655_471403818726823819_n.jpg">
-                    </a>
-                    <ul class="product-links">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product-content">
-                    <ul class="rating">
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star"></li>
-                        <li class="fas fa-star disable"></li>
-                        <li class="disable">(1 reviews)</li>
-                    </ul>
-                    <h3 class="title"><a href="#">Earring</a></h3>
-                    <div class="price">50,000</div>
-                </div>
-            </div>
-        </div>
-    </div>
+          </div>
+        <% }); %>
+      </div>
 </body>
 </html>

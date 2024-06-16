@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Product = require('./models/product'); 
 const Order = require('./models/Orders'); 
+const collectiona = require('./models/Collections'); 
 const fs = require('fs');
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
@@ -13,7 +14,6 @@ const app = express();
 const port = 3000;
 
 const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
-// const passwordAdmin = 'firoza123';
 
 mongoose.connect(dbURI).then((result) => {
     console.log('connected to database!');
@@ -24,12 +24,10 @@ mongoose.connect(dbURI).then((result) => {
 app.use(session({ secret: 'Your_Secret_Key',  resave: false, 
   saveUninitialized: false  }));
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
 app.use('/admin',AdminRouter);
-
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -44,12 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.render('Landing-page');
 });
-
-// Shahd's part
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(AdminRouter());
 
 app.get('/admin', (req, res) => {
     res.render("main.ejs");
@@ -89,18 +81,12 @@ app.get('/EditLayout', (req, res) => {
 
 app.get('/EditLayout', async (req, res) => {
     try {
-        const collections = await Collection.find();
-        res.render('layout', { collections });
+        const collections = await collectiona.find({});
+        res.status(500).json(collections);
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).json({messege: err.messege});
     }
 });
-
-// app.get('/layout', (req, res) => {
-//     res.render("EditLayout.ejs");
-// });
-
-// End of Shahd's part 
 
 app.get('/Users', (req, res) => {
     res.render("Users.ejs");
@@ -110,8 +96,14 @@ app.get('/stores', (req, res) => {
     res.render("stores.ejs");
 });
 
-app.get('/indian', (req, res) => {
-    res.render('indian');
+app.get('/indian', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('indian', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
 });
 
 app.get('/shoppingcart', (req, res) => {
@@ -130,37 +122,8 @@ app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
 
-// MongoDB
-// app.get('/add-product', (req, res) => {
-//     const product = new Product({
-//         product_id: 'unique-id',  
-//         collection_id: 'collection-id',  
-//         name: 'new product',
-//         description: 'product description',
-//         category: 'category',
-//         price: 100,  
-//         img: 'image-url-or-path',  
-//         no_pieces: 10,  
-//         rating: 4.5,  
-//         material: 'material description',
-//         color: 'color description',
-//         no_sales: 0  
-//     });
-//     product.save()
-//         .then((result) => {
-//             res.send(result);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//         });
-// });
+app.use('/', Product);
 
-
-
-//hala -> order
-
-
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
