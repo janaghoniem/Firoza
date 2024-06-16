@@ -206,7 +206,7 @@ const addProduct = async (req, res) => {
             category,
             price,
             img,
-            sizes: sizeQuantityPairs, // Store size-quantity pairs
+            sizes: sizeQuantityPairs, 
             rating: rating || 0,
             material,
             color,
@@ -249,6 +249,71 @@ const getOrders = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find({});
+        res.render('Admin-products', { products });
+    } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).send('Server error');
+    }
+};
+const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.status(200).json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+// const editProduct = async (req, res) => {
+//     try {
+//         const { product_id, name, price, collection_id, category, description, sizes, quantities, material, color } = req.body;
+
+//         if (!product_id || !name || !price || !collection_id || !category || !description || !sizes || !quantities || !material || !color) {
+//             return res.status(400).json({ message: 'All fields are required' });
+//         }
+
+//         if (sizes.length !== quantities.length) {
+//             return res.status(400).json({ message: 'Sizes and quantities must match' });
+//         }
+
+//         const sizeQuantityPairs = sizes.map((size, index) => ({
+//             size,
+//             quantity: quantities[index]
+//         }));
+
+//         const updatedProduct = await Product.findByIdAndUpdate(product_id, {
+//             name,
+//             price,
+//             collection_id,
+//             category,
+//             description,
+//             sizes: sizeQuantityPairs,
+//             material,
+//             color
+//         }, { new: true });
+
+//         if (!updatedProduct) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+
+//         res.status(200).json({ message: 'Product updated successfully', data: updatedProduct });
+//     } catch (error) {
+//         console.error('Error updating product:', error);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// };
+
+
 module.exports = {
     addAdmin,
     addCollection,
@@ -257,8 +322,10 @@ module.exports = {
     getCollections,
     deleteCollection,
     GetAllUsers,
-    getOrders
-    
+    getOrders,
+    getProducts,
+    deleteProduct,
+// editProduct 
 };
 
 //function to get orders
