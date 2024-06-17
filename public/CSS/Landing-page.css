@@ -78,6 +78,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    margin-top: 120px;
 }
 
 .best-sellers-multiple-card-slide {
@@ -311,7 +312,7 @@
 }
 
 .egyptian-collection {
-    margin-top: 160px;
+    margin-top: 205px;
 }
 
 .collection {
@@ -328,7 +329,7 @@
 }
 
 .indian-collection img {
-    margin-top: -15px;
+    margin-top: -27px;
 }
 
 .collection-text {

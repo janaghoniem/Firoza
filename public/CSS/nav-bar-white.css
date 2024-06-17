@@ -680,7 +680,7 @@ header #search-button, #search-button2{
 .login-message-popup{
     position: fixed;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     bottom: 0;
     right: 0;
     width: 350px;
