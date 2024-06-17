@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-   // Select all increment and decrement buttons
    const incrementButtons = document.querySelectorAll('.increment');
    const decrementButtons = document.querySelectorAll('.decrement');
    const removeButtons = document.querySelectorAll('.remove-item');
@@ -7,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
    const itemsCountElement = document.querySelector('.items-count');
    const shippingSelect = document.getElementById('shipping');
 
-   // Attach click event listeners to each increment button
    incrementButtons.forEach(button => {
        button.addEventListener('click', function() {
            const item = this.dataset.item;
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
        });
    });
 
-   // Attach click event listeners to each decrement button
    decrementButtons.forEach(button => {
        button.addEventListener('click', function() {
            const item = this.dataset.item;
@@ -35,19 +32,38 @@ document.addEventListener('DOMContentLoaded', function() {
        });
    });
 
-   // Attach click event listeners to each remove button
    removeButtons.forEach(button => {
-       button.addEventListener('click', function() {
-           const itemRow = this.closest('.item-row');
-           itemRow.remove();
-           updateTotalPrice();
-       });
-   });
+      button.addEventListener('click', function() {
+          const itemId = this.closest('.item-row').dataset.item;
+          removeCartItem(itemId);
+      });
+  });
 
-   // Attach change event listener to the shipping select
+   async function removeCartItem(itemId) {
+      try {
+          const response = await fetch(`/user/remove-from-cart/${itemId}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+
+          if (response.ok) {
+              // Item removed successfully from backend, now update frontend
+              const itemRow = document.querySelector(`.item-row[data-item="${itemId}"]`);
+              itemRow.remove();
+              updateTotalPrice();
+            } else {
+               alert(response.body)
+               alert('Failed to remove item from cart' + response.statusText);
+            }
+      } catch (error) {
+          console.error('Error removing item from cart:', error);
+      }
+  }
+
    shippingSelect.addEventListener('change', updateTotalPrice);
 
-   // Function to update total price
    function updateTotalPrice() {
        let totalPrice = 0;
        let itemsCount = 0;
@@ -62,10 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
            itemsCount += quantity;
        });
 
-       // Update the total price and items count in the summary section
-       totalPriceElements.forEach(element => {
-           element.textContent = `EGP ${totalPrice + shippingCost}`;
-       });
+       totalPriceElements[0] = totalPriceElements[0].textContent = `EGP ${totalPrice}`;
+       totalPriceElements[1] = totalPriceElements[1].textContent = `EGP ${totalPrice + shippingCost}`;
        itemsCountElement.textContent = `${itemsCount} ITEMS`;
    }
 });

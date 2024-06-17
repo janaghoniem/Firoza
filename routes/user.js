@@ -20,6 +20,9 @@ router.post('/add-to-cart', User.AddToCart)
 // Handle POST request for cart
 router.post('/ShoppingCart', User.Cart);
 
+// Route to remove an item from the cart
+router.delete('/remove-from-cart/:productId', User.removeFromCart);
+
 router.get('/users/:id', User.getUserById);
 
 module.exports = router;

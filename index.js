@@ -110,7 +110,6 @@ app.get('/indian', async (req, res) => {
 });
 
 app.get('/ShoppingCart', async(req, res) => {
-    console.log('beyed5ol?');
     if (!req.session.user) {
         console.log('no session')
         // return res.redirect('/login'); // Redirect to login if the user is not logged in
@@ -118,8 +117,6 @@ app.get('/ShoppingCart', async(req, res) => {
 
     try {
         const user = await User.findById(req.session.user._id).populate('cart.productId');
-        console.log('user fetched.')
-        console.log(user)
         if (!user) {
             return res.status(404).send('User not found');
         }

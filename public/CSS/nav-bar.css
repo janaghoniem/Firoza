@@ -704,6 +704,7 @@ header:hover #search-button, #search-button2{
     padding: 12px 30px;
     background-color: black;
     color: white;
+    cursor: pointer;
 }
 
 .input-error {

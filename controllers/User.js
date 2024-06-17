@@ -158,7 +158,12 @@ const AddToCart = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        const existingCartItem = user.cart.find(item => item.productId === productId);
+        const existingCartItem = user.cart.find(item => {
+            if (item.productId) {
+                return item.productId.toString() === productId.toString();
+            }
+            return false;
+        });
         if (existingCartItem) {
             existingCartItem.quantity += 1;
             existingCartItem.price = price;
@@ -179,14 +184,13 @@ const AddToCart = async (req, res) => {
 }
 
 const Cart = async(req, res) => {
-    console.log('beyed5ol?');
     if (!req.session.user) {
-        return res.redirect('/login'); // Redirect to login if the user is not logged in
+        console.log('no session');
+        // return res.redirect('/login'); // Redirect to login if the user is not logged in
     }
 
     try {
         const user = await User.findById(req.session.user._id).populate('cart.productId');
-        console.log(user)
 
         if (!user) {
             return res.status(404).send('User not found');
@@ -201,6 +205,35 @@ const Cart = async(req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+
+const removeFromCart = async (req, res) => {
+    console.log('da5al el remove from cart');
+    const productId = req.params.productId;
+
+    if (!req.session.user) {
+        console.log('no user session');
+        return res.status(401).send('User not logged in');
+    }
+
+    try {
+        const user = await User.findById(req.session.user._id);
+
+        // Remove the item from the user's cart
+        user.cart = user.cart.filter(async item => { if (item.productId) {
+            const product = await Product.findById(item.productId)._id;
+            console.log('removing cart items')
+            if(product) {
+                return product.toString() !== productId.toString();
+            }
+        }});
+        await user.save();
+
+        res.status(200).json({ message: 'Product removed from cart successfully' });
+    } catch (error) {
+        console.error('Error removing from cart:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 //get use4r  by id
 const getUserById = async (req, res) => {
@@ -222,6 +255,7 @@ module.exports = {
     checkAddress,
     Search,
     AddToCart,
-    getUserById,
-    Cart
+    Cart, 
+    removeFromCart,
+    getUserById
 };
