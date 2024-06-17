@@ -15,112 +15,161 @@
     <script src="/Javascript/indian.js"></script>
     <script>
         async function addToCart(productId, price) {
-            alert(productId);
-            alert(price);
-        try {
-            const response = await fetch('/user/add-to-cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ productId, price })
-            });
-    
-            if (response.ok) {
-                const result = await response.json();
-                alert('Product added to cart successfully!');
-            } else {
-                alert("response not okay")
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Failed to add product to cart');
+                }
+
+            } catch (error) {
+                alert('Error:', error);
                 alert('Failed to add product to cart');
             }
-    
-        } catch (error) {
-            alert('Error:', error);
-            alert('Failed to add product to cart');
         }
-    }
 
-    function gatherFilters() {
-        const filters = {
-            categories: [],
-            colors: [],
-            priceRange: document.getElementById('priceRange').value,
-            materials: []
-        };
+        function gatherFilters() {
+            const filters = {
+                categories: [],
+                colors: [],
+                priceRange: document.getElementById('priceRange').value,
+                materials: []
+            };
 
-        // Gather category filters
-        document.querySelectorAll('#category-dropdown input[type="checkbox"]:checked').forEach(cb => {
-            filters.categories.push(cb.parentElement.textContent.trim());
-        });
+            // Gather category filters
+            document.querySelectorAll('#category-dropdown input[type="checkbox"]').forEach(cb => {
+                if (cb.checked) {
+                    filters.categories.push(cb.parentElement.textContent.trim());
+                }
+            });
 
-        // Gather color filters
-        document.querySelectorAll('#color-dropdown input[type="checkbox"]:checked').forEach(cb => {
-            filters.colors.push(cb.parentElement.textContent.trim());
-        });
+            // Gather color filters
+            document.querySelectorAll('#color-dropdown input[type="checkbox"]').forEach(cb => {
+                if (cb.checked) {
+                    filters.colors.push(cb.parentElement.textContent.trim());
+                }
+            });
 
-        // Gather material filters
-        document.querySelectorAll('#material-dropdown input[type="checkbox"]:checked').forEach(cb => {
-            filters.materials.push(cb.parentElement.textContent.trim());
-        });
+            // Gather material filters
+            document.querySelectorAll('#material-dropdown input[type="checkbox"]').forEach(cb => {
+                if (cb.checked) {
+                    filters.materials.push(cb.parentElement.textContent.trim());
+                }
+            });
 
-        return filters;
-    }
-
-    async function applyFilters() {
-    const filters = gatherFilters();
-    console.log("Applying filters:", filters); // Debugging information
-
-    try {
-        const response = await fetch('/user/filter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(filters)
-        });
-        console.log('dakhal hena?')
-        if (response.ok) {
-            const products = await response.json();
-            console.log("Filtered products received:", products); // Debugging information
-            updateProductList(products);
-        } else {
-            console.log("Applying filters:", filters); // Debugging information
-
-            alert('Failed to apply filtersSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+            return filters;
         }
-    } catch (error) {
-        console.error('Error:', error); // More detailed error logging
-        alert('Error:', error);
-    }
-}
 
-    function updateProductList(products) {
-        const productContainer = document.querySelector('.row');
-        productContainer.innerHTML = '';
+        function checkIfFiltersApplied(filters) {
+            const isApplied = filters.categories.length > 0 || filters.colors.length > 0 || filters.materials.length > 0 || filters.priceRange != document.getElementById('priceRange').max;
+            const clearBtn = document.getElementById('clear-filters-btn');
+            clearBtn.style.display = isApplied ? 'block' : 'none';
+        }
 
-        products.forEach(product => {
-            const productHtml = `
-                <div class="col">
-                    <div class="product-grid">
-                        <div class="product-image">
-                            <a href="#" class="image">
-                                <img class="img-1" src="/images/Indian/Newfolder/${product.img}">
-                            </a>
-                            <ul class="product-links">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"><a href="#">${product.name}</a></h3>
-                            <div class="price">${product.price}</div>
+        async function applyFilters() {
+            const filters = gatherFilters();
+            checkIfFiltersApplied(filters);
+
+            try {
+                const response = await fetch('/user/filter', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(filters)
+                });
+
+                if (response.ok) {
+                    const products = await response.json();
+                    updateProductList(products);
+                } else {
+                    alert('Failed to apply filters');
+                }
+            } catch (error) {
+                console.error('Error:', error); // More detailed error logging
+                alert('Error:', error);
+            }
+        }
+
+        async function fetchDefaultProducts() {
+            try {
+                const response = await fetch('/user/filter', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                if (response.ok) {
+                    const products = await response.json();
+                    updateProductList(products);
+                } else {
+                    alert('Failed to fetch products');
+                }
+            } catch (error) {
+                console.error('Error:', error); // More detailed error logging
+                alert('Error:', error);
+            }
+        }
+
+        function clearFilters() {
+            // Reset checkboxes
+            document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(cb => cb.checked = false);
+            // Reset price range
+            document.getElementById('priceRange').value = document.getElementById('priceRange').max;
+            // Update the displayed price range
+            updatePrice(document.getElementById('priceRange').value);
+            // Hide the clear filters button
+            document.getElementById('clear-filters-btn').style.display = 'none';
+
+            // Fetch the default product list
+            fetchDefaultProducts();
+        }
+
+        function updatePrice(value) {
+            document.getElementById('priceValue').textContent = `$0 - $${value}`;
+        }
+
+        function updateProductList(products) {
+            const productContainer = document.querySelector('.row');
+            productContainer.innerHTML = '';
+
+            products.forEach(product => {
+                const productHtml = `
+                    <div class="col">
+                        <div class="product-grid">
+                            <div class="product-image">
+                                <a href="#" class="image">
+                                    <img class="img-1" src="/images/Indian/Newfolder/${product.img}">
+                                </a>
+                                <ul class="product-links">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">${product.name}</a></h3>
+                                <div class="price">${product.price}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            productContainer.innerHTML += productHtml;
-        });
-    }
+                `;
+                productContainer.innerHTML += productHtml;
+            });
+        }
+
+        // Call fetchDefaultProducts when the page loads
+        window.onload = fetchDefaultProducts;
     </script>
 </head>
 <body>
@@ -170,6 +219,7 @@
             <p>Material</p>
             <i class="fa-solid fa-chevron-down"></i>
         </span>
+        <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
     </div>
 
     <!-- Dropdown content -->
@@ -241,7 +291,7 @@
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">gold
+        <label class="containerr" style="font-size: 12px;">Gold
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
