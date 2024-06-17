@@ -686,7 +686,7 @@ header #search-button, #search-button2{
     width: 350px;
     display: none;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.548); /* Semi-transparent background for popup */
+    background-color: rgba(0, 0, 0, 0.258); /* Semi-transparent background for popup */
     backdrop-filter: blur(5px); /* Blur effect for background */
     padding: 20px;
     margin: 20px;

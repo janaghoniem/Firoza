@@ -258,6 +258,7 @@ const getProducts = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
@@ -265,6 +266,13 @@ const deleteProduct = async (req, res) => {
 
         if (!deletedProduct) {
             return res.status(404).json({ error: 'Product not found' });
+        }
+
+        const users = await User.find({ 'cart.productId': id });
+
+        for (const user of users) {
+            user.cart = user.cart.filter(item => item.productId.toString() !== id.toString());
+            await user.save();
         }
 
         res.status(200).json({ message: 'Product deleted successfully' });
