@@ -155,6 +155,28 @@ const checkLoggedIn = async(req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+const filterProducts = async (req, res) => {
+    console.log("Filters received:", req.body); // Debugging information
+
+    const { categories, colors, priceRange, materials } = req.body;
+    const filters = {};
+
+    if (categories && categories.length) filters.category = { $in: categories };
+    if (colors && colors.length) filters.color = { $in: colors };
+    if (materials && materials.length) filters.material = { $in: materials };
+    if (priceRange) filters.price = { $lte: priceRange };
+
+    console.log("Filters applied:", filters); // Debugging information
+
+    try {
+        const products = await Product.find(filters);
+        console.log("Filtered products:", products); // Debugging information
+        res.status(200).json(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ message: 'Error fetching products', error });
+    }
+};
 
 const Search = async (req, res) => {
     const { query } = req.body;
@@ -272,6 +294,8 @@ const Cart = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+// controllers/productController.js
+
 
 const updateCart = async (req, res) => {
     const { productId, quantity } = req.body;
@@ -499,11 +523,9 @@ module.exports = {
     Cart, 
     updateCart,
     removeFromCart,
-
     getUserById, 
     BillingInformation,
-
-
+    filterProducts,
     getUserOrder
 
 };
