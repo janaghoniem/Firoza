@@ -9,6 +9,7 @@ const fs = require('fs');
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
 const bodyParser = require('body-parser');
+const User = require('./models/User');
 
 const app = express();
 const port = 3000;
@@ -108,8 +109,29 @@ app.get('/indian', async (req, res) => {
     }
 });
 
-app.get('/shoppingcart', (req, res) => {
-    res.render("ShoppingCart.ejs");
+app.get('/ShoppingCart', async(req, res) => {
+    console.log('beyed5ol?');
+    if (!req.session.user) {
+        console.log('no session')
+        // return res.redirect('/login'); // Redirect to login if the user is not logged in
+    }
+
+    try {
+        const user = await User.findById(req.session.user._id).populate('cart.productId');
+        console.log('user fetched.')
+        console.log(user)
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        console.log('rendering')
+        res.render('ShoppingCart', {
+            cart: user.cart,
+            user: user
+        });
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.get('/WishList', (req, res) => {

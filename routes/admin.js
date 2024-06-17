@@ -41,7 +41,7 @@ router.get('/indian', async (req, res) => {
         console.error(err);
         res.status(500).send('Server error');
     }
-});
+}); 
 
 //route ll orders "admin pov"
 router.get('/orders', async (req, res, next) => {

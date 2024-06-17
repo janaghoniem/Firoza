@@ -1,31 +1,27 @@
-*{
-    font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
 
+
+*{
+    font-family:  'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
 }
 
 body{
-    background:#FFF0DF;
+    background-color: #f3f3f3;
     min-height: 100vh;
     vertical-align: middle;
     display: flex;
-    font-family: sans-serif;
+    font-family: 'futura pt', sans-serif;
     font-size: 0.8rem;
     font-weight: bold;
 }
 /*  -----------------header------------------------------------- */
 
 /* --------------------------------------------------------------- */
-body {
-    background-color: #f3f3f3;
-    font-family: 'Arial', sans-serif;
-    
+
+.container{
+    padding-top: 100px;
 }
 
- .container{
-padding-top: 100px;
-
-
- }
 .card {
     border: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -34,19 +30,15 @@ padding-top: 100px;
 }
 
 .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 1.3rem;
 }
 
 .card-body {
     padding: 2rem;
-}
-
-.card-body h5 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .card-body .close {
@@ -88,6 +80,9 @@ padding-top: 100px;
 .form-control {
     text-align: center;
     border-color: #ced4da;
+    font-family: 'futura pt';
+    font-weight: 400;
+    letter-spacing: 0.01rem;
     /* border: none; */
 }
 
@@ -98,13 +93,34 @@ padding-top: 100px;
 }
 
 .btn-dark {
-    background-color: #000;
-    border-color: #000;
-    color: #fff;
+    background: rgba(0, 0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 350px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    /* margin-bottom: 20px;
+    margin-top: -10px; */
 }
 
 .btn-dark:hover {
     color: #fff;
+}
+
+.items-count, .total-price{
+    font-family: 'futura pt';
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 5px;
 }
 
 
@@ -116,21 +132,36 @@ padding-top: 100px;
     border-bottom: 1px solid #ddd;
 }
 
-.item-row img {
-    width: 100%;
-    max-width: 100px;
-    border-radius: 0.5rem;
+.col3 {
+    width: 150px;
+    height: 150px;
 }
 
-.item-info {
+.item-row img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    /* border: 1px solid black; */
+    padding: 0.1rem;
+}
+
+.item-info p, .item-info h6 {
+    font-family: 'futura pt';
+    font-weight: 600;
     flex-grow: 1;
-    padding: 0 1rem;
+    padding: 0 0.1rem;
+}
+
+.item-info h6 {
+    text-transform: uppercase;
 }
 
 .item-price {
-    font-weight: bold;
+    font-family: 'futura pt';
+    font-weight: 500;
     margin-bottom: 0;
-    padding-left: 15px;
+    padding-left: 16px;
 }
 
 .item-actions {
@@ -157,11 +188,29 @@ padding-top: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin: 1.3rem 0;
 }
 
-.shipping-options label {
+.shipping-options label, .shipping-options option, .shipping-options select{
     margin-right: 1rem;
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.summary p {
+    font-family: 'futura pt';
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.d-flex strong {
+    font-family: 'futura pt';
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 18px;
 }
 
 @media(max-width:767px){
@@ -196,14 +245,18 @@ padding-top: 100px;
     padding: 10px 50px;
     text-transform: uppercase;
     text-decoration: none;
-    color:#E47C21;
 
 }
+
 .logo-scrolled {
-    color:#E47C21;
+    color:black;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 35px;
     font-weight: 700;
     white-space: nowrap;
+}
+
+.logo-scrolled:hover {
+    color: #000;
 }

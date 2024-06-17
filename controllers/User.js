@@ -147,42 +147,61 @@ const AddToCart = async (req, res) => {
     const { productId, price } = req.body;
 
     if (!req.session.user) {
-        return res.status(401).json({ error: 'User not authenticated' });
+        return res.status(401).send('User not logged in');
     }
-
-    const userId = req.session.user._id; 
-
-
-    if (!productId || !price) {
-        return res.status(400).json({ error: 'Product ID and price are required' });
-    }
-
 
     try {
-        // Find the user by userId and update the cart array
-        const user = await User.findById(userId);
+        const user = await User.findById(req.session.user._id);
+        const product = await Product.findById(productId);
 
-        if (!user) {
-            console.log('moshkela fel user.');
-            return res.status(404).json({ error: 'User not found' });
+        if (!product) {
+            return res.status(404).send('Product not found');
         }
 
-        // Add product to cart
-        user.cart.push({
-            product_id: productId,
-            quantity: 1, // You can adjust this based on your logic
-            price: price
-        });
+        const existingCartItem = user.cart.find(item => item.productId === productId);
+        if (existingCartItem) {
+            existingCartItem.quantity += 1;
+            existingCartItem.price = price;
+        } else {
+            user.cart.push({
+                productId: productId,
+                quantity: 1,
+                price: price
+            });
+        }
 
         await user.save();
-
         res.status(200).json({ message: 'Product added to cart successfully' });
-
     } catch (error) {
-        console.error('Error adding product to cart:', error);
-        res.status(500).json({ error: 'Failed to add product to cart' });
+        console.error('Error adding to cart:', error);
+        res.status(500).send('Internal Server Error');
     }
 }
+
+const Cart = async(req, res) => {
+    console.log('beyed5ol?');
+    if (!req.session.user) {
+        return res.redirect('/login'); // Redirect to login if the user is not logged in
+    }
+
+    try {
+        const user = await User.findById(req.session.user._id).populate('cart.productId');
+        console.log(user)
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('ShoppingCart', {
+            cart: user.cart,
+            user: user
+        });
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 //get use4r  by id
 const getUserById = async (req, res) => {
     try {
@@ -203,5 +222,6 @@ module.exports = {
     checkAddress,
     Search,
     AddToCart,
-    getUserById
+    getUserById,
+    Cart
 };

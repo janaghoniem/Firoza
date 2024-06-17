@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
    <title>Shopping Cart</title>
    <meta charset="utf-8">
@@ -11,64 +10,42 @@
    <link rel="stylesheet" href="/css/shoppingcart.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <script src="/Javascript/nav-bar.js"></script>
-   <!-- <link rel="stylesheet" href="/CSS/nav-bar.css"> -->
 </head>
-
 <body>
-    <!----------------------------------------------------------header----------------------------------------------------->
+    <!-- Header -->
     <a href="/" class="logo header-scrolled-cart logo-scrolled" id="logo">Firoza</a>
-    <!-- ------------------------------------------------------------------------------------------------------------------ -->
-
+    
     <div class="container mt-5">
         <div class="row">
            <div class="col-md-8">
               <div class="card">
                  <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-shopping-cart"></i> Shopping Cart</h4>
-                    <p class="text-muted">4 items</p>
-                    <!-- Item 1 -->
-                    <div class="row mb-3 item-row" data-item="item1">
-                       <div class="col-3">
-                          <img src="/images/Indian/img33.jpeg" class="img-fluid rounded" alt="">
-                       </div>
-                       <div class="col-6 item-info">
-                          <h6>Necklace</h6>
-                          <p>Golden Threads Accent</p>
-                       </div>
-                       <div class="col-3 item-actions">
-                          <div class="input-group">
-                             <button class="btn btn-outline-secondary decrement" data-item="item1">-</button>
-                             <input type="text" class="form-control text-center quantity-input" id="quantity-item1" value="1" aria-label="Quantity" readonly>
-                             <button class="btn btn-outline-secondary increment" data-item="item1">+</button>
-                          </div>
-                          <p class="mb-0 item-price">EGP 12,000</p>
-                          <button type="button" class="close remove-item" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                          </button>
-                       </div>
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="row mb-3 item-row" data-item="item2">
-                       <div class="col-3">
-                          <img src="/images/Indian/img3.jpeg" class="img-fluid rounded" alt="Product Image">
-                       </div>
-                       <div class="col-6 item-info">
-                          <h6>Earring</h6>
-                          <p>Gold Dangle Drop</p>
-                       </div>
-                       <div class="col-3 item-actions">
-                          <div class="input-group">
-                             <button class="btn btn-outline-secondary decrement" data-item="item2">-</button>
-                             <input type="text" class="form-control text-center quantity-input" id="quantity-item2" value="1" aria-label="Quantity" readonly>
-                             <button class="btn btn-outline-secondary increment" data-item="item2">+</button>
-                          </div>
-                          <p class="mb-0 item-price">EGP 95,000</p>
-                          <button type="button" class="close remove-item" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                          </button>
-                       </div>
-                    </div>
-                    <!-- Back to shop link -->
+                    <h4 class="card-title">Shopping Cart</h4>
+                    <p class="text-muted"><%= cart.filter(item => item.productId).length %> items</p>
+                    <% cart.forEach(item => { %>
+                        <% if (item.productId) { %>
+                            <div class="row mb-3 item-row" data-item="<%= item.productId._id %>">
+                               <div class="col-3">
+                                  <img src="/images/Indian/Newfolder/<%= item.productId.img %>" class="img-fluid rounded" alt="<%= item.productId.name %>">
+                               </div>
+                               <div class="col-6 item-info">
+                                  <h6><%= item.productId.name %></h6>
+                                  <p><%= item.productId.description %></p>
+                               </div>
+                               <div class="col-3 item-actions">
+                                  <div class="input-group">
+                                     <button class="btn btn-outline-secondary decrement" data-item="<%= item.productId._id %>">-</button>
+                                     <input type="text" class="form-control text-center quantity-input" id="quantity-<%= item.productId._id %>" value="<%= item.quantity %>" aria-label="Quantity" readonly>
+                                     <button class="btn btn-outline-secondary increment" data-item="<%= item.productId._id %>">+</button>
+                                  </div>
+                                  <p class="mb-0 item-price">EGP <%= item.price %></p>
+                                  <button type="button" class="close remove-item" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                  </button>
+                               </div>
+                            </div>
+                        <% } %>
+                    <% }); %>
                     <div class="mt-4">
                        <a href="/shopAll" class="btn btn-link">&leftarrow; Back to shop</a>
                     </div>
@@ -81,8 +58,8 @@
                     <h5 class="card-title">Summary</h5>
                     <hr>
                     <div class="d-flex justify-content-between">
-                       <span class="items-count">ITEMS 4</span>
-                       <span class="total-price">EGP 277,000</span>
+                       <span class="items-count"><%= cart.filter(item => item.productId).length %> ITEMS</span>
+                       <span class="total-price">EGP <%= cart.reduce((total, item) => item.productId ? total + (item.productId.price * item.quantity) : total, 0) %></span>
                     </div>
                     <div class="shipping-options">
                        <label for="shipping">Shipping:</label>
@@ -91,13 +68,14 @@
                           <option value="fast">Fast Delivery - EGP 150.00</option>
                        </select>
                     </div>
-                    <p>GIVE CODE</p>
+                    <p>DISCOUNT CODE</p>
                     <input id="code" class="form-control" placeholder="Enter your code">
                     <div class="d-flex justify-content-between mt-3">
                        <strong>TOTAL PRICE</strong>
-                       <strong class="total-price">EGP 277,100</strong>
+                       <strong class="total-price">EGP <%= cart.reduce((total, item) => item.productId ? total + (item.productId.price * item.quantity) : total, 0) + 100 %></strong>
                     </div>
                     <button class="btn btn-dark btn-block mt-4">CHECKOUT</button>
+                    <a href="/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                  </div>
               </div>
            </div>

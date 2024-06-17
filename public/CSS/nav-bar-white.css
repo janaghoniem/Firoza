@@ -692,6 +692,7 @@ header #search-button, #search-button2{
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.732); /* Optional: Box shadow for depth */
     transition: opacity 0.5s ease-in-out; /* Transition for opacity */
+    z-index: 99999999999999999999;
 }
 
 .login-message-popup.show {
