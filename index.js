@@ -22,8 +22,12 @@ mongoose.connect(dbURI).then((result) => {
     console.log(err);
 });
 
-app.use(session({ secret: 'Your_Secret_Key',  resave: false, 
-  saveUninitialized: false  }));
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 } // Example: 1 day in milliseconds
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

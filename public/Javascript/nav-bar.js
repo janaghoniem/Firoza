@@ -1,4 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+
+    const response = await fetch('/user/checkLoggedIn');
+    const { loggedIn } = await response.json();
+
     const searchButton = document.getElementById('search-button');
     const searchButton2 = document.getElementById('search-button2');
     const middleDiv = document.getElementById('top-move-on-scroll');
