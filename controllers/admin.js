@@ -217,49 +217,7 @@ const getOrders = async (req, res) => {
     }
 };
 
-// const editProduct = async (req, res) => {
-//     try {
-//         const productId = req.params.id;
-//         const { name, price, collection_id, category, description, sizes, quantities, material, color } = req.body;
-//         const img = req.file ? req.file.path : undefined; 
 
-//         if (sizes.length !== quantities.length) {
-//             return res.status(400).json({ message: 'Sizes and quantities must match' });
-//         }
-
-//         const sizeQuantityPairs = sizes.map((size, index) => ({
-//             size,
-//             quantity: quantities[index]
-//         }));
-
-//         const updatedData = {
-//             name,
-//             price,
-//             collection_id,
-//             category,
-//             description,
-//             sizes: sizeQuantityPairs,
-//             material,
-//             color
-//         };
-
-//         if (img) {
-//             updatedData.img = img;
-//         }
-
-//         const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
-
-//         if (!updatedProduct) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-
-//         res.status(200).json({ message: 'Product updated successfully', data: updatedProduct });
-//     } catch (error) {
-//         console.error('Error updating product:', error);
-//         res.status(500).json({ error: 'Server error' });
-
-//     }
-// };
 
 const getProducts = async (req, res) => {
     try {
@@ -370,6 +328,8 @@ const editProduct = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+con
 module.exports = {
     addAdmin,
     addCollection,
