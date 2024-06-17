@@ -36,7 +36,7 @@ const addAdmin = async (req, res) => {
 
 // Function to add an admin
 const addCollection = async (req, res) => {
-    
+
     const {
         CollectionName,
         CollectionDescription,
@@ -45,7 +45,7 @@ const addCollection = async (req, res) => {
 
     try {
         // Validate input
-              if (!CollectionName || !CollectionDescription) {
+        if (!CollectionName || !CollectionDescription) {
             return res.status(400).json({ message: 'Collection name, description, required' });
         }
 
@@ -59,66 +59,14 @@ const addCollection = async (req, res) => {
         // Save the product to the database
         await newCollection.save();
 
-        res.status(201).json({ message: 'Collection added successfully', data: newCollection });
+        res.status(201).json({ message: 'Collection added successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
-    }res.status(500).json({ error: error.message });
-    };
-
-// const addCollection = async (req, res) => {
-//     try {
-//         const { CollectionName, CollectionDescription } = req.body;
-//         const collectionImage = req.file; // Assuming the image file is sent as req.file
-//         console.log(CollectionName);
-//         console.log(CollectionDescription);
-//         // Validate input
-//         if (!CollectionName || !CollectionDescription) {
-//             return res.status(400).json({ message: 'Collection name, description, required' });
-//         }
-//          if (!CollectionName || !CollectionDescription) {
-//             return res.status(400).json({ message: 'Collection name, description, required' });
-//         }
+    }
+};
 
 
-//         // Generate a unique filename for the uploaded image
-//         const imgName = `${uuidv4()}-${collectionImage.originalname}`;
-//         const imgPath = path.join(__dirname, '../images', imgName);
-
-//         // Read the uploaded file and save it to the server
-//         const fileContent = fs.readFileSync(collectionImage.path);
-//         fs.writeFileSync(imgPath, fileContent);
-
-//         // Delete the temporary file uploaded by the client
-//         fs.unlinkSync(collectionImage.path);
-
-//         // Create a new Collection object with image path
-//         const newCollection = new collections({
-//             Collection_Name: CollectionName,
-//             Collection_Description: CollectionDescription,
-//             imgPath: `/images/${imgName}` // Save image path relative to the server root
-//         });
-
-//         // Save the collection object to MongoDB
-//         await newCollection.save();
-
-//         res.status(201).json({ message: 'Collection added successfully', collection: newCollection });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: error.message });
-//     }
-// };
-
-// Function to get all collections
-// const getAllCollections = async (req, res) => {
-//     try {
-//         const allCollections = await collections.find();
-//         res.render('collections', { collections: allCollections });
-//     } catch (error) {
-//         console.error('Error retrieving collections', error);
-//         res.status(500).send('Error retrieving collections');
-//     }
-// };
 const getCollections = async (req, res) => {
     try {
         const C = await collections.find({});
@@ -130,35 +78,44 @@ const getCollections = async (req, res) => {
 
 // Function to delete a collection
 const deleteCollection = async (req, res) => {
+    const collectionId = req.params.id;
+
     try {
-        const { id } = req.params;
-        const deletedCollection = await collections.findByIdAndDelete(id);
+        // Delete the collection document by its _id
+        const deletedCollection = await collections.findByIdAndDelete(collectionId);
 
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
         }
 
-        res.status(200).json({ message: 'Collection deleted successfully' });
+        res.status(200).json({ success: true });
     } catch (error) {
+        console.error('Error  collection:', error);
         res.status(500).json({ error: error.message });
     }
 };
 
 //edit collection on the server side
 const editCollection = async (req, res) => {
-    const { id, collectionName, description, launchDate } = req.body;
+    const collectionId = req.params.id;
+    const { collectionName, description } = req.body;
 
     try {
-        await Collection.updateOne({ collection_id: id }, {
+        // Update the collection document by its _id
+        const updatedCollection = await collections.findByIdAndUpdate(collectionId, {
             Collection_Name: collectionName,
             Collection_Description: description,
-            createdAt: new Date(launchDate)
-        });
+            // Launch_Date: launchDate // Adjust according to your schema
+        }, { new: true });
 
-        res.json({ success: true });
-    } catch (err) {
-        console.error('Failed to update collection', err);
-        res.json({ success: false });
+        if (!updatedCollection) {
+            return res.status(404).json({ error: 'Collection not found' });
+        }
+
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Error updating collection:', error);
+        res.status(500).json({ error: error.message });
     }
 };
 

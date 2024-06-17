@@ -83,4 +83,10 @@ router.get('/orders', async (req, res, next) => {
     }
 });
 
+
+router.put('/EditLayout/${id}',adminController.editCollection );
+
+// DELETE route to delete a collection by ID
+router.delete('/EditLayout/${id}',adminController.deleteCollection);
+
 module.exports = router;
