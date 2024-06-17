@@ -4,83 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistics</title>
-    <link rel="stylesheet" href="../CSS/statistics.css">
+    <link rel="stylesheet" href="/CSS/statistics.css">
     <link rel="stylesheet" href="../CSS/main.css">
-    <script src="../Javascript/statistics.js"></script>
+    <script src="/Javascript/statistics.js"></script>
     <script src="../Javascript/admin-collections.js"></script>
+    <script src="/Javascript/adminNavbar.js"></script>
+    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
 </head>
 <body>
-  <header>
-    <div class="header-top-unscrolled" id="header-top">
-        <!-- <div class="store-services">
-            <nav class="navigation">
-                <a href="#">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <p>Find a Store</p>
-                </a>
-                <a href="#">
-                    <i class="fa-solid fa-bell-concierge"></i>
-                    <p>Services</p>
-                </a>
-                <a href="#">
-                    <i class="fa-solid fa-headset"></i>
-                    <p>Contact Us</p>
-                </a>
-            </nav>
-            <div class="search-button-unscrolled" id="search-button">
-                <input type="text" id="searchField" placeholder="Search">
-                <button id="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
-        <div class="user-data">
-            <nav class="navigation">
-                <a href="#">
-                    <i class="fa-regular fa-envelope"></i>
-                    <p>Newsletter</p>
-                </a>
-                <a href="#">
-                    <i class="fa-regular fa-user"></i>
-                    <p>My Account</p>
-                </a>
-                <a href="#">
-                    <i class="fa-regular fa-heart"></i>
-                    <p>My Wishlist</p>
-                </a>
-                <a href="#">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <p>Shopping Bag</p>
-                </a>
-            </nav>
-        </div> -->
-    </div>
-    <div class="header-middle-unscrolled" id="header-middle">
-        <div class="responsive">
-            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
-                <i class="fa fa-bars"></i>
-              </a>
-        </div>
-       
-        <a href="#main" class="logo-unscrolled" id="logo">FIROZA</a>
-        <div id="top-move-on-scroll"></div>
-    </div>
-    <div class="header-bottom-unscrolled" id="header-bottom">
-        <nav class="navigation">
-            <a href="main.html">Dashboard</a>
-            <a href="collections-setup.html">Collection</a>
-            <a href="product.html">Products</a>
-            <a href="Orders.html">Orders</a>
-            <a href="statistics.html">Statistics</a>
-            <a href="reviewsAdmin.html">Reviews</a>
-            <a href="support.html">Customer Support</a>
-            <!-- <a href="#">Necklaces</a>
-            <a href="#">Rings</a>
-            <a href="#">Head Pieces</a> -->
-        </nav>
-    </div>
-   
-</header>
+  <%- include('./partials/Admin-NavBar.ejs') %>
+  
       <div class="main-layout">
         <main class="main">
           <!-- Row 1 -->

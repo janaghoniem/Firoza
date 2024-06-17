@@ -186,6 +186,9 @@ app.get('/Checkout', (req, res) => {
 app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
+app.get('/Statistics',(req,res)=>{
+    res.render("statistics.ejs");
+});
 
 // app.use('/', Product);
 
