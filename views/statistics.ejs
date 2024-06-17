@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <link rel="stylesheet" href="../CSS/statistics.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <script src="../Javascript/statistics.js"></script>
+    <script src="../Javascript/admin-collections.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-top-unscrolled" id="header-top">
+        <!-- <div class="store-services">
+            <nav class="navigation">
+                <a href="#">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>Find a Store</p>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                    <p>Services</p>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-headset"></i>
+                    <p>Contact Us</p>
+                </a>
+            </nav>
+            <div class="search-button-unscrolled" id="search-button">
+                <input type="text" id="searchField" placeholder="Search">
+                <button id="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+        <div class="user-data">
+            <nav class="navigation">
+                <a href="#">
+                    <i class="fa-regular fa-envelope"></i>
+                    <p>Newsletter</p>
+                </a>
+                <a href="#">
+                    <i class="fa-regular fa-user"></i>
+                    <p>My Account</p>
+                </a>
+                <a href="#">
+                    <i class="fa-regular fa-heart"></i>
+                    <p>My Wishlist</p>
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <p>Shopping Bag</p>
+                </a>
+            </nav>
+        </div> -->
+    </div>
+    <div class="header-middle-unscrolled" id="header-middle">
+        <div class="responsive">
+            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                <i class="fa fa-bars"></i>
+              </a>
+        </div>
+       
+        <a href="#main" class="logo-unscrolled" id="logo">FIROZA</a>
+        <div id="top-move-on-scroll"></div>
+    </div>
+    <div class="header-bottom-unscrolled" id="header-bottom">
+        <nav class="navigation">
+            <a href="main.html">Dashboard</a>
+            <a href="collections-setup.html">Collection</a>
+            <a href="product.html">Products</a>
+            <a href="Orders.html">Orders</a>
+            <a href="statistics.html">Statistics</a>
+            <a href="reviewsAdmin.html">Reviews</a>
+            <a href="support.html">Customer Support</a>
+            <!-- <a href="#">Necklaces</a>
+            <a href="#">Rings</a>
+            <a href="#">Head Pieces</a> -->
+        </nav>
+    </div>
+   
+</header>
+      <div class="main-layout">
+        <main class="main">
+          <!-- Row 1 -->
+          <div class="row-1">
+            <div class="box active-users">
+              <h2 class="box-title">
+                Active Users
+              </h2>
+              <h1 class="number-fs">72</h1>
+              <div class="box-footer">
+                <a href="#referrals"
+                  >View Referrals
+                  <img src="../images/statistics/arrow-right.svg" alt="arrow" />
+                </a>
+              </div>
+            </div>
+            <div class="box page-views">
+              <h2 class="box-title">Page views per minute</h2>
+              <div class="graph">
+                <div aria-label="66 page views" style="height: 66%;"></div>
+                <div aria-label="18 page views" style="height: 18%;"></div>
+                <div aria-label="34 page views" style="height: 34%;"></div>
+                <div aria-label="75 page views" style="height: 75%;"></div>
+                <div aria-label="15 page views" style="height: 15%;"></div>
+                <div aria-label="94 page views" style="height: 94%;"></div>
+                <div aria-label="95 page views" style="height: 95%;"></div>
+                <div aria-label="17 page views" style="height: 17%;"></div>
+                <div aria-label="32 page views" style="height: 32%;"></div>
+                <div aria-label="76 page views" style="height: 76%;"></div>
+                <div aria-label="80 page views" style="height: 80%;"></div>
+                <div aria-label="89 page views" style="height: 89%;"></div>
+                <div aria-label="63 page views" style="height: 63%;"></div>
+                <div aria-label="36 page views" style="height: 36%;"></div>
+                <div aria-label="82 page views" style="height: 82%;"></div>
+                <div aria-label="10 page views" style="height: 10%;"></div>
+                <div aria-label="27 page views" style="height: 27%;"></div>
+                <div aria-label="19 page views" style="height: 19%;"></div>
+                <div aria-label="5 page views" style="height: 5%;"></div>
+                <div aria-label="59 page views" style="height: 59%;"></div>
+                <div aria-label="18 page views" style="height: 18%;"></div>
+              </div>
+              <div class="box-footer">
+                <a href="#referrals"
+                  >View Referrals
+                  <img src="../images/statistics/arrow-right.svg" alt="arrow" />
+                </a>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Row 2 - main stats -->
+          <div class="row-2">
+            <div class="stat-box">
+              <div class="stat-title">
+                <span>Users</span>
+                <span class="stat-percentage green">
+                  <img src="../images/statistics/arrow-up-green.svg" alt="" />268%
+                </span>
+              </div>
+              <h1 class="number-fs">
+                9K
+              </h1>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">
+                Number of visits
+                <span class="stat-percentage green">
+                  <img src="../images/statistics/arrow-up-green.svg" alt="" />268%
+                </span>
+              </div>
+              <h1 class="number-fs">
+                17K
+              </h1>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">
+                Cart Abandonment Rate
+                <span class="stat-percentage red">
+                  <img src="../images/statistics/arrow-up-red.svg" alt="" />12%
+                </span>
+              </div>
+              <h1 class="number-fs">
+                23.57%
+              </h1>
+            </div>
+            <div class="stat-box">
+              <div class="stat-title">
+                Customer Retention Rate
+                <span class="stat-percentage red">
+                  <img src="../images/statistics/arrow-down-red.svg" alt="" />9%
+                </span>
+              </div>
+              <h1 class="number-fs">
+                18.34%
+              </h1>
+            </div>
+          </div>
+  
+          <!-- Row 3 - alert -->
+          <div class="row-3">
+            <div class="alert">
+              <div class="alert-title">
+                <img src="../images/statistics/alert.svg" alt="alert" />
+                <div>
+                  <h2>No alerts set</h2>
+                  <p>Get notified when your data drastically changes</p>
+                </div>
+              </div>
+              <button class="alert-btn">
+                Set alert
+              </button>
+            </div>
+          </div>
+  
+          <!-- Row 4 - Devices -->
+          <div class="row-4">
+            <div class="box device-box">
+              <div class="box-title">Quiz Stats</div>
+              <div class="select-months">
+                <div class="select-month active">
+                  May
+                </div>
+                <div class="select-month">
+                  June
+                </div>
+                <div class="select-month">
+                  July
+                </div>
+                <div class="select-month">
+                  August
+                </div>
+              </div>
+              <div class="month-info">
+                <div class="month-info-box">
+                  Indian | 52%
+                  <div class="month-bar" style="width: 62%;"></div>
+                </div>
+                <div class="month-info-box">
+                  Egyptian | 15%
+                  <div class="month-bar" style="width: 25%;"></div>
+                </div>
+                <div class="month-info-box">
+                  Middle Eastern | 36%
+                  <div class="month-bar" style="width: 46%;"></div>
+                </div>
+                <div class="month-info-box">
+                    Vintage | 36%
+                    <div class="month-bar" style="width: 46%;"></div>
+                </div>
+                <div class="month-info-box">
+                    Minimalist | 6%
+                    <div class="month-bar" style="width: 10%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="box device-box">
+              <div class="box-title">User Demographics</div>
+              <div class="reference-details">
+                <div class="reference">
+                  <span>Male</span>
+                  <span>13%</span>
+                </div>
+                <div class="reference">
+                  <span>Females</span>
+                  <span>74%</span>
+                </div>
+                <div class="reference">
+                  <span>Age: 9 to 18</span>
+                  <span>5%</span>
+                </div>
+                <div class="reference">
+                  <span>Age: 18 to 48</span>
+                  <span>72%</span>
+                </div>
+                <div class="reference">
+                  <span>Age: above 48</span>
+                  <span>23%</span>
+                </div>
+                <br><div class="box-title">Jewelry preference insights</div>
+              <div class="reference-details">
+                <div class="reference">
+                  <span>#Bohemian or hippie chic styles</span>
+                </div>
+                <div class="reference">
+                  <span>#Nature-inspired jewelry (e.g., leaf motifs, floral designs)</span>
+                </div>
+                <div class="reference">
+                  <span>#Geometric shapes and modern lines</span>
+                </div>
+                <div class="reference">
+                  <span>#Mixed metal jewelry</span>
+                </div>
+                <div class="reference">
+                  <span>#Jewelry with hidden or interactive elements (e.g., secret compartments, moving parts)</span>
+                </div>
+                <div class="reference">
+                    <span>#Upcycled or repurposed jewelry made from sustainable materials</span>
+                  </div>
+                  <div class="reference">
+                    <span>#Gothic or dark-themed jewelry</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <aside class="side-bar">
+          <div class="side-bar-header">
+            <h3>Best Sellers</h3>
+            <h3>Revenue</h3>
+          </div>
+          <div class="side-bar-content">
+            <div class="side-bar-page">
+              <h4>product 1</h4>
+              <span>2,230,956</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 2</h4>
+                <span>1,566,499</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 3</h4>
+                <span>1,240,579</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 4    "SOLD OUT"</h4>
+                <span>1,203,235</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 5    "SOLD OUT"</h4>
+                <span>956,379</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 6</h4>
+                <span>869,028</span>
+            </div>
+            <div class="side-bar-page">
+                <h4>product 7    "SOLD OUT"</h4>
+                <span>654,994</span>
+            </div>
+            <div class="more-stats-box">
+              <div class="more-stats-header">
+                Most sold out product
+                <img src="../images/statistics/more-stats.svg" alt="more" />
+              </div>
+              <div class="more-stats-body">
+                <div class="more-stats">
+                  product 1
+                  <h1>56 purchace</h1>
+                </div>
+                <div class="more-stats">
+                  product 2
+                  <h1>47 purchace</h1>
+                </div>
+                <div class="more-stats">
+                    product 3
+                    <h1>39 purchace</h1>
+                  </div>
+                  <div class="more-stats">
+                    product 4
+                    <h1>38 purchace</h1>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+  
+</body>
+</html>
