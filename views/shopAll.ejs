@@ -281,10 +281,11 @@
     <div class="price-filter">
         <div id="price-dropdown" class="dropdown-content">
             <div class="arrow"></div>
-            <label for="priceRange">Price range: <span id="priceValue">$0 - $20000000</span></label>
-            <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)" onchange="applyFilters()">
+            <label for="priceRange">Price range: <span id="priceValue">$1,000 - $20,000,000</span></label>
+            <input type="range" id="priceRange" min="0" max="20000000" step="10" value="20000000" oninput="updatePrice(this.value)" onchange="applyFilters()">
         </div>
     </div>
+    
     <div id="material-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Stainless steel
@@ -324,5 +325,6 @@
           </div>
         <% }); %>
       </div>
+      
 </body>
 </html>
