@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const formData = {
                 CollectionName: inputField.value,
                 CollectionDescription: textareaField.value,
-                
+                // Collection_id: uuidv4(),
                 // Add other necessary data if needed
             };
 

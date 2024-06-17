@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
 
+const { v4: uuidv4 } = require('uuid');
+
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -54,6 +56,8 @@ const addCollection = async (req, res) => {
         const newCollection = new collections({
             Collection_Name: CollectionName,
             Collection_Description: CollectionDescription,
+            collection_id: uuidv4(),
+
             img
         });
 
@@ -70,8 +74,8 @@ const addCollection = async (req, res) => {
 
 const getCollections = async (req, res) => {
     try {
-        const C = await collections.find({});
-        res.render('EditLayout', { C });
+        const getC = await collections.find({});
+        res.render('EditLayout', { getC });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -79,46 +83,51 @@ const getCollections = async (req, res) => {
 
 // Function to delete a collection
 const deleteCollection = async (req, res) => {
-    const collectionId = req.params.id;
-
+    console.log("da5al gowa el function");
     try {
-        // Delete the collection document by its _id
-        const deletedCollection = await collections.findByIdAndDelete(collectionId);
+        const { id  } = req.params;
+        const deletedCollection = await collections.findByIdAndDelete({id} );
 
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
         }
-
-        res.status(200).json({ success: true });
+        console.log(`Attempting to delete collection with ID: ${id}`);
+        res.status(200).json({ message: 'Collection deleted successfully' });
     } catch (error) {
-        console.error('Error  collection:', error);
-        res.status(500).json({ error: error.message });
+        console.error('Error collection:', error);
+        res.status(500).json({ error: 'Server error' });
     }
 };
 
+
+
 //edit collection on the server side
 const editCollection = async (req, res) => {
-    const collectionId = req.params.id;
+    const collectionId = req.params.collection_id;
     const { collectionName, description } = req.body;
 
     try {
-        // Update the collection document by its _id
-        const updatedCollection = await collections.findByIdAndUpdate(collectionId, {
-            Collection_Name: collectionName,
-            Collection_Description: description,
-            // Launch_Date: launchDate // Adjust according to your schema
-        }, { new: true });
+        // Update the collection document by its collection_id
+        const updatedCollection = await collections.findByIdAndUpdate(
+            { collection_id: collectionId },
+            {
+                Collection_Name: collectionName,
+                Collection_Description: description
+            },
+            { new: true }
+        );
 
         if (!updatedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
         }
 
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true, data: updatedCollection });
     } catch (error) {
         console.error('Error updating collection:', error);
         res.status(500).json({ error: error.message });
     }
 };
+
 
 //Function to add a product
 const addProduct = async (req, res) => {

@@ -33,7 +33,7 @@ router.get('/users', adminController.GetAllUsers);
 router.post('/addProduct', adminController.addProduct);
 
 router.get('/EditLayout', adminController.getCollections );
-router.delete('/EditLayout/:id', adminController.deleteCollection);
+router.delete('/deleteCollection/:id', adminController.deleteCollection);
 
 router.get('/indian', async (req, res) => {
     try {
@@ -99,11 +99,5 @@ router.get('/editProduct/:id', async (req, res) => {
 });
 router.get('/editProduct/:id', adminController.getEditProductPage);
 
-
-
-router.put('/EditLayout/${id}',adminController.editCollection );
-
-// DELETE route to delete a collection by ID
-router.delete('/EditLayout/${id}',adminController.deleteCollection);
 
 module.exports = router;
