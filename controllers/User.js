@@ -545,12 +545,13 @@ const BillingInformation = async (req, res) => {
 
 const getIndianProducts = async (req, res) => {
     try {
-        const products = await Product.find();
-        res.render('indian', { products });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
+        const indianProducts = await Product.find({ collection_id: '2' }); // Fetch products with collection_id '2'
+    
+        res.render('indian', { products: indianProducts });
+      } catch (error) {
+        console.error('Error fetching Indian collection products:', error);
+        res.status(500).send('Server Error');
+      }
 };
 
 const getShopAllProducts = async (req, res) => {
