@@ -204,20 +204,45 @@ const GetAllUsers = (req, res) => {
         });
 };
 //function to get orders
-const getOrders = async (req, res) => {
-    try {
-        const orders = await Order.find()
-            .populate('user_id', 'name') // Populate user name
-            .populate('product_ids', 'name price'); // Populate product name and price
 
-        res.render('admin-orders', { orders }); // Pass the orders data to the view
-    } catch (err) {
-        console.error('Error fetching orders:', err);
-        res.status(500).send('Server Error');
-    }
+const getOrders = (req, res) => {
+    Order.find()
+        .then(result => {
+
+            res.render('admin-orders', { orders: result }); // Note the lowercase 'users'
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Error retrieving users');
+        });
 };
 
+// const getOrders = async (req, res) => {
+//     try {
+//         const orders = await Order.find()
+//             .populate('user_id', 'name') // Populate user name
+//             .populate('product_ids', 'name price'); // Populate product name and price
 
+//         res.render('admin-orders', { orders }); // Pass the orders data to the view
+//     } catch (err) {
+//         console.error('Error fetching orders:', err);
+//         res.status(500).send('Server Error');
+//     }
+// };
+
+const get_Orders = (req, res) => {
+    Order.find()
+        .populate('user_id', 'firstname lastname') // Populate the user_id field with the firstname and lastname fields from the User model
+        .populate('product_ids', 'name') // Populate the product_ids field with the name field from the Product model
+        .then(result => {
+            res.render('admin-orders', { orders: result });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Error retrieving orders');
+        });
+  };
+  
 
 const getProducts = async (req, res) => {
     try {
@@ -331,23 +356,6 @@ const editProduct = async (req, res) => {
 
 //-------------------------------------------------------habiba-------------------------------------------
 
-
-
-// const getOrdersInLast30Days = async () => {
-//     const thirtyDaysAgo = new Date();
-//     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-//     try {
-//         const orderCount = await Order.countDocuments({
-//             createdAt: { $gte: thirtyDaysAgo }
-//         });
-//         return orderCount;
-//     } catch (error) {
-//         console.error('Error fetching order count:', error);
-//         throw error;
-//     }
-// }
-
 // In your route handler
 const getOrdersInLast30Days = async (req, res) => {
     const thirtyDaysAgo = new Date();
@@ -358,10 +366,7 @@ const getOrdersInLast30Days = async (req, res) => {
             createdAt: { $gte: thirtyDaysAgo }
         });
         // Render the EJS template with the orderCount
-        res.render('main', { // 'adminDashboard' is the name of your EJS file without the .ejs extension
-            ordersLast30Days: orderCount
-            // Add other dynamic values as needed
-        });
+        res.render('main', {  ordersLast30Days: orderCount });
     } catch (error) {
         console.error('Error fetching order count:', error);
         res.status(500).render('error', { error }); // Render an error page or handle the error as needed

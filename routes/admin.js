@@ -90,15 +90,18 @@ const upload = multer({ storage: storage });
 // Use upload.single('collectionImage') in the route handling the form submission
 router.post('/addCollection', upload.single('collectionImage'), adminController.addCollection);
 
-// router.get('/users/:id', adminController.getUserById);
-// //route ll orders "admin pov"
-router.get('/orders', async (req, res, next) => {
-    try {
-        await adminController.getOrders(req, res);
-    } catch (err) {
-        next(err);
-    }
-});
+//route ll orders "admin pov"
+// router.get('/orders', async (req, res, next) => {
+//     try {
+//         await adminController.getOrders(req, res);
+//     } catch (err) {
+//         next(err);
+//     }
+// });
+
+router.get('/orders', adminController.getOrders);
+
+
 // router.get('/editProduct/:id', async (req, res) => {
 //     try {
 //         const productId = req.params.id;
@@ -117,6 +120,6 @@ router.get('/orders', async (req, res, next) => {
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
 router.post('/EditProduct/:id', adminController.editProduct);
 
-router.get('/orders-last-30-days',adminController.getOrdersInLast30Days);
+router.get('/Dashboard',adminController.getOrdersInLast30Days);
 
 module.exports = router;

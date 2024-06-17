@@ -13,31 +13,39 @@
 
 
 <body>
-  <% include('./partials/Admin-NavBar.ejs') %>
+  <%- include('./partials/Admin-NavBar.ejs') %>
 
-  <div class="container">
-    <ul class="responsive-table">
-      <li class="table-header">
-        <div class="col col-1">Order Id</div>
-        <div class="col col-2">Customer Name</div>
-        <div class="col col-3">Total Amount</div>
-        <div class="col col-4">Ordered</div>
-        <div class="col col-5">Status</div>
-      </li>
-      <% orders.forEach(order => { %>
-        <li class="table-row">
-          <div class="col col-1" data-label="Order Id"><%= order._id %></div>
-          <div class="col col-2" data-label="Customer Name"><%= order.user_id.name %></div>
-          <div class="col col-3" data-label="Total Amount">$<%= order.total_price %></div>
-          <div class="col col-4" data-label="Ordered">
-            <% order.product_ids.forEach(product => { %>
-              <%= product.name %><br>
-            <% }) %>
-          </div>
-          <div class="col col-5" data-label="Status"><%= order.status %></div>
+    <div class="container">
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">Order Id</div>
+          <div class="col col-2">Customer Name</div>
+          <div class="col col-3">Total Amount</div>
+          <div class="col col-4">Ordered</div>
+          <div class="col col-5">Status</div>
         </li>
-      <% }) %>
-    </ul>
-  </div>
+        <% orders.forEach(order=> { %>
+          <li class="table-row">
+            <div class="col col-1" data-label="Order Id">
+              <%= order._id %>
+            </div>
+            <div class="col col-2" data-label="Customer Name">
+              <%= order.user_id.firstname %> <%= order.user_id.lastname %>
+            </div>
+            <div class="col col-3" data-label="Total Amount">$<%= order.total_price %>
+            </div>
+            <div class="col col-4" data-label="Ordered">
+              <% order.product_ids.forEach(product=> { %>
+                <%= product.name %><br>
+                  <% }) %>
+            </div>
+            <div class="col col-5" data-label="Status">
+              <%= order.status %>
+            </div>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
 </body>
+
 </html>
