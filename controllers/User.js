@@ -496,6 +496,25 @@ const BillingInformation = async (req, res) => {
 };
 
 
+const getIndianProducts = async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('indian', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+};
+
+const getShopAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('shopAll', { products });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+};
 
 
 module.exports = {
@@ -511,6 +530,8 @@ module.exports = {
     getUserById, 
     BillingInformation,
     filterProducts,
-    getUserOrder
+    getUserOrder,
+    getShopAllProducts,
+    getIndianProducts
 
 };

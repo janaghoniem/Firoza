@@ -506,7 +506,6 @@ const getStatistics = async (req, res) => {
 //     }
 // })();
 
-
 module.exports = {
     addAdmin,
     addCollection,

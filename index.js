@@ -114,24 +114,27 @@ app.get('/stores', (req, res) => {
     res.render("stores.ejs");
 });
 
-app.get('/indian', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.render('indian', { products });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
-});
-app.get('/shopAll', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.render('shopAll', { products });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
-});
+// app.get('/indian', async (req, res) => {
+//     try {
+//         const products = await Product.find();
+//         res.render('indian', { products });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Server error');
+//     }
+// });
+// app.get('/shopAll', async (req, res) => {
+//     try {
+//         const products = await Product.find();
+//         res.render('shopAll', { products });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Server error');
+//     }
+// });
+
+
+
 // app.getEditProductPage('/EditProduct',async (req, res) => {
 //     try {
 //         const productId = req.params.id;

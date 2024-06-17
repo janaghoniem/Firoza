@@ -281,7 +281,7 @@
     <div class="price-filter">
         <div id="price-dropdown" class="dropdown-content">
             <div class="arrow"></div>
-            <label for="priceRange">Price range: <span id="priceValue">$0 - $2000</span></label>
+            <label for="priceRange">Price range: <span id="priceValue">$0 - $20000000</span></label>
             <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)" onchange="applyFilters()">
         </div>
     </div>
@@ -299,6 +299,9 @@
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
+        <select name="sort" id="sort">
+            <option value=""></option>
+        </select>
     </div>
     <div class="row">
         <% products.forEach(product => { %>

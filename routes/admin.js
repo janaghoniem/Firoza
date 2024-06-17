@@ -121,6 +121,8 @@ router.get('/orders', adminController.getOrders);
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
 router.post('/EditProduct/:id', adminController.editProduct);
 
+
+
 router.get('/Dashboard',adminController.getDashboard);
 router.get('/statistics',adminController.getStatistics);
 

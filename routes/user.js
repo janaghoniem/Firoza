@@ -68,6 +68,9 @@ router.delete('/remove-from-cart/:productId', User.removeFromCart);
 // });
 router.post('/filter', User.filterProducts); 
 
+router.get('/shopAll',User.getShopAllProducts);
+router.get('/indian',User.getIndianProducts);
+
 router.post('/Billing-Information', User.BillingInformation);
 
 router.get('/Checkout', async (req, res) => {
