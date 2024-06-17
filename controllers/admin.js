@@ -379,6 +379,43 @@ const getOrdersInLast30Days = async (req, res) => {
     }
 };
 
+const getDashboard = async (req, res) => {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    try {
+        // 1. Count documents (orders) created in the last 30 days
+        const orderCount = await Order.countDocuments({
+            createdAt: { $gte: thirtyDaysAgo }
+        });
+
+        // 2. Calculate revenue from orders in the last 30 days
+        const ordersLast30Days = await Order.find({
+            createdAt: { $gte: thirtyDaysAgo }
+        }).populate('product_ids');
+
+        let revenueLast30Days = 0;
+        ordersLast30Days.forEach(order => {
+            revenueLast30Days += order.total_price;
+        });
+
+        // 3. Find products that are out of stock
+        const productsOutOfStock = await Product.find({
+            sizes: { $elemMatch: { quantity: 0 } }
+        });
+
+        // Render the EJS template with the collected data
+        res.render('main', {
+            ordersLast30Days: orderCount,
+            revenueLast30Days,
+            productsOutOfStock
+        });
+    } catch (error) {
+        console.error('Error fetching order count:', error);
+        res.status(500).render('error', { error }); // Render an error page or handle the error as needed
+    }
+};
+
 
 
 
@@ -395,7 +432,8 @@ const getOrdersInLast30Days = async (req, res) => {
         deleteProduct,
         getEditProductPage,
         editProduct,
-        getOrdersInLast30Days
+        getOrdersInLast30Days,
+        getDashboard
     };
 
 //function to get orders

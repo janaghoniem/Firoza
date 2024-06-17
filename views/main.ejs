@@ -26,11 +26,11 @@
         <table>
             <tr>
                 <th class="first">
-                    <h2><%= ordersLast30Days %></h2> <br>
+                    <h2><%=  %></h2> <br>
 
                 </th>
                 <th class="second">
-                    <h2><%=  %></h2> <br>
+                    <h2><%= ordersLast30Days %></h2> <br>
 
                 </th>
                 <th class="third">
@@ -60,24 +60,20 @@
 
         <table class="responsive-table">
             <tr>
-                <td>$8430</td>
-                <th><%= ordersLast30Days %></th>
-                
+                <td><%= ordersLast30Days %></td>
+                <th>Orders last 30 days</th>
             </tr>
             <tr>
-                <td>140</td>
-                <th><%=  %></th>
-                
+                <td>$<%= revenueLast30Days.toFixed(2) %></td>
+                <th>Revenue last 30 days</th>
             </tr>
             <tr>
-                <td>500</td>
-                <th><%=  %></th>
-                
+                <td><%= siteVisitsLast30Days %></td>
+                <th>Site visits last 30 days</th>
             </tr>
             <tr>
-                <td>5</td>
-                <th><%=  %></th>
-                
+                <td><%= productsOutOfStock.length %></td>
+                <th>Products out of stock</th>
             </tr>
         </table>
 
