@@ -5,6 +5,7 @@ const adminController = require('../controllers/admin');
 const Product = require('../models/product'); 
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
+const User = require('../models/User');
 
 // check if admin
 // router.use((req, res, next) => {

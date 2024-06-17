@@ -183,11 +183,25 @@ const AddToCart = async (req, res) => {
         res.status(500).json({ error: 'Failed to add product to cart' });
     }
 }
+//get use4r  by id
+const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.render('user-detail', { user });
+    } catch (err) {
+        console.error('Error fetching user:', err);
+        res.status(500).send('Server Error');
+    }
+};
 
 module.exports = {
     GetUser,
     AddUser,
     checkAddress,
     Search,
-    AddToCart
+    AddToCart,
+    getUserById
 };

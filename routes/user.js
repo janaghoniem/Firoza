@@ -17,4 +17,6 @@ router.post('/search', User.Search);
 // Handle POST request for add to cart
 router.post('/add-to-cart', User.AddToCart)
 
+router.get('/users/:id', User.getUserById);
+
 module.exports = router;

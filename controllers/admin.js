@@ -236,8 +236,19 @@ const GetAllUsers = (req, res) => {
             res.status(500).send('Error retrieving users');
         });
 };
+//function to get orders
+const getOrders = async (req, res) => {
+    try {
+        const orders = await Order.find()
+            .populate('user_id', 'name') // Populate user name
+            .populate('product_ids', 'name price'); // Populate product name and price
 
-
+        res.render('admin-orders', { orders }); // Pass the orders data to the view
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        res.status(500).send('Server Error');
+    }
+};
 module.exports = {
     addAdmin,
     addCollection,
@@ -245,26 +256,29 @@ module.exports = {
     editCollection,
     getCollections,
     deleteCollection,
-    GetAllUsers
+    GetAllUsers,
+    getOrders
+    
 };
 
 //function to get orders
 
-exports.getOrders = async (req, res) => {
-    try {
-        const orders = await Order.find()
-            .populate({
-                path: 'user_id',
-                model: 'User'
-            })
-            .populate({
-                path: 'product_ids',
-                model: 'Product'
-            });
+// exports.getOrders = async (req, res) => {
+//     try {
+//         const orders = await Order.find()
+//             .populate({
+//                 path: 'user_id',
+//                 model: 'User'
+//             })
+//             .populate({
+//                 path: 'product_ids',
+//                 model: 'Product'
+//             });
 
-        res.render('admin-orders', { orders });
-    } catch (err) {
-        console.error('Error fetching orders:', err);
-        res.status(500).send('Server Error');
-    }
-};
+//         res.render('admin-orders', { orders });
+//     } catch (err) {
+//         console.error('Error fetching orders:', err);
+//         res.status(500).send('Server Error');
+//     }
+// };
+
