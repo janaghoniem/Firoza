@@ -5,8 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     cards.forEach(function (card) {
         card.addEventListener("click", function (e) {
             e.preventDefault();
+            const productId = card.getAttribute('data-id');
             if (e.target.classList.contains("btn") && e.target.textContent === "Edit") {
-                window.location.href = "/EditProduct";
+                window.location.href = `/admin/EditProduct/${productId}`;
                 return;
             }
             if (e.target.classList.contains("btn") && e.target.textContent === "Add") {

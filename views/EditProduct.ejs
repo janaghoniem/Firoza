@@ -13,7 +13,7 @@
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
     <div class="container" id="container">
-        <form action="/admin/editProduct/<%= product._id %>" method="POST">
+        <form action="admin/EditProduct/<%= product._id %>" method="POST">
             <h1>Edit product</h1>
             <span>All fields are a must to fill</span>
             <input type="text" name="product_id" placeholder="Product ID" value="<%= product.product_id %>" required>

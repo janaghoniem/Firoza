@@ -91,13 +91,15 @@
         });
 
         document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent the default link click behavior
+            button.addEventListener('click', async function() {
                 const card = this.closest('.card');
                 const productId = card.getAttribute('data-id');
                 
+                const response = await fetch(`/admin/deleteProduct/${productId}`, {
+                    method: 'POST'
+                });
                 // Redirect to the edit page for the selected product
-                window.location.href = `/admin/editProduct/${productId}`;
+                window.location.href = `/admin/EditProduct/${productId}`;
             });
         });
     </script>
