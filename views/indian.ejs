@@ -73,25 +73,31 @@
             <p>Material</p>
             <i class="fa-solid fa-chevron-down"></i>
         </span>
+        <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
+        <select name="sort" id="sort" style="margin-left: 800px;">
+            <option value="">Sort by</option>
+            <option value="lowToHigh">Price: low to high</option>
+            <option value="highToLow">Price: high to low</option>
+        </select>
     </div>
 
-    <!-- Dropdown content -->
     <div id="category-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Bracelets 
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr"  style="font-size: 12px;">Necklaces and pendants 
-            <input type="checkbox">
+        <label class="containerr" style="font-size: 12px;">Necklace 
+ 
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">Earrings (106)
-            <input type="checkbox">
+        <label class="containerr" style="font-size: 12px;">Earrings
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">Rings and accessories
-            <input type="checkbox">
+        <label class="containerr" style="font-size: 12px;">Ring
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -99,57 +105,58 @@
     <div id="color-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Red
-            <input type="checkbox" style="font-size: 12px;">
+            <input type="checkbox" onchange="applyFilters()" style="font-size: 12px;">
             <span class="checkmark" style="font-size: 12px;"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Green
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Blue
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Multicolor
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Beige
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Pink
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Black
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Rose gold
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>
-    <!-- <div class="price-filter">
+    <div class="price-filter">
         <div id="price-dropdown" class="dropdown-content">
             <div class="arrow"></div>
-            <label for="priceRange">Price range: <span id="priceValue">$0 - $2000</span></label>
-            <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)">
+            <label for="priceRange">Price range: <span id="priceValue">$0 - $20,000,000</span></label>
+            <input type="range" id="priceRange" min="0" max="20000000" step="10" value="20000000" oninput="updatePrice(this.value)" onchange="applyFilters()">
         </div>
-    </div> -->
+    </div>
+    
     <div id="material-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Stainless steel
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">gold
-            <input type="checkbox">
+        <label class="containerr" style="font-size: 12px;">Gold
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">silver
-            <input type="checkbox">
+        <label class="containerr" style="font-size: 12px;">Silver
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>
