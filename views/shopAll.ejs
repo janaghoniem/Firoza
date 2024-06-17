@@ -71,7 +71,7 @@
     console.log("Applying filters:", filters); // Debugging information
 
     try {
-        const response = await fetch('/products/filter', {
+        const response = await fetch('/user/filter', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -93,7 +93,6 @@
         alert('Error:', error);
     }
 }
-applyFilters();
 
     function updateProductList(products) {
         const productContainer = document.querySelector('.row');
@@ -122,7 +121,6 @@ applyFilters();
             productContainer.innerHTML += productHtml;
         });
     }
-
     </script>
 </head>
 <body>
@@ -181,15 +179,15 @@ applyFilters();
         <input type="checkbox" onchange="applyFilters()">
         <span class="checkmark"></span>
     </label>
-        <label class="containerr"  style="font-size: 12px;">Necklaces and pendants 
+        <label class="containerr"  style="font-size: 12px;">Necklace 
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">Earrings (106)
+        <label class="containerr" style="font-size: 12px;">Earrings
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">Rings and accessories
+        <label class="containerr" style="font-size: 12px;">Ring
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>

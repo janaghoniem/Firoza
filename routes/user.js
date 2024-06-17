@@ -45,28 +45,28 @@ router.put('/updateCart', User.updateCart);
 // Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
-router.post('/products/filter', async (req, res) => {
-    const { categories, colors, priceRange, materials } = req.body;
+// router.post('/filter', async (req, res) => {
+//     const { categories, colors, priceRange, materials } = req.body;
 
-    const filters = {};
+//     const filters = {};
 
-    if (categories && categories.length) filters.category = { $in: categories };
-    if (colors && colors.length) filters.color = { $in: colors };
-    if (materials && materials.length) filters.material = { $in: materials };
-    if (priceRange) filters.price = { $lte: priceRange };
+//     if (categories && categories.length) filters.category = { $in: categories };
+//     if (colors && colors.length) filters.color = { $in: colors };
+//     if (materials && materials.length) filters.material = { $in: materials };
+//     if (priceRange) filters.price = { $lte: priceRange };
 
-    console.log("Filters applied:", filters); // Debugging information
+//     console.log("Filters applied:", filters); // Debugging information
 
-    try {
-        const products = await Product.find(filters);
-        res.json(products);
-        console.log("Filtered products:", products); // Debugging information
-    } catch (error) {
-        console.error("Error fetching products:", error);
-        res.status(500).json({ message: 'Error fetching products', error });
-    }
-});
-router.post('/products/filter', User.filterProducts); // Ensure this route uses the controller
+//     try {
+//         const products = await Product.find(filters);
+//         res.json(products);
+//         console.log("Filtered products:", products); // Debugging information
+//     } catch (error) {
+//         console.error("Error fetching products:", error);
+//         res.status(500).json({ message: 'Error fetching products', error });
+//     }
+// });
+router.post('/filter', User.filterProducts); 
 
 router.post('/Billing-Information', User.BillingInformation);
 
