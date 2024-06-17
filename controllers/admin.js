@@ -392,8 +392,12 @@ const getDashboard = async (req, res) => {
         // 2. Calculate revenue from orders in the last 30 days
         const ordersLast30Days = await Order.find({
             createdAt: { $gte: thirtyDaysAgo }
-        }).populate('product_ids');
-
+        })
+        .populate({
+            path: 'product_ids',
+            select: 'name', 
+            model: 'Product' 
+        })
         let revenueLast30Days = 0;
         ordersLast30Days.forEach(order => {
             revenueLast30Days += order.total_price;
@@ -415,7 +419,6 @@ const getDashboard = async (req, res) => {
         res.status(500).render('error', { error }); // Render an error page or handle the error as needed
     }
 };
-
 
 
 

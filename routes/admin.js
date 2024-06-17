@@ -120,6 +120,6 @@ router.get('/orders', adminController.getOrders);
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
 router.post('/EditProduct/:id', adminController.editProduct);
 
-router.get('/Dashboard',adminController.getOrdersInLast30Days);
+router.get('/Dashboard',adminController.getDashboard);
 
 module.exports = router;
