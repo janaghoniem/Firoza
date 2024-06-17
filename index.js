@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Route for the landing page
 app.get('/', (req, res) => {
-    res.render('Landing-page');
+    res.render('landing-page');
 });
 
 app.get('/admin', (req, res) => {
@@ -137,7 +137,11 @@ app.listen(port, () => {
 
 
 
-
+//global error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'An error occurred on the server. Please try again later.' });
+});
 
 
 
