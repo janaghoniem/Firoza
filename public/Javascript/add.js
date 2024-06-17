@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const formData = {
                 CollectionName: inputField.value,
                 CollectionDescription: textareaField.value,
+                
                 // Add other necessary data if needed
             };
 

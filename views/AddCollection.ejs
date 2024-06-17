@@ -27,7 +27,7 @@
             </form> -->
         </div>
         <div class="form-container first">
-            <form method="post" action="/admin/addCollection">
+            <form method="post" action="/admin/addCollection" >
                 <h1>Add a new Collection</h1>
                 <span>All fields are required to add new collection</span>
                 <input type="text" placeholder="Collection name" name= "CollectionName" onkeypress="return  TextOnly(event)"
@@ -38,7 +38,7 @@
                     <strong>OR</strong>
                     <span class="dragBox">
                         Drag and Drop image here
-                        <input type="file" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()" id="uploadFile" />
+                        <input type="file" onChange="dragNdrop(event)" name="img" ondragover="drag()" ondrop="drop()" id="uploadFile" />
                     </span>
 
                 </div>

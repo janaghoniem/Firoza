@@ -30,7 +30,7 @@ router.get('/users', adminController.GetAllUsers);
 router.post('/addProduct', adminController.addProduct);
 
 router.get('/EditLayout', adminController.getCollections );
-router.delete('/EditLayout/:id', adminController.deleteCollection);
+router.delete('/EditLayout', adminController.deleteCollection);
 
 router.get('/indian', async (req, res) => {
     try {

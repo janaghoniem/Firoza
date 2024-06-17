@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
         card.addEventListener("click", function (e) {
             e.preventDefault();
             if (e.target.classList.contains("btn") && e.target.textContent === "Edit") {
-                window.location.href = "edit.html";
+                window.location.href = "/EditProduct";
                 return;
             }
             if (e.target.classList.contains("btn") && e.target.textContent === "Add") {
-                window.location.href = "add-product.html";
+                window.location.href = "/Addproduct";
                 return;
             }
             var isShowing = this.classList.contains("show");
