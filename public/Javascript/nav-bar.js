@@ -1,7 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function() {
-
-    const response = await fetch('/user/checkLoggedIn');
-    const { loggedIn } = await response.json();
+document.addEventListener('DOMContentLoaded',  function() {
 
     const searchButton = document.getElementById('search-button');
     const searchButton2 = document.getElementById('search-button2');
@@ -173,23 +170,50 @@ document.addEventListener('DOMContentLoaded', async function() {
     const createAccountButton = document.getElementById('Create-an-account-nav');
     const createAccountForm = document.getElementById('create-account-form');
     const loginMessage = document.getElementById('login-message-popup');
+    
+
+    async function triggerPopup(event) {
+        event.preventDefault(); // Prevent the default action
+
+        try {
+            const response = await fetch('/user/checkLoggedIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+    
+            if (data.loggedIn) {
+                alert('User Already in session');
+                window.location.href = '/user/MyAccount';
+            } else {
+                popupContainer.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle the error
+        }
+    }
+
 
     loginIconTrigger.addEventListener('click', () => {
-        event.preventDefault();
-        popupContainer.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+       triggerPopup(event);
     });
 
     loginIconTrigger2.addEventListener('click', () => {
-        event.preventDefault();
-        popupContainer.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        triggerPopup(event);
+
     });
 
     loginIconTrigger3.addEventListener('click', () => {
-        event.preventDefault();
-        popupContainer.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        triggerPopup(event);
     });
 
     loginButton.addEventListener('click', () => {

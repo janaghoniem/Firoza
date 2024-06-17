@@ -110,6 +110,23 @@ const checkAddress = async (req, res) => {
     }
 }
 
+// Check Login
+const checkLoggedIn = async(req, res) => {
+    console.log('checking login');
+    try {
+        if (req.session.user) {
+            console.log('user in session');
+            res.status(200).json({ loggedIn: true });
+        } else {
+            console.log('please log in');
+            res.status(200).json({ loggedIn: false });
+        }
+    } catch (error) {
+        console.error('Error checking login:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 const Search = async (req, res) => {
     const { query } = req.body;
 
@@ -253,6 +270,7 @@ module.exports = {
     GetUser,
     AddUser,
     checkAddress,
+    checkLoggedIn,
     Search,
     AddToCart,
     Cart, 
