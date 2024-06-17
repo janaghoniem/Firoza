@@ -6,6 +6,7 @@ const Product = require('../models/product');
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
 
+
 // check if admin
 // router.use((req, res, next) => {
 //     if (req.session.user !== undefined && req.session.user.isAdmin) {

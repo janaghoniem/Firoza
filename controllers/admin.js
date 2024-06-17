@@ -3,6 +3,10 @@ const collections = require('../models/Collections');
 const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
+// const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+
+
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -65,9 +69,13 @@ const addCollection = async (req, res) => {
         console.log(CollectionName);
         console.log(CollectionDescription);
         // Validate input
-        if (!CollectionName || !CollectionDescription || !collectionImage) {
-            return res.status(400).json({ message: 'Collection name, description, and image are required' });
+        if (!CollectionName || !CollectionDescription) {
+            return res.status(400).json({ message: 'Collection name, description, required' });
         }
+        if (!collectionImage) {
+            return res.status(400).json({ message: 'Collection image is required' });
+        }
+
 
         // Generate a unique filename for the uploaded image
         const imgName = `${uuidv4()}-${collectionImage.originalname}`;

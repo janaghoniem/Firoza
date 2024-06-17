@@ -26,39 +26,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (inputField.value === "" || textareaField.value === "" || uploadFile.value === "" || !fileValidation()) {
             sureMessage.innerHTML = "This form will not submit as all fields are mandatory";
-        } else {
+        }
             // If all fields are filled, submit the form
-            const formData = {
-                CollectionName: inputField.value,
-                CollectionDescription: textareaField.value,
-                // Add other necessary data if needed
-            };
-
-            fetch('/AddCollection', {
+            const formData = new FormData();
+            formData.append('collectionImage', uploadFile.files[0]);
+        
+            // First, upload the image
+            fetch('/UploadCollectionImage', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                body: formData
+            })
+            .then(response => response.json())
+            .then(imageData => {
+                if (imageData.error) {
+                    sureMessage.innerHTML = imageData.error;
+                    return;
+                }
+        
+                // After successful image upload, submit the other fields
+                const collectionData = {
+                    CollectionName: inputField.value,
+                    CollectionDescription: textareaField.value,
+                    imgPath: imageData.filePath // Assuming the server returns the file path
+                };
+        
+                return fetch('/AddCollection', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(collectionData)
+                });
             })
             .then(response => response.json())
             .then(data => {
-                if (data.message) {
-                    sureMessage.innerHTML = data.message;
-                }
-                // Handle success or error messages
                 if (data.error) {
                     sureMessage.innerHTML = data.error;
                 } else {
-                    // Redirect or update UI on success
                     sureMessage.innerHTML = 'Collection added successfully';
-                    // Optionally redirect or update the page
                 }
             })
             .catch(error => {
                 sureMessage.innerHTML = `Error: ${error.message}`;
             });
-        }
     });
 
 
