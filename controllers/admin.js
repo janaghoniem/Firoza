@@ -362,23 +362,6 @@ const editProduct = async (req, res) => {
 
 //-------------------------------------------------------habiba-------------------------------------------
 
-// In your route handler
-const getOrdersInLast30Days = async (req, res) => {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    try {
-        const orderCount = await Order.countDocuments({
-            createdAt: { $gte: thirtyDaysAgo }
-        });
-        // Render the EJS template with the orderCount
-        res.render('main', {  ordersLast30Days: orderCount });
-    } catch (error) {
-        console.error('Error fetching order count:', error);
-        res.status(500).render('error', { error }); // Render an error page or handle the error as needed
-    }
-};
-
 const getDashboard = async (req, res) => {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -420,6 +403,16 @@ const getDashboard = async (req, res) => {
     }
 };
 
+const getStatistics = async (req, res) => {
+    try {
+        const userCount = await User.countDocuments();
+        res.render('statistics', { count: userCount });
+    } catch (error) {
+        console.error('Error counting users:', error);
+        res.status(500).json({ error: 'Failed to fetch user count' });
+    }
+};
+
 
 
     module.exports = {
@@ -435,8 +428,8 @@ const getDashboard = async (req, res) => {
         deleteProduct,
         getEditProductPage,
         editProduct,
-        getOrdersInLast30Days,
-        getDashboard
+        getDashboard,
+        getStatistics
     };
 
 //function to get orders
