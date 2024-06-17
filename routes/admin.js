@@ -8,6 +8,7 @@ const path = require('path');
 
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
+const User = require('../models/User');
 
 // check if admin
 // router.use((req, res, next) => {
@@ -89,6 +90,7 @@ const upload = multer({ storage: storage });
 // Use upload.single('collectionImage') in the route handling the form submission
 router.post('/addCollection', upload.single('collectionImage'), adminController.addCollection);
 
+router.get('/users/:id', adminController.getUserById);
 //route ll orders "admin pov"
 router.get('/orders', async (req, res, next) => {
     try {
