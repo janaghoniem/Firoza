@@ -5,14 +5,14 @@ const Schema= mongoose.Schema;
 const ordersSchema= new Schema({
 user_id:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:'user',
+    ref:'User',
     required:true
 
 
 },
 product_ids: [{
     type:mongoose.Schema.Types.ObjectId,
-    ref:'products',
+    ref:'product',
     required:true
 }],
 total_price : {

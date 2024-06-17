@@ -205,17 +205,17 @@ const GetAllUsers = (req, res) => {
 };
 //function to get orders
 
-const getOrders = (req, res) => {
-    Order.find()
-        .then(result => {
+// const getOrders = (req, res) => {
+//     Order.find()
+//         .then(result => {
 
-            res.render('admin-orders', { orders: result }); // Note the lowercase 'users'
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).send('Error retrieving users');
-        });
-};
+//             res.render('admin-orders', { orders: result }); // Note the lowercase 'users'
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).send('Error retrieving users');
+//         });
+// };
 
 // const getOrders = async (req, res) => {
 //     try {
@@ -230,7 +230,7 @@ const getOrders = (req, res) => {
 //     }
 // };
 
-const get_Orders = (req, res) => {
+const getOrders = (req, res) => {
     Order.find()
         .populate('user_id', 'firstname lastname') // Populate the user_id field with the firstname and lastname fields from the User model
         .populate('product_ids', 'name') // Populate the product_ids field with the name field from the Product model
