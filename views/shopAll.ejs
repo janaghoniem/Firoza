@@ -8,191 +8,28 @@
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/Javascript/nav-bar.js"></script>
-    <!-- <link rel="stylesheet" href="/CSS/indian.css">
-    <link rel="stylesheet" href="/CSS/indian2.css"> -->
     <link rel="stylesheet" href="/CSS/shopAll.css">
-
     <script src="/Javascript/indian.js"></script>
-    <script>
-        async function addToCart(productId, price) {
-            try {
-                const response = await fetch('/user/add-to-cart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ productId, price })
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    alert('Product added to cart successfully!');
-                } else {
-                    alert('Failed to add product to cart');
-                }
-
-            } catch (error) {
-                alert('Error:', error);
-                alert('Failed to add product to cart');
-            }
-        }
-
-        function gatherFilters() {
-            const filters = {
-                categories: [],
-                colors: [],
-                priceRange: document.getElementById('priceRange').value,
-                materials: []
-            };
-
-            // Gather category filters
-            document.querySelectorAll('#category-dropdown input[type="checkbox"]').forEach(cb => {
-                if (cb.checked) {
-                    filters.categories.push(cb.parentElement.textContent.trim());
-                }
-            });
-
-            // Gather color filters
-            document.querySelectorAll('#color-dropdown input[type="checkbox"]').forEach(cb => {
-                if (cb.checked) {
-                    filters.colors.push(cb.parentElement.textContent.trim());
-                }
-            });
-
-            // Gather material filters
-            document.querySelectorAll('#material-dropdown input[type="checkbox"]').forEach(cb => {
-                if (cb.checked) {
-                    filters.materials.push(cb.parentElement.textContent.trim());
-                }
-            });
-
-            return filters;
-        }
-
-        function checkIfFiltersApplied(filters) {
-            const isApplied = filters.categories.length > 0 || filters.colors.length > 0 || filters.materials.length > 0 || filters.priceRange != document.getElementById('priceRange').max;
-            const clearBtn = document.getElementById('clear-filters-btn');
-            clearBtn.style.display = isApplied ? 'block' : 'none';
-        }
-
-        async function applyFilters() {
-            const filters = gatherFilters();
-            checkIfFiltersApplied(filters);
-
-            try {
-                const response = await fetch('/user/filter', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(filters)
-                });
-
-                if (response.ok) {
-                    const products = await response.json();
-                    updateProductList(products);
-                } else {
-                    alert('Failed to apply filters');
-                }
-            } catch (error) {
-                console.error('Error:', error); // More detailed error logging
-                alert('Error:', error);
-            }
-        }
-
-        async function fetchDefaultProducts() {
-            try {
-                const response = await fetch('/user/filter', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({})
-                });
-
-                if (response.ok) {
-                    const products = await response.json();
-                    updateProductList(products);
-                } else {
-                    alert('Failed to fetch products');
-                }
-            } catch (error) {
-                console.error('Error:', error); // More detailed error logging
-                alert('Error:', error);
-            }
-        }
-
-        function clearFilters() {
-            // Reset checkboxes
-            document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(cb => cb.checked = false);
-            // Reset price range
-            document.getElementById('priceRange').value = document.getElementById('priceRange').max;
-            // Update the displayed price range
-            updatePrice(document.getElementById('priceRange').value);
-            // Hide the clear filters button
-            document.getElementById('clear-filters-btn').style.display = 'none';
-
-            // Fetch the default product list
-            fetchDefaultProducts();
-        }
-
-        function updatePrice(value) {
-            document.getElementById('priceValue').textContent = `$0 - $${value}`;
-        }
-
-        function updateProductList(products) {
-            const productContainer = document.querySelector('.row');
-            productContainer.innerHTML = '';
-
-            products.forEach(product => {
-                const productHtml = `
-                    <div class="col">
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a href="#" class="image">
-                                    <img class="img-1" src="/images/Indian/Newfolder/${product.img}">
-                                </a>
-                                <ul class="product-links">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="title"><a href="#">${product.name}</a></h3>
-                                <div class="price">${product.price}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                productContainer.innerHTML += productHtml;
-            });
-        }
-
-        // Call fetchDefaultProducts when the page loads
-        window.onload = fetchDefaultProducts;
-    </script>
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
     <div class="head">
         <div class="rings">
             <img src="/images/Indian/Newfolder/womenjewelryall_bagues_et_accessoires.webp" alt="">
-            <p>RINGS</p>
+            <p><a href="#">RINGS</a></p>
         </div>
         <div class="Earrings">
             <img src="/images/Indian/Newfolder/womenjewelryall_f_boucles_d_oreilles.webp" alt="">
-            <p>EARRINGS</p>
+            <p><a href="#">EARRINGS</a></p>
         </div>
         <div class="necklace">
             <img src="/images/Indian/Newfolder/womenjewelryall_colliers_et_pendentifs.webp" alt="">
-            <p>NECKLACES</p>
+            <p><a href="#">NECKLACES</a></p>
         </div>
-        
         <div class="bracelet">
             <img src="/images/Indian/Newfolder/womenjewelryall_f_bracelets.webp" alt="">
-            <p>BRACELETS</p>
+            <p><a href="#">BRACELETS</a></p>
         </div>
-        
     </div>
 
     <div class="filters">
@@ -220,16 +57,21 @@
             <i class="fa-solid fa-chevron-down"></i>
         </span>
         <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
+        <select name="sort" id="sort" style="margin-left: 800px;">
+            <option value="">Sort by</option>
+            <option value="lowToHigh">Price: low to high</option>
+            <option value="highToLow">Price: high to low</option>
+        </select>
     </div>
 
-    <!-- Dropdown content -->
     <div id="category-dropdown" class="dropdown-content">
         <div class="arrow"></div>
-    <label class="containerr" style="font-size: 12px;">Bracelets 
-        <input type="checkbox" onchange="applyFilters()">
-        <span class="checkmark"></span>
-    </label>
-        <label class="containerr"  style="font-size: 12px;">Necklace 
+        <label class="containerr" style="font-size: 12px;">Bracelets 
+            <input type="checkbox" onchange="applyFilters()">
+            <span class="checkmark"></span>
+        </label>
+        <label class="containerr" style="font-size: 12px;">Necklace 
+ 
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
@@ -281,7 +123,7 @@
     <div class="price-filter">
         <div id="price-dropdown" class="dropdown-content">
             <div class="arrow"></div>
-            <label for="priceRange">Price range: <span id="priceValue">$1,000 - $20,000,000</span></label>
+            <label for="priceRange">Price range: <span id="priceValue">$0 - $20,000,000</span></label>
             <input type="range" id="priceRange" min="0" max="20000000" step="10" value="20000000" oninput="updatePrice(this.value)" onchange="applyFilters()">
         </div>
     </div>
@@ -296,13 +138,10 @@
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <label class="containerr" style="font-size: 12px;">silver
+        <label class="containerr" style="font-size: 12px;">Silver
             <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
-        <select name="sort" id="sort">
-            <option value=""></option>
-        </select>
     </div>
     <div class="row">
         <% products.forEach(product => { %>

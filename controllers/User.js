@@ -158,7 +158,7 @@ const checkLoggedIn = async(req, res) => {
 const filterProducts = async (req, res) => {
     console.log("Filters received:", req.body); // Debugging information
 
-    const { categories, colors, priceRange, materials } = req.body;
+    const { categories, colors, priceRange, materials, sortBy, hideSoldOut } = req.body;
     const filters = {};
 
     if (categories && categories.length) filters.category = { $in: categories };
@@ -166,12 +166,33 @@ const filterProducts = async (req, res) => {
     if (materials && materials.length) filters.material = { $in: materials };
     if (priceRange) filters.price = { $lte: priceRange };
 
+    // Filter for products that are not sold out
+    if (hideSoldOut) {
+        filters['sizes.quantity'] = { $gt: 0 };
+    }
+
+    let sortOption = {};
+    if (sortBy === 'lowToHigh') {
+        sortOption.price = 1;
+    } else if (sortBy === 'highToLow') {
+        sortOption.price = -1;
+    }
+
     console.log("Filters applied:", filters); // Debugging information
+    console.log("Sort option applied:", sortOption); // Debugging information
 
     try {
-        const products = await Product.find(filters);
-        console.log("Filtered products:", products); // Debugging information
-        res.status(200).json(products);
+        const products = await Product.find(filters).sort(sortOption);
+        // Add a field indicating if the product is sold out
+        const productsWithStockInfo = products.map(product => {
+            const isSoldOut = product.sizes.every(size => size.quantity === 0);
+            return {
+                ...product.toObject(),
+                isSoldOut
+            };
+        });
+        console.log("Filtered products:", productsWithStockInfo); // Debugging information
+        res.status(200).json(productsWithStockInfo);
     } catch (error) {
         console.error("Error fetching products:", error);
         res.status(500).json({ message: 'Error fetching products', error });
