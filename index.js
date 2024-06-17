@@ -136,17 +136,35 @@ app.get('/shopAll', async (req, res) => {
 // }); 
     
 app.get('/ShoppingCart', async(req, res) => {
-    if (!req.session.user) {
-        console.log('no session')
-        // return res.redirect('/login'); // Redirect to login if the user is not logged in
-    }
-
     try {
+
+        if (!req.session.user) {
+            console.log('No user session');
+            // If the user is not logged in, use the cart stored in the session
+            const sessionCart = req.session.cart || [];
+
+            // Populate the session cart with product details
+            const cartItems = await Promise.all(sessionCart.map(async item => {
+                const product = await Product.findById(item.productId);
+                return {
+                    productId: product,
+                    quantity: item.quantity,
+                    price: item.price
+                };
+            }));
+
+            return res.render('ShoppingCart', {
+                cart: cartItems,
+                user: null
+            });
+        }
+
         const user = await User.findById(req.session.user._id).populate('cart.productId');
+
         if (!user) {
             return res.status(404).send('User not found');
         }
-        console.log('rendering')
+
         res.render('ShoppingCart', {
             cart: user.cart,
             user: user

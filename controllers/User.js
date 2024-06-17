@@ -31,12 +31,25 @@ const GetUser = async (req, res) => {
             return res.status(400).json({ error: 'Incorrect password' });
         }
 
+        // Merge guest cart with user cart
+        if (req.session.cart) {
+            req.session.cart.forEach(sessionItem => {
+                const existingItem = user.cart.find(dbItem => dbItem.productId.toString() === sessionItem.productId.toString());
+                if (existingItem) {
+                    existingItem.quantity += sessionItem.quantity;
+                } else {
+                    user.cart.push(sessionItem);
+                }
+            });
+            await user.save();
+            req.session.cart = []; // Clear the session cart after merging
+        }
+
         // Set session
         req.session.user = user;
-        const isAdmin = user.isAdmin;
 
         // Return user data including isAdmin flag
-        res.status(200).json({user});
+        res.status(200).json({ user });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -44,16 +57,15 @@ const GetUser = async (req, res) => {
 
 // Handle User signup
 const AddUser = async (req, res) => {
-    console.log('da5alt fel add user?');
+    console.log('Entered AddUser function');
     const { firstname, lastname, email, password, address } = req.body;
 
     console.log('Received fields:', { firstname, lastname, email, password, address });
 
     if (!firstname || !lastname || !email || !password) {
-        console.log('fy fields fadya');
+        console.log('Missing fields');
         return res.status(400).json({ error: 'All fields are required' });
     }
-
 
     try {
         // Check if user already exists
@@ -61,8 +73,6 @@ const AddUser = async (req, res) => {
         if (userExists) {
             return res.status(400).json({ error: 'User already exists' });
         }
-
-        console.log('password before hashing: ' + password);
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -78,10 +88,16 @@ const AddUser = async (req, res) => {
 
         await newUser.save();
         req.session.user = newUser;
-        console.log('saved el new user');
+
+        // Merge guest cart with new user cart
+        if (req.session.cart) {
+            newUser.cart = req.session.cart;
+            await newUser.save();
+            req.session.cart = []; // Clear the session cart after merging
+        }
+
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
-        console.log('yarab maykonsh feeh error. Ha3ayat walahy.')
         res.status(500).json({ error: error.message });
     }
 };
@@ -163,27 +179,34 @@ const Search = async (req, res) => {
 const AddToCart = async (req, res) => {
     const { productId, price } = req.body;
 
-    if (!req.session.user) {
-        return res.status(401).send('User not logged in');
-    }
-
     try {
-        const user = await User.findById(req.session.user._id);
         const product = await Product.findById(productId);
 
         if (!product) {
-            return res.status(404).send('Product not found');
+            return res.status(404).json({ error: 'Product not found' });
         }
 
-        const existingCartItem = user.cart.find(item => {
-            if (item.productId) {
-                return item.productId.toString() === productId.toString();
+        if (!req.session.user) {
+            if (!req.session.cart) {
+                req.session.cart = [];
             }
-            return false;
-        });
+            const existingCartItem = req.session.cart.find(item => item.productId.toString() === productId.toString());
+            if (existingCartItem) {
+                existingCartItem.quantity += 1;
+            } else {
+                req.session.cart.push({
+                    productId: productId,
+                    quantity: 1,
+                    price: price
+                });
+            }
+            return res.status(200).json({ message: 'Product added to guest cart successfully' });
+        }
+
+        const user = await User.findById(req.session.user._id);
+        const existingCartItem = user.cart.find(item => item.productId.toString() === productId.toString());
         if (existingCartItem) {
             existingCartItem.quantity += 1;
-            existingCartItem.price = price;
         } else {
             user.cart.push({
                 productId: productId,
@@ -195,18 +218,34 @@ const AddToCart = async (req, res) => {
         await user.save();
         res.status(200).json({ message: 'Product added to cart successfully' });
     } catch (error) {
-        console.error('Error adding to cart:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
 const Cart = async(req, res) => {
-    if (!req.session.user) {
-        console.log('no session');
-        // return res.redirect('/login'); // Redirect to login if the user is not logged in
-    }
-
     try {
+
+        if (!req.session.user) {
+            console.log('No user session');
+            // If the user is not logged in, use the cart stored in the session
+            const sessionCart = req.session.cart || [];
+
+            // Populate the session cart with product details
+            const cartItems = await Promise.all(sessionCart.map(async item => {
+                const product = await Product.findById(item.productId);
+                return {
+                    productId: product,
+                    quantity: item.quantity,
+                    price: item.price
+                };
+            }));
+
+            return res.render('ShoppingCart', {
+                cart: cartItems,
+                user: null
+            });
+        }
+
         const user = await User.findById(req.session.user._id).populate('cart.productId');
 
         if (!user) {
