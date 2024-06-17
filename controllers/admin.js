@@ -85,9 +85,11 @@ const getCollections = async (req, res) => {
 const deleteCollection = async (req, res) => {
     console.log("da5al gowa el function");
     try {
-        const { id } = req.params;
-        const deletedCollection = await collections.findByIdAndDelete({ id });
-
+      
+        console.log("akfufrujgr");
+        const { id  } = req.params;
+        const deletedCollection = await collections.findByIdAndDelete(id);
+        console.log("1111111");
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
         }

@@ -9,7 +9,7 @@ const CollectionSchema = new Schema({
        
     },
     collection_id: {
-        type: String,
+        type: Object,
         unique: true, // Ensures the collection_id is unique
         default: uuidv4
         // required: true
