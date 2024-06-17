@@ -115,5 +115,6 @@ router.get('/orders', async (req, res, next) => {
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
 router.post('/EditProduct/:id', adminController.editProduct);
 
+router.get('/orders-last-30-days',adminController.getOrdersInLast30Days);
 
 module.exports = router;

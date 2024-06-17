@@ -85,8 +85,8 @@ const getCollections = async (req, res) => {
 const deleteCollection = async (req, res) => {
     console.log("da5al gowa el function");
     try {
-        const { id  } = req.params;
-        const deletedCollection = await collections.findByIdAndDelete({id} );
+        const { id } = req.params;
+        const deletedCollection = await collections.findByIdAndDelete({ id });
 
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
@@ -173,7 +173,7 @@ const addProduct = async (req, res) => {
             category,
             price,
             img,
-            sizes: sizeQuantityPairs, 
+            sizes: sizeQuantityPairs,
             rating: rating || 0,
             material,
             color,
@@ -300,7 +300,7 @@ const getEditProductPage = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        res.render('EditProduct', {product});
+        res.render('EditProduct', { product });
     } catch (error) {
         res.status(500).send('Server error');
     }
@@ -311,7 +311,7 @@ const editProduct = async (req, res) => {
     try {
         const productId = req.params.id;
         const updatedData = req.body;
-        
+
         // Ensure the sizes are processed correctly if they come as arrays
         if (Array.isArray(updatedData.sizes)) {
             updatedData.sizes = updatedData.sizes.map((size, index) => ({
@@ -329,21 +329,63 @@ const editProduct = async (req, res) => {
     }
 };
 
+//-------------------------------------------------------habiba-------------------------------------------
 
-module.exports = {
-    addAdmin,
-    addCollection,
-    addProduct,
-    editCollection,
-    getCollections,
-    deleteCollection,
-    GetAllUsers,
-    getOrders,
-    getProducts,
-    deleteProduct,
-    getEditProductPage,
-    editProduct
+
+
+// const getOrdersInLast30Days = async () => {
+//     const thirtyDaysAgo = new Date();
+//     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+//     try {
+//         const orderCount = await Order.countDocuments({
+//             createdAt: { $gte: thirtyDaysAgo }
+//         });
+//         return orderCount;
+//     } catch (error) {
+//         console.error('Error fetching order count:', error);
+//         throw error;
+//     }
+// }
+
+// In your route handler
+const getOrdersInLast30Days = async (req, res) => {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    try {
+        const orderCount = await Order.countDocuments({
+            createdAt: { $gte: thirtyDaysAgo }
+        });
+        // Render the EJS template with the orderCount
+        res.render('main', { // 'adminDashboard' is the name of your EJS file without the .ejs extension
+            ordersLast30Days: orderCount
+            // Add other dynamic values as needed
+        });
+    } catch (error) {
+        console.error('Error fetching order count:', error);
+        res.status(500).render('error', { error }); // Render an error page or handle the error as needed
+    }
 };
+
+
+
+
+    module.exports = {
+        addAdmin,
+        addCollection,
+        addProduct,
+        editCollection,
+        getCollections,
+        deleteCollection,
+        GetAllUsers,
+        getOrders,
+        getProducts,
+        deleteProduct,
+        getEditProductPage,
+        editProduct,
+        getOrdersInLast30Days
+    };
 
 //function to get orders
 
