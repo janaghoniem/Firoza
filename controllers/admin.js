@@ -76,23 +76,11 @@ const addCollection = async (req, res) => {
             return res.status(400).json({ message: 'Collection image is required' });
         }
 
-
-        // Generate a unique filename for the uploaded image
-        const imgName = `${uuidv4()}-${collectionImage.originalname}`;
-        const imgPath = path.join(__dirname, '../images', imgName);
-
-        // Read the uploaded file and save it to the server
-        const fileContent = fs.readFileSync(collectionImage.path);
-        fs.writeFileSync(imgPath, fileContent);
-
-        // Delete the temporary file uploaded by the client
-        fs.unlinkSync(collectionImage.path);
-
         // Create a new Collection object with image path
         const newCollection = new collections({
             Collection_Name: CollectionName,
             Collection_Description: CollectionDescription,
-            imgPath: `/images/${imgName}` // Save image path relative to the server root
+            imgPath: `/uploads/${collectionImage.filename}` // Save image path relative to the server root
         });
 
         // Save the collection object to MongoDB
@@ -104,6 +92,49 @@ const addCollection = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// const addCollection = async (req, res) => {
+//     try {
+//         const { CollectionName, CollectionDescription } = req.body;
+//         const collectionImage = req.file; // Assuming the image file is sent as req.file
+//         console.log(CollectionName);
+//         console.log(CollectionDescription);
+//         // Validate input
+//         if (!CollectionName || !CollectionDescription) {
+//             return res.status(400).json({ message: 'Collection name, description, required' });
+//         }
+//         if (!collectionImage) {
+//             return res.status(400).json({ message: 'Collection image is required' });
+//         }
+
+
+//         // Generate a unique filename for the uploaded image
+//         const imgName = `${uuidv4()}-${collectionImage.originalname}`;
+//         const imgPath = path.join(__dirname, '../images', imgName);
+
+//         // Read the uploaded file and save it to the server
+//         const fileContent = fs.readFileSync(collectionImage.path);
+//         fs.writeFileSync(imgPath, fileContent);
+
+//         // Delete the temporary file uploaded by the client
+//         fs.unlinkSync(collectionImage.path);
+
+//         // Create a new Collection object with image path
+//         const newCollection = new collections({
+//             Collection_Name: CollectionName,
+//             Collection_Description: CollectionDescription,
+//             imgPath: `/images/${imgName}` // Save image path relative to the server root
+//         });
+
+//         // Save the collection object to MongoDB
+//         await newCollection.save();
+
+//         res.status(201).json({ message: 'Collection added successfully', collection: newCollection });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 
 // Function to get all collections
 // const getAllCollections = async (req, res) => {
