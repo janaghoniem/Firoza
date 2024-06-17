@@ -3,10 +3,6 @@ const collections = require('../models/Collections');
 const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
-// const multer = require('multer');
-const { v4: uuidv4 } = require('uuid');
-
-
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -39,59 +35,36 @@ const addAdmin = async (req, res) => {
 
 
 // Function to add an admin
-// const addCollection = async (req, res) => {
-//     try {
-//         const {CollectionName,CollectionDescription} = req.body;
-
-//         // Hash the password before saving
-//         // const hashedPassword = await bcrypt.hash(password, 10);
-//         console.log(CollectionName);
-//         console.log(CollectionName);
-//         const newCollection = new collections ({
-//             Collection_Name: CollectionName,
-//             Collection_Description:CollectionDescription,
-
-          
-//         });
-
-//         await newCollection.save();
-//         res.status(201).json({ message: 'collection added successfully' });
-//         console.log("collection added successfully")
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
-
 const addCollection = async (req, res) => {
+    
+    const {
+        CollectionName,
+        CollectionDescription,
+        img
+    } = req.body;
+
     try {
-        const { CollectionName, CollectionDescription } = req.body;
-        const collectionImage = req.file; // Assuming the image file is sent as req.file
-        console.log(CollectionName);
-        console.log(CollectionDescription);
         // Validate input
-        if (!CollectionName || !CollectionDescription) {
+              if (!CollectionName || !CollectionDescription) {
             return res.status(400).json({ message: 'Collection name, description, required' });
         }
-        if (!collectionImage) {
-            return res.status(400).json({ message: 'Collection image is required' });
-        }
 
-        // Create a new Collection object with image path
+        // Create a new Product object based on the schema
         const newCollection = new collections({
             Collection_Name: CollectionName,
             Collection_Description: CollectionDescription,
-            imgPath: `/uploads/${collectionImage.filename}` // Save image path relative to the server root
+            img
         });
 
-        // Save the collection object to MongoDB
+        // Save the product to the database
         await newCollection.save();
 
-        res.status(201).json({ message: 'Collection added successfully', collection: newCollection });
+        res.status(201).json({ message: 'Collection added successfully', data: newCollection });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
-    }
-};
+    }res.status(500).json({ error: error.message });
+    };
 
 // const addCollection = async (req, res) => {
 //     try {
@@ -103,8 +76,8 @@ const addCollection = async (req, res) => {
 //         if (!CollectionName || !CollectionDescription) {
 //             return res.status(400).json({ message: 'Collection name, description, required' });
 //         }
-//         if (!collectionImage) {
-//             return res.status(400).json({ message: 'Collection image is required' });
+//          if (!CollectionName || !CollectionDescription) {
+//             return res.status(400).json({ message: 'Collection name, description, required' });
 //         }
 
 
@@ -255,7 +228,7 @@ const addProduct = async (req, res) => {
 const GetAllUsers = (req, res) => {
     User.find()
         .then(result => {
-            
+
             res.render('Users', { users: result }); // Note the lowercase 'users'
         })
         .catch(err => {
@@ -265,32 +238,6 @@ const GetAllUsers = (req, res) => {
 };
 
 
-const getProducts = async (req, res) => {
-    try {
-        const products = await Product.find({});
-        res.render('Admin-products', { products });
-    } catch (error) {
-        console.error('Error retrieving products:', error);
-        res.status(500).send('Server error');
-    }
-};
-
-const deleteProduct = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const deletedProduct = await Product.findByIdAndDelete(id);
-
-        if (!deletedProduct) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        res.status(200).json({ message: 'Product deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting product:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-};
-
 module.exports = {
     addAdmin,
     addCollection,
@@ -298,9 +245,7 @@ module.exports = {
     editCollection,
     getCollections,
     deleteCollection,
-    GetAllUsers,
-    getProducts,
-    deleteProduct // Add this line
+    GetAllUsers
 };
 
 //function to get orders
@@ -310,11 +255,11 @@ exports.getOrders = async (req, res) => {
         const orders = await Order.find()
             .populate({
                 path: 'user_id',
-                model: 'User' 
+                model: 'User'
             })
             .populate({
                 path: 'product_ids',
-                model: 'Product' 
+                model: 'Product'
             });
 
         res.render('admin-orders', { orders });

@@ -3,12 +3,8 @@ const session = require('express-session');
 const router = express.Router();
 const adminController = require('../controllers/admin');
 const Product = require('../models/product'); 
-const multer = require('multer');
-const path = require('path');
-
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
-
 
 // check if admin
 // router.use((req, res, next) => {
@@ -34,7 +30,7 @@ router.get('/users', adminController.GetAllUsers);
 router.post('/addProduct', adminController.addProduct);
 
 router.get('/EditLayout', adminController.getCollections );
-router.delete('/EditLayout/:id', adminController.deleteCollection);
+router.delete('/EditLayout', adminController.deleteCollection);
 
 router.get('/indian', async (req, res) => {
     try {
@@ -45,22 +41,6 @@ router.get('/indian', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
-router.get('/product', adminController.getProducts);
-router.delete('/deleteProduct/:id', adminController.deleteProduct);
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${uuidv4()}-${file.originalname}`);
-    }
-});
-
-const upload = multer({ storage: storage });
-
-// Use upload.single('collectionImage') in the route handling the form submission
-router.post('/addCollection', upload.single('collectionImage'), adminController.addCollection);
 
 //route ll orders "admin pov"
 router.get('/orders', async (req, res, next) => {

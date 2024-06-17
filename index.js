@@ -79,7 +79,7 @@ app.get('/EditLayout', (req, res) => {
     res.render("EditLayout.ejs");
 });
 
-// app.delete('/EditLayout/:id', adminController.deleteCollection);
+//app.delete('/EditLayout/:id', adminController.deleteCollection);
 
 app.get('/EditLayout', async (req, res) => {
     try {
