@@ -7,8 +7,6 @@ user_id:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User',
     required:true
-
-
 },
 product_ids: [{
     type:mongoose.Schema.Types.ObjectId,
@@ -43,10 +41,6 @@ shipping_address :{
         type:Number,
         required:true
     }
-
-
-
-
 },
 Payment_method:{
     type:String,
@@ -62,8 +56,6 @@ updated_at:{
     type:Date,
     default:Date.now
 }
-
-
 
 
 
