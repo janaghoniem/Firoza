@@ -128,10 +128,6 @@ function handleFormSubmission(event) {
                 alert('Failed to save billing information');
             }
         })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        //     alert('Failed to save billing information due to network issue. Please try again later.');
-        // });
     } else {
         console.log('Form is invalid');
         // Handle invalid form submission (if necessary)

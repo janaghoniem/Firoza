@@ -505,37 +505,43 @@ const getUserOrder= async(req, res) => {
 //Billing Information - Checkout
 const BillingInformation = async (req, res) => {
     try {
-        const { shipping__address } = req.body;
+        const { shipping_address } = req.body; // Use single underscore to match the schema
 
-        // Update user's billing address in the database
+        // Validate the shipping address
+        if (!shipping_address || !shipping_address.address || !shipping_address.city || !shipping_address.state || !shipping_address.postal_code) {
+            return res.status(400).json({ error: 'Incomplete shipping address' });
+        }
+
+        // Find the user by session user ID
         const user = await User.findById(req.session.user._id);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Ensure user.address is initialized and is an array
-        user.address = user.address || [];
+        // Ensure user.shipping_address is initialized as an array
+        user.shipping_address = user.shipping_address || [];
 
         // Custom function to check for duplicate addresses
         const isDuplicateAddress = (newAddress) => {
-            return user.address.some(addr => (
+            return user.shipping_address.some(addr => (
                 addr.address.toLowerCase() === newAddress.address.toLowerCase() &&
                 addr.city.toLowerCase() === newAddress.city.toLowerCase() &&
-                addr.state.toLowerCase() === newAddress.state.toLowerCase()
+                addr.state.toLowerCase() === newAddress.state.toLowerCase() &&
+                addr.postal_code === newAddress.postal_code
             ));
         };
 
         // Check if the new address already exists in the user's array
-        if (isDuplicateAddress(shipping__address)) {
+        if (isDuplicateAddress(shipping_address)) {
             return res.status(200).json({ message: 'Address already exists' });
         }
 
         // If address doesn't exist, add it to the array
         user.shipping_address.push({
-            address: shipping__address.address,
-            city: shipping__address.city,
-            state: shipping__address.state,
-            postal_code: shipping__address.postal_code
+            address: shipping_address.address,
+            city: shipping_address.city,
+            state: shipping_address.state,
+            postal_code: shipping_address.postal_code
         });
 
         await user.save();
@@ -546,6 +552,7 @@ const BillingInformation = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 
 
 const getIndianProducts = async (req, res) => {

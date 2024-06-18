@@ -10,7 +10,7 @@ user_id:{
 },
 product_ids: [{
     type:mongoose.Schema.Types.ObjectId,
-    ref:'product',
+    ref:'Product',
     required:true
 }],
 total_price : {
