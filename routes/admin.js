@@ -23,6 +23,8 @@ const User = require('../models/User');
 
 // Route to add a User
 router.post('/addAdmin', adminController.addAdmin);
+router.get('/addAdmin', adminController.getadmin);
+
 
 //Route to add collection
 router.post('/addCollection', adminController.addCollection);

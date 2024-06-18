@@ -14,55 +14,42 @@
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
     <div class="container">
-        <!-- <div class="text">
-            Contact us Form
-        </div> -->
         <form id="addAdminForm" action="/admin/addAdmin" method="POST">
             <h2>Add Admin</h2>
             <div class="form-row">
                 <div class="input-data">
-                    <input type="text" name="firstName" required>
+                    <input type="text" id="firstName" name="firstName">
                     <div class="underline"></div>
-                    <label for="">First Name</label>
+                    <label for="firstName">First Name</label>
                 </div>
                 <div class="input-data">
-                    <input type="text" name="lastName" required>
+                    <input type="text" id="lastName" name="lastName" >
                     <div class="underline"></div>
-                    <label for="">Last Name</label>
+                    <label for="lastName">Last Name</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-data">
-                    <input type="email" name="email" required>
+                    <input  id="email" name="email" >
                     <div class="underline"></div>
-                    <label for="">Email Address</label>
+                    <label for="email">Email Address</label>
                 </div>
                 <div class="input-data">
-                    <input type="password" name="password" required>
+                    <input  id="password" name="password" >
                     <div class="underline"></div>
-                    <label for="">Password</label>
+                    <label for="password">Password</label>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="input-data">
-                    <input type="text" name="contactNumber" required>
-                    <div class="underline"></div>
-                    <label for="">Contact Number</label>
-                </div>
-            </div>
+         
             <div class="form-row submit-btn">
                 <div class="input-data">
                     <div class="inner"></div>
                     <input type="submit" value="Add">
-
-
-
                 </div>
             </div>
         </form>
-
     </div>
-
+</body>
 </body>
 
 </html>

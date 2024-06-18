@@ -20,10 +20,14 @@ const addAdmin = async (req, res) => {
             email,
             password: hashedPassword,
             isAdmin: true,
-            address: [], // Optional field, can be updated if needed
+            // Optional fields initialized as empty arrays
+            shipping_address: [],
             wishlist: [],
             orders: [],
-            cart: [],
+            cart: {
+                items: [],
+                totalprice: 0
+            },
             Token: '',
             Tokenexpiry: null,
         });
@@ -480,6 +484,9 @@ const getStatistics = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
+const getadmin =async(req,res)=>{
+    res.render("AddAdmin.ejs");
+};
 
 
 
@@ -497,7 +504,8 @@ module.exports = {
     getEditProductPage,
     editProduct,
     getDashboard,
-    getStatistics
+    getStatistics,
+    getadmin
 };
 
 //function to get orders

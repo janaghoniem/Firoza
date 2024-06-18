@@ -192,9 +192,6 @@ app.get('/user/Checkout', (req, res) => {
     res.render("Checkout.ejs");
 });
 
-// app.get('/AddAdmin',(req,res)=>{
-//     res.render("AddAdmin.ejs");
-// });
 
 
 
