@@ -25,12 +25,15 @@
             <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p>
             <section class="personal-info">
                 <h3>YOUR PERSONAL INFORMATION <a href="#">Edit</a></h3>
-                <p>First Name: Hala</p>
-                <p>Last Name: Elaby</p>
-                <p>Email Address: halaelaby@gmail.com</p>
-                <p>Phone:</p>
+                <% if (userInfo) { %>
+                    <p>First Name: <%= userInfo.firstname %></p>
+                    <p>Last Name: <%= userInfo.lastname %></p>
+                    <p>Email Address: <%= userInfo.email %></p>
+                   
+                <% } else { %>
+                    <p>User data not found.</p>
+                <% } %>
             </section>
-           
             <section class="order-history">
                 <h3>ORDER HISTORY</h3>
                 <% if (ordersUser.length > 0) { %>

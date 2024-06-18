@@ -198,10 +198,6 @@ app.get('/user/Checkout', (req, res) => {
 
 
 
-app.get('/myaccount',(req,res)=>{
-    res.render("myAccount.ejs");
-});
-
 
 
 // app.use('/', Product);
@@ -220,31 +216,31 @@ app.use('/products', userRouter);
 
 //global error handling
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'An error occurred on the server. Please try again later.' });
-});
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).json({ message: 'An error occurred on the server. Please try again later.' });
+// });
 
 
 //Order data for Jana Ghoniem
-const order1 = new Order({
-    user_id: new mongoose.Types.ObjectId('6671369b45c4005caab95051'),
-    product_ids: [
-       new mongoose.Types.ObjectId('666f66f88e74f044945fb5fb'),
-        new mongoose.Types.ObjectId('666f66c68e74f044945fb5f8')
-    ],
-    total_price: 320000,
-    status: 'pending',
-    shipping_address: {
-        country: 'Egypt',
-        city: 'Cairo',
-        state: 'Cairo Governorate', // Add the state
-        street: '123 Nile Street',
-        address: 'Apartment 12', // Add the address
-        postal_code: 12345
-    },
-    Payment_method: 'credit_card' 
-});
+// const order1 = new Order({
+//     user_id: new mongoose.Types.ObjectId('6671369b45c4005caab95051'),
+//     product_ids: [
+//        new mongoose.Types.ObjectId('666f66f88e74f044945fb5fb'),
+//         new mongoose.Types.ObjectId('666f66c68e74f044945fb5f8')
+//     ],
+//     total_price: 320000,
+//     status: 'pending',
+//     shipping_address: {
+//         country: 'Egypt',
+//         city: 'Cairo',
+//         state: 'Cairo Governorate', // Add the state
+//         street: '123 Nile Street',
+//         address: 'Apartment 12', // Add the address
+//         postal_code: 12345
+//     },
+//     Payment_method: 'credit_card' 
+// });
 
 // Order data forJana Ghoniem
 // const order2 = new Order({

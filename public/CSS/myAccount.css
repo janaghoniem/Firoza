@@ -52,6 +52,7 @@ body {
 
 .account-container h2 {
     text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
 .account-container section {
@@ -64,7 +65,16 @@ body {
     /* border-bottom: 1px solid #ddd; */
     padding-bottom: 10px;
 }
-
+.personal-info h3{
+    border-bottom: 1px solid #ddd; 
+}
+.personal-info ,
+.order-history  {
+    border-bottom: 1px solid #ddd;
+}
+.order-history {
+    border-bottom: 1px solid #ddd; 
+}
 .order-box {
     border: 1px solid #ddd;
     border-radius: 4px;

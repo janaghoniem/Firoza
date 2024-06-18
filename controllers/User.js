@@ -466,6 +466,8 @@ const getUserById = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
+
 const getUserOrder= async(req, res) => {
    
 
@@ -479,6 +481,9 @@ const getUserOrder= async(req, res) => {
 
         const userId = req.session.user._id;
 
+        const userInfo = await User.findById(req.session.user._id);
+
+        console.log('User information:', userInfo);
         // Find orders for the current user by their user ID
         const ordersUser = await Orderr.find({ user_id: userId })
             .populate({
@@ -489,7 +494,7 @@ const getUserOrder= async(req, res) => {
 
         console.log('Orders for user:', ordersUser); // Log the orders
 
-        res.render('myAccount', { ordersUser }); // Pass ordersUser to the EJS template
+        res.render('myAccount', { ordersUser, userInfo }); // Pass ordersUser to the EJS template
     } catch (error) {
         console.error('Error fetching user orders:', error);
         res.status(500).render('error', { error });
