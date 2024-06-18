@@ -93,16 +93,17 @@
         <div class="video-container">
             <video src="/videos/Collections/two.mp4" autoplay muted loop></video>
         </div>
-        <div>
-            <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
+        
+    </section>
+    <div class="dynamic" style="text-decoration: none; color: black;">
+        <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
 <% getcollections.forEach(function(collection) { %>
-    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
-        <%= collection.Collection_Name %> Collection
-    </a>
+<a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+    <%= collection.Collection_Name %> Collection
+</a><br>
 <% }); %>
 
-        </div>
-    </section>
+    </div>
 
     <%- include('./partials/footer.ejs') %>
 </body>

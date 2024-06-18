@@ -73,7 +73,12 @@
     line-height: 2rem;
     text-transform: uppercase;
 }
-
+.dynamic{
+    text-decoration: none;
+}
+.dynamic:hover{
+    text-decoration: underline;
+}
 .collection-text h3{
     font-size: 27px;
     letter-spacing: 0.9rem;
