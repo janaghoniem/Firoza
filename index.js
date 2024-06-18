@@ -253,7 +253,7 @@ const order1 = new Order({
 //        new mongoose.Types.ObjectId('666f611c8f1bfa19966dd9f2')
 //     ],
 //     total_price: 120000,
-//     status: 'pending',
+//     status: 'delivered',
 //     shipping_address: {
 //         country: 'Egypt',
 //         city: 'Alexandria',

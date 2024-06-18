@@ -61,7 +61,7 @@ body {
 .account-container h3 {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     padding-bottom: 10px;
 }
 
@@ -71,21 +71,56 @@ body {
     padding: 15px;
     margin: 10px 0;
     background: #f9f9f9;
+    
 }
 
 .order-box h2 {
     margin-top: 0;
 }
-
 .order-box h3 {
     margin: 10px 0;
+   
+}
+.status {
+    border-bottom: 1px solid #ddd;
 }
 
 .order-box img {
     max-width: 100px;
     margin-right: 10px;
 }
+.product-list {
+    list-style: none;
+    padding: 0;
+}
 
+.product-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #442909;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #fff;
+}
+
+.product-details {
+    flex: 1; /* Take remaining space */
+}
+
+.product-details h3,
+.product-details p {
+    margin: 0;
+}
+
+.product-item img {
+    max-width: 100px;
+    margin-left: 10px; 
+}
+
+.product-item h3 {
+    margin: 0;
+}
 .order-actions {
     display: flex;
     justify-content: flex-end;
@@ -101,11 +136,11 @@ body {
 }
 
 .order-actions .cancel-button {
-    background-color: #ff4d4d;
+    background-color: #7e531f;
     color: white;
 }
 
 .order-actions .review-button {
-    background-color: #4caf50;
+    background-color: #7e531f;
     color: white;
 }
