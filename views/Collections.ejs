@@ -93,6 +93,15 @@
         <div class="video-container">
             <video src="/videos/Collections/two.mp4" autoplay muted loop></video>
         </div>
+        <div>
+            <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
+<% getcollections.forEach(function(collection) { %>
+    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+        <%= collection.Collection_Name %> Collection
+    </a>
+<% }); %>
+
+        </div>
     </section>
 
     <%- include('./partials/footer.ejs') %>

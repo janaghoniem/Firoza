@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../controllers/User'); 
-const userr = require('../models/User');
+const UserSchema = require('../models/User');
+const Collection =  require('../models/Collections');
+const Product = require('../models/product');
 
 const restrictedPaths = [
-    // '/admin',
     '/Checkout'
 ];
 
-// Unauthorized users 
+// Middleware to check authorization
 router.use((req, res, next) => {
     if (req.session.user === undefined && restrictedPaths.includes(req.path)) {
-        console.log(req.session.user);
         console.log('You are not authorized to access this path');
         res.status(403).send('You are not authorized to access this path');
     } else {
@@ -19,20 +19,39 @@ router.use((req, res, next) => {
     }
 });
 
-// Handle POST request for login
+// Route to get collection by name
+router.get('/user/:collectionName', async (req, res) => {
+    try {
+        const formattedCollectionName = req.params.collectionName;
+        const collectionName = formattedCollectionName.replace(/-/g, ' ');
+
+        const collection = await Collection.findOne({ Collection_Name: collectionName });
+        console.log(collectionName);
+        if (!collection) {
+            return res.status(404).send('Collection not found');
+        }
+
+        const products = await Product.find({ collection_id: collection._id });
+
+        res.render('indian', {
+            img: collection.img,
+            Collection_Name: collection.Collection_Name,
+            Collection_Description: collection.Collection_Description,
+            products: products
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Other routes
 router.post('/login', User.GetUser);
-
-// Handle POST request for signup
 router.post('/signup', User.AddUser);
-
-// Handle POST request for checkAddress
 router.post('/checkAddress', User.checkAddress);
-
-// Handle POST request for checkLoggedIn
 router.post('/checkLoggedIn', User.checkLoggedIn);
-
-// Handle POST request for search
 router.post('/search', User.Search);
+
 
 // Handle POST request for add to cart
 router.post('/add-to-cart', User.AddToCart)
@@ -40,17 +59,15 @@ router.post('/add-to-cart', User.AddToCart)
 // Handle POST request for cart
 router.get('/ShoppingCart', User.Cart);
 
-// Handle cart update
+
+router.post('/add-to-cart', User.AddToCart);
+router.post('/ShoppingCart', User.Cart);
+
 router.put('/updateCart', User.updateCart);
-
-// Handle cart total price update
 router.put('/updateCartPrice', User.updateCartPrice);
-
-// Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
-
-// Route to checkout
 router.post('/checkout', User.Checkout);
+
 
 // Get wishlist
 router.get('/wishlist', User.getWishlist);
@@ -94,17 +111,20 @@ router.get('/shopAll',User.getShopAllProducts);
 
 router.get('/indian',User.getIndianProducts);
 
+
+router.post('/filter', User.filterProducts);
+router.get('/shopAll', User.getShopAllProducts);
+
 router.post('/Billing-Information', User.BillingInformation);
 
 router.get('/Checkout', async (req, res) => {
     try {
-        const user = await userr.findById(req.session.user._id);
+        const user = await UserSchema.findById(req.session.user._id);
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Render the EJS template and pass user data
         res.render('Checkout', { user });
     } catch (error) {
         console.error('Error fetching user:', error);
@@ -114,13 +134,18 @@ router.get('/Checkout', async (req, res) => {
 
 router.get('/users/:id', User.getUserById);
 
+
 router.get('/myAccount', User.getUserOrder );
+
+
+router.get('/myAccount', User.getUserOrder);
+router.delete('/cancel-order/:orderId', User.cancelOrder);
 
 
 const getCollectionProducts = async (req, res) => {
     const collectionId = req.params.collectionId;
     try {
-        const collection = await Collection.findOne({ collection_id: collectionId }).populate('item_products');
+        const collection = await Collection.findOne({ _id: collectionId }).populate('item_products');
         if (!collection) {
             return res.status(404).send('Collection not found');
         }
@@ -128,7 +153,6 @@ const getCollectionProducts = async (req, res) => {
             collectionName: collection.Collection_Name,
             collectionDescription: collection.Collection_Description,
             collectionImage: collection.img,
-            collectionFolder: collection.img, // Assuming folder is same as image field in this case
             products: collection.item_products
         });
     } catch (error) {

@@ -37,6 +37,7 @@ router.post('/addCollection', adminController.addCollection);
 router.get('/users', adminController.GetAllUsers);
 //route to add a product
 router.post('/addProduct', adminController.addProduct);
+
 router.get('/addProduct', async (req, res) => {
     try {
         const collections = await getCollections.find(); // Fetch all collections
@@ -47,6 +48,7 @@ router.get('/addProduct', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 
 

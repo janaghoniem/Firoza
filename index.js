@@ -58,6 +58,42 @@ app.get('/', (req, res) => {
 // });
 
 
+app.get('/Collections', async (req, res) => {
+    try {
+        const allCollections = await collectiona.find({});
+
+        // Render the template with the fetched collections
+        res.render('Collections', { getcollections: allCollections });
+    } catch (error) {
+        console.error('Error fetching collections:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.get('/user/:collectionName', async (req, res) => {
+    try {
+        const formattedCollectionName = req.params.collectionName;
+        const collectionName = formattedCollectionName.replace(/-/g, ' ');
+
+        const collection = await collectiona.findOne({ Collection_Name: collectionName });
+        console.log(collectionName);
+        if (!collection) {
+            return res.status(404).send('Collection not found');
+        }
+
+        const products = await Product.find({ collection_id: collection.Collection_Name });
+
+        res.render('indian', {
+            img: collection.img,
+            Collection_Name: collection.Collection_Name,
+            Collection_Description: collection.Collection_Description,
+            products: products
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 

@@ -15,6 +15,31 @@
 
     <!-- Container for the product cards -->
     <div class="cards">
+        <div class="card">
+            <div class="card__image-holder">
+                <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
+            </div>
+            <div class="card-title">
+                <a href="#" class="toggle-info btn">
+                    <span class="left"></span>
+                    <span class="right"></span>
+                </a>
+                <h2>
+                    Add Product
+                    <!-- <small>Collection:</small> -->
+                </h2>
+            </div>
+            <div class="card-flap flap1">
+                <div class="card-description">
+                    Click on the add button to add a product
+                </div>
+                <div class="card-flap flap2">
+                    <div class="card-actions">
+                        <a href="/admin/addProduct" class="btn">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <% products.forEach(product => { %>
             <div class="card" data-id="<%= product._id %>">
                 <div class="card__image-holder">
@@ -53,31 +78,7 @@
         <% }) %>
 
         <!-- Add Product Card -->
-        <div class="card">
-            <div class="card__image-holder">
-                <!-- <img class="card__image" src="../images/Admin/add.png" /> -->
-            </div>
-            <div class="card-title">
-                <a href="#" class="toggle-info btn">
-                    <span class="left"></span>
-                    <span class="right"></span>
-                </a>
-                <h2>
-                    Add Product
-                    <!-- <small>Collection:</small> -->
-                </h2>
-            </div>
-            <div class="card-flap flap1">
-                <div class="card-description">
-                    Click on the add button to add a product
-                </div>
-                <div class="card-flap flap2">
-                    <div class="card-actions">
-                        <a href="/admin/addProduct" class="btn">Add</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <script>

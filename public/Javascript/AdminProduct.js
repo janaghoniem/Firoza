@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             if (e.target.classList.contains("btn") && e.target.textContent === "Add") {
-                window.location.href = "/Addproduct";
+                window.location.href = "/admin/addProduct";
                 return;
             }
             var isShowing = this.classList.contains("show");
