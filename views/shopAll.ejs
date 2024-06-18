@@ -227,7 +227,8 @@
 
             // Apply CSS classes to hide relevant elements
             document.querySelector('.headyy').classList.add('category-selected');
-            document.querySelector('.filters').classList.add('filter-selected');
+            document.querySelector('.haya').classList.add('filter-selected');
+            
         });
     });
 
@@ -260,38 +261,40 @@
         </div>
     </div>
     
-
-    <div class="filters" style="margin-top: 2em;">
-        <div class="toggle-container">
-            <div class="toggle-switch">
-                <input type="checkbox" id="toggle" class="toggle-input">
-                <label for="toggle" class="toggle-label"></label>
+    <div class="haya">
+        <div class="filtersss">
+            <div class="toggle-container">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="toggle" class="toggle-input">
+                    <label for="toggle" class="toggle-label"></label>
+                </div>
+                <p class="toggle-text">Hide sold out</p>
             </div>
-            <p class="toggle-text">Hide sold out</p>
+            <span class="category filter-buttons" onclick="toggleDropdown(event, 'category-dropdown')">
+                <p>Category</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+            <span class="color filter-buttons" onclick="toggleDropdown(event, 'color-dropdown')">
+                <p>Color</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+            <span class="price filter-buttons" onclick="toggleDropdown(event, 'price-dropdown')">
+                <p>Price</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+            <span class="material filter-buttons" onclick="toggleDropdown(event, 'material-dropdown')">
+                <p>Material</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </span>
+            <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
+            <select name="sort" id="sort" style="margin-left: 800px;">
+                <option value="">Sort by</option>
+                <option value="lowToHigh">Price: low to high</option>
+                <option value="highToLow">Price: high to low</option>
+            </select>
         </div>
-        <span class="category filter-buttons" onclick="toggleDropdown(event, 'category-dropdown')">
-            <p>Category</p>
-            <i class="fa-solid fa-chevron-down"></i>
-        </span>
-        <span class="color filter-buttons" onclick="toggleDropdown(event, 'color-dropdown')">
-            <p>Color</p>
-            <i class="fa-solid fa-chevron-down"></i>
-        </span>
-        <span class="price filter-buttons" onclick="toggleDropdown(event, 'price-dropdown')">
-            <p>Price</p>
-            <i class="fa-solid fa-chevron-down"></i>
-        </span>
-        <span class="material filter-buttons" onclick="toggleDropdown(event, 'material-dropdown')">
-            <p>Material</p>
-            <i class="fa-solid fa-chevron-down"></i>
-        </span>
-        <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
-        <select name="sort" id="sort" style="margin-left: 800px;">
-            <option value="">Sort by</option>
-            <option value="lowToHigh">Price: low to high</option>
-            <option value="highToLow">Price: high to low</option>
-        </select>
     </div>
+    
 
     <div id="category-dropdown" class="dropdown-content">
         <div class="arrow"></div>

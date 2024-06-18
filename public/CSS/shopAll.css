@@ -3,6 +3,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Oxygen:wght@300;400;700&family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Spirax&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+*{
+    font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+    font-weight: 100;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    transition: all .3s cubic-bezier(.39,.575,.565,1);
+    -webkit-font-smoothing: antialiased;
+}
+
 body{
     background-color: rgb(243, 243, 243);
     margin: 0;
@@ -32,22 +44,25 @@ body{
     text-decoration: underline;
     color: black;
 }
-.filters {
+.filtersss {
     display: flex;
     align-items: center;
     gap: 35px; 
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
+    z-index: 999;
 }
-
-.filters p {
+.haya{
+    padding-top: 2em; /* Adjust as needed */
+}
+.filtersss p {
     font-family: "Quicksand", sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: black;
 } 
-.filters p:hover{
+.filtersssp:hover{
     cursor: pointer;
 }
 
@@ -541,7 +556,7 @@ body{
     display: none;
 }
 .filter-selected{
-    top: 0;
+    padding-top: 10em;
 }
 
 
