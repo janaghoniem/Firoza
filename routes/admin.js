@@ -44,6 +44,12 @@ router.get('/addProduct', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+
+router.get('/EditProduct/:id',  adminController.getEditProductPage);
+
+
 router.get('/EditLayout', adminController.getCollections );
 router.delete('/deleteCollection/:id', adminController.deleteCollection);
 router.post('/editCollection/:id', adminController.editCollection);
@@ -119,7 +125,9 @@ router.get('/orders', adminController.getOrders);
 // });
 //router.get('/editProduct/:id', adminController.getEditProductPage);
 
-router.get('/EditProduct/:id',  adminController.getEditProductPage);
+
+
+
 router.post('/EditProduct/:id', adminController.editProduct);
 
 

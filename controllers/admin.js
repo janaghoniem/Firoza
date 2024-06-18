@@ -151,7 +151,7 @@ const addProduct = async (req, res) => {
         sizes,
         quantities
     } = req.body;
-    
+
     try {
         // Validate input
         if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !sizes || !quantities) {
@@ -327,6 +327,7 @@ const deleteProduct = async (req, res) => {
 const getEditProductPage = async (req, res) => {
     try {
         const productId = req.params.id;
+        const getcollections = await collections.find(); // Fetch all collections
 
         const product = await Product.findById(productId);
 
@@ -334,7 +335,7 @@ const getEditProductPage = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        res.render('EditProduct', { product });
+        res.render('EditProduct', { product, getcollections});
     } catch (error) {
         res.status(500).send('Server error');
     }
