@@ -108,7 +108,6 @@ router.post('/filter', User.filterProducts);
 
 router.get('/shopAll',User.getShopAllProducts);
 
-router.get('/indian',User.getIndianProducts);
 
 
 router.post('/filter', User.filterProducts);
@@ -159,6 +158,16 @@ router.get('/quiz', (req, res) => {
 });
 
 
+// router.get('/shopAll', (req, res) => {
+//     const category = req.query.category;
+//     if (category) {
+//         // Logic to fetch products based on the category
+//         res.send('Products for category: ' + category);
+//     } else {
+//         res.status(404).send('Category not found');
+//     }
+// });
+
 
 router.get('/stores', (req, res) => {
     res.render("stores.ejs");
@@ -176,7 +185,7 @@ router.get('/user/:collectionName', async (req, res) => {
 
         const products = await Product.find({ collection_id: collection.Collection_Name });
 
-        res.render('indian', {
+        res.render('/indian', {
             img: collection.img,
             Collection_Name: collection.Collection_Name,
             Collection_Description: collection.Collection_Description,

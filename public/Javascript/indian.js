@@ -193,6 +193,30 @@ function updateProductList(products) {
         productContainer.innerHTML += productHtml;
     });
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    
+    if (category) {
+        applyCategoryFilter(category);
+    }
+
+    document.querySelectorAll('.headyy a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const category = event.target.getAttribute('data-category');
+            applyCategoryFilter(category);
+            
+            // Apply CSS classes to hide relevant elements
+            document.querySelector('.headyy').classList.add('category-selected');
+            document.querySelector('.haya').classList.add('filter-selected');
+        });
+    });
+
+    document.getElementById('sort').addEventListener('change', applyFilters);
+    document.getElementById('toggle').addEventListener('change', applyFilters);
+    fetchDefaultProducts();
+});
 
 function applyCategoryFilter(category) {
     const checkboxes = document.querySelectorAll('#category-dropdown input[type="checkbox"]');
@@ -204,22 +228,3 @@ function applyCategoryFilter(category) {
     });
     applyFilters();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-document.querySelectorAll('.headyy a').forEach(link => {
-link.addEventListener('click', (event) => {
-    event.preventDefault();
-    const category = event.target.getAttribute('data-category');
-    applyCategoryFilter(category);
-    
-    // Apply CSS classes to hide relevant elements
-    document.querySelector('.headyy').classList.add('category-selected');
-    document.querySelector('.haya').classList.add('filter-selected');
-    
-});
-});
-
-document.getElementById('sort').addEventListener('change', applyFilters);
-document.getElementById('toggle').addEventListener('change', applyFilters);
-fetchDefaultProducts();
-});

@@ -156,13 +156,10 @@
                         <div class="product-image">
                             <a href="#" class="image">
                                 <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
-                                <!-- Adjust the path here -->
                             </a>
                             <ul class="product-links">
-                                <li><a href="#" onclick="addToWishlist('<%= product._id %>')"><i
-                                            class="fa fa-heart"></i></a></li>
-                                <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i
-                                            class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="#" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="product-content">
@@ -175,7 +172,7 @@
                         </div>
                     </div>
                 </div>
-                <% }); %>
+            <% }); %>
         </div>
         <%- include('./partials/footer.ejs') %>
 
