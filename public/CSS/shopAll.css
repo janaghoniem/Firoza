@@ -10,17 +10,17 @@ body{
     font-family: "Quicksand", sans-serif;
 
 }
-.head{
+.headyy{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     padding-top: 170px;
 }
-.head img{
+.headyy img{
     width: 22vw;
 }
-.head a{
+.headyy a{
     font-size: 15px;
     font-family: "Quicksand", sans-serif;
     font-weight: 600;
@@ -28,7 +28,7 @@ body{
     color: black;
 
 }
-.head a:hover{
+.headyy a:hover{
     text-decoration: underline;
     color: black;
 }

@@ -219,14 +219,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.head a').forEach(link => {
+    document.querySelectorAll('.headyy a').forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const category = event.target.getAttribute('data-category');
             applyCategoryFilter(category);
 
             // Apply CSS classes to hide relevant elements
-            document.querySelector('.head').classList.add('category-selected');
+            document.querySelector('.headyy').classList.add('category-selected');
             document.querySelector('.filters').classList.add('filter-selected');
         });
     });
@@ -241,7 +241,7 @@
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
-    <div class="head">
+    <div class="headyy">
         <div class="rings">
             <img src="/images/Indian/Newfolder/womenjewelryall_bagues_et_accessoires.webp" alt="">
             <p><a href="#" data-category="Ring">RINGS</a></p>
