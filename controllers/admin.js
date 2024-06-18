@@ -234,7 +234,7 @@ const GetAllUsers = (req, res) => {
 
 const getOrders = (req, res) => {
     Order.find()
-        .populate('user_id', 'firstname lastname') // Populate the user_id field with the firstname and lastname fields from the User model
+        .populate('user_id', 'firstname lastname email') // Populate the user_id field with the firstname and lastname fields from the User model
         .populate({
             path: 'product_ids',
             select: 'name',

@@ -30,7 +30,12 @@
               <%= order._id %>
             </div>
             <div class="col col-2" data-label="Customer Name">
-              <%= order.user_id.firstname %> <%= order.user_id.lastname %>
+              <% if (order.user_id) { %>
+                <!-- <p><%= order.user_id.firstname %> <%= order.user_id.lastname %></p> -->
+                <p><%= order.user_id.email %></p>
+              <% } else { %>
+                <p>Unknown User</p>
+              <% } %>
             </div>
             <div class="col col-3" data-label="Total Amount">$<%= order.total_price %>
             </div>
