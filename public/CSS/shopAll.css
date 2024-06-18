@@ -33,7 +33,6 @@ body{
     color: black;
 }
 .filters {
-    margin-top: 2vw;
     display: flex;
     align-items: center;
     gap: 35px; 
@@ -538,7 +537,12 @@ body{
     font-weight: bold;
 }
 
-
+.category-selected {
+    display: none;
+}
+.filter-selected{
+    top: 0;
+}
 
 
 @media screen and (max-width: 990px) {
