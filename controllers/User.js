@@ -2,12 +2,33 @@ const User = require('../models/User');
 const Product = require('../models/product');
 const bcrypt = require('bcrypt');
 const Orderr= require('../models/Orders');
-// const natural = require('natural');
-// const spellcheck = new natural.Spellcheck(['gold', 'silver', 'red']); // Extend with relevant terms
+const collections= require('../models/Collections');
 
 
-// Handle User login
-// Handle User login
+async function getIndianProducts(req, res) {
+    try {
+        // Fetch the collection details
+        const collection = await collections.findOne({ Collection_Name: 'Indian Collection' });
+
+        if (!collection) {
+            return res.status(404).send('Collection not found');
+        }
+
+        // Fetch products associated with this collection
+        const products = await Product.find({ collection_id: collection.collection_id });
+
+        // Render the template with collection and products
+        res.render('indian', {
+            img: collection.img,
+            Collection_Name: collection.Collection_Name,
+            Collection_Description: collection.Collection_Description,
+            products: products // Pass products array to the template
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
 const GetUser = async (req, res) => {
     console.log('Entered GetUser function');
 
@@ -555,16 +576,17 @@ const BillingInformation = async (req, res) => {
 
 
 
-const getIndianProducts = async (req, res) => {
-    try {
-        const indianProducts = await Product.find({ collection_id: '2' }); // Fetch products with collection_id '2'
+
+// const getIndianProducts = async (req, res) => {
+//     try {
+//         const indianProducts = await Product.find({ collection_id: '2' }); // Fetch products with collection_id '2'
     
-        res.render('indian', { products: indianProducts });
-      } catch (error) {
-        console.error('Error fetching Indian collection products:', error);
-        res.status(500).send('Server Error');
-      }
-};
+//         res.render('indian', { products: indianProducts });
+//       } catch (error) {
+//         console.error('Error fetching Indian collection products:', error);
+//         res.status(500).send('Server Error');
+//       }
+// };
 
 const getShopAllProducts = async (req, res) => {
     try {
@@ -575,6 +597,27 @@ const getShopAllProducts = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+
+// const getCollectionProducts = async (req, res) => {
+//     const collectionId = req.params.collectionId;
+//     try {
+//         const collection = await Collection.findById(collectionId); // Assuming you have a Collection model
+//         const products = await Product.find({ collection_id: collectionId });
+        
+//         res.render('collection', {
+//             collectionName: collection.name,
+//             collectionDescription: collection.description,
+//             collectionImage: collection.image,
+//             collectionFolder: collection.folder, // Assuming you have a folder attribute for different collections
+//             products: products
+//         });
+//     } catch (error) {
+//         console.error('Error fetching collection products:', error);
+//         res.status(500).send('Server Error');
+//     }
+// };
+
+
 
 
 module.exports = {

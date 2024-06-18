@@ -100,4 +100,26 @@ router.get('/users/:id', User.getUserById);
 router.get('/myAccount', User.getUserOrder );
 
 
+const getCollectionProducts = async (req, res) => {
+    const collectionId = req.params.collectionId;
+    try {
+        const collection = await Collection.findOne({ collection_id: collectionId }).populate('item_products');
+        if (!collection) {
+            return res.status(404).send('Collection not found');
+        }
+        res.render('collection', {
+            collectionName: collection.Collection_Name,
+            collectionDescription: collection.Collection_Description,
+            collectionImage: collection.img,
+            collectionFolder: collection.img, // Assuming folder is same as image field in this case
+            products: collection.item_products
+        });
+    } catch (error) {
+        console.error('Error fetching collection products:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
+router.get('/collection/:collectionId', getCollectionProducts);
+
 module.exports = router;

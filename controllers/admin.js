@@ -61,7 +61,6 @@ const addCollection = async (req, res) => {
             Collection_Name: CollectionName,
             Collection_Description: CollectionDescription,
             collection_id: uuidv4(),
-
             img
         });
 
@@ -71,8 +70,8 @@ const addCollection = async (req, res) => {
         res.status(201).json({ message: 'Collection added successfully' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message });
-    }
+        res.status(500).json({ error: error.message });
+    }
 };
 
 

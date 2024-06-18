@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian</title>
+
     <link rel="stylesheet" href="/CSS/nav-bar-white.css">
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/CSS/indian.css">
     <link rel="stylesheet" href="/CSS/indian2.css">
     
-    <!-- <script src="/Javascript/indian.js"></script> -->
     <script>
         async function addToCart(productId, price) {
             alert(productId);
@@ -37,52 +36,47 @@
                 alert('Failed to add product to cart');
             }
         }
+
         function toggleDropdown(event, dropdownId) {
-    var dropdown = document.getElementById(dropdownId);
-    var arrow = dropdown.querySelector('.arrow');
- 
-    if (dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-    } else {
-        // Close all dropdowns before opening the current one
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-            dropdowns[i].style.display = "none";
-        }
-        dropdown.style.display = "block";
-
-        // Position the arrow
-        var filterButton = event.currentTarget;
-        var buttonRect = filterButton.getBoundingClientRect();
-        var dropdownRect = dropdown.getBoundingClientRect();
+            var dropdown = document.getElementById(dropdownId);
+            var arrow = dropdown.querySelector('.arrow');
         
-        arrow.style.left = (buttonRect.left + (buttonRect.width / 2) - dropdownRect.left - 5) + 'px'; // Adjust the -10 for arrow width
-    }
-}
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
+                dropdown.style.display = "block";
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-    var clickedElement = event.target;
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-
-    var isInsideDropdown = false;
-
-    // Check if clicked element is inside any dropdown-content
-    for (var i = 0; i < dropdowns.length; i++) {
-        if (clickedElement == dropdowns[i] || dropdowns[i].contains(clickedElement)) {
-            isInsideDropdown = true;
-            break;
+                var filterButton = event.currentTarget;
+                var buttonRect = filterButton.getBoundingClientRect();
+                var dropdownRect = dropdown.getBoundingClientRect();
+                
+                arrow.style.left = (buttonRect.left + (buttonRect.width / 2) - dropdownRect.left - 5) + 'px';
+            }
         }
-    }
 
-    // Close dropdowns if clicked outside and not inside any dropdown
-    if (!clickedElement.closest('.filter-buttons') && !isInsideDropdown) {
-        for (var i = 0; i < dropdowns.length; i++) {
-            dropdowns[i].style.display = "none";
+        window.onclick = function(event) {
+            var clickedElement = event.target;
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+
+            var isInsideDropdown = false;
+
+            for (var i = 0; i < dropdowns.length; i++) {
+                if (clickedElement == dropdowns[i] || dropdowns[i].contains(clickedElement)) {
+                    isInsideDropdown = true;
+                    break;
+                }
+            }
+
+            if (!clickedElement.closest('.filter-buttons') && !isInsideDropdown) {
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
+            }
         }
-    }
-}
-
 
         function updatePrice(value) {
             document.getElementById('priceValue').innerText = `$0 - $${parseInt(value).toLocaleString()}`;
@@ -125,21 +119,19 @@ window.onclick = function(event) {
             applyFilters();
         }
 
-        
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('sort').addEventListener('change', applyFilters);
-    document.getElementById('toggle').addEventListener('change', applyFilters);
-    fetchDefaultProducts();
-});
-
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('sort').addEventListener('change', applyFilters);
+            document.getElementById('toggle').addEventListener('change', applyFilters);
+            fetchDefaultProducts();
+        });
     </script>
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
     <div class="head">
-        <img src="/images/Indian/Firefly 20240613032637.png">
+        <img src="/images/Indian/Newfolder/<%= img %>" alt="<%= Collection_Name %>">
         <div class="img-text">
-            <p>"A nation's culture resides in the hearts and in the soul of its people." - Mahatma Gandhi</p>
+            <p>"<%= Collection_Description %>"</p>
         </div>
     </div>
 
@@ -271,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             </div>
+          </div>
         <% }); %>
     </div>
 </body>
