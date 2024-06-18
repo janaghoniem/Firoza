@@ -10,6 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/shoppingcart.css">
     <link rel="stylesheet" href="/css/nav-bar-white.css">
+    <link rel="stylesheet" href="/css/Customization.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Customization</title>
 </head>
@@ -61,11 +62,12 @@
                             <div class="shipping-options">
                                 <canvas id="canvas3d"></canvas>
                             </div>
-                            <p>DISCOUNT CODE</p>
-                            <input id="code" class="form-control" placeholder="Enter your code">
                             <div class="d-flex justify-content-between mt-3">
-                                <strong>TOTAL PRICE</strong>
-                                <strong class="total-price">EGP </strong>
+                                <button id="button1">Red</button>
+                                <button id="button2">Green</button>
+                                <button id="button3">Blue</button>
+                                <button id="button4">Yellow</button>
+                                <button id="button5">White</button>
                             </div>
                             <button class="btn btn-dark btn-block mt-4" id="checkout">CHECKOUT</button>
                             <a href="/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
@@ -75,60 +77,7 @@
             </div>
         </div>
 
-
-
-
-        <script type="module">
-            import { Application } from 'https://unpkg.com/@splinetool/runtime/build/runtime.js';
-            
-            const canvas = document.getElementById('canvas3d');
-            const spline = new Application(canvas);
-    
-            async function changeDiamondColor(color) {
-                // Ensure the scene is loaded
-                await spline.loaded;
-                const object = spline.findObjectByName('Diamonds');
-                
-                if (object) {
-                    object.material.color = new spline.THREE.Color(color);
-                    spline.update();
-                } else {
-                    console.error('Object "Diamonds" not found in the scene');
-                }
-            }
-    
-            // Load the Spline scene
-            spline.load('https://prod.spline.design/ftpw8hTu2iOSTdYt/scene.splinecode').then(() => {
-                console.log('Spline scene loaded successfully');
-                spline.setVariables({ White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 });
-               
-                // Set up event listeners for buttons
-                const button1 = document.getElementById('button1');
-                button1.addEventListener('click', () => {
-                    spline.setVariables({ White: 0, Red: 100, Blue: 0, Green: 0, Yellow: 0 });
-                });  //red
-    
-                 const button2 = document.getElementById('button2');
-                button2.addEventListener('click', () => {
-                    spline.setVariables({ White: 0, Red: 0, Blue: 0, Green: 100, Yellow: 0 });
-                }); //green
-    
-                const button3 = document.getElementById('button3');
-                button3.addEventListener('click', () => {
-                    spline.setVariables({ White: 0, Red: 0, Blue: 100, Green: 0, Yellow: 0 });
-                }); //blue
-    
-                const button4 = document.getElementById('button4');
-                button4.addEventListener('click', () => {
-                    spline.setVariables({ White: 0, Red: 0, Blue: 0, Green: 0, Yellow: 100 });
-                }); //yellow
-    
-                const button5 = document.getElementById('button5');
-                button5.addEventListener('click', () => {
-                    spline.setVariables({ White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 });
-                });
-            });
-        </script>
+        <script type="module" src="../Javascript/diamonds.js"> </script>
         <script src="../Javascript/ShoppingCart.js"></script>
 </body>
 
