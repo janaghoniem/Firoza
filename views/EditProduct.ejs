@@ -19,6 +19,7 @@
             <input type="text" name="name" placeholder="Product Name" value="<%= product.name %>" required>
             <input type="number" name="price" placeholder="Price" min="1000" value="<%= product.price %>" required>
             <select name="collection_id" id="Collections" required>
+                <option value="0">none</option>
                 <% getcollections.forEach(function(collection) { %>
                     <option value="<%= collection.Collection_Name %>" <%= product.collection_id === "collection.Collection_Name " ? "selected" : "" %>><%= collection.Collection_Name %></option>
                 <% }); %>
