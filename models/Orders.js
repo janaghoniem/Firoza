@@ -43,8 +43,8 @@ shipping_address :{
 },
 Payment_method:{
     type:String,
-    enum:['credit_card','paypal','cash_on_delivery'],
-    required:true
+    enum:['credit_card'],
+    required:false
     
 },
 created_at:{

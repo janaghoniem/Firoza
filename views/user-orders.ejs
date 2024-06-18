@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Orders</title>
+</head>
+<body>
+    <h1>Your Orders</h1>
+<ul>
+    <% if (ordersUser.length === 0) { %>
+        <li>No orders found.</li>
+    <% } else { %>
+        <% ordersUser.forEach(order => { %>
+            <li>Order ID: <%= order._id %></li>
+           <li>Products:</li>
+            <ul>
+                <% order.product_ids.forEach(product => { %>
+                    <li><%= product.name %></li>
+                <% }) %>
+            </ul>
+        <% }) %>
+    <% } %>
+</ul>
+</body>
+</html>

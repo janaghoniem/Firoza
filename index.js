@@ -179,6 +179,7 @@ app.get('/ShoppingCart', async(req, res) => {
     }
 });
 
+
 app.get('/WishList', (req, res) => {
     res.render("wishlist.ejs");
 });
@@ -191,6 +192,13 @@ app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
 
+<<<<<<< Updated upstream
+=======
+app.get('/myaccount',(req,res)=>{
+    res.render("myAccount.ejs");
+});
+
+>>>>>>> Stashed changes
 
 // app.use('/', Product);
 
@@ -205,14 +213,13 @@ app.listen(port, () => {
 
 
 
-
-
 //global error handling
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'An error occurred on the server. Please try again later.' });
-});
+
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).json({ message: 'An error occurred on the server. Please try again later.' });
+// });
 
 
 
-//adding orders manually
+

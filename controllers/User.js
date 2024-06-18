@@ -1,6 +1,7 @@
 const User = require('../models/User'); 
 const Product = require('../models/product');
 const bcrypt = require('bcrypt');
+const Orderr= require('../models/Orders');
 // const natural = require('natural');
 // const spellcheck = new natural.Spellcheck(['gold', 'silver', 'red']); // Extend with relevant terms
 
@@ -306,6 +307,51 @@ const getUserById = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+const getUserOrder= async(req, res) => {
+   
+
+    // try {
+    //     // Find orders for the user
+    //     const ordersUser = await Orderr.find()
+    //         .populate({
+    //             path: 'product_ids',
+    //             select: 'name',
+    //             model: 'Product'
+    //         });
+
+    //     console.log('Orders for user:', ordersUser); // Log the orders
+
+    //     res.render('myAccount', { ordersUser }); // Pass ordersUser to the EJS template
+    // } catch (error) {
+    //     console.error('Error fetching user orders:', error);
+    //     res.status(500).render('error', { error });
+    // }
+
+    try {
+        // Check if the user is authenticated and their ID is available in the session
+        if (!req.session.user || !req.session.user._id) {
+            return res.status(403).send('User not authenticated');
+        }
+
+        const userId = req.session.user._id;
+
+        // Find orders for the current user by their user ID
+        const ordersUser = await Orderr.find({ user_id: userId })
+            .populate({
+                path: 'product_ids',
+                select: 'name',
+                model: 'Product'
+            });
+
+        console.log('Orders for user:', ordersUser); // Log the orders
+
+        res.render('myAccount', { ordersUser }); // Pass ordersUser to the EJS template
+    } catch (error) {
+        console.error('Error fetching user orders:', error);
+        res.status(500).render('error', { error });
+    }
+};
+
 
 //Billing Information - Checkout
 const BillingInformation = async (req, res) => {
@@ -345,6 +391,11 @@ module.exports = {
     AddToCart,
     Cart, 
     removeFromCart,
+<<<<<<< Updated upstream
     getUserById, 
     BillingInformation
+=======
+    getUserById,
+    getUserOrder
+>>>>>>> Stashed changes
 };

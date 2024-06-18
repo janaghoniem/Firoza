@@ -47,4 +47,6 @@ router.post('/Billing-Information', User.BillingInformation);
 
 router.get('/users/:id', User.getUserById);
 
+router.get('/myAccount', User.getUserOrder );
+
 module.exports = router;
