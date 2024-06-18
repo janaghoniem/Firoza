@@ -85,9 +85,9 @@ const getCollections = async (req, res) => {
 const deleteCollection = async (req, res) => {
     console.log("da5al gowa el function");
     try {
-      
+
         console.log("akfufrujgr");
-        const { id  } = req.params;
+        const { id } = req.params;
         const deletedCollection = await collections.findByIdAndDelete(id);
         console.log("1111111");
         if (!deletedCollection) {
@@ -237,8 +237,8 @@ const getOrders = (req, res) => {
         .populate('user_id', 'firstname lastname') // Populate the user_id field with the firstname and lastname fields from the User model
         .populate({
             path: 'product_ids',
-            select: 'name', 
-            model: 'Product' 
+            select: 'name',
+            model: 'Product'
         })
         .then(result => {
             res.render('admin-orders', { orders: result });
@@ -247,8 +247,8 @@ const getOrders = (req, res) => {
             console.log(err);
             res.status(500).send('Error retrieving orders');
         });
-  };
-  
+};
+
 
 const getProducts = async (req, res) => {
     try {
@@ -376,11 +376,11 @@ const getDashboard = async (req, res) => {
         const ordersLast30Days = await Order.find({
             createdAt: { $gte: thirtyDaysAgo }
         })
-        .populate({
-            path: 'product_ids',
-            select: 'name', 
-            model: 'Product' 
-        })
+            .populate({
+                path: 'product_ids',
+                select: 'name',
+                model: 'Product'
+            })
         let revenueLast30Days = 0;
         ordersLast30Days.forEach(order => {
             revenueLast30Days += order.total_price;
@@ -420,19 +420,31 @@ const calculateCRR = async (startDate, endDate) => {
             createdAt: { $lt: startDate },
             isadmin: false
         });
-
+        console.log('start Customers Count:', startCustomersCount);
         // Count customers at the end of the period (excluding admins)
         const endCustomersCount = await User.countDocuments({
             createdAt: { $lt: endDate },
             isadmin: false
         });
-
+        console.log('End Customers Count:', endCustomersCount);
         // Count new customers acquired during the period (excluding admins)
         const newCustomersCount = await User.countDocuments({
             createdAt: { $gte: startDate, $lt: endDate },
             isadmin: false
         });
+        console.log('New Customers Count:', newCustomersCount);
 
+        // Check for division by zero
+        if (startCustomersCount === 0) {
+            console.warn('Warning: startCustomersCount is 0. Division by zero avoided.');
+            return 0; // Or handle it as per your application's logic
+        }
+
+        // Check for negative counts
+        if (newCustomersCount > endCustomersCount) {
+            console.warn('Warning: newCustomersCount exceeds endCustomersCount. Potential for negative retention rate.');
+            return 0; // Or handle it as per your application's logic
+        }
         // Calculate Customer Retention Rate
         const retentionRate = ((endCustomersCount - newCustomersCount) / startCustomersCount) * 100;
 
@@ -446,12 +458,12 @@ const calculateCRR = async (startDate, endDate) => {
 
 const getStatistics = async (req, res) => {
     try {
-        const startDate = new Date('2024-06-17T00:00:00Z');
-        const endDate = new Date();
+        const startDate = new Date('2024-06-16T00:00:00Z');
+        const endDate = new Date('2024-06-17T00:00:00Z');
 
         const retentionRate = await calculateCRR(startDate, endDate);
         // Count the number of users
-        const userCount = await User.countDocuments();
+        const userCount = await User.countDocuments({ isAdmin: false });
 
         // Get best-selling products by revenue
         const bestSellers = await Product.aggregate([
@@ -472,7 +484,7 @@ const getStatistics = async (req, res) => {
             .select('name no_sales');
 
         // Render the statistics view with user count, best sellers, and most purchased products
-        res.render('statistics', { count: userCount, bestSellers, mostPurchased,retentionRate: retentionRate.toFixed(2) });
+        res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2) });
     } catch (error) {
         console.error('Error fetching statistics:', error);
         res.status(500).json({ error: 'Failed to fetch statistics' });
@@ -495,22 +507,22 @@ const getStatistics = async (req, res) => {
 // })();
 
 
-    module.exports = {
-        addAdmin,
-        addCollection,
-        addProduct,
-        editCollection,
-        getCollections,
-        deleteCollection,
-        GetAllUsers,
-        getOrders,
-        getProducts,
-        deleteProduct,
-        getEditProductPage,
-        editProduct,
-        getDashboard,
-        getStatistics
-    };
+module.exports = {
+    addAdmin,
+    addCollection,
+    addProduct,
+    editCollection,
+    getCollections,
+    deleteCollection,
+    GetAllUsers,
+    getOrders,
+    getProducts,
+    deleteProduct,
+    getEditProductPage,
+    editProduct,
+    getDashboard,
+    getStatistics
+};
 
 //function to get orders
 
