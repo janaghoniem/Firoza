@@ -39,6 +39,90 @@
             alert('Failed to add product to cart');
         }
     }
+
+    function gatherFilters() {
+        const filters = {
+            categories: [],
+            colors: [],
+            priceRange: document.getElementById('priceRange').value,
+            materials: []
+        };
+
+        // Gather category filters
+        document.querySelectorAll('#category-dropdown input[type="checkbox"]:checked').forEach(cb => {
+            filters.categories.push(cb.parentElement.textContent.trim());
+        });
+
+        // Gather color filters
+        document.querySelectorAll('#color-dropdown input[type="checkbox"]:checked').forEach(cb => {
+            filters.colors.push(cb.parentElement.textContent.trim());
+        });
+
+        // Gather material filters
+        document.querySelectorAll('#material-dropdown input[type="checkbox"]:checked').forEach(cb => {
+            filters.materials.push(cb.parentElement.textContent.trim());
+        });
+
+        return filters;
+    }
+
+    async function applyFilters() {
+    const filters = gatherFilters();
+    console.log("Applying filters:", filters); // Debugging information
+
+    try {
+        const response = await fetch('/products/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filters)
+        });
+        console.log('dakhal hena?')
+        if (response.ok) {
+            const products = await response.json();
+            console.log("Filtered products received:", products); // Debugging information
+            updateProductList(products);
+        } else {
+            console.log("Applying filters:", filters); // Debugging information
+
+            alert('Failed to apply filtersSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+        }
+    } catch (error) {
+        console.error('Error:', error); // More detailed error logging
+        alert('Error:', error);
+    }
+}
+applyFilters();
+
+    function updateProductList(products) {
+        const productContainer = document.querySelector('.row');
+        productContainer.innerHTML = '';
+
+        products.forEach(product => {
+            const productHtml = `
+                <div class="col">
+                    <div class="product-grid">
+                        <div class="product-image">
+                            <a href="#" class="image">
+                                <img class="img-1" src="/images/Indian/Newfolder/${product.img}">
+                            </a>
+                            <ul class="product-links">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="title"><a href="#">${product.name}</a></h3>
+                            <div class="price">${product.price}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            productContainer.innerHTML += productHtml;
+        });
+    }
+
     </script>
 </head>
 <body>
@@ -93,20 +177,20 @@
     <!-- Dropdown content -->
     <div id="category-dropdown" class="dropdown-content">
         <div class="arrow"></div>
-        <label class="containerr" style="font-size: 12px;">Bracelets 
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
+    <label class="containerr" style="font-size: 12px;">Bracelets 
+        <input type="checkbox" onchange="applyFilters()">
+        <span class="checkmark"></span>
+    </label>
         <label class="containerr"  style="font-size: 12px;">Necklaces and pendants 
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Earrings (106)
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Rings and accessories
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -114,35 +198,35 @@
     <div id="color-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Red
-            <input type="checkbox" style="font-size: 12px;">
+            <input type="checkbox" onchange="applyFilters()" style="font-size: 12px;">
             <span class="checkmark" style="font-size: 12px;"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Green
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Blue
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Multicolor
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Beige
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Pink
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Black
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">Rose gold
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -150,21 +234,21 @@
         <div id="price-dropdown" class="dropdown-content">
             <div class="arrow"></div>
             <label for="priceRange">Price range: <span id="priceValue">$0 - $2000</span></label>
-            <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)">
+            <input type="range" id="priceRange" min="0" max="2000" step="10" value="2000" oninput="updatePrice(this.value)" onchange="applyFilters()">
         </div>
     </div>
     <div id="material-dropdown" class="dropdown-content">
         <div class="arrow"></div>
         <label class="containerr" style="font-size: 12px;">Stainless steel
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">gold
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
         <label class="containerr" style="font-size: 12px;">silver
-            <input type="checkbox">
+            <input type="checkbox" onchange="applyFilters()">
             <span class="checkmark"></span>
         </label>
     </div>

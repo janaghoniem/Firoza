@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
 app.use('/admin',AdminRouter);
 
+
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
@@ -207,6 +208,7 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
+app.use('/products', userRouter);
 
 
 //global error handling
