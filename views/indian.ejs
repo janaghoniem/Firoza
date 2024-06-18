@@ -36,6 +36,26 @@
             }
         }
 
+        async function addToWishlist(productId) {
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+
         function toggleDropdown(event, dropdownId) {
             var dropdown = document.getElementById(dropdownId);
             var arrow = dropdown.querySelector('.arrow');
@@ -268,6 +288,7 @@
                                 <%= product.price %>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

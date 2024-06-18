@@ -3,7 +3,7 @@ const collections = require('../models/Collections');
 const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
-
+const Request = require('../models/Requests');
 const { v4: uuidv4 } = require('uuid');
 
 // Function to add an admin
@@ -41,7 +41,7 @@ const addAdmin = async (req, res) => {
 
 
 
-// Function to add an admin
+// Function to add collection
 const addCollection = async (req, res) => {
 
     const {
@@ -490,6 +490,41 @@ const getadmin =async(req,res)=>{
 
 
 
+// Get all requests
+const getAllRequests = async (req, res) => {
+    try {
+        const requests = await Request.find().sort({ _id: -1 }); // Fetch all requests, sorted by newest first
+        res.render('Admin-Requests', { requests }); // Render the 'requests' view and pass the requests data
+    } catch (err) {
+        console.error('Error fetching requests:', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+// Accept a request
+const acceptRequest = async (req, res) => {
+    try {
+        await Request.findByIdAndUpdate(req.params.id, { approvement: true });
+        res.sendStatus(200);
+    } catch (err) {
+        console.error('Error accepting request:', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+// Reject a request
+const rejectRequest = async (req, res) => {
+    try {
+        await Request.findByIdAndUpdate(req.params.id, { approvement: false });
+        res.sendStatus(200);
+    } catch (err) {
+        console.error('Error rejecting request:', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
 module.exports = {
     addAdmin,
     addCollection,
@@ -505,7 +540,10 @@ module.exports = {
     editProduct,
     getDashboard,
     getStatistics,
-    getadmin
+    getadmin,
+    getAllRequests,
+    acceptRequest,
+    rejectRequest
 };
 
 //function to get orders

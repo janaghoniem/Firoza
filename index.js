@@ -57,9 +57,7 @@ app.get('/', (req, res) => {
 //     res.render("main.ejs");
 // });
 
-app.get('/Collections', (req, res) => {
-    res.render("Collections");
-});
+
 
 
 
@@ -141,51 +139,7 @@ app.get('/stores', (req, res) => {
 //         res.status(500).send('Server error');
 //     }
 // }); 
-    
-app.get('/ShoppingCart', async (req, res) => {
-    try {
-        if (!req.session.user) {
-            const sessionCart = req.session.cart ? req.session.cart.items : [];
 
-            const cartItems = await Promise.all(sessionCart.map(async item => {
-                const product = await Product.findById(item.productId);
-                return {
-                    productId: product,
-                    quantity: item.quantity,
-                    price: item.price
-                };
-            }));
-
-            return res.render('ShoppingCart', {
-                cart: { items: cartItems },
-                user: null
-            });
-        }
-
-        const user = await User.findById(req.session.user._id).populate('cart.items.productId');
-
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
-
-        res.render('ShoppingCart', {
-            cart: user.cart,
-            user: user
-        });
-    } catch (error) {
-        console.error('Error fetching cart:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-
-app.get('/WishList', (req, res) => {
-    res.render("wishlist.ejs");
-});
-
-app.get('/user/Checkout', (req, res) => {
-    res.render("Checkout.ejs");
-});
 
 
 

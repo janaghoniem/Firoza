@@ -202,8 +202,8 @@ const filterProducts = async (req, res) => {
         sortOption.price = -1;
     }
 
-    console.log("Filters applied:", filters); // Debugging information
-    console.log("Sort option applied:", sortOption); // Debugging information
+    // console.log("Filters applied:", filters); // Debugging information
+    // console.log("Sort option applied:", sortOption); // Debugging information
 
     try {
         const products = await Product.find(filters).sort(sortOption);
@@ -215,7 +215,7 @@ const filterProducts = async (req, res) => {
                 isSoldOut
             };
         });
-        console.log("Filtered products:", productsWithStockInfo); // Debugging information
+        // console.log("Filtered products:", productsWithStockInfo); // Debugging information
         res.status(200).json(productsWithStockInfo);
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -594,7 +594,7 @@ const getUserOrder= async(req, res) => {
 
         const userInfo = await User.findById(req.session.user._id);
 
-        console.log('User information:', userInfo);
+        // console.log('User information:', userInfo);
         // Find orders for the current user by their user ID
         const ordersUser = await Orderr.find({ user_id: userId })
             .populate({
@@ -603,7 +603,7 @@ const getUserOrder= async(req, res) => {
                 model: 'Product'
             });
 
-        console.log('Orders for user:', ordersUser); // Log the orders
+        // console.log('Orders for user:', ordersUser); // Log the orders
 
         res.render('myAccount', { ordersUser, userInfo }); // Pass ordersUser to the EJS template
     } catch (error) {
@@ -665,7 +665,117 @@ const BillingInformation = async (req, res) => {
     }
 };
 
+//WISHLIST
+const getWishlist = async (req, res) => {
+    try {
+        if (!req.session.user) {
+            const sessionWishlist = req.session.wishlist ? req.session.wishlist.items : [];
 
+            const wishlistItems = await Promise.all(sessionWishlist.map(async item => {
+                const product = await Product.findById(item.productId);
+                return {
+                    productId: product,
+                    price: item.price
+                };
+            }));
+
+            return res.render('Wishlist', {
+                wishlist: { items: wishlistItems },
+                user: null
+            });
+        }
+
+        const user = await User.findById(req.session.user._id).populate('wishlist.items.productId');
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('Wishlist', {
+            wishlist: user.wishlist,
+            user: user
+        });
+    } catch (error) {
+        console.error('Error fetching wishlist:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const AddToWishlist = async (req, res) => {
+    console.log('entered wishlist addition function');
+    const { productId } = req.body;
+
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        if (!req.session.user) {
+            if (!req.session.wishlist) {
+                req.session.wishlist = { items: [] };
+            }
+            const existingWishlistItem = req.session.wishlist.items.find(item => item.productId.toString() === productId.toString());
+            if (existingWishlistItem) {
+                return res.status(200).json({ message: 'Product already in guest wishlist' });
+            } else {
+                req.session.wishlist.items.push({
+                    productId: productId,
+                    price: product.price,
+                });
+            }
+            return res.status(200).json({ message: 'Product added to guest wishlist successfully' });
+        }
+
+        const user = await User.findById(req.session.user._id);
+        const existingWishlistItem = user.wishlist.items.find(item => item.productId.toString() === productId.toString());
+        if (existingWishlistItem) {
+            return res.status(200).json({ message: 'Product already in wishlist' });
+        } else {
+            user.wishlist.items.push({
+                productId: productId,
+                price: product.price
+            });
+        }
+
+        await user.save();
+        res.status(200).json({ message: 'Product added to wishlist successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+const removeFromWishlist = async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        if (req.session.user) {
+            // Logged-in user
+            const user = await User.findById(req.session.user._id);
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+
+            // Filter out the item from the user's wishlist
+            user.wishlist.items = user.wishlist.items.filter(item => item.productId.toString() !== productId.toString());
+
+            await user.save();
+
+            res.status(200).json({ message: 'Product removed from wishlist successfully' });
+        } else if (req.session.wishlist) {
+            // Guest user
+            req.session.wishlist.items = req.session.wishlist.items.filter(item => item.productId.toString() !== productId.toString());
+
+            res.status(200).json({ message: 'Product removed from guest wishlist successfully' });
+        } else {
+            res.status(404).send('No wishlist found in session');
+        }
+    } catch (error) {
+        console.error('Error removing from wishlist:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
 
 
 // const getIndianProducts = async (req, res) => {
@@ -711,25 +821,51 @@ const getShopAllProducts = async (req, res) => {
 // };
 
 
+// try {
+//     const { id } = req.params;
+//     const deletedProduct = await Product.findByIdAndDelete(id);
 
+//     if (!deletedProduct) {
+//         return res.status(404).json({ error: 'Product not found' });
+//     }
+
+//     const users = await User.find({ 'cart.productId': id });
+
+//     for (const user of users) {
+//         user.cart = user.cart.filter(item => item.productId.toString() !== id.toString());
+//         await user.save();
+//     }
+
+//     res.status(200).json({ message: 'Product deleted successfully' });
+// } catch (error) {
+//     console.error('Error deleting product:', error);
+//     res.status(500).json({ error: 'Server error' });
+// }
 
 const cancelOrder = async (req, res) => {
     const { orderId } = req.params;
-    console.log('Received orderId:', orderId); // Log orderId
+
     try {
-        const deletedOrder = await Orderr.findByIdAndRemove(orderId);
-        console.log('Deleted order:', deletedOrder); // Log the result
-        if (deletedOrder) {
-            res.json({ message: 'Order cancelled successfully' });
-        } else {
-            res.status(404).json({ message: 'Order not found' });
+        const order = await Orderr.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' });
         }
+
+        // Check if the order is in a cancellable state (e.g., pending)
+        if (order.status !== 'pending') {
+            return res.status(400).json({ error: 'Order cannot be cancelled' });
+        }
+
+        // Update the order status to cancelled
+        order.status = 'cancelled';
+        await order.save();
+
+        res.status(200).json({ success: true });
     } catch (error) {
         console.error('Error cancelling order:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 module.exports = {
     GetUser,
@@ -743,6 +879,9 @@ module.exports = {
     updateCartPrice,
     removeFromCart,
     Checkout,
+    getWishlist,
+    AddToWishlist,
+    removeFromWishlist,
     getUserById, 
     BillingInformation,
     filterProducts,
