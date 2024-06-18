@@ -1,24 +1,28 @@
 
  body {
     margin: 0;
-    padding: 0;
+    padding:0;
     font-family: Arial, sans-serif;
     color: #333;
    
     height: 100vh;
     width:100vw;
+    /* box-sizing: border-box; */
 }
 
 .wrapper {
+    padding:60px 0;
+    padding-top:20%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
    
+   
 }
 
 .account-container {
-    margin-top:10%;
+    margin-top:20%;
     width: 60%;
     display: flex;
     flex-direction: column;
