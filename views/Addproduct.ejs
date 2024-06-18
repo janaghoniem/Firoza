@@ -24,11 +24,9 @@
                 <input type="text" name="name" placeholder="Name Product"  required>
                 <input type="number" name="price" placeholder="Price" min="1000" required>
                 <select name="collection_id" id="Collections" required>
-                    <option value="" disabled selected>Belongs to</option>
-                    <option value="1">None</option>
-
-                    <option value="2">Indian</option>
-                    <option value="3">Egyptian</option>
+                    <% collections.forEach(function(collection) { %>
+                        <option value="<%= collection.Collection_Name %>"><%= collection.Collection_Name %></option>
+                    <% }); %>
                     
                 </select>
                 <select name="category" id="Category" required>

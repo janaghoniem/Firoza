@@ -8,17 +8,20 @@ const collections= require('../models/Collections');
 async function getIndianProducts(req, res) {
     try {
         // Fetch the collection details
-        const collection = await collections.findOne({ Collection_Name: 'Indian Collection' });
+        const collection = await collections.findOne({ Collection_Name: 'The Indian Collection' });
 
         if (!collection) {
             return res.status(404).send('Collection not found');
         }
 
         // Fetch products associated with this collection
-        const products = await Product.find({ collection_id: collection.collection_id });
+        const products = await Product.find({ collection_id: collection.Collection_Name });
+        console.log('collection name', collection.Collection_Name);
+        console.log('collection id', products.collection_id);
 
         // Render the template with collection and products
         res.render('indian', {
+
             img: collection.img,
             Collection_Name: collection.Collection_Name,
             Collection_Description: collection.Collection_Description,

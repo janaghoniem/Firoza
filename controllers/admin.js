@@ -151,7 +151,7 @@ const addProduct = async (req, res) => {
         sizes,
         quantities
     } = req.body;
-
+    
     try {
         // Validate input
         if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !sizes || !quantities) {

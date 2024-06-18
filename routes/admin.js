@@ -34,7 +34,16 @@ router.post('/addCollection', adminController.addCollection);
 router.get('/users', adminController.GetAllUsers);
 //route to add a product
 router.post('/addProduct', adminController.addProduct);
-
+router.get('/addProduct', async (req, res) => {
+    try {
+        const collections = await getCollections.find(); // Fetch all collections
+        console.log('Collections fetched:', collections); // Debugging output
+        res.render('addProduct', { collections }); // Pass collections to the template
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+});
 router.get('/EditLayout', adminController.getCollections );
 router.delete('/deleteCollection/:id', adminController.deleteCollection);
 router.post('/editCollection/:id', adminController.editCollection);
