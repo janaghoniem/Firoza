@@ -65,12 +65,13 @@ app.get('/Collections', async (req, res) => {
         const allCollections = await collectiona.find({});
 
         // Render the template with the fetched collections
-        res.render('Collections', { getcollections: allCollections });
+        res.render('Collections', { allCollections });
     } catch (error) {
         console.error('Error fetching collections:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 app.get('/user/:collectionName', async (req, res) => {
     try {
         const formattedCollectionName = req.params.collectionName;

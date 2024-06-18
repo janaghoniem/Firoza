@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,101 +11,121 @@
     <script src="/Javascript/nav-bar.js"></script>
     <title>Landing Page</title>
 </head>
+
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
 
-    <section class="main" id="main">
-        <video src="/videos/Collections/background.mp4" id="video-background" autoplay loop muted></video>
-        <!-- <div class="main-text">
+        <section class="main" id="main">
+            <video src="/videos/Collections/background.mp4" id="video-background" autoplay loop muted></video>
+            <!-- <div class="main-text">
             <h1>Discover the real you</h1>
             <a  class="button" href="/">TAKE THE QUIZ</a>
         </div> -->
-    </section>
-    <section class="collection-text">
-        <h3>THE EGYPTIAN</h3>
-        <h4>HIGH JEWELRY COLLECTION</h4>
-        <p>From Nile's embrace to modern brilliance, the Egyptian High Jewelry Collection unfolds. <br>
-        Each piece whispers ancient tales, reimagined for a dazzling present. Pharaohs' <br>
-        artistry meets bold innovation, crafted with the desert's fire  and finest <br>
-        gems. A timeless legacy, eternally captivating.</p>
-    </section>
-    <section class="image-container">
-        <div class="image-wrapper">
-            <img src="/images/Collections/left.jpg" alt="">
-            <div class="collection-text darkend-div">
-                <h4>Eternal Light of the Seven Pharaohs</h4>
-                <p>Flawless diamonds, a legacy of brilliance. Timeless power adorns the modern queen.</p>
+        </section>
+        <section class="collection-text">
+            
+            <h3><% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
+                <% allCollections.forEach(function(collection) { %>
+                    <% if (collection.Collection_Name === 'Egyptian collection') { %>
+                        <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                            <%= collection.Collection_Name %> Collection
+                        </a><br>
+                    <% } %>
+                <% }); %></h3>
+            <h4>HIGH JEWELRY COLLECTION</h4>
+            <p>From Nile's embrace to modern brilliance, the Egyptian High Jewelry Collection unfolds. <br>
+                Each piece whispers ancient tales, reimagined for a dazzling present. Pharaohs' <br>
+                artistry meets bold innovation, crafted with the desert's fire and finest <br>
+                gems. A timeless legacy, eternally captivating.</p>
+        </section>
+        <section class="image-container">
+            <div class="image-wrapper">
+                <img src="/images/Collections/left.jpg" alt="">
+                <div class="collection-text darkend-div">
+                    <h4>Eternal Light of the Seven Pharaohs</h4>
+                    <p>Flawless diamonds, a legacy of brilliance. Timeless power adorns the modern queen.</p>
+                </div>
             </div>
-        </div>
-        <div class="image-wrapper">
-            <img src="/images/Collections/right.jpg" alt="">
-            <div class="collection-text darkend-div">
-                <h4>Eternal Nile, Endless Design</h4>
-                <p>A captivating journey where ancient whispers meet modern brilliance.</p>
+            <div class="image-wrapper">
+                <img src="/images/Collections/right.jpg" alt="">
+                <div class="collection-text darkend-div">
+                    <h4>Eternal Nile, Endless Design</h4>
+                    <p>A captivating journey where ancient whispers meet modern brilliance.</p>
+                </div>
             </div>
-        </div>
-    </section>
-    <section class="collection-text">
-        <h3>THE INDIAN</h3>
-        <h4>HIGH JEWELRY COLLECTION</h4>
-        <p>Woven with the threads of time, our Indian High Jewelry Collection celebrates a legacy that <br>
-        transcends generations. Each piece embodies the soul of Hindustan, echoing the grandeur of <br>
-        ancient empires and the vibrant spirit of a modern India. From the Mughal era's intricate <br>
-        craftsmanship to the dazzling colors of contemporary design, this collection is a testament <br>
-        to India's enduring love affair with exquisite jewels.</p>
-    </section>
-    <section class="items-container">
-       <div class="i-container">
-        <div>
-            <img src="/images/Collections/right-indian.jpeg" alt="">
-        </div>
-        <h2>The Moon and Stars <br>Necklace</h2>
-       </div>
-       <div class="i-container">
-        <div>
-            <img src="/images/Collections/maybenew.jpg" alt="">
-        </div>
-        <h2>The Navaratna Kismet <br>Necklace</h2>
-       </div>
-       <div class="i-container">
-        <div>
-            <img src="/images/Collections/maybee.jpg" alt="">
-        </div>
-        <h2>The Cascading Spring  <br>Maathapatti </h2>
-       </div>
-    </section>
-    <section class="crafting-eternity-container">
-        <div class="crafting-eternity-text i-container">
-            <!-- <h2>Crafting <br>Eternity</h2> -->
-            <h2>Unveiling the <br>Legacy of Firoza</h2>
-            <p>Firoza's High Jewelry Collections transcend time, a <br> testament 
-            to the enduring spirit of our master artisans. Each <br> piece 
-            embodies decades of exquisite savoir-faire, where <br>
-            imagination ignites reality. From the initial sketch <br>
-            to the final masterpiece, our artisans breathe life <br> 
-            into precious materials, transforming them into  <br>
-            breathtaking works of art. Witness the pinnacle of <br>
-            craftsmanship, where the brilliance of gemstones meets <br>
-            the artistry of Firoza.</p>
-        </div>
-        <div class="video-container">
-            <video src="/videos/Collections/one.mp4" autoplay muted loop></video>
-        </div>
-        <div class="video-container">
-            <video src="/videos/Collections/two.mp4" autoplay muted loop></video>
+        </section>
+        <section class="collection-text">
+            <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
+            <% allCollections.forEach(function(collection) { %>
+                <% if (collection.Collection_Name === 'Indian Collection') { %>
+                    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                        <%= collection.Collection_Name %> Collection
+                    </a><br>
+                <% } %>
+            <% }); %>
+            <h3>THE INDIAN</h3>
+            <h4>HIGH JEWELRY COLLECTION</h4>
+            <p>Woven with the threads of time, our Indian High Jewelry Collection celebrates a legacy that <br>
+                transcends generations. Each piece embodies the soul of Hindustan, echoing the grandeur of <br>
+                ancient empires and the vibrant spirit of a modern India. From the Mughal era's intricate <br>
+                craftsmanship to the dazzling colors of contemporary design, this collection is a testament <br>
+                to India's enduring love affair with exquisite jewels.</p>
+        </section>
+        <section class="items-container">
+            <div class="i-container">
+                <div>
+                    <img src="/images/Collections/right-indian.jpeg" alt="">
+                </div>
+                <h2>The Moon and Stars <br>Necklace</h2>
+            </div>
+            <div class="i-container">
+                <div>
+                    <img src="/images/Collections/maybenew.jpg" alt="">
+                </div>
+                <h2>The Navaratna Kismet <br>Necklace</h2>
+            </div>
+            <div class="i-container">
+                <div>
+                    <img src="/images/Collections/maybee.jpg" alt="">
+                </div>
+                <h2>The Cascading Spring <br>Maathapatti </h2>
+            </div>
+        </section>
+        <section class="crafting-eternity-container">
+            <div class="crafting-eternity-text i-container">
+                <!-- <h2>Crafting <br>Eternity</h2> -->
+                <h2>Unveiling the <br>Legacy of Firoza</h2>
+                <p>Firoza's High Jewelry Collections transcend time, a <br> testament
+                    to the enduring spirit of our master artisans. Each <br> piece
+                    embodies decades of exquisite savoir-faire, where <br>
+                    imagination ignites reality. From the initial sketch <br>
+                    to the final masterpiece, our artisans breathe life <br>
+                    into precious materials, transforming them into <br>
+                    breathtaking works of art. Witness the pinnacle of <br>
+                    craftsmanship, where the brilliance of gemstones meets <br>
+                    the artistry of Firoza.</p>
+            </div>
+            <div class="video-container">
+                <video src="/videos/Collections/one.mp4" autoplay muted loop></video>
+            </div>
+            <div class="video-container">
+                <video src="/videos/Collections/two.mp4" autoplay muted loop></video>
+            </div>
+
+        </section>
+        <div class="dynamic" style="text-decoration: none; color: black;">
+            <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
+            <% allCollections.forEach(function(collection) { %>
+                <% if (collection.Collection_Name !== 'Indian Collection' && collection.Collection_Name !== 'Egyptian collection') { %>
+                    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                        <%= collection.Collection_Name %> Collection
+                    </a><br>
+                <% } %>
+            <% }); %>
         </div>
         
-    </section>
-    <div class="dynamic" style="text-decoration: none; color: black;">
-        <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
-<% getcollections.forEach(function(collection) { %>
-<a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
-    <%= collection.Collection_Name %> Collection
-</a><br>
-<% }); %>
 
-    </div>
-
-    <%- include('./partials/footer.ejs') %>
+        <%- include('./partials/footer.ejs') %>
 </body>
+
 </html>
