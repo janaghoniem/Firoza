@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const sizeQuantitySchema = new Schema({
     size: {
         type: String,
-        required: true
+        required: false
     },
     quantity: {
         type: Number,

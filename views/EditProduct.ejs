@@ -48,19 +48,12 @@
                 <% product.sizes.forEach(size => { %>
                     <div class="size-quantity-pair">
                         <select name="sizes[]" class="size-select" required>
-                            <option value="" disabled <%= !size.size ? "selected" : "" %>>Size</option>
                             <option value="0" <%= size.size === "0" ? "selected" : "" %>>Standard</option>
-                            <option value="1" <%= size.size === "1" ? "selected" : "" %>>Adjustable</option>
-                            <option value="9" <%= size.size === "9" ? "selected" : "" %>>9</option>
-                            <option value="10" <%= size.size === "10" ? "selected" : "" %>>10</option>
-                            <option value="11" <%= size.size === "11" ? "selected" : "" %>>11</option>
-                            <option value="12" <%= size.size === "12" ? "selected" : "" %>>12</option>
                         </select>
                         <input type="number" name="quantities[]" placeholder="Quantity" min="1" value="<%= size.quantity %>" required>
                     </div>
                 <% }) %>
             </div>
-            <button type="button" onclick="addSizeQuantityPair()" id="addB">Add Size</button>
             <select name="material" id="Material" required>
                 <option value="" disabled selected>Material</option>
                 <option value="Gold" <%= product.material === "Gold" ? "selected" : "" %>>Gold</option>
