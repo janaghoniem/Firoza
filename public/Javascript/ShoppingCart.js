@@ -5,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
    const totalPriceElements = document.querySelectorAll('.total-price');
    const itemsCountElement = document.querySelector('.items-count');
    const shippingSelect = document.getElementById('shipping');
+   const checkoutButtons = document.querySelectorAll('.checkout');
 
-   incrementButtons.forEach(button => {
+    incrementButtons.forEach(button => {
        button.addEventListener('click', function() {
            const item = this.dataset.item;
            const quantityInput = document.getElementById(`quantity-${item}`);
@@ -16,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
            updateTotalPrice();
        });
-   });
+    });
 
-   decrementButtons.forEach(button => {
+    decrementButtons.forEach(button => {
        button.addEventListener('click', function() {
            const item = this.dataset.item;
            const quantityInput = document.getElementById(`quantity-${item}`);
@@ -30,56 +31,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
            updateTotalPrice();
        });
-   });
+    });
 
-   removeButtons.forEach(button => {
+    removeButtons.forEach(button => {
       button.addEventListener('click', function() {
           const itemId = this.closest('.item-row').dataset.item;
           removeCartItem(itemId);
       });
-  });
+    });
 
-   async function removeCartItem(itemId) {
-      try {
-          const response = await fetch(`/user/remove-from-cart/${itemId}`, {
-              method: 'DELETE',
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          });
+    checkoutButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const itemId = this.closest('.item-row').dataset.item;
+            removeCartItem(itemId);
+        });
+    });
 
-          if (response.ok) {
-              // Item removed successfully from backend, now update frontend
-              const itemRow = document.querySelector(`.item-row[data-item="${itemId}"]`);
-              itemRow.remove();
-              updateTotalPrice();
-            } else {
-               alert(response.body)
-               alert('Failed to remove item from cart' + response.statusText);
-            }
-      } catch (error) {
-          console.error('Error removing item from cart:', error);
-      }
-  }
+    async function removeCartItem(itemId) {
+        try {
+            const response = await fetch(`/user/remove-from-cart/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
-   shippingSelect.addEventListener('change', updateTotalPrice);
+            if (response.ok) {
+                // Item removed successfully from backend, now update frontend
+                const itemRow = document.querySelector(`.item-row[data-item="${itemId}"]`);
+                itemRow.remove();
+                updateTotalPrice();
+                } else {
+                alert(response.body)
+                alert('Failed to remove item from cart' + response.statusText);
+                }
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
+    }
 
-   function updateTotalPrice() {
-       let totalPrice = 0;
-       let itemsCount = 0;
-       const itemPrices = document.querySelectorAll('.item-price');
-       const quantityInputs = document.querySelectorAll('.quantity-input');
-       const shippingCost = parseInt(shippingSelect.options[shippingSelect.selectedIndex].text.match(/\d+/)[0]);
+    shippingSelect.addEventListener('change', updateTotalPrice);
 
-       itemPrices.forEach((price, index) => {
-           const priceText = price.textContent.trim().replace('EGP', '').trim();
-           const quantity = parseInt(quantityInputs[index].value);
-           totalPrice += parseInt(priceText) * quantity;
-           itemsCount += quantity;
-       });
+    function updateTotalPrice() {
+        let totalPrice = 0;
+        let itemsCount = 0;
+        const itemPrices = document.querySelectorAll('.item-price');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const shippingCost = parseInt(shippingSelect.options[shippingSelect.selectedIndex].text.match(/\d+/)[0]);
 
-       totalPriceElements[0] = totalPriceElements[0].textContent = `EGP ${totalPrice}`;
-       totalPriceElements[1] = totalPriceElements[1].textContent = `EGP ${totalPrice + shippingCost}`;
-       itemsCountElement.textContent = `${itemsCount} ITEMS`;
-   }
+        itemPrices.forEach((price, index) => {
+            const priceText = price.textContent.trim().replace('EGP', '').trim();
+            const quantity = parseInt(quantityInputs[index].value);
+            totalPrice += parseInt(priceText) * quantity;
+            itemsCount += quantity;
+        });
+
+        totalPriceElements[0] = totalPriceElements[0].textContent = `EGP ${totalPrice}`;
+        totalPriceElements[1] = totalPriceElements[1].textContent = `EGP ${totalPrice + shippingCost}`;
+        itemsCountElement.textContent = `${itemsCount} ITEMS`;
+    }
 });
