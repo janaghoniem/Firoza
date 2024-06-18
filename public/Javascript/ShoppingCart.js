@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentQuantity--;
                 updateCart(item, currentQuantity, quantityInput);
             }
-        });
+        }); 
     });
 
     removeButtons.forEach(button => {

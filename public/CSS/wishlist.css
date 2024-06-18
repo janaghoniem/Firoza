@@ -1,48 +1,51 @@
-* {
-    font-family: 'Nunito Sans', 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+
+*{
+    font-family: 'futura pt' ,'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
 }
 
-body {
-    background: #FFF0DF;
+body{
+    background-color: #f3f3f3;
     min-height: 100vh;
     vertical-align: middle;
     display: flex;
-    font-family: sans-serif;
-    font-size: 0.8rem;
+    font-family: 'futura pt', sans-serif;
     font-weight: bold;
+    color: #000;
 }
 
-body {
-    background-color: #f3f3f3;
-    font-family: 'Arial', sans-serif;
+a{
+    color: #000;
 }
 
-.container {
-    padding-top: 100px;
+a:hover {
+    color: #000;
+}
+
+.container{
+    padding-top: 150px;
     align-items: center;
     margin-left: 365px;
 }
 
 .card {
     border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 0.5rem;
+    
 }
 
 .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 1.3rem;
 }
 
 .card-body {
     padding: 2rem;
-}
-
-.card-body h5 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .card-body .close {
@@ -72,60 +75,91 @@ body {
 .input-group .btn {
     border: none;
     background: none;
-    color: #000;
+    color:000
 }
 
 .input-group .btn:hover {
     border: none;
     background: none;
-    color: #000;
+    color:000;
 }
 
 .form-control {
     text-align: center;
     border-color: #ced4da;
+    font-family: 'futura pt';
+    font-weight: 400;
+    letter-spacing: 0.01rem;
     /* border: none; */
 }
 
 .form-control:focus {
-    border: none;
+    border:none;
     border-color: #495057;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.btn-dark {
-    background-color: #000;
-    border-color: #000;
-    color: #fff;
+/* .btn-dark {
+    background: rgba(0, 0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 350px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+
 }
 
 .btn-dark:hover {
     color: #fff;
-}
+} */
 
 .item-row {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 1rem 0;
     border-bottom: 1px solid #ddd;
 }
 
-.item-row img {
-    width: 100%;
-    max-width: 100px;
-    border-radius: 0.5rem;
+.col3 {
+    width: 150px;
+    height: 150px;
 }
 
-.item-info {
+.item-row img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    /* border: 1px solid black; */
+    padding: 0.1rem;
+}
+
+.item-info p, .item-info h6 {
+    font-family: 'futura pt';
+    font-weight: 600;
     flex-grow: 1;
-    padding: 0 1rem;
+    padding: 0 0.1rem;
+}
+
+.item-info h6 {
+    text-transform: uppercase;
 }
 
 .item-price {
-    font-weight: bold;
-    margin-bottom: 100px;
-    padding-left: 15px;
+    font-family: 'futura pt';
+    font-weight: 500;
+    margin-bottom: 0;
+    padding-left: 16px;
 }
 
 .item-actions {
@@ -148,16 +182,6 @@ body {
     background: none;
 }
 
-.shipping-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.shipping-options label {
-    margin-right: 1rem;
-}
 
 @media (max-width: 767px) {
     .card {
@@ -180,42 +204,31 @@ body {
     }
 }
 
-.header-scrolled-cart {
-    width: 100%;
-    position: fixed;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 50px;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #E47C21;
-}
-
-.logo-scrolled {
-    color: #E47C21;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 35px;
-    font-weight: 700;
-    white-space: nowrap;
-}
 
 .button-col {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 375px;
-   
 }
 
 .button-col button {
-    color: white;
-    background-color: black;
-    border: black 1px solid;
-    cursor: pointer;
+    background-color:black;
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 13px;
+    text-align: center;
+    width: 200px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    /* margin-bottom: 20px;
+    margin-top: -10px; */
 }
 
 .button-col button:hover {
