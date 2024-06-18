@@ -1,29 +1,248 @@
-/* body,
-html {
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+
+*{
+    font-family: 'futura pt' ,'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+}
+
+body{
+    background-color: #f3f3f3;
+    min-height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    font-family: 'futura pt', sans-serif;
+    font-weight: bold;
+    color: #000;
+}
+
+a{
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
+/*  -----------------header------------------------------------- */
+
+/* --------------------------------------------------------------- */
+
+.container{
+    padding-top: 150px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 0.5rem;
+    
+}
+
+.card-title {
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 1.3rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-body .close {
+    font-size: 1rem;
+    color: #999;
+    border: none;
+    background: none;
+}
+
+.btn-link {
+    color: #000;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+}
+
+.input-group {
     width: 100%;
-    height: 100%;
+    max-width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.input-group .btn {
+    border: none;
+    background: none;
+    color:000
+}
+
+.input-group .btn:hover {
+    border: none;
+    background: none;
+    color:000;
+}
+
+.form-control {
+    text-align: center;
+    border-color: #ced4da;
+    font-family: 'futura pt';
+    font-weight: 400;
+    letter-spacing: 0.01rem;
+    /* border: none; */
+}
+
+.form-control:focus {
+    border:none;
+    border-color: #495057;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-dark {
+    background: rgba(0, 0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 350px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    /* margin-bottom: 20px;
+    margin-top: -10px; */
+}
+
+.btn-dark:hover {
+    color: #fff;
+}
+
+.items-count, .total-price{
+    font-family: 'futura pt';
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+
+.item-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.col3 {
+    width: 150px;
+    height: 150px;
+}
+
+.item-row img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    /* border: 1px solid black; */
+    padding: 0.1rem;
+}
+
+.item-info p, .item-info h6 {
+    font-family: 'futura pt';
+    font-weight: 600;
+    flex-grow: 1;
+    padding: 0 0.1rem;
+}
+
+.item-info h6 {
+    text-transform: uppercase;
+}
+
+.item-price {
+    font-family: 'futura pt';
+    font-weight: 500;
+    margin-bottom: 0;
+    padding-left: 16px;
+}
+
+.item-actions {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #D4D4D4;
-} */
-
-canvas {
-    width: 100%;
-    height: 80vh;
+    align-items: flex-start;
 }
 
-.buttons {
+.item-actions .input-group {
+    margin-bottom: 0.5rem;
+}
+
+.item-actions .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.25rem;
+    color: #999;
+    border: none;
+    background: none;
+}
+
+.shipping-options {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.3rem 0;
 }
 
-.buttons button {
-    padding: 10px 20px;
+.shipping-options label, .shipping-options option, .shipping-options select{
+    margin-right: 1rem;
+    font-family: 'futura pt';
+    text-transform: uppercase;
     font-size: 16px;
-    cursor: pointer;
+    font-weight: 500;
+}
+
+.summary p {
+    font-family: 'futura pt';
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.d-flex strong {
+    font-family: 'futura pt';
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+#checkout:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media(max-width:767px){
+    .card{
+        margin: 3vh auto;
+    }
+}
+
+@media(max-width:767px){
+    .cart{
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+
+@media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
 }
