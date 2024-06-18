@@ -105,13 +105,13 @@ const deleteCollection = async (req, res) => {
 
 //edit collection on the server side
 const editCollection = async (req, res) => {
-    const collectionId = req.params.collection_id;
+    const collectionId = req.params.id;
     const { collectionName, description } = req.body;
 
     try {
         // Update the collection document by its collection_id
         const updatedCollection = await collections.findByIdAndUpdate(
-            { collection_id: collectionId },
+            collectionId,
             {
                 Collection_Name: collectionName,
                 Collection_Description: description

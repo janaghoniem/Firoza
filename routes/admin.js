@@ -35,6 +35,7 @@ router.post('/addProduct', adminController.addProduct);
 
 router.get('/EditLayout', adminController.getCollections );
 router.delete('/deleteCollection/:id', adminController.deleteCollection);
+router.post('/editCollection/:id', adminController.editCollection);
 
 router.get('/indian', async (req, res) => {
     try {
