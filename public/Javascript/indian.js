@@ -1,7 +1,7 @@
 function toggleDropdown(event, dropdownId) {
     var dropdown = document.getElementById(dropdownId);
     var arrow = dropdown.querySelector('.arrow');
-
+ 
     if (dropdown.style.display === "block") {
         dropdown.style.display = "none";
     } else {

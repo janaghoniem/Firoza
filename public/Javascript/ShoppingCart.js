@@ -48,22 +48,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json'
                 }
             });
-    
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-    
+
             const data = await response.json();
-    
+
             if (data.loggedIn) {
-                window.location.href = '/user/Checkout';
+                const currentTotalPrice = parseFloat(totalPriceElements[1].textContent.replace('EGP ', ''));
+                
+                const updateResponse = await fetch('/user/updateCartPrice', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ totalPrice: currentTotalPrice })
+                });
+
+                if (updateResponse.ok) {
+                    window.location.href = '/user/Checkout'; // Proceed to checkout page
+                } else {
+                    const errorData = await updateResponse.json();
+                    alert('Failed to update cart price: ' + errorData.error);
+                }
             } else {
                 popupContainer.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             }
         } catch (error) {
-            console.error('Error:', error);
-            // Handle the error
+            alert('Error:', error);
         }
     });
 
@@ -92,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error updating cart:', error);
         }
     }
-
 
 
     async function removeCartItem(itemId) {

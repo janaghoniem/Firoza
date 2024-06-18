@@ -368,6 +368,32 @@ const updateCart = async (req, res) => {
     }
 };
 
+const updateCartPrice = async (req, res) => {
+    try {
+        const { totalPrice } = req.body;
+
+        if (typeof totalPrice !== 'number' || isNaN(totalPrice)) {
+            return res.status(400).json({ error: 'Invalid total price' });
+        }
+
+        const userId = req.session.user._id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Assuming the user has a cart field which stores cart details
+        user.cart.totalprice = totalPrice;
+        await user.save();
+
+        res.status(200).json({ message: 'Cart price updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
 
 
 const removeFromCart = async (req, res) => {
@@ -453,7 +479,7 @@ const getUserOrder= async(req, res) => {
 //Billing Information - Checkout
 const BillingInformation = async (req, res) => {
     try {
-        const { shipping_address } = req.body;
+        const { shipping__address } = req.body;
 
         // Update user's billing address in the database
         const user = await User.findById(req.session.user._id);
@@ -474,16 +500,16 @@ const BillingInformation = async (req, res) => {
         };
 
         // Check if the new address already exists in the user's array
-        if (isDuplicateAddress(shipping_address)) {
+        if (isDuplicateAddress(shipping__address)) {
             return res.status(200).json({ message: 'Address already exists' });
         }
 
         // If address doesn't exist, add it to the array
-        user.address.push({
-            address: shipping_address.address,
-            city: shipping_address.city,
-            state: shipping_address.state,
-            postal_code: shipping_address.postal_code
+        user.shipping_address.push({
+            address: shipping__address.address,
+            city: shipping__address.city,
+            state: shipping__address.state,
+            postal_code: shipping__address.postal_code
         });
 
         await user.save();
@@ -526,6 +552,7 @@ module.exports = {
     AddToCart,
     Cart, 
     updateCart,
+    updateCartPrice,
     removeFromCart,
     getUserById, 
     BillingInformation,

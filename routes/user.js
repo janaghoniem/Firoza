@@ -40,12 +40,16 @@ router.post('/add-to-cart', User.AddToCart)
 // Handle POST request for cart
 router.post('/ShoppingCart', User.Cart);
 
+// Handle cart update
 router.put('/updateCart', User.updateCart);
+
+// Handle cart total price update
+router.put('/updateCartPrice', User.updateCartPrice);
 
 // Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
-// router.post('/filter', async (req, res) => {
+// router.post('/products/filter', async (req, res) => {
 //     const { categories, colors, priceRange, materials } = req.body;
 
 //     const filters = {};
@@ -66,9 +70,11 @@ router.delete('/remove-from-cart/:productId', User.removeFromCart);
 //         res.status(500).json({ message: 'Error fetching products', error });
 //     }
 // });
+
 router.post('/filter', User.filterProducts); 
 
 router.get('/shopAll',User.getShopAllProducts);
+
 router.get('/indian',User.getIndianProducts);
 
 router.post('/Billing-Information', User.BillingInformation);

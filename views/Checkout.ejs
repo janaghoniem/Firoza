@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="container hidden ">
+    <div class="container hidden">
         <div class="card-container">
             <div class="front">
                 <div class="image">
@@ -56,13 +56,10 @@
                 <div class="box">
                     <span>cvv</span>
                     <div class="cvv-box"></div>
-                    <img src="../images/Checkout/visa.png"
-                        alt="">
+                    <img src="../images/Checkout/visa.png" alt="">
                 </div>
             </div>
-
         </div>
-
 
         <form action="" class="payment-form">
             <div class="inputBox">
@@ -77,7 +74,6 @@
                 <div class="inputBox">
                     <span>EXPIRATION MM</span>
                     <select name="" id="" class="month-input">
-
                         <option value="month" select disabled>month</option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -96,13 +92,11 @@
                 <div class="inputBox">
                     <span>EXPIRATION YY</span>
                     <select name="" id="" class="year-input">
-
                         <option value="month" select disabled>year</option>
                         <option value="01">2021</option>
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
-
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
@@ -116,21 +110,17 @@
                     <input type="text" maxlength="4" class="cvv-input">
                 </div>
             </div>
-
-            
             <input type="submit" value=" Pay EGP 277,100" class="submit-btn" onclick="handleFormSubmissions(event)">
-            <input type="submit" value="Back" class="submit-btn " onclick="window.location.href = 'ShoppAll.html';">
-
+            <input type="submit" value="Back" class="submit-btn" onclick="window.location.href = 'ShoppAll.html';">
         </form>
-
-
     </div>
+
     <div class="form-container">
         <h2 class="form-title">BILLING ADDRESS</h2>
         <form action="" class="checkout-form">
             <div class="input-line">
                 <label for="name">FULL NAME</label>
-                <input type="text" name="name" id="name" placeholder="Your name and surname" value="<%= user.firstname %>  <%= user.lastname %>">
+                <input type="text" name="name" id="name" placeholder="Your name and surname" value="<%= user.firstname %> <%= user.lastname %>">
             </div>
             <div class="input-line">
                 <label for="Email">EMAIL</label>
@@ -138,31 +128,25 @@
             </div>
             <div class="input-line">
                 <label for="Address">ADDRESS</label>
-                <input type="text" name="Address" id="Address" placeholder="room-street-locality" value="<%= user.shipping_address[0].address %>">
+                <input type="text" name="Address" id="Address" placeholder="room-street-locality" value="<%= user.shipping_address && user.shipping_address.length > 0 ? user.shipping_address[0].address : '' %>">
             </div>
             <div class="input-line">
                 <label for="City">CITY</label>
-                <input type="text" name="City" id="City" placeholder="Cairo" value="<%= user.shipping_address[0].city %>">
+                <input type="text" name="City" id="City" placeholder="Cairo" value="<%= user.shipping_address && user.shipping_address.length > 0 ? user.shipping_address[0].city : '' %>">
             </div>
-
             <div class="input-container">
                 <div class="input-line">
                     <label for="State">STATE</label>
-                    <input type="text" name="State" id="State" placeholder="California" value="<%= user.shipping_address[0].state %>">
+                    <input type="text" name="State" id="State" placeholder="California" value="<%= user.shipping_address && user.shipping_address.length > 0 ? user.shipping_address[0].state : '' %>">
                 </div>
                 <div class="input-line">
                     <label for="Zipcode">ZIP CODE</label>
-                    <input type="text" name="Zipcode" id="Zipcode" placeholder="123 456" value="<%= user.shipping_address[0].postal_code %>">
+                    <input type="text" name="Zipcode" id="Zipcode" placeholder="123 456" value="<%= user.shipping_address && user.shipping_address.length > 0 ? user.shipping_address[0].postal_code : '' %>">
                 </div>
             </div>
             <input type="button" value="Complete purchase" onclick="handleFormSubmission(event)">
-
         </form>
     </div>
     <script src="/Javascript/Checkout.js"></script>
-
-
-
 </body>
-
 </html>
