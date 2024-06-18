@@ -413,8 +413,43 @@ const getDashboard = async (req, res) => {
 //     }
 // };
 
+const calculateCRR = async (startDate, endDate) => {
+    try {
+        // Count customers at the start of the period (excluding admins)
+        const startCustomersCount = await User.countDocuments({
+            createdAt: { $lt: startDate },
+            isadmin: false
+        });
+
+        // Count customers at the end of the period (excluding admins)
+        const endCustomersCount = await User.countDocuments({
+            createdAt: { $lt: endDate },
+            isadmin: false
+        });
+
+        // Count new customers acquired during the period (excluding admins)
+        const newCustomersCount = await User.countDocuments({
+            createdAt: { $gte: startDate, $lt: endDate },
+            isadmin: false
+        });
+
+        // Calculate Customer Retention Rate
+        const retentionRate = ((endCustomersCount - newCustomersCount) / startCustomersCount) * 100;
+
+        return retentionRate; // This will be a percentage value
+    } catch (error) {
+        console.error('Error calculating Customer Retention Rate:', error);
+        throw error;
+    }
+};
+
+
 const getStatistics = async (req, res) => {
     try {
+        const startDate = new Date('2024-06-17T00:00:00Z');
+        const endDate = new Date();
+
+        const retentionRate = await calculateCRR(startDate, endDate);
         // Count the number of users
         const userCount = await User.countDocuments();
 
@@ -437,15 +472,27 @@ const getStatistics = async (req, res) => {
             .select('name no_sales');
 
         // Render the statistics view with user count, best sellers, and most purchased products
-        res.render('statistics', { count: userCount, bestSellers, mostPurchased });
+        res.render('statistics', { count: userCount, bestSellers, mostPurchased,retentionRate: retentionRate.toFixed(2) });
     } catch (error) {
         console.error('Error fetching statistics:', error);
         res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
 
-module.exports = getStatistics;
 
+
+
+// (async () => {
+//     const startDate = new Date('2024-06-17T00:00:00Z');
+//     const endDate = new Date();
+
+//     try {
+//         const retentionRate = await calculateCRR(startDate, endDate);
+//         console.log(`Customer Retention Rate from 17/6/2024 to today: ${retentionRate.toFixed(2)}%`);
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// })();
 
 
     module.exports = {
