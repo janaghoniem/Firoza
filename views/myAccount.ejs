@@ -16,11 +16,10 @@
 
 <body>
     <div class="header">
-    <%- include('./partials/Nav-bar.ejs') %>
-</div>
-<!-- not dynamic bardu -->
-    
-        <div class="wrapper">
+        <%- include('./partials/Nav-bar.ejs') %>
+    </div>
+
+    <div class="wrapper">
         <div class="account-container">
             <h2>MY ACCOUNT</h2>
             <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p>
@@ -40,21 +39,31 @@
                 <% if (ordersUser.length > 0) { %>
                     <% ordersUser.forEach(order => { %>
                         <h2>Order ID: <%= order._id %></h2>
-                        <ul>
-                            <h3>products:</h3>
-                            <% order.product_ids.forEach(product => { %>
-                                <li>
-                                    <h3>Product Name: <%= product.name %></h3>
-                                    <img src="<%= product.image %>" alt="<%= product.name %>">
-                                    <p>Price: $<%= product.price %></p>
-                                </li>
-                            <% }); %>
-                        </ul>
+                        <div class="order-box">
+                            <h3>Order Status: <%= order.status %></h3>
+                            <ul>
+                                <h3>Products:</h3>
+                                <% order.product_ids.forEach(product => { %>
+                                    <li>
+                                        <h3>Product Name: <%= product.name %></h3>
+                                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                                        <p>Price: $<%= product.price %></p>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                            <div class="order-actions">
+                                <% if (order.status === 'pending') { %>
+                                    <button class="cancel-button">Cancel Order</button>
+                                <% } %>
+                                <% if (order.status === 'delivered') { %>
+                                    <button class="review-button">Review</button>
+                                <% } %>
+                            </div>
+                        </div>
                     <% }); %>
                 <% } else { %>
                     <p>No orders found.</p>
                 <% } %>
-               
             </section>
             <section class="wishlist">
                 <h3>WISHLIST</h3>
@@ -62,11 +71,10 @@
             </section>
         </div>
     </div>
-  
- 
+
     <div class="footer">
-    <%- include('./partials/footer.ejs') %>
-</div>
+        <%- include('./partials/footer.ejs') %>
+    </div>
 </body>
 
 </html>
