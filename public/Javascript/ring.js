@@ -17,7 +17,7 @@ async function changeDiamondColor(color) {
 }
 
 // Load the Spline scene
-spline.load('https://prod.spline.design/zHLFkybCIJXBtULS/scene.splinecode').then(() => {
+spline.load('https://prod.spline.design/s11be4rxx-39bLiO/scene.splinecode').then(() => {
     console.log('Spline scene loaded successfully');
     spline.setVariables({ White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 });
    
