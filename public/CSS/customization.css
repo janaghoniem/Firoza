@@ -37,6 +37,8 @@ a:hover {
     
 }
 
+
+
 .card-title {
     font-family: 'futura pt';
     text-transform: uppercase;
@@ -138,6 +140,7 @@ a:hover {
     align-items: center;
     padding: 1rem 0;
     border-bottom: 1px solid #ddd;
+    min-height: 650px;
 }
 
 .col3 {
