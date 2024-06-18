@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, contactNumber } = req.body;
+        const { firstName, lastName, email, password } = req.body;
 
         // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -403,16 +403,6 @@ const getDashboard = async (req, res) => {
     }
 };
 
-// const getStatistics = async (req, res) => {
-//     try {
-//         const userCount = await User.countDocuments();
-//         res.render('statistics', { count: userCount });
-//     } catch (error) {
-//         console.error('Error counting users:', error);
-//         res.status(500).json({ error: 'Failed to fetch user count' });
-//     }
-// };
-
 const calculateCRR = async (startDate, endDate) => {
     try {
         // Count customers at the start of the period (excluding admins)
@@ -492,19 +482,6 @@ const getStatistics = async (req, res) => {
 };
 
 
-
-
-// (async () => {
-//     const startDate = new Date('2024-06-17T00:00:00Z');
-//     const endDate = new Date();
-
-//     try {
-//         const retentionRate = await calculateCRR(startDate, endDate);
-//         console.log(`Customer Retention Rate from 17/6/2024 to today: ${retentionRate.toFixed(2)}%`);
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// })();
 
 module.exports = {
     addAdmin,
