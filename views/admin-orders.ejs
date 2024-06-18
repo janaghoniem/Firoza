@@ -36,19 +36,21 @@
                 <p>Unknown User</p>
               <% } %>
             </div>
-            <div class="col col-3" data-label="Total Amount">$<%= order.total_price %>
-            </div>
-            <div class="col col-4" data-label="Ordered">
-              <% order.product_ids.forEach(product=> { %>
-                <%= product.name %><br>
-                  <% }) %>
+            <div class="col col-3" data-label="Total Amount">$<%= order.total_price.toFixed(2) %></div>
+            <div class="col col-4" data-label="Ordered Products">
+              <% order.product_ids.forEach(product => { %>
+              <p><%= product.name %> - Quantity: <%= product.quantity %></p>
+              <% }) %>
             </div>
             <div class="col col-5" data-label="Status">
               <%= order.status %>
             </div>
+            <div class="col col-6" data-label="Created At">
+              <%= new Date(order.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
+            </div>
           </li>
           <% }) %>
-      </ul>
+        </ul>
     </div>
 </body>
 
