@@ -226,11 +226,8 @@ const Cart = async(req, res) => {
     try {
 
         if (!req.session.user) {
-            console.log('No user session');
-            // If the user is not logged in, use the cart stored in the session
             const sessionCart = req.session.cart || [];
 
-            // Populate the session cart with product details
             const cartItems = await Promise.all(sessionCart.map(async item => {
                 const product = await Product.findById(item.productId);
                 return {
@@ -263,33 +260,38 @@ const Cart = async(req, res) => {
 }
 
 const removeFromCart = async (req, res) => {
-    console.log('da5al el remove from cart');
+    console.log('Entered removeFromCart function');
     const productId = req.params.productId;
 
-    if (!req.session.user) {
-        console.log('no user session');
-        return res.status(401).send('User not logged in');
-    }
-
     try {
-        const user = await User.findById(req.session.user._id);
-
-        // Remove the item from the user's cart
-        user.cart = user.cart.filter(async item => { if (item.productId) {
-            const product = await Product.findById(item.productId)._id;
-            console.log('removing cart items')
-            if(product) {
-                return product.toString() !== productId.toString();
+        if (req.session.user) {
+            // Logged-in user
+            const user = await User.findById(req.session.user._id);
+            if (!user) {
+                console.log('User not found');
+                return res.status(404).send('User not found');
             }
-        }});
-        await user.save();
 
-        res.status(200).json({ message: 'Product removed from cart successfully' });
+            // Filter out the item from the user's cart
+            user.cart = user.cart.filter(item => item.productId.toString() !== productId.toString());
+            await user.save();
+
+            console.log('Product removed from user cart successfully');
+            res.status(200).json({ message: 'Product removed from cart successfully' });
+        } else if (req.session.cart) {
+            // Guest user
+            req.session.cart = req.session.cart.filter(item => item.productId.toString() !== productId.toString());
+            console.log('Product removed from guest cart successfully');
+            res.status(200).json({ message: 'Product removed from guest cart successfully' });
+        } else {
+            console.log('No cart found in session');
+            res.status(404).send('No cart found in session');
+        }
     } catch (error) {
         console.error('Error removing from cart:', error);
         res.status(500).send('Internal Server Error');
     }
-};
+}
 
 //get use4r  by id
 const getUserById = async (req, res) => {

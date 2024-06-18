@@ -198,7 +198,6 @@ document.addEventListener('DOMContentLoaded',  function() {
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle the error
         }
     }
 
@@ -209,7 +208,6 @@ document.addEventListener('DOMContentLoaded',  function() {
 
     loginIconTrigger2.addEventListener('click', () => {
         triggerPopup(event);
-
     });
 
     loginIconTrigger3.addEventListener('click', () => {

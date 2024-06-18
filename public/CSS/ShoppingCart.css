@@ -221,6 +221,11 @@ a:hover {
     font-size: 18px;
 }
 
+#checkout:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 @media(max-width:767px){
     .card{
         margin: 3vh auto;
