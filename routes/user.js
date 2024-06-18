@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const User = require('../controllers/User'); 
 
+const restrictedPaths = [
+    // '/admin',
+    '/Checkout'
+];
+
+// Unauthorized users 
+router.use((req, res, next) => {
+    if (req.session.user === undefined && restrictedPaths.includes(req.path)) {
+        console.log(req.session.user);
+        console.log('You are not authorized to access this path');
+        res.status(403).send('You are not authorized to access this path');
+    } else {
+        next();
+    }
+});
+
 // Handle POST request for login
 router.post('/login', User.GetUser);
 
@@ -25,6 +41,9 @@ router.post('/ShoppingCart', User.Cart);
 
 // Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
+
+//
+router.post('/')
 
 router.get('/users/:id', User.getUserById);
 

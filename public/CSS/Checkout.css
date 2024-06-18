@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
 
 
 * {
-    font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
+    font-family: 'futura pt', 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
@@ -10,8 +11,8 @@
     transition: 0.5s;
     outline: none;border:none;
     text-decoration: none;
-    text-transform: uppercase;
 }
+
 body{
     height: 100vh;
     width: 100%;
@@ -22,6 +23,15 @@ body{
     padding: 0 20%;
 }
 
+.logo {
+    font-family: sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 120px;
+    color: #000;
+}
 
 .progress-checkout-container{
     /* display: flex;
@@ -39,9 +49,7 @@ body{
     justify-content: space-between;
     align-items: center;
     width: 60%;
-    margin-top: 150px; 
-    
-    
+    margin-top: 10px; 
 }
 
 .progress-step-container{
@@ -52,7 +60,8 @@ body{
 }
 
 .step-check{
-    background-color: #9b3900;
+    /* background-color: #9b3900; */
+    background-color: #000;
     height: 30px;
     width: 30px;
     border-radius: 30px;
@@ -80,7 +89,9 @@ body{
 .progress-step-container:nth-of-type(2) .step-check{
     background-image: none;
     background-color: white;
-    border: 2px solid #9b3900;
+    /* border: 2px solid #9b3900; */
+    border: 2px solid #000000;
+
 }
 
 .step-check::after{
@@ -147,27 +158,60 @@ body{
 }
 
 .container form .submit-btn{
-    width: 100%;
+    /* width: 100%;
     background:linear-gradient(45deg, #090979, #00d4ff);
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
     color:#fff;
-    border-radius: 10px;
+    border-radius: 10px; */
     cursor: pointer;
     transition: .2s linear;
+
+    font-family: 'futura pt';
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 560px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    margin-top: 15px;
 }
+
 .submit-btn{
-    width: 100%;
+    /* width: 100%;
     background:linear-gradient(45deg, #090979, #00d4ff);
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
     color:#fff;
-    border-radius: 10px;
+    border-radius: 10px; */
     cursor: pointer;
     transition: .2s linear;
+
+    font-family: 'futura pt';
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 605px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
 }
+
 .container form .submit-btn:hover{
     letter-spacing: 2px;
     opacity: .8;
@@ -185,7 +229,8 @@ body{
     height: 100%;
     width: 100%;
     top: 0; left: 0;
-    background:linear-gradient(45deg,   #090979, #00d4ff);
+    /* background:linear-gradient(45deg,   #090979, #00d4ff); */
+    background:linear-gradient(45deg,   #000000, #292929);
     border-radius: 5px;
     backface-visibility: hidden;
     box-shadow: 0 15px 25px rgba(0,0,0,.2);
@@ -229,7 +274,8 @@ body{
     top:0; left: 0;
     height: 100%;
     width: 100%;
-    background:linear-gradient(45deg, #090979, #00d4ff);
+    /* background:linear-gradient(45deg, #090979, #00d4ff); */
+    background:linear-gradient(45deg,   #000000, #292929);
     border-radius: 5px;
     padding: 20px 0;
     text-align: right;
@@ -240,7 +286,8 @@ body{
 }
 
 .container .card-container .back .stripe{
-    background: #000;
+    /* background: #000; */
+    background: #353232;
     width: 100%;
     margin: 10px 0;
     height: 50px;
@@ -335,7 +382,7 @@ input[type="text"]::placeholder{
 }
 
 input[type="button"]{
-    background-color: rgb(0, 132, 255);
+    /* background-color: rgb(0, 132, 255);
     color: white;
     font-weight: 500;
     font-size: 18px;
@@ -343,11 +390,29 @@ input[type="button"]{
     padding: 0 30px;
     border: none;
     border-radius: 5px;
+    cursor: pointer; */
+    font-family: 'futura pt';
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 605px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
 input[type="button"]:hover{
-    background-color: rgb(4, 88, 167);
+    /* background-color: rgb(4, 88, 167); */
+    background: rgba(0, 0, 0, 0);
+    color: #1f1f1f;
 }
 .hidden {
     display: none;

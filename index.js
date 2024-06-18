@@ -183,7 +183,7 @@ app.get('/WishList', (req, res) => {
     res.render("wishlist.ejs");
 });
 
-app.get('/Checkout', (req, res) => {
+app.get('/user/Checkout', (req, res) => {
     res.render("Checkout.ejs");
 });
 

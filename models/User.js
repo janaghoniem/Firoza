@@ -26,8 +26,23 @@ const userSchema = mongoose.Schema(
             type: Boolean,
             default : false,
         },
-        address: [{
-            type: String,
+        address: [{  
+            country:{
+                type:String,
+                required:true
+            },
+            city:{
+                type:String,
+                required:true
+            },
+            street:{
+                type:String,
+                required:true
+            },
+            postal_code:{
+                type:Number,
+                required:true
+            }
         }],
         wishlist: [{   
             type: mongoose.Schema.Types.ObjectId,

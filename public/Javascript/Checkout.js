@@ -101,8 +101,36 @@ function handleFormSubmission(event) {
         const formContainer = document.querySelector('.form-container');
         const containerDiv = document.querySelector('.container');
 
-        formContainer.classList.add('hidden');
-        containerDiv.classList.remove('hidden');
+        const formData = {
+            address: {
+                street: document.getElementById('street').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                postal_code: document.getElementById('postal_code').value
+            }
+        };
+
+        fetch('/user/Checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Form submitted successfully');
+                formContainer.classList.add('hidden');
+                containerDiv.classList.remove('hidden');
+            } else {
+                alert('Saving Billing information failed.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle fetch error
+            alert('Saving billing information failed due to network issue. Please try again later.');
+        });
     }
 }
 
