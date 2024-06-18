@@ -71,6 +71,10 @@ app.get('/EditCollection', (req, res) => {
     res.render("EditCollection.ejs");
 });
 
+app.get('/Customize', (req, res) => {
+    res.render("Customization.ejs");
+});
+
 app.get('/AddProduct', (req, res) => {
     res.render("addProduct.ejs");
 });
