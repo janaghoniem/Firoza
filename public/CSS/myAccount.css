@@ -11,14 +11,17 @@
 }
 
 .wrapper {
-    padding:60px 0;
-    padding-top:20%;
+    padding:30% 0;
+    /* padding-top:20%; */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    min-height: calc(100vh - 120px);
    
-   
+}
+.wrapper div{
+    margin-bottom: 10% 0;
 }
 
 .account-container {
@@ -30,6 +33,7 @@
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
+  
 }
 
 .account-container h2 {
