@@ -92,16 +92,6 @@ const upload = multer({ storage: storage });
 
 // Use upload.single('collectionImage') in the route handling the form submission
 router.post('/addCollection', upload.single('collectionImage'), adminController.addCollection);
-
-//route ll orders "admin pov"
-// router.get('/orders', async (req, res, next) => {
-//     try {
-//         await adminController.getOrders(req, res);
-//     } catch (err) {
-//         next(err);
-//     }
-// });
-
 router.get('/orders', adminController.getOrders);
 
 
