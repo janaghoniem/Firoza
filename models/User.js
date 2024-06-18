@@ -52,11 +52,14 @@ const userSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Orders',
         }],
-        cart: [{
+        cart: {
+            items: [{
             productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
             quantity: { type: Number, required: true },
             price: { type: Number, required: true }
-        }],
+            }],
+            totalprice: {type: Number, required: true}
+        },
 
         Token:String,
         Tokenexpiry:Date,

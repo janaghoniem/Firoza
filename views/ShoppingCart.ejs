@@ -22,8 +22,8 @@
               <div class="card">
                  <div class="card-body">
                     <h4 class="card-title">Shopping Cart</h4>
-                    <p class="text-muted items-count"><%= cart.filter(item => item.productId).length %> items</p>
-                    <% cart.forEach(item => { %>
+                    <p class="text-muted items-count"><%= cart.items.filter(item => item.productId).length %> items</p>
+                    <% cart.items.forEach(item => { %>
                         <% if (item.productId) { %>
                             <div class="row mb-3 item-row" data-item="<%= item.productId._id %>">
                                <div class="col-3">
@@ -59,8 +59,8 @@
                     <h5 class="card-title">Summary</h5>
                     <hr>
                     <div class="d-flex justify-content-between">
-                       <span class="items-count"><%= cart.filter(item => item.productId).length %> ITEMS</span>
-                       <span class="total-price">EGP <%= cart.reduce((total, item) => item.productId ? total + (item.productId.price * item.quantity) : total, 0) %></span>
+                       <span class="items-count"><%= cart.items.filter(item => item.productId).length %> ITEMS</span>
+                       <span class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) %></span>
                     </div>
                     <div class="shipping-options">
                        <label for="shipping">Shipping:</label>
@@ -73,7 +73,7 @@
                     <input id="code" class="form-control" placeholder="Enter your code">
                     <div class="d-flex justify-content-between mt-3">
                        <strong>TOTAL PRICE</strong>
-                       <strong class="total-price">EGP <%= cart.reduce((total, item) => item.productId ? total + (item.productId.price * item.quantity) : total, 0) + 100 %></strong>
+                       <strong class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) + 100 %></strong>
                     </div>
                     <button class="btn btn-dark btn-block mt-4" id="checkout">CHECKOUT</button>
                     <a href="/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>

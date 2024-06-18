@@ -139,15 +139,11 @@ app.get('/shopAll', async (req, res) => {
 //     }
 // }); 
     
-app.get('/ShoppingCart', async(req, res) => {
+app.get('/ShoppingCart', async (req, res) => {
     try {
-
         if (!req.session.user) {
-            console.log('No user session');
-            // If the user is not logged in, use the cart stored in the session
-            const sessionCart = req.session.cart || [];
+            const sessionCart = req.session.cart ? req.session.cart.items : [];
 
-            // Populate the session cart with product details
             const cartItems = await Promise.all(sessionCart.map(async item => {
                 const product = await Product.findById(item.productId);
                 return {
@@ -158,12 +154,12 @@ app.get('/ShoppingCart', async(req, res) => {
             }));
 
             return res.render('ShoppingCart', {
-                cart: cartItems,
+                cart: { items: cartItems },
                 user: null
             });
         }
 
-        const user = await User.findById(req.session.user._id).populate('cart.productId');
+        const user = await User.findById(req.session.user._id).populate('cart.items.productId');
 
         if (!user) {
             return res.status(404).send('User not found');

@@ -15,9 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantityInput = document.getElementById(`quantity-${item}`);
             let currentQuantity = parseInt(quantityInput.value);
             currentQuantity++;
-            quantityInput.value = currentQuantity;
-
-            updateTotalPrice();
+            updateCart(item, currentQuantity, quantityInput);
         });
     });
 
@@ -28,10 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentQuantity = parseInt(quantityInput.value);
             if (currentQuantity > 1) {
                 currentQuantity--;
-                quantityInput.value = currentQuantity;
+                updateCart(item, currentQuantity, quantityInput);
             }
-
-            updateTotalPrice();
         });
     });
 
@@ -71,6 +67,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    async function updateCart(productId, quantity, quantityInput) {
+        try {
+            const response = await fetch('/user/updateCart', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId, quantity })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                alert('Cart updated successfully');
+                quantityInput.value = quantity;
+
+                // Update total price display based on updated totalprice from backend
+                updateTotalPrice(data.totalprice); // Make sure this function updates the UI
+            } else {
+                const errorData = await response.json();
+                alert('Failed to update cart: ' + errorData.error);
+            }
+        } catch (error) {
+            alert('Error updating cart:', error);
+        }
+    }
+
+
+
     async function removeCartItem(itemId) {
         try {
             const response = await fetch(`/user/remove-from-cart/${itemId}`, {
@@ -95,32 +119,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shippingSelect.addEventListener('change', updateTotalPrice);
 
-    function updateTotalPrice() {
+    function updateTotalPrice(newTotalPrice) {
         let totalPrice = 0;
         let itemsCount = 0;
         const itemPrices = document.querySelectorAll('.item-price');
         const quantityInputs = document.querySelectorAll('.quantity-input');
         const shippingCost = parseInt(shippingSelect.options[shippingSelect.selectedIndex].text.match(/\d+/)[0]);
-
+    
         itemPrices.forEach((price, index) => {
-            const priceText = price.textContent.trim().replace('EGP', '').trim();
             const quantity = parseInt(quantityInputs[index].value);
-            totalPrice += parseInt(priceText) * quantity;
             itemsCount += quantity;
+            totalPrice += parseFloat(price.textContent.replace('EGP ', '')) * quantity; // Update totalPrice based on item prices
         });
-
-        totalPriceElements.forEach(totalPriceElement => {
-            totalPriceElement.textContent = `EGP ${totalPrice}`;
-        });
+    
+        // If newTotalPrice is provided, use it
+        if (typeof newTotalPrice === 'number' && !isNaN(newTotalPrice)) {
+            totalPrice = newTotalPrice;
+        }
+    
+        totalPriceElements[0].textContent = `EGP ${totalPrice}`;
+        totalPriceElements[1].textContent = `EGP ${totalPrice + shippingCost}`;
+    
         itemsCountElements.forEach(itemsCountElement => {
             itemsCountElement.textContent = `${itemsCount} items`;
         });
-        
-        totalPriceElements[1].textContent = `EGP ${totalPrice + shippingCost}`;
-
+    
         // Disable the checkout button if cart is empty
         checkoutButton.disabled = itemsCount === 0;
     }
+    
 
     // Initial check to disable checkout button if cart is empty
     updateTotalPrice();

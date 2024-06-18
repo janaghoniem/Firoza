@@ -125,34 +125,34 @@
 
 
     </div>
-    <div class="form-container   ">
+    <div class="form-container">
         <h2 class="form-title">BILLING ADDRESS</h2>
         <form action="" class="checkout-form">
             <div class="input-line">
                 <label for="name">FULL NAME</label>
-                <input type="text" name="name" id="name" placeholder="Your name and surname">
+                <input type="text" name="name" id="name" placeholder="Your name and surname" value="<%= user.firstname %>  <%= user.lastname %>">
             </div>
             <div class="input-line">
                 <label for="Email">EMAIL</label>
-                <input type="text" name="Email" id="Email" placeholder="example@example.com">
+                <input type="text" name="Email" id="Email" placeholder="example@example.com" value="<%= user.email %>">
             </div>
             <div class="input-line">
                 <label for="Address">ADDRESS</label>
-                <input type="text" name="Address" id="Address" placeholder="room-street-locality">
+                <input type="text" name="Address" id="Address" placeholder="room-street-locality" value="<%= user.shipping_address[0].address %>">
             </div>
             <div class="input-line">
                 <label for="City">CITY</label>
-                <input type="text" name="City" id="City" placeholder="Cairo">
+                <input type="text" name="City" id="City" placeholder="Cairo" value="<%= user.shipping_address[0].city %>">
             </div>
 
             <div class="input-container">
                 <div class="input-line">
                     <label for="State">STATE</label>
-                    <input type="text" name="State" id="State" placeholder="California">
+                    <input type="text" name="State" id="State" placeholder="California" value="<%= user.shipping_address[0].state %>">
                 </div>
                 <div class="input-line">
                     <label for="Zipcode">ZIP CODE</label>
-                    <input type="text" name="Zipcode" id="Zipcode" placeholder="123 456">
+                    <input type="text" name="Zipcode" id="Zipcode" placeholder="123 456" value="<%= user.shipping_address[0].postal_code %>">
                 </div>
             </div>
             <input type="button" value="Complete purchase" onclick="handleFormSubmission(event)">

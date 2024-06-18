@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../controllers/User'); 
+const userr = require('../models/User');
 
 const restrictedPaths = [
     // '/admin',
@@ -39,11 +40,29 @@ router.post('/add-to-cart', User.AddToCart)
 // Handle POST request for cart
 router.post('/ShoppingCart', User.Cart);
 
+router.put('/updateCart', User.updateCart);
+
 // Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
 //
 router.post('/Billing-Information', User.BillingInformation);
+
+router.get('/Checkout', async (req, res) => {
+    try {
+        const user = await userr.findById(req.session.user._id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Render the EJS template and pass user data
+        res.render('Checkout', { user });
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 router.get('/users/:id', User.getUserById);
 

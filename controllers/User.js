@@ -7,13 +7,14 @@ const Orderr= require('../models/Orders');
 
 
 // Handle User login
+// Handle User login
 const GetUser = async (req, res) => {
-    console.log('da5al el getuser function');
+    console.log('Entered GetUser function');
 
     const { email, password } = req.body;
 
     if (!email || !password) {
-        console.log('moshkela fel mail or password')
+        console.log('Email and password are required');
         return res.status(400).json({ error: 'Email and password are required' });
     }
 
@@ -21,8 +22,7 @@ const GetUser = async (req, res) => {
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('el mafrood yed5ol hena.');
-            console.log(email);
+            console.log('Email not associated with any account');
             return res.status(400).json({ error: 'The entered email address is not associated with any account' });
         }
 
@@ -33,17 +33,22 @@ const GetUser = async (req, res) => {
         }
 
         // Merge guest cart with user cart
-        if (req.session.cart) {
-            req.session.cart.forEach(sessionItem => {
-                const existingItem = user.cart.find(dbItem => dbItem.productId.toString() === sessionItem.productId.toString());
+        if (req.session.cart && req.session.cart.items.length > 0) {
+            req.session.cart.items.forEach(sessionItem => {
+                const existingItem = user.cart.items.find(dbItem => dbItem.productId.toString() === sessionItem.productId.toString());
                 if (existingItem) {
                     existingItem.quantity += sessionItem.quantity;
                 } else {
-                    user.cart.push(sessionItem);
+                    user.cart.items.push(sessionItem);
                 }
             });
+
+            // Update total price in user's cart
+            user.cart.totalprice += req.session.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+
             await user.save();
-            req.session.cart = []; // Clear the session cart after merging
+            req.session.cart.items = []; // Clear the session cart after merging
+            req.session.cart.totalprice = 0; // Reset session cart total price
         }
 
         // Set session
@@ -52,9 +57,12 @@ const GetUser = async (req, res) => {
         // Return user data including isAdmin flag
         res.status(200).json({ user });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error in GetUser:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
 
 // Handle User signup
 const AddUser = async (req, res) => {
@@ -84,17 +92,21 @@ const AddUser = async (req, res) => {
             lastname,
             email,
             password: hashedPassword,
-            address
+            address,
+            cart: {
+                items: [],
+                totalprice: 0
+            }
         });
 
         await newUser.save();
         req.session.user = newUser;
 
         // Merge guest cart with new user cart
-        if (req.session.cart) {
-            newUser.cart = req.session.cart;
+        if (req.session.cart && req.session.cart.items) {
+            newUser.cart.items = req.session.cart.items;
             await newUser.save();
-            req.session.cart = []; // Clear the session cart after merging
+            req.session.cart.items = []; // Clear the session cart after merging
         }
 
         res.status(201).json({ message: 'User created successfully' });
@@ -189,13 +201,13 @@ const AddToCart = async (req, res) => {
 
         if (!req.session.user) {
             if (!req.session.cart) {
-                req.session.cart = [];
+                req.session.cart = { items: [] };
             }
-            const existingCartItem = req.session.cart.find(item => item.productId.toString() === productId.toString());
+            const existingCartItem = req.session.cart.items.find(item => item.productId.toString() === productId.toString());
             if (existingCartItem) {
                 existingCartItem.quantity += 1;
             } else {
-                req.session.cart.push({
+                req.session.cart.items.push({
                     productId: productId,
                     quantity: 1,
                     price: price
@@ -205,16 +217,18 @@ const AddToCart = async (req, res) => {
         }
 
         const user = await User.findById(req.session.user._id);
-        const existingCartItem = user.cart.find(item => item.productId.toString() === productId.toString());
+        const existingCartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
         if (existingCartItem) {
             existingCartItem.quantity += 1;
         } else {
-            user.cart.push({
+            user.cart.items.push({
                 productId: productId,
                 quantity: 1,
                 price: price
             });
         }
+
+        user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
         await user.save();
         res.status(200).json({ message: 'Product added to cart successfully' });
@@ -223,11 +237,10 @@ const AddToCart = async (req, res) => {
     }
 }
 
-const Cart = async(req, res) => {
+const Cart = async (req, res) => {
     try {
-
         if (!req.session.user) {
-            const sessionCart = req.session.cart || [];
+            const sessionCart = req.session.cart ? req.session.cart.items : [];
 
             const cartItems = await Promise.all(sessionCart.map(async item => {
                 const product = await Product.findById(item.productId);
@@ -239,12 +252,12 @@ const Cart = async(req, res) => {
             }));
 
             return res.render('ShoppingCart', {
-                cart: cartItems,
+                cart: { items: cartItems },
                 user: null
             });
         }
 
-        const user = await User.findById(req.session.user._id).populate('cart.productId');
+        const user = await User.findById(req.session.user._id).populate('cart.items.productId');
 
         if (!user) {
             return res.status(404).send('User not found');
@@ -260,6 +273,79 @@ const Cart = async(req, res) => {
     }
 }
 
+const updateCart = async (req, res) => {
+    const { productId, quantity } = req.body;
+
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        // Find the correct size variant and check quantity
+        const sizeVariant = product.sizes.find(size => size.quantity >= quantity);
+
+        if (!sizeVariant) {
+            return res.status(400).json({ error: 'Insufficient product quantity available' });
+        }
+
+        if (!req.session.user) {
+            // Guest user
+            if (!req.session.cart) {
+                return res.status(404).json({ error: 'Cart not found' });
+            }
+
+            const cartItem = req.session.cart.items.find(item => item.productId.toString() === productId.toString());
+
+            if (!cartItem) {
+                return res.status(404).json({ error: 'Item not found in cart' });
+            }
+
+            cartItem.quantity = quantity;
+
+            // Calculate total price directly
+            let totalPrice = 0;
+            for (const item of req.session.cart.items) {
+                totalPrice += item.price * item.quantity;
+            }
+            req.session.cart.totalprice = totalPrice;
+
+            return res.status(200).json({ message: 'Cart updated successfully', totalprice: req.session.cart.totalprice });
+        }
+
+        // Logged-in user
+        const user = await User.findById(req.session.user._id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const cartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
+
+        if (!cartItem) {
+            return res.status(404).json({ error: 'Item not found in cart' });
+        }
+
+        cartItem.quantity = quantity;
+
+        // Calculate total price directly
+        let totalPrice = 0;
+        for (const item of user.cart.items) {
+            totalPrice += item.price * item.quantity;
+        }
+        user.cart.totalprice = totalPrice;
+
+        await user.save();
+
+        res.status(200).json({ message: 'Cart updated successfully', totalprice: user.cart.totalprice });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+
 const removeFromCart = async (req, res) => {
     console.log('Entered removeFromCart function');
     const productId = req.params.productId;
@@ -274,14 +360,16 @@ const removeFromCart = async (req, res) => {
             }
 
             // Filter out the item from the user's cart
-            user.cart = user.cart.filter(item => item.productId.toString() !== productId.toString());
+            user.cart.items = user.cart.items.filter(item => item.productId.toString() !== productId.toString());
+            user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+
             await user.save();
 
             console.log('Product removed from user cart successfully');
             res.status(200).json({ message: 'Product removed from cart successfully' });
         } else if (req.session.cart) {
             // Guest user
-            req.session.cart = req.session.cart.filter(item => item.productId.toString() !== productId.toString());
+            req.session.cart.items = req.session.cart.items.filter(item => item.productId.toString() !== productId.toString());
             console.log('Product removed from guest cart successfully');
             res.status(200).json({ message: 'Product removed from guest cart successfully' });
         } else {
@@ -364,12 +452,30 @@ const BillingInformation = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        user.shipping_address = {
+        // Ensure user.address is initialized and is an array
+        user.address = user.address || [];
+
+        // Custom function to check for duplicate addresses
+        const isDuplicateAddress = (newAddress) => {
+            return user.address.some(addr => (
+                addr.address.toLowerCase() === newAddress.address.toLowerCase() &&
+                addr.city.toLowerCase() === newAddress.city.toLowerCase() &&
+                addr.state.toLowerCase() === newAddress.state.toLowerCase()
+            ));
+        };
+
+        // Check if the new address already exists in the user's array
+        if (isDuplicateAddress(shipping_address)) {
+            return res.status(200).json({ message: 'Address already exists' });
+        }
+
+        // If address doesn't exist, add it to the array
+        user.address.push({
             address: shipping_address.address,
             city: shipping_address.city,
             state: shipping_address.state,
             postal_code: shipping_address.postal_code
-        };
+        });
 
         await user.save();
 
@@ -378,7 +484,8 @@ const BillingInformation = async (req, res) => {
         console.error('Error updating billing information:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
+
 
 
 
@@ -390,6 +497,7 @@ module.exports = {
     Search,
     AddToCart,
     Cart, 
+    updateCart,
     removeFromCart,
 
     getUserById, 

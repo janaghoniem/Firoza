@@ -31,8 +31,8 @@ document.querySelector('.cvv-input').oninput = () => {
 // -------------------------------------------------------------------------------------------------
 
 // Get the elements
-// const formContainer = document.querySelector('.form-container');
-// const containerDiv = document.querySelector('.container');
+const formContainer = document.querySelector('.form-container');
+const containerDiv = document.querySelector('.container');
 // const completePurchaseBtn = document.querySelector('input[value="Complete purchase"]');
 
 // // Function to hide form-container and show container
@@ -93,6 +93,7 @@ function validateForm() {
 
 function handleFormSubmission(event) {
     event.preventDefault();
+    
 
     const isValid = validateForm(); // Assuming you have a validateForm() function
     if (isValid) {
@@ -127,10 +128,10 @@ function handleFormSubmission(event) {
                 alert('Failed to save billing information');
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to save billing information due to network issue. Please try again later.');
-        });
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //     alert('Failed to save billing information due to network issue. Please try again later.');
+        // });
     } else {
         console.log('Form is invalid');
         // Handle invalid form submission (if necessary)
