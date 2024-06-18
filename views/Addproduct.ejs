@@ -59,7 +59,8 @@
                     
                     <label for="uploadFile5" class="btn btn-primary">Upload Additional Images</label>
                     <input type="file" name="img5" id="uploadFile5" accept="image/*" onchange="previewImage(event)" />
-                </div> -->
+                </div>
+         -->
                 <h4 class="successful"></h4>
                 <h6 class="s"></h6>
                 <span class="sure"></span>
@@ -167,36 +168,51 @@ function updateAddButtonState() {
 document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('addButton');
     addButton.addEventListener('click', addSizeQuantityPair);
-});function previewImage(event) {
-    const files = event.target.files; // Get all selected files
-    const imagePreview = document.getElementById('imagePreview');
-    imagePreview.innerHTML = ''; // Clear previous previews
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const addButton = document.getElementById('addButton');
+    addButton.addEventListener('click', addSizeQuantityPair);
+ });
+//function previewImage(event) {
+//     const files = event.target.files; // Get all selected files
+//     const imagePreview = document.getElementById('imagePreview');
+//     imagePreview.innerHTML = ''; // Clear previous previews
 
-    // Loop through all selected files
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
+//     // Loop through all selected files
+//     for (let i = 0; i < files.length; i++) {
+//         const file = files[i];
+//         const reader = new FileReader();
 
-        // Closure to capture the file information
-        reader.onload = (function(file) {
-            return function(event) {
-                // Create HTML elements to display the preview
-                const imgElement = document.createElement('img');
-                imgElement.src = event.target.result;
-                imgElement.alt = 'Preview Image';
-                imgElement.style.maxWidth = '100%';
-                imgElement.style.height = 'auto';
+//         // Closure to capture the file information
+//         reader.onload = (function(file) {
+//             return function(event) {
+//                 // Create HTML elements to display the preview
+//                 const imgElement = document.createElement('img');
+//                 imgElement.src = event.target.result;
+//                 imgElement.alt = 'Preview Image';
+//                 imgElement.style.maxWidth = '100%';
+//                 imgElement.style.height = 'auto';
                 
-                // Append the image element to the preview container
-                imagePreview.appendChild(imgElement);
-            };
-        })(file);
+//                 // Append the image element to the preview container
+//                 imagePreview.appendChild(imgElement);
+//             };
+//         })(file);
 
-        // Read in the image file as a data URL
-        reader.readAsDataURL(file);
-    }
-}
+//         // Read in the image file as a data URL
+//         reader.readAsDataURL(file);
+//     }
+// }
+function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
 
+            reader.onload = function(event) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.innerHTML = `<img src="${event.target.result}" alt="Preview Image" style="max-width: 100%; height: auto;">`;
+            }
+
+            reader.readAsDataURL(file);
+        }
     </script>
 </body>
 
