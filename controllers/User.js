@@ -391,11 +391,11 @@ module.exports = {
     AddToCart,
     Cart, 
     removeFromCart,
-<<<<<<< Updated upstream
+
     getUserById, 
-    BillingInformation
-=======
-    getUserById,
+    BillingInformation,
+
+
     getUserOrder
->>>>>>> Stashed changes
+
 };

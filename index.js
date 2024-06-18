@@ -192,13 +192,13 @@ app.get('/AddAdmin',(req,res)=>{
     res.render("AddAdmin.ejs");
 });
 
-<<<<<<< Updated upstream
-=======
+
+
 app.get('/myaccount',(req,res)=>{
     res.render("myAccount.ejs");
 });
 
->>>>>>> Stashed changes
+
 
 // app.use('/', Product);
 
