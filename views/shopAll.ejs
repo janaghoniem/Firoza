@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,162 +11,174 @@
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/shopAll.css">
     <script src="/Javascript/indian.js"></script>
-            
+
 </head>
+
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
-    <div class="headyy">
-        <div class="rings">
-            <img src="/images/Indian/Newfolder/womenjewelryall_bagues_et_accessoires.webp" alt="">
-            <p><a href="#" data-category="Ring">RINGS</a></p>
-        </div>
-        <div class="Earrings">
-            <img src="/images/Indian/Newfolder/womenjewelryall_f_boucles_d_oreilles.webp" alt="">
-            <p><a href="#" data-category="Earrings">EARRINGS</a></p>
-        </div>
-        <div class="necklace">
-            <img src="/images/Indian/Newfolder/womenjewelryall_colliers_et_pendentifs.webp" alt="">
-            <p><a href="#" data-category="Necklace">NECKLACES</a></p>
-        </div>
-        <div class="bracelet">
-            <img src="/images/Indian/Newfolder/womenjewelryall_f_bracelets.webp" alt="">
-            <p><a href="#" data-category="Bracelets">BRACELETS</a></p>
-        </div>
-    </div>
-    
-    <div class="haya">
-        <div class="filtersss">
-            <div class="toggle-container">
-                <div class="toggle-switch">
-                    <input type="checkbox" id="toggle" class="toggle-input">
-                    <label for="toggle" class="toggle-label"></label>
-                </div>
-                <p class="toggle-text">Hide sold out</p>
+        <div class="headyy">
+            <div class="rings">
+                <img src="/images/Indian/Newfolder/womenjewelryall_bagues_et_accessoires.webp" alt="">
+                <p><a href="#" data-category="Ring">RINGS</a></p>
             </div>
-            <span class="category filter-buttons" onclick="toggleDropdown(event, 'category-dropdown')">
-                <p>Category</p>
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
-            <span class="color filter-buttons" onclick="toggleDropdown(event, 'color-dropdown')">
-                <p>Color</p>
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
-            <span class="price filter-buttons" onclick="toggleDropdown(event, 'price-dropdown')">
-                <p>Price</p>
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
-            <span class="material filter-buttons" onclick="toggleDropdown(event, 'material-dropdown')">
-                <p>Material</p>
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
-            <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
-            <select name="sort" id="sort" style="margin-left: 800px;">
-                <option value="">Sort by</option>
-                <option value="lowToHigh">Price: low to high</option>
-                <option value="highToLow">Price: high to low</option>
-            </select>
+            <div class="Earrings">
+                <img src="/images/Indian/Newfolder/womenjewelryall_f_boucles_d_oreilles.webp" alt="">
+                <p><a href="#" data-category="Earrings">EARRINGS</a></p>
+            </div>
+            <div class="necklace">
+                <img src="/images/Indian/Newfolder/womenjewelryall_colliers_et_pendentifs.webp" alt="">
+                <p><a href="#" data-category="Necklace">NECKLACES</a></p>
+            </div>
+            <div class="bracelet">
+                <img src="/images/Indian/Newfolder/womenjewelryall_f_bracelets.webp" alt="">
+                <p><a href="#" data-category="Bracelets">BRACELETS</a></p>
+            </div>
         </div>
-    </div>
-    
 
-    <div id="category-dropdown" class="dropdown-content">
-        <div class="arrow"></div>
-        <label class="containerr" style="font-size: 12px;">Bracelets 
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Necklace 
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Earrings
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Ring
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-    
-    <div id="color-dropdown" class="dropdown-content">
-        <div class="arrow"></div>
-        <label class="containerr" style="font-size: 12px;">Red
-            <input type="checkbox" onchange="applyFilters()" style="font-size: 12px;">
-            <span class="checkmark" style="font-size: 12px;"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Green
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Blue
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Multicolor
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Beige
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Pink
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Black
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Rose gold
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-    <div class="price-filter">
-        <div id="price-dropdown" class="dropdown-content">
-            <div class="arrow"></div>
-            <label for="priceRange">Price range: <span id="priceValue">$0 - $20,000,000</span></label>
-            <input type="range" id="priceRange" min="0" max="20000000" step="10" value="20000000" oninput="updatePrice(this.value)" onchange="applyFilters()">
-        </div>
-    </div>
-    
-    <div id="material-dropdown" class="dropdown-content">
-        <div class="arrow"></div>
-        <label class="containerr" style="font-size: 12px;">Stainless steel
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Gold
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-        <label class="containerr" style="font-size: 12px;">Silver
-            <input type="checkbox" onchange="applyFilters()">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-    <div class="row">
-        <% products.forEach(product => { %>
-          <div class="col">
-            <div class="product-grid">
-              <div class="product-image"> 
-                <a href="#" class="image">
-                  <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>"> <!-- Adjust the path here -->
-                </a>
-                <ul class="product-links">
-                  <li><a href="#" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i></a></li>
-                  <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')" ><i class="fa fa-shopping-cart"></i></a></li>
-                </ul>
-              </div>
-              <div class="product-content">
-                <h3 class="title"><a href="#"><%= product.name %></a></h3>
-                <div class="price"><%= product.price %></div>
-              </div>
+        <div class="haya">
+            <div class="filtersss">
+                <div class="toggle-container">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="toggle" class="toggle-input">
+                        <label for="toggle" class="toggle-label"></label>
+                    </div>
+                    <p class="toggle-text">Hide sold out</p>
+                </div>
+                <span class="category filter-buttons" onclick="toggleDropdown(event, 'category-dropdown')">
+                    <p>Category</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+                <span class="color filter-buttons" onclick="toggleDropdown(event, 'color-dropdown')">
+                    <p>Color</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+                <span class="price filter-buttons" onclick="toggleDropdown(event, 'price-dropdown')">
+                    <p>Price</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+                <span class="material filter-buttons" onclick="toggleDropdown(event, 'material-dropdown')">
+                    <p>Material</p>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </span>
+                <button id="clear-filters-btn" onclick="clearFilters()" style="display: none;">Clear</button>
+                <select name="sort" id="sort" style="margin-left: 800px;">
+                    <option value="">Sort by</option>
+                    <option value="lowToHigh">Price: low to high</option>
+                    <option value="highToLow">Price: high to low</option>
+                </select>
             </div>
-          </div>
-        <% }); %>
-      </div>
+        </div>
+
+
+        <div id="category-dropdown" class="dropdown-content">
+            <div class="arrow"></div>
+            <label class="containerr" style="font-size: 12px;">Bracelets
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Necklace
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Earrings
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Ring
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+
+        <div id="color-dropdown" class="dropdown-content">
+            <div class="arrow"></div>
+            <label class="containerr" style="font-size: 12px;">Red
+                <input type="checkbox" onchange="applyFilters()" style="font-size: 12px;">
+                <span class="checkmark" style="font-size: 12px;"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Green
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Blue
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Multicolor
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Beige
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Pink
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Black
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Rose gold
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="price-filter">
+            <div id="price-dropdown" class="dropdown-content">
+                <div class="arrow"></div>
+                <label for="priceRange">Price range: <span id="priceValue">$0 - $20,000,000</span></label>
+                <input type="range" id="priceRange" min="0" max="20000000" step="10" value="20000000"
+                    oninput="updatePrice(this.value)" onchange="applyFilters()">
+            </div>
+        </div>
+
+        <div id="material-dropdown" class="dropdown-content">
+            <div class="arrow"></div>
+            <label class="containerr" style="font-size: 12px;">Stainless steel
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Gold
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+            <label class="containerr" style="font-size: 12px;">Silver
+                <input type="checkbox" onchange="applyFilters()">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="row">
+            <% products.forEach(product=> { %>
+                <div class="col">
+                    <div class="product-grid">
+                        <div class="product-image">
+                            <a href="#" class="image">
+                                <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
+                                <!-- Adjust the path here -->
+                            </a>
+                            <ul class="product-links">
+                                <li><a href="#" onclick="addToWishlist('<%= product._id %>')"><i
+                                            class="fa fa-heart"></i></a></li>
+                                <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i
+                                            class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="title"><a href="#">
+                                    <%= product.name %>
+                                </a></h3>
+                            <div class="price">
+                                <%= product.price %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+        <%- include('./partials/footer.ejs') %>
+
 </body>
+
 </html>

@@ -136,10 +136,38 @@ router.get('/orders', adminController.getOrders);
 router.post('/EditProduct/:id', adminController.editProduct);
 
 
+router.get('/AddCollection', (req, res) => {
+    res.render("AddCollection.ejs");
+});
+
+router.get('/EditCollection', (req, res) => {
+    res.render("EditCollection.ejs");
+});
+
+router.get('/AddProduct', (req, res) => {
+    res.render("addProduct.ejs");
+});
 
 router.get('/Dashboard',adminController.getDashboard);
 router.get('/statistics',adminController.getStatistics);
+router.get('/product', (req, res) => {
+    res.render("Admin-products.ejs");
+});
 
+router.get('/EditLayout', (req, res) => {
+    res.render("EditLayout.ejs");
+});
+
+// app.delete('/EditLayout/:id', adminController.deleteCollection);
+
+router.get('/EditLayout', async (req, res) => {
+    try {
+        const collections = await collectiona.find({});
+        res.status(500).json(collections);
+    } catch (err) {
+        res.status(500).json({messege: err.messege});
+    }
+});
 router.get('/requests', adminController.getAllRequests);
 // Route to accept a request
 router.post('/acceptRequest/:id', adminController.acceptRequest);
