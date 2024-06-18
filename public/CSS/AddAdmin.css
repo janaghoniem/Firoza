@@ -636,3 +636,9 @@ form .form-row .textarea{
     width: 40%!important;
   }
 }
+.error-message {
+    display: none;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
