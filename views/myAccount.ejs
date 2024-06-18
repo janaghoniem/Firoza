@@ -35,6 +35,21 @@
             </section>
             <section class="order-history">
                 <h3>ORDER HISTORY</h3>
+                <ul>
+                    <% if (ordersUser.length === 0) { %>
+                        <li>No orders found.</li>
+                    <% } else { %>
+                        <% ordersUser.forEach(order => { %>
+                            <li>Order ID: <%= order._id %></li>
+                           <li>Products:</li>
+                            <ul>
+                                <% order.product_ids.forEach(product => { %>
+                                    <li><%= product.name %></li>
+                                <% }) %>
+                            </ul>
+                        <% }) %>
+                    <% } %>
+                </ul>
                 <p>This list is empty.</p>
             </section>
             <section class="wishlist">
@@ -43,22 +58,8 @@
             </section>
         </div>
     </div>
-    <h1>Your Orders</h1>
-    <ul>
-        <% if (ordersUser.length === 0) { %>
-            <li>No orders found.</li>
-        <% } else { %>
-            <% ordersUser.forEach(order => { %>
-                <li>Order ID: <%= order._id %></li>
-               <li>Products:</li>
-                <ul>
-                    <% order.product_ids.forEach(product => { %>
-                        <li><%= product.name %></li>
-                    <% }) %>
-                </ul>
-            <% }) %>
-        <% } %>
-    </ul>
+  
+ 
     <%- include('./partials/footer.ejs') %>
 
 </body>
