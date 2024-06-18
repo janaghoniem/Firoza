@@ -35,21 +35,23 @@
             </section>
             <section class="order-history">
                 <h3>ORDER HISTORY</h3>
-                <ul>
-                    <% if (ordersUser.length === 0) { %>
-                        <li>No orders found.</li>
-                    <% } else { %>
-                        <% ordersUser.forEach(order => { %>
-                            <li>Order ID: <%= order._id %></li>
-                           <li>Products:</li>
-                            <ul>
-                                <% order.product_ids.forEach(product => { %>
-                                    <li><%= product.name %></li>
-                                <% }) %>
-                            </ul>
-                        <% }) %>
-                    <% } %>
-                </ul>
+                <% if (ordersUser.length > 0) { %>
+                    <% ordersUser.forEach(order => { %>
+                        <h2>Order ID: <%= order._id %></h2>
+                        <ul>
+                            <h3>products:</h3>
+                            <% order.product_ids.forEach(product => { %>
+                                <li>
+                                    <h3>Product Name: <%= product.name %></h3>
+                                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                                    <p>Price: $<%= product.price %></p>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    <% }); %>
+                <% } else { %>
+                    <p>No orders found.</p>
+                <% } %>
                
             </section>
             <section class="wishlist">

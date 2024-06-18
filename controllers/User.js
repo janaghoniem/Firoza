@@ -422,22 +422,7 @@ const getUserById = async (req, res) => {
 const getUserOrder= async(req, res) => {
    
 
-    // try {
-    //     // Find orders for the user
-    //     const ordersUser = await Orderr.find()
-    //         .populate({
-    //             path: 'product_ids',
-    //             select: 'name',
-    //             model: 'Product'
-    //         });
-
-    //     console.log('Orders for user:', ordersUser); // Log the orders
-
-    //     res.render('myAccount', { ordersUser }); // Pass ordersUser to the EJS template
-    // } catch (error) {
-    //     console.error('Error fetching user orders:', error);
-    //     res.status(500).render('error', { error });
-    // }
+   
 
     try {
         // Check if the user is authenticated and their ID is available in the session
@@ -451,7 +436,7 @@ const getUserOrder= async(req, res) => {
         const ordersUser = await Orderr.find({ user_id: userId })
             .populate({
                 path: 'product_ids',
-                select: 'name',
+                select: 'name img price',
                 model: 'Product'
             });
 
