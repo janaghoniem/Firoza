@@ -403,15 +403,49 @@ const getDashboard = async (req, res) => {
     }
 };
 
+// const getStatistics = async (req, res) => {
+//     try {
+//         const userCount = await User.countDocuments();
+//         res.render('statistics', { count: userCount });
+//     } catch (error) {
+//         console.error('Error counting users:', error);
+//         res.status(500).json({ error: 'Failed to fetch user count' });
+//     }
+// };
+
 const getStatistics = async (req, res) => {
     try {
+        // Count the number of users
         const userCount = await User.countDocuments();
-        res.render('statistics', { count: userCount });
+
+        // Get best-selling products by revenue
+        const bestSellers = await Product.aggregate([
+            {
+                $project: {
+                    name: 1,
+                    quantity: 1,  // Assuming you have a field for quantity
+                    revenue: { $multiply: ["$price", "$no_sales"] }
+                }
+            },
+            { $sort: { revenue: -1 } }
+        ]);
+
+        // Get most purchased products by number of sales
+        const mostPurchased = await Product.find()
+            .sort({ no_sales: -1 })
+            .limit(4) // Limit to top 4 for display purposes
+            .select('name no_sales');
+
+        // Render the statistics view with user count, best sellers, and most purchased products
+        res.render('statistics', { count: userCount, bestSellers, mostPurchased });
     } catch (error) {
-        console.error('Error counting users:', error);
-        res.status(500).json({ error: 'Failed to fetch user count' });
+        console.error('Error fetching statistics:', error);
+        res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
+
+module.exports = getStatistics;
+
 
 
     module.exports = {

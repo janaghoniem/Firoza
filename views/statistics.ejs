@@ -226,55 +226,25 @@
           </div>
           <div class="side-bar-content">
             <div class="side-bar-page">
-              <h4> <%=  %></h4>
-              <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %></h4>
-                <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %></h4>
-                <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %> "SOLD OUT"</h4>
-                <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %>    "SOLD OUT"</h4>
-                <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %></h4>
-                <span><%=  %></span>
-            </div>
-            <div class="side-bar-page">
-                <h4><%=  %>    "SOLD OUT"</h4>
-                <span><%=  %></span>
-            </div>
+              <div class="side-bar-content">
+                <% bestSellers.forEach(product => { %>
+                    <div class="side-bar-page">
+                        <h4><%= product.name %> <%= product.quantity === 0 ? '"SOLD OUT"' : '' %></h4>
+                        <span>$<%= product.revenue.toFixed(2) %></span>
+                    </div>
+                <% }); %>
             <div class="more-stats-box">
               <div class="more-stats-header">
                 Most sold out product
                 <img src="../images/statistics/more-stats.svg" alt="more" />
               </div>
               <div class="more-stats-body">
-                <div class="more-stats">
-                  <%=  %>
-                  <h1><%=  %> purchace</h1>
-                </div>
-                <div class="more-stats">
-                  <%=  %>
-                  <h1><%=  %> purchace</h1>
-                </div>
-                <div class="more-stats">
-                  <%=  %>
-                    <h1><%=  %> purchace</h1>
-                  </div>
+                <% mostPurchased.forEach(product => { %>
                   <div class="more-stats">
-                    <%=  %>
-                    <h1><%=  %> purchace</h1>
+                      <%= product.name %>
+                      <h1><%= product.no_sales %> purchase<%= product.no_sales !== 1 ? 's' : '' %></h1>
                   </div>
+              <% }); %>
               </div>
             </div>
           </div>
