@@ -24,8 +24,7 @@ status :{
     default:'pending'
 },
 shipping_address :{
-   
-    country:{
+    address:{
         type:String,
         required:true
     },
@@ -33,7 +32,7 @@ shipping_address :{
         type:String,
         required:true
     },
-    street:{
+    state:{
         type:String,
         required:true
     },

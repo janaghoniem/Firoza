@@ -26,8 +26,8 @@ const userSchema = mongoose.Schema(
             type: Boolean,
             default : false,
         },
-        address: [{  
-            country:{
+        shipping_address: [{  
+            address:{
                 type:String,
                 required:true
             },
@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema(
                 type:String,
                 required:true
             },
-            street:{
+            state:{
                 type:String,
                 required:true
             },

@@ -307,6 +307,35 @@ const getUserById = async (req, res) => {
     }
 };
 
+//Billing Information - Checkout
+const BillingInformation = async (req, res) => {
+    try {
+        const { shipping_address } = req.body;
+
+        // Update user's billing address in the database
+        const user = await User.findById(req.session.user._id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        user.shipping_address = {
+            address: shipping_address.address,
+            city: shipping_address.city,
+            state: shipping_address.state,
+            postal_code: shipping_address.postal_code
+        };
+
+        await user.save();
+
+        res.status(200).json({ message: 'Billing information updated successfully' });
+    } catch (error) {
+        console.error('Error updating billing information:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
 module.exports = {
     GetUser,
     AddUser,
@@ -316,5 +345,6 @@ module.exports = {
     AddToCart,
     Cart, 
     removeFromCart,
-    getUserById
+    getUserById, 
+    BillingInformation
 };

@@ -92,25 +92,24 @@ function validateForm() {
 }
 
 function handleFormSubmission(event) {
-
     event.preventDefault();
 
-    const isValid = validateForm();
+    const isValid = validateForm(); // Assuming you have a validateForm() function
     if (isValid) {
         console.log('Form is valid. Proceeding to the next step...');
-        const formContainer = document.querySelector('.form-container');
-        const containerDiv = document.querySelector('.container');
 
+        // Gather form data
         const formData = {
-            address: {
-                street: document.getElementById('street').value,
-                city: document.getElementById('city').value,
-                state: document.getElementById('state').value,
-                postal_code: document.getElementById('postal_code').value
+            shipping_address: {
+                address: document.getElementById('Address').value,
+                city: document.getElementById('City').value,
+                state: document.getElementById('State').value,
+                postal_code: document.getElementById('Zipcode').value
             }
         };
 
-        fetch('/user/Checkout', {
+        // Send form data to backend
+        fetch('/user/Billing-Information', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -119,20 +118,25 @@ function handleFormSubmission(event) {
         })
         .then(response => {
             if (response.ok) {
-                alert('Form submitted successfully');
+                console.log('Billing information saved successfully');
+                alert('Billing information saved successfully');
                 formContainer.classList.add('hidden');
                 containerDiv.classList.remove('hidden');
             } else {
-                alert('Saving Billing information failed.');
+                console.error('Failed to save billing information');
+                alert('Failed to save billing information');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle fetch error
-            alert('Saving billing information failed due to network issue. Please try again later.');
+            alert('Failed to save billing information due to network issue. Please try again later.');
         });
+    } else {
+        console.log('Form is invalid');
+        // Handle invalid form submission (if necessary)
     }
 }
+
 
 const form = document.querySelector('.checkout-form');
 

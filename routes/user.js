@@ -43,7 +43,7 @@ router.post('/ShoppingCart', User.Cart);
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
 //
-router.post('/')
+router.post('/Billing-Information', User.BillingInformation);
 
 router.get('/users/:id', User.getUserById);
 
