@@ -2,18 +2,21 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const mongoose = require('mongoose');
+const fs = require('fs');
+const bodyParser = require('body-parser');
+//routers
+const userRouter = require('./routes/user'); 
+const AdminRouter = require('./routes/admin'); 
+//models
+const User = require('./models/User');
 const Product = require('./models/product'); 
 const Order = require('./models/Orders'); 
 const collectiona = require('./models/Collections'); 
-const fs = require('fs');
-const userRouter = require('./routes/user'); 
-const AdminRouter = require('./routes/admin'); 
-const bodyParser = require('body-parser');
-const User = require('./models/User');
 
 const app = express();
 const port = 3000;
 
+//database connection and sessions
 const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
 
 mongoose.connect(dbURI).then((result) => {
@@ -29,6 +32,7 @@ app.use(session({
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // Example: 1 day in milliseconds
 }));
 
+//routers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
