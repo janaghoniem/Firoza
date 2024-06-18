@@ -87,9 +87,6 @@ app.get('/admin/product', (req, res) => {
     res.render("Admin-products.ejs");
 });
 
-app.get('/Orders', (req, res) => {
-    res.render("admin-orders.ejs");
-});
 
 app.get('/EditLayout', (req, res) => {
     res.render("EditLayout.ejs");
@@ -106,9 +103,7 @@ app.get('/EditLayout', async (req, res) => {
     }
 });
 
-app.get('/Users', (req, res) => {
-    res.render("Users.ejs");
-});
+
 
 app.get('/stores', (req, res) => {
     res.render("stores.ejs");
