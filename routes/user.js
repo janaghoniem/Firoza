@@ -111,7 +111,7 @@ router.get('/Checkout', async (req, res) => {
 router.get('/users/:id', User.getUserById);
 
 router.get('/myAccount', User.getUserOrder );
-router.delete('/cancel-order/:orderId', User.cancelOrder);
+
 
 const getCollectionProducts = async (req, res) => {
     const collectionId = req.params.collectionId;
@@ -134,5 +134,23 @@ const getCollectionProducts = async (req, res) => {
 };
 
 router.get('/collection/:collectionId', getCollectionProducts);
+router.post('/cancelOrder/:orderId', async (req, res) => {
+    const { orderId } = req.params;
 
+    try {
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        // Update the order status to 'cancelled'
+        order.status = 'cancelled';
+        await order.save();
+
+        res.json({ success: true, message: 'Order cancelled successfully' });
+    } catch (error) {
+        console.error("Error cancelling order:", error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 module.exports = router;

@@ -591,7 +591,7 @@ const getUserOrder= async(req, res) => {
 
         const userInfo = await User.findById(req.session.user._id);
 
-        console.log('User information:', userInfo);
+        // console.log('User information:', userInfo);
         // Find orders for the current user by their user ID
         const ordersUser = await Orderr.find({ user_id: userId })
             .populate({
@@ -600,7 +600,7 @@ const getUserOrder= async(req, res) => {
                 model: 'Product'
             });
 
-        console.log('Orders for user:', ordersUser); // Log the orders
+        // console.log('Orders for user:', ordersUser); // Log the orders
 
         res.render('myAccount', { ordersUser, userInfo }); // Pass ordersUser to the EJS template
     } catch (error) {
@@ -817,25 +817,51 @@ const getShopAllProducts = async (req, res) => {
 // };
 
 
+// try {
+//     const { id } = req.params;
+//     const deletedProduct = await Product.findByIdAndDelete(id);
 
+//     if (!deletedProduct) {
+//         return res.status(404).json({ error: 'Product not found' });
+//     }
+
+//     const users = await User.find({ 'cart.productId': id });
+
+//     for (const user of users) {
+//         user.cart = user.cart.filter(item => item.productId.toString() !== id.toString());
+//         await user.save();
+//     }
+
+//     res.status(200).json({ message: 'Product deleted successfully' });
+// } catch (error) {
+//     console.error('Error deleting product:', error);
+//     res.status(500).json({ error: 'Server error' });
+// }
 
 const cancelOrder = async (req, res) => {
     const { orderId } = req.params;
-    console.log('Received orderId:', orderId); // Log orderId
+
     try {
-        const deletedOrder = await Orderr.findByIdAndRemove(orderId);
-        console.log('Deleted order:', deletedOrder); // Log the result
-        if (deletedOrder) {
-            res.json({ message: 'Order cancelled successfully' });
-        } else {
-            res.status(404).json({ message: 'Order not found' });
+        const order = await Orderr.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' });
         }
+
+        // Check if the order is in a cancellable state (e.g., pending)
+        if (order.status !== 'pending') {
+            return res.status(400).json({ error: 'Order cannot be cancelled' });
+        }
+
+        // Update the order status to cancelled
+        order.status = 'cancelled';
+        await order.save();
+
+        res.status(200).json({ success: true });
     } catch (error) {
         console.error('Error cancelling order:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
-
 
 module.exports = {
     GetUser,
