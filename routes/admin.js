@@ -141,11 +141,9 @@ router.get('/Dashboard',adminController.getDashboard);
 router.get('/statistics',adminController.getStatistics);
 
 router.get('/requests', adminController.getAllRequests);
-
 // Route to accept a request
-router.post('/requests/accept/:id', adminController.acceptRequest);
-
+router.post('/acceptRequest/:id', adminController.acceptRequest);
 // Route to reject a request
-router.post('/requests/reject/:id', adminController.rejectRequest);
+router.post('/rejectRequest/:id', adminController.rejectRequest);
 
 module.exports = router;
