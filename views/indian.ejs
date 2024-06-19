@@ -13,8 +13,6 @@
     
     <script>
         async function addToCart(productId, price) {
-            alert(productId);
-            alert(price);
             try {
                 const response = await fetch('/user/add-to-cart', {
                     method: 'POST',

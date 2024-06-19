@@ -10,6 +10,30 @@
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/shopAll.css">
     <script src="/Javascript/indian.js"></script>
+    <script>
+        async function addToCart(productId, price) {
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert("response not okay");
+                    alert('Failed to add product to cart');
+                }
+            } catch (error) {
+                alert('Error:', error);
+                alert('Failed to add product to cart');
+            }
+        }
+    </script>
 </head>
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
@@ -147,13 +171,13 @@
         <% products.forEach(product => { %>
           <div class="col">
             <div class="product-grid">
-              <div class="product-image">
+              <div class="product-image"> 
                 <a href="#" class="image">
                   <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>"> <!-- Adjust the path here -->
                 </a>
                 <ul class="product-links">
                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                  <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                  <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')" class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i></a></li>
                 </ul>
               </div>
               <div class="product-content">

@@ -10,7 +10,7 @@
                     <i class="fa-solid fa-bell-concierge"></i>
                     <p>Services</p>
                 </a> -->
-                <a href="../HTML/Contact-Us.html">
+                <a href="/ContactUs">
                     <i class="fa-solid fa-headset"></i>
                     <p>Contact Us</p>
                 </a>
@@ -32,7 +32,7 @@
                     <i class="fa-regular fa-user"></i>
                     <p>My Account</p>
                 </a>
-                <a href="../HTML/wishlist.html">
+                <a href="/wishlist">
                     <i class="fa-regular fa-heart"></i>
                     <p>My Wishlist</p>
                 </a>
@@ -64,7 +64,7 @@
                 <!-- <a href="#">
                     <i class="fa-solid fa-bell-concierge"></i>
                 </a> -->
-                <a href="../HTML/Contact-Us.html">
+                <a href="/ContactUs">
                     <i class="fa-solid fa-headset"></i>
                 </a>
                 <!-- <a href="#">
@@ -73,10 +73,10 @@
                 <a href="#" id="login-button2">
                     <i class="fa-regular fa-user"></i>
                 </a>
-                <a href="../HTML/wishlist.html">
+                <a href="/wishlist">
                     <i class="fa-regular fa-heart"></i>
                 </a>
-                <a href="../HTML/ShoppingCart.html">
+                <a href="/ShoppingCart">
                     <i class="fa-solid fa-bag-shopping"></i>
                 </a>
             </nav>
@@ -85,7 +85,7 @@
     <div class="header-bottom-unscrolled" id="header-bottom">
         <nav class="navigation">
             <a href="/">Home</a>
-            <a href="../HTML/ShoppAll.html">Shop All</a>
+            <a href="/ShopAll">Shop All</a>
             <a href="/Collections" id="collections-anchor-with-extension" class="extension">Collections</a>
             <a href="#">Bracelets</a>
             <a href="#">Earrings</a>
@@ -98,11 +98,11 @@
         <div id="collections-extension">
             <div class="collection-anchors">
                 <h4>Collections</h4>
-                <a href="/indian">The Indian High Jewelry <br> Collection</a>
-                <a href="/egyptian.ejs">The Indian High Jewelry <br> Collection</a>
+                <a href="/user/indian">The Indian High Jewelry <br> Collection</a>
+                <a href="/egyptian">The Indian High Jewelry <br> Collection</a>
             </div>
             <div class="collection-extension">
-                <a class="extension-item" href="/indian">
+                <a class="extension-item" href="/user/indian">
                     <img src="../images/Landing/exp/indian-extension-copy.jpg" alt="" class="category-img extension-img">
                     <div>
                         <h4 class="extension-text">Discover the indian collection</h4>
@@ -111,7 +111,7 @@
             </div>
             <div class="collection-extension">
                 <div class="collection-extension">
-                    <a class="extension-item" href="../HTML/egyptian.html">
+                    <a class="extension-item" href="/egyptian">
                         <img src="../images/Landing/exp/egyptian-extension-copy.jpg" alt="" class="category-img extension-img">
                         <div>
                             <h4 class="extension-text">Discover the Egyptian collection</h4>
@@ -132,20 +132,18 @@
 </header>
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" id="closebtn">&times;</a>
-    <a href="../HTML/landing.html">Home</a>
+    <a href="/">Home</a>
     <!-- <a href="#">Find a Store</a> -->
-    <a href="../HTML/Contact-Us.html">Contact Us</a>
+    <a href="./ContactUs">Contact Us</a>
     <a href="#" id="login-button3">My Account</a>
-    <a href="../HTML/wishlist.html">My Wishlist</a>
-    <a href="../HTML/ShoppingCart.html">Shopping Bag</a>
-    <a href="../HTML/ShoppAll.html">Shop All</a>
+    <a href="/wishlist">My Wishlist</a>
+    <a href="/ShoppingCart">Shopping Bag</a>
+    <a href="/ShopAll">Shop All</a>
     <div class="dropdown">
         <a href="#" class="dropbtn">Collections</a>
         <div class="dropdown-content">
-            <a href="../HTML/Indian.html">Indian Collection</a>
-            <a href="../HTML/Vintage.html">Vintage Collection</a>
-            <a href="../HTML/egyptian.html">Egyptian Collection</a>
-            <a href="../HTML/middleEast.html">Middle-Eastern Collection</a>
+            <a href="/user/indian">Indian Collection</a>
+            <a href="/egyptian">Egyptian Collection</a>
         </div>
     </div>  
 </div>
@@ -156,7 +154,7 @@
             <button id="login-nav" class="login-nav-text-style active">Login</button>
             <button id="Create-an-account-nav" class="login-nav-text-style">Create new account</button>
         </nav>
-        <form id="login-form" method="post" action="main.html">
+        <form id="login-form" method="post" action="/user/login">
             <label class="login-nav-text-style" for="email-address-field">E-mail Address</label>
             <input class="login-nav-text-style" type="email" name="email-address-field" id="login-form-email-field">
             <p class="input-error login-nav-text-style" id="login-form-email-error"></p>
