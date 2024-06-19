@@ -89,21 +89,47 @@ const getCollections = async (req, res) => {
 };
 
 // Function to delete a collection
-const deleteCollection = async (req, res) => {
-    console.log("da5al gowa el function");
-    try {
+// const deleteCollection = async (req, res) => {
+//     console.log("da5al gowa el function");
+//     try {
 
-        console.log("akfufrujgr");
+//         console.log("akfufrujgr");
+//         const { id } = req.params;
+//         const deletedCollection = await collections.findByIdAndDelete(id);
+//         console.log("1111111");
+//         if (!deletedCollection) {
+//             return res.status(404).json({ error: 'Collection not found' });
+//         }
+//         console.log(`Attempting to delete collection with ID: ${id}`);
+//         res.status(200).json({ message: 'Collection deleted successfully' });
+//     } catch (error) {
+//         console.error('Error collection:', error);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// };
+
+const deleteCollection = async (req, res) => {
+    console.log("Entered the deleteCollection function");
+    try {
         const { id } = req.params;
+        // Find the collection by ID
         const deletedCollection = await collections.findByIdAndDelete(id);
-        console.log("1111111");
+
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Collection not found' });
         }
-        console.log(`Attempting to delete collection with ID: ${id}`);
-        res.status(200).json({ message: 'Collection deleted successfully' });
+
+        // Extract the collection name from the deleted collection
+        const collectionName = deletedCollection.Collection_Name;
+        
+        // Delete all products with the same collection ID (collection name)
+        const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
+
+        res.status(200).send(`<script>alert("Deleted collection with ID: ${id} and ${deletedProducts.deletedCount} associated products"); window.location.href = "/main";</script>`);
+        
+        res.status(200).json({ message: 'Collection and associated products deleted successfully' });
     } catch (error) {
-        console.error('Error collection:', error);
+        console.error('Error deleting collection:', error);
         res.status(500).json({ error: 'Server error' });
     }
 };
