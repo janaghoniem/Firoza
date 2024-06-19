@@ -154,3 +154,61 @@ body {
     background-color: #7e531f;
     color: white;
 }
+.custom-popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.popup-content {
+    background-color: #7e531f;
+    padding: 20px;
+    border: 1px solid #FFF;
+    border-radius: 10px;
+    color: white;
+    max-width: 300px;
+    text-align: center;
+}
+
+.close-btn {
+    color: #FFF;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #CCC;
+}
+
+.btn-container {
+    margin-top: 20px;
+}
+
+.confirm-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.confirm-btn {
+    background-color: #FFF;
+    color: #8B4513;
+    margin-right: 10px;
+}
+
+.cancel-btn {
+    background-color: #FFF;
+    color: #8B4513;
+}
+
+.confirm-btn:hover, .cancel-btn:hover {
+    opacity: 0.8;
+}
