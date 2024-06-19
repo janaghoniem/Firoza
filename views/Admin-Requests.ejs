@@ -14,10 +14,11 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="css/layout.css">
-    <script src="/Javascript/layout.js"></script>
-    <script src="/Javascript/editable.js"></script>
+    <!-- <script src="/Javascript/layout.js"></script>
+    <script src="/Javascript/editable.js"></script> -->
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
+    <!-- <script src="/Javascript/Requests.js"></script> -->
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <title>Layout</title>
 </head>
@@ -101,7 +102,65 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="/Javascript/Requests"></script>
+    <!-- <script src="/Javascript/Requests.js"></script> -->
 </body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.accept-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+            const requestId = button.getAttribute('data-id');
+            console.log(`Accept button clicked for request ID: ${requestId}`);
+            try {
+                const response = await fetch(`/admin/acceptRequest/${requestId}`, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                },
+         
+                });
+                if (response.ok) {
+                    console.log('Request accepted successfully');
+                    alert('Request accepted successfully');
+                    location.reload(); // Reload the page to see the changes
+                } else {
+                    console.error('Failed to accept request');
+                    alert('Failed to accept request');
+                }
+            } catch (error) {
+                console.error('Error accepting request:', error);
+                alert('Error accepting request');
+            }
+        });
+    });
 
+    document.querySelectorAll('.reject-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+            const requestId = button.getAttribute('data-id');
+            console.log(`Reject button clicked for request ID: ${requestId}`);
+            try {
+                const response = await fetch(`/admin/rejectRequest/${requestId}`, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                },
+            
+                });
+                if (response.ok) {
+                    console.log('Request rejected successfully');
+                    alert('Request rejected successfully');
+                    location.reload(); // Reload the page to see the changes
+                } else {
+                    console.error('Failed to reject request');
+                    alert('Failed to reject request');
+                }
+            } catch (error) {
+                console.error('Error rejecting request:', error);
+                alert('Error rejecting request');
+            }
+        });
+    });
+});
+
+
+</script>
 </html>
