@@ -2,29 +2,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsDiv = document.querySelector('.results');
     const resultsHeader = document.getElementById('results-header');
     const quizForm = document.getElementById('quiz-form');
-
+    const retakeQuizButton = document.getElementById('retake-quiz');
     let selections = {
         egypt: 0,
         india: 0,
         minimalist: 0
     };
-
+    
     const questionSelections = {};
-
+    
     document.querySelectorAll('button.image.main').forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
             const category = this.dataset.category;
             const question = this.dataset.question;
-
-            // Deselect previously selected button in the same question group
+    
             document.querySelectorAll(`button[data-question="${question}"]`).forEach(btn => {
                 if (btn !== this) {
                     btn.classList.remove('selected');
                 }
             });
-
-            // Toggle selected class and update selections
+    
             if (this.classList.contains('selected')) {
                 this.classList.remove('selected');
                 if (selections[category] !== undefined) {
@@ -40,11 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
+    
     quizForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-
-        // Ensure all questions are answered
+    
         const totalQuestions = 6;
         let allAnswered = true;
         for (let i = 1; i <= totalQuestions; i++) {
@@ -53,17 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             }
         }
-
+    
         if (!allAnswered) {
             alert("Please answer all questions.");
             return;
         }
-
-        // Calculate result
+    
         const maxSelection = Math.max(selections.egypt, selections.india, selections.minimalist);
         let resultText = "";
         let resultCategory = "";
-
+    
         if (maxSelection === selections.egypt) {
             resultText = "You belong to the Egyptian collection!";
             resultCategory = "egypt";
@@ -76,14 +72,12 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             resultText = "Please make some selections.";
         }
-
+    
         resultsDiv.innerHTML = `<h3>${resultText}</h3>`;
         resultsHeader.style.display = 'block';
-
-        // Prepare answers object
+    
         const answers = Object.values(questionSelections);
-
-        // Send the result and answers to the backend
+    
         try {
             const response = await fetch('/user/submit-quiz', {
                 method: 'POST',
@@ -92,12 +86,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify({ answers, result: resultCategory }),
             });
-
+    
             const data = await response.json();
             console.log('Response from server:', data);
-
+    
             if (response.ok) {
                 alert(data.message);
+                quizForm.style.display = 'none';
+                retakeQuizButton.style.display = 'block';
             } else {
                 alert('Error: ' + data.message);
             }
@@ -106,4 +102,22 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('An error occurred while submitting the quiz.');
         }
     });
+    
+    retakeQuizButton.addEventListener('click', () => {
+        selections = { egypt: 0, india: 0, minimalist: 0 };
+        for (const key in questionSelections) {
+            if (questionSelections.hasOwnProperty(key)) {
+                delete questionSelections[key];
+            }
+        }
+        document.querySelectorAll('button.image.main').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        resultsHeader.style.display = 'none';
+        quizForm.style.display = 'block';
+        retakeQuizButton.style.display = 'none';
+    });
+    
+    // Check if there is an existing result to display
+    
 });

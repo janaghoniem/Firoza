@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
     <title>Quiz!</title>
     <meta charset="utf-8" />
@@ -14,212 +13,233 @@
             border: 5px solid white;
             position: relative;
         }
-
         .selected::after {
-            content: "\f00c";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            color: #ffffff;
-        }
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        color: #ffffff;
+    }
 
-        .image {
-            background-color: white;
-            border: none;
-        }
+    .image {
+        background-color: white;
+        border: none;
+    }
 
-        #results-header {
-            display: none;
-            margin-top: 20px;
-            font-size: 24px;
-            text-align: center;
-        }
+    #results-header {
+        display: none;
+        margin-top: 20px;
+        font-size: 24px;
+        text-align: center;
+    }
 
-        .hya {
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-            width: 120px;
-            padding: 10px 10px;
-        }
+    .hya {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+        width: 120px;
+        padding: 10px 10px;
+    }
 
-        .hyaaa {
-            background-color: transparent;
-            border: 2px solid black;
-            color: black;
-            width: 120px;
-            padding: 10px 10px;
-        }
-    </style>
+    .hyaaa {
+        background-color: transparent;
+        border: 2px solid black;
+        color: black;
+        width: 120px;
+        padding: 10px 10px;
+    }
+    .centered-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* To stack items vertically */
+        text-align: center; /* To center the button horizontally */
+    }
+
+    .re {
+        background-color: transparent;
+        border: 2px solid black;
+        color: black;
+        width: 120px;
+        padding: 10px 10px;
+    }
+</style>
+
 </head>
-
 <body class="is-preload">
     <div class="par">
         <a href="/" class="logo">FIROZA</a>
     </div>
 
     <!-- Wrapper -->
-    <div id="wrapper" class="fade-in">
+<div id="wrapper" class="fade-in">
 
-        <!-- Intro -->
-        <div id="intro">
-            <h1>Pop Quiz!<br />
-                What's your personal style?</h1>
-            <p>Within our diverse collections, we're not just about selling jewelry<br />
-                we're about helping you discover the shimmering facets of your own style.<br> Let's journey together
-                through our quiz and unearth the treasures that perfectly reflect the brilliance of you!</p>
-            <ul class="actions">
-                <li><a href="#" class="button icon solid solo fa-solid fa-arrow-down scrolly">Continue</a></li>
-            </ul>
-        </div>
-
-        <!-- Main -->
-        <div id="main">
-            <form id="quiz-form" action="/user/submit-quiz" method="post">
-                <!-- Featured Post -->
-                <section class="post-featured" data-question="1">
-                    <header class="major">
-                        <h2>Which destination<br />
-                            catches your fancy the most?</h2>
-                    </header>
-                    <button type="button" class="image main" data-question="1" data-category="egypt"><img
-                            src="/images/Quiz/Egypt.jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="1" data-category="india"><img
-                            src="/images/Quiz/download (9).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="1" data-category="minimalist"><img
-                            src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_fe45e31c.jpg" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="1" data-category="minimalist"><img
-                            src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_cf8b165e.jpg" alt=""
-                            height="250" /></button>
-                </section>
-
-                <!-- Posts -->
-
-                <section class="post-featured" data-question="2">
-                    <header class="major">
-                        <h2>Which colors<br />
-                            resonate with you the most?</h2>
-                    </header>
-                    <button type="button" class="image main" data-question="2" data-category="minimalist"><img
-                            src="/images/Quiz/download (13).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="2" data-category="india"><img
-                            src="/images/Quiz/Учимся легко сочетать цвета! _ Шить просто — Выкройки-Легко_рф.jpeg"
-                            alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="2" data-category="egypt"><img
-                            src="/images/Quiz/download (18).jpeg" alt="" height="250" /></button>
-                    <hr>
-                </section>
-                <section class="post-featured" style="margin-top: 50px;" data-question="3">
-                    <header class="major">
-                        <h2>If you could attend a themed party inspired<br />
-                            by a specific culture, which one would you choose?</h2>
-                    </header>
-                    <button type="button" class="image main" data-question="3" data-category="egypt"><img
-                            src="/images/Quiz/New folder/download (12).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="3" data-category="india"><img
-                            src="/images/Quiz/New folder/download (10).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="3" data-category="minimalist"><img
-                            src="/images/Quiz/New folder/download (11).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="3" data-category="minimalist"><img
-                            src="/images/Quiz/New folder/15'' Finger Loop Satin Stretchy Gloves - Black.jpeg" alt=""
-                            height="250" /></button>
-                    <hr>
-                </section>
-                <article data-question="4">
-                    <header>
-                        <h2><a href="#">Which material do you prefer in your jewelry?<br />
-                    </header>
-                    <button type="button" class="image main" data-question="4" data-category="minimalist"><img
-                            src="/images/Indian/Newfolder/Firefly 20240619071819.png" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="4" data-category="egypt"><img
-                            src="/images/Indian/Newfolder/download (20).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="4" data-category="minimalist"><img
-                            src="/images/Indian/Newfolder/marina-pearl-choker-442561_800x.webp" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="4" data-category="india"><img
-                            src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt=""
-                            height="250" /></button>
-                    <hr>
-                </article>
-                <article data-question="5">
-                    <header>
-                        <h2><a href="#">Which of these hobbies<br />
-                                is most appealing to you?</a></h2>
-                    </header>
-                    <button type="button" class="image main" data-question="5" data-category="minimalist"><img
-                            src="/images/Indian/Newfolder/Nine Beautiful Places You Have To Visit In Peru.jpeg" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="5" data-category="india"><img
-                            src="/images/Indian/Newfolder/download (25).jpeg" alt="" height="250" /></button>
-                    <button type="button" class="image main" data-question="5" data-category="egypt"><img
-                            src="/images/Indian/Newfolder/⚜️.jpeg" alt="" height="250" /></button>
-                    <hr>
-                </article>
-                <article data-question="6">
-                    <header>
-                        <h2><a href="#">Which piece of jewelry<br />
-                                appeals to you?</a></h2>
-                    </header>
-                    <button type="button" class="image main" data-question="6" data-category="minimalist"><img
-                            src="/images/Indian/Newfolder/Finding Your Creative Path with S A D É.jpeg" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="6" data-category="india"><img
-                            src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="6" data-category="egypt"><img
-                            src="/images/Indian/Newfolder/nemean-cuff-set-655678_800x.webp" alt=""
-                            height="250" /></button>
-                    <button type="button" class="image main" data-question="6" data-category="minimalist"><img
-                            src="/images/Vintage/cards/img3.jpeg" alt="" height="250" /></button>
-                    <hr>
-                </article>
-                <article>
-                    <header>
-                        <h2><a href="#">Are there any trends or styles you're currently<br />
-                                interested in exploring in your jewelry collection?</a></h2>
-                    </header>
-                    <a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-                    <textarea placeholder="type here.." style="border-color:black ; color: black;"></textarea>
-                </article>
-                <button type="submit" class="hyaaa" id="submit-btn" style="margin-top: 20px;">Submit</button>
-
-                <div class="results"></div>
-            </form>
-        </div>
-
-
-        <label style="margin-top: 50px;">Enter your name and email, we can send you the results!</label>
-
-        <footer id="footer">
-            <section>
-                <form method="post" action="#">
-                    <div class="fields">
-                        <div class="field">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" />
-                        </div>
-                        <div class="field">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email" />
-                        </div>
-                        <div class="field">
-                            <label for="message">Message</label>
-                            <textarea name="message" id="message" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <ul class="actions">
-                        <li><input type="submit" class="hya" value="Send Message" /></li>
-                    </ul>
-                </form>
-            </section>
-        </footer>
-
-        <div id="results-header">Results</div>
+    <!-- Intro -->
+    <div id="intro">
+        <h1>Pop Quiz!<br />
+            What's your personal style?</h1>
+        <p>Within our diverse collections, we're not just about selling jewelry<br />
+            we're about helping you discover the shimmering facets of your own style.<br> Let's journey together
+            through our quiz and unearth the treasures that perfectly reflect the brilliance of you!</p>
+        <ul class="actions">
+            <li><a href="#" class="button icon solid solo fa-solid fa-arrow-down scrolly">Continue</a></li>
+        </ul>
     </div>
+
+    <!-- Main -->
+    <div id="main">
+        <div class="results" id="results-header" style="display: none;"></div>
+        <form id="quiz-form" action="/user/submit-quiz" method="post">
+            <!-- Featured Post -->
+            <section class="post-featured" data-question="1">
+                <header class="major">
+                    <h2>Which destination<br />
+                        catches your fancy the most?</h2>
+                </header>
+                <button type="button" class="image main" data-question="1" data-category="egypt"><img
+                        src="/images/Quiz/Egypt.jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="1" data-category="india"><img
+                        src="/images/Quiz/download (9).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="1" data-category="minimalist"><img
+                        src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_fe45e31c.jpg" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="1" data-category="minimalist"><img
+                        src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_cf8b165e.jpg" alt=""
+                        height="250" /></button>
+                        <hr>
+            </section>
+
+            <!-- Posts -->
+
+            <section class="post-featured" data-question="2">
+                <header class="major">
+                    <h2>Which colors<br />
+                        resonate with you the most?</h2>
+                </header>
+                <button type="button" class="image main" data-question="2" data-category="minimalist"><img
+                        src="/images/Quiz/download (13).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="2" data-category="india"><img
+                        src="/images/Quiz/Учимся легко сочетать цвета! _ Шить просто — Выкройки-Легко_рф.jpeg"
+                        alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="2" data-category="egypt"><img
+                        src="/images/Quiz/download (18).jpeg" alt="" height="250" /></button>
+                <hr>
+            </section>
+            <section class="post-featured" style="margin-top: 50px;" data-question="3">
+                <header class="major">
+                    <h2>If you could attend a themed party inspired<br />
+                        by a specific culture, which one would you choose?</h2>
+                </header>
+                <button type="button" class="image main" data-question="3" data-category="egypt"><img
+                        src="/images/Quiz/New folder/download (12).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="3" data-category="india"><img
+                        src="/images/Quiz/New folder/download (10).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="3" data-category="minimalist"><img
+                        src="/images/Quiz/New folder/download (11).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="3" data-category="minimalist"><img
+                        src="/images/Quiz/New folder/15'' Finger Loop Satin Stretchy Gloves - Black.jpeg" alt=""
+                        height="250" /></button>
+                <hr>
+            </section>
+            <article data-question="4">
+                <header>
+                    <h2><a href="#">Which material do you prefer in your jewelry?<br />
+                </header>
+                <button type="button" class="image main" data-question="4" data-category="minimalist"><img
+                        src="/images/Indian/Newfolder/Firefly 20240619071819.png" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="4" data-category="egypt"><img
+                        src="/images/Indian/Newfolder/download (20).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="4" data-category="minimalist"><img
+                        src="/images/Indian/Newfolder/marina-pearl-choker-442561_800x.webp" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="4" data-category="india"><img
+                        src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt=""
+                        height="250" /></button>
+                <hr>
+            </article>
+            <article data-question="5">
+                <header>
+                    <h2><a href="#">Which of these hobbies<br />
+                            is most appealing to you?</a></h2>
+                </header>
+                <button type="button" class="image main" data-question="5" data-category="minimalist"><img
+                        src="/images/Indian/Newfolder/Nine Beautiful Places You Have To Visit In Peru.jpeg" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="5" data-category="india"><img
+                        src="/images/Indian/Newfolder/download (25).jpeg" alt="" height="250" /></button>
+                <button type="button" class="image main" data-question="5" data-category="egypt"><img
+                        src="/images/Indian/Newfolder/⚜️.jpeg" alt="" height="250" /></button>
+                <hr>
+            </article>
+            <article data-question="6">
+                <header>
+                    <h2><a href="#">Which piece of jewelry<br />
+                            appeals to you?</a></h2>
+                </header>
+                <button type="button" class="image main" data-question="6" data-category="minimalist"><img
+                        src="/images/Indian/Newfolder/Finding Your Creative Path with S A D É.jpeg" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="6" data-category="india"><img
+                        src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="6" data-category="egypt"><img
+                        src="/images/Indian/Newfolder/nemean-cuff-set-655678_800x.webp" alt=""
+                        height="250" /></button>
+                <button type="button" class="image main" data-question="6" data-category="minimalist"><img
+                        src="/images/Vintage/cards/img3.jpeg" alt="" height="250" /></button>
+                <hr>
+            </article>
+            <article>
+                <header>
+                    <h2><a href="#">Are there any trends or styles you're currently<br />
+                            interested in exploring in your jewelry collection?</a></h2>
+                </header>
+                <a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+                <textarea placeholder="type here.." style="border-color:black ; color: black;"></textarea>
+            </article>
+            <button type="submit" class="hyaaa" id="submit-btn" style="margin-top: 20px;">Submit</button>
+
+        </form>
+        
+        <div class="centered-div">
+            <button class="re" id="retake-quiz" style="display: none;">Retake Quiz</button>
+        </div>
+        
+
+    </div>
+
+
+    <label style="margin-top: 50px;">Enter your name and email, we can send you the results!</label>
+
+    <footer id="footer">
+        <section>
+            <form method="post" action="#">
+                <div class="fields">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" />
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" />
+                    </div>
+                    <div class="field">
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="3"></textarea>
+                    </div>
+                </div>
+                <ul class="actions">
+                    <li><input type="submit" class="hya" value="Send Message" /></li>
+                </ul>
+            </form>
+        </section>
+    </footer>
+
+    <div id="results-header">Results</div>
+</div>
 
 </body>
 
