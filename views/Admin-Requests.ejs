@@ -23,35 +23,22 @@
     <title>Layout</title>
     <script>
 
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     // Function to disable buttons based on request approvement
-        //     const disableButtonsBasedOnApprovement = () => {
-        //         document.querySelectorAll('.accept-btn').forEach(button => {
-        //             const requestId = button.getAttribute('data-id');
-        //             const requestApprovement = document.querySelector(`#approvement-${requestId}`).innerText.trim();
-
-        //             if (requestApprovement !== 'null') {
-        //                 button.disabled = true; // Disable accept button
-        //                 button.nextElementSibling.disabled = true; // Disable reject button
-        //             }
-        //         });
-
-        //         document.querySelectorAll('.reject-btn').forEach(button => {
-        //             const requestId = button.getAttribute('data-id');
-        //             const requestApprovement = document.querySelector(`#approvement-${requestId}`).innerText.trim();
-
-        //             if (requestApprovement !== 'null') {
-        //                 button.disabled = true; // Disable reject button
-        //                 button.previousElementSibling.disabled = true; // Disable accept button
-        //             }
-        //         });
-        //     };
-
-        // });
-        // Call the function to disable buttons initially
-        // disableButtonsBasedOnApprovement();
 
         document.addEventListener('DOMContentLoaded', () => {
+            const disableButtonsBasedOnApprovement = () => {
+
+                document.querySelectorAll('tr').forEach(row => {
+                    const requestApprovement = row.querySelector('.approvement-status').innerText.trim();
+
+                    if (requestApprovement !=='No response') {
+                        row.querySelector('.accept-btn').disabled = true;
+                        row.querySelector('.reject-btn').disabled = true;
+                    }
+                });
+            };
+
+            //disableButtonsBasedOnApprovement();
+
             document.querySelectorAll('.accept-btn').forEach(button => {
                 button.addEventListener('click', async () => {
                     const requestId = button.getAttribute('data-id');
@@ -69,7 +56,8 @@
                             alert('Request accepted successfully');
                             button.disabled = true; // Disable the button after successful accept
                             button.nextElementSibling.disabled = true;
-                           window.reload(); // Reload the page to see the changes
+                            location.reload(); // Reload the page to see the changes
+                            
                         } else {
                             console.error('Failed to accept request');
                             alert('Failed to accept request');
@@ -98,7 +86,7 @@
                             alert('Request rejected successfully');
                             button.disabled = true; // Disable the button after successful accept
                             button.nextElementSibling.disabled = true;
-                            window.reload(); // Reload the page to see the changes
+                            location.reload(); // Reload the page to see the changes
                         } else {
                             console.error('Failed to reject request');
                             alert('Failed to reject request');
