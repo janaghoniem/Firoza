@@ -41,7 +41,7 @@ const addAdmin = async (req, res) => {
 
 
 
-// Function to add an admin
+// Function to add collection
 const addCollection = async (req, res) => {
 
     const {
