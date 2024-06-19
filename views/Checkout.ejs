@@ -110,7 +110,7 @@
                     <input type="text" maxlength="4" class="cvv-input">
                 </div>
             </div>
-            <input type="submit" value="PAY EGP <%= user.cart.totalprice %>" class="submit-btn" id="final-checkout-btn" onclick="handleFormSubmissions(event)">
+            <input type="submit" value="PAY EGP <%= user.cart.totalprice %>" class="submit-btn" id="final-checkout-btn" onclick="handlePaymentFormSubmission()">
             <input type="submit" value="Back" class="submit-btn" onclick="window.location.href = 'ShoppAll.html';">
         </form>
     </div>

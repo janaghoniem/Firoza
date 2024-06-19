@@ -336,7 +336,30 @@ const Cart = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
-// controllers/productController.js
+
+
+const getCartDetails = async (userId) => {
+    if (userId) {
+        // If there's a logged-in user, fetch cart items from database
+        const user = await User.findById(userId).populate('cart.items.productId');
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user.cart;
+    }
+
+    // If there's no logged-in user, use session cart items
+    const cartItems = await Promise.all(sessionCartItems.map(async item => {
+        const product = await Product.findById(item.productId);
+        return {
+            productId: product._id, // Use product._id instead of product itself
+            quantity: item.quantity,
+            price: item.price
+        };
+    }));
+
+    return { items: cartItems };
+};
 
 
 const updateCart = async (req, res) => {
@@ -436,8 +459,6 @@ const updateCartPrice = async (req, res) => {
     }
 }
 
-
-
 const removeFromCart = async (req, res) => {
     console.log('Entered removeFromCart function');
     const productId = req.params.productId;
@@ -474,6 +495,76 @@ const removeFromCart = async (req, res) => {
     }
 }
 
+const Checkout = async (req, res) => {
+    console.log('checkout');
+    const { billingData, shipping_address } = req.body;
+
+    try {
+        // Check if user is logged in
+        if (!req.session.user) {
+            return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
+        }
+
+        const user = await User.findById(req.session.user); 
+
+        const cartData = await getCartDetails(user._id);
+        console.log('cart data fetched');
+
+        const newOrder = new Orderr({
+            user_id: req.session.user._id,
+            product_ids: cartData.items.map(item => item.productId),
+            total_price: cartData.totalprice,
+            status: 'pending',
+            shipping_address: {
+                address: shipping_address.address,
+                city: shipping_address.city,
+                state: shipping_address.state,
+                postal_code: shipping_address.postal_code,
+            },
+            payment_method: 'credit_card', // Assuming this is fixed or handled differently
+        });
+        console.log('new order created');
+
+        // Save the order to the database
+        const savedOrder = await newOrder.save();
+        console.log('new order saved.');
+
+        // Decrease available quantities of products
+        await Promise.all(cartData.items.map(async item => {
+            const dbProduct = await Product.findById(item.productId);
+            if (!dbProduct) {
+                console.log('product not found');
+                throw new Error(`Product with ID ${item.productId} not found`);
+            }
+            // Decrease the available quantity
+            console.log('decreasing quantity');
+            dbProduct.quantity -= item.quantity;
+            dbProduct.no_sales += item.quantity; // Assuming item.quantity represents the number of this product in the order
+            await dbProduct.save();
+        }));
+
+        // Add order reference to user's order history (assuming a user model with order references)
+        user.orders.push(savedOrder._id);
+        await user.save();
+        console.log('saved order history.');
+
+        // Clear user's cart after successful checkout
+        user.cart = {
+            items: [],
+            totalprice: 0
+        };
+        await user.save();
+        console.log('cleared user cart.');
+
+        res.status(200).json(savedOrder);
+    } catch (err) {
+        console.error('Error creating order:', err);
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+}
+
+
+
 //get use4r  by id
 const getUserById = async (req, res) => {
     try {
@@ -490,10 +581,6 @@ const getUserById = async (req, res) => {
 
 
 const getUserOrder= async(req, res) => {
-   
-
-   
-
     try {
         // Check if the user is authenticated and their ID is available in the session
         if (!req.session.user || !req.session.user._id) {
@@ -534,10 +621,11 @@ const BillingInformation = async (req, res) => {
         }
 
         // Find the user by session user ID
-        const user = await User.findById(req.session.user._id);
-        if (!user) {
+        if (!req.session.user) {
             return res.status(404).json({ error: 'User not found' });
-        }
+        } 
+
+        const user = await User.findById(req.session.user._id);
 
         // Ensure user.shipping_address is initialized as an array
         user.shipping_address = user.shipping_address || [];
@@ -651,6 +739,7 @@ module.exports = {
     updateCart,
     updateCartPrice,
     removeFromCart,
+    Checkout,
     getUserById, 
     BillingInformation,
     filterProducts,
@@ -658,5 +747,4 @@ module.exports = {
     getShopAllProducts,
     getIndianProducts,
     cancelOrder
-
 };

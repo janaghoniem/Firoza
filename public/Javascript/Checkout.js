@@ -200,23 +200,52 @@ function validateForms() {
 }
 
 // Function to handle form submission
-function handleFormSubmissions(event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
+async function handlePaymentFormSubmission() {
+    const paymentForm = document.querySelector('.payment-form');
 
-    // Validate all forms
-    const areFormsValid = validateForms();
+    // Prepare payment data
+    const paymentData = {
+        cardNumber: paymentForm.querySelector('.card-number-input').value,
+        cardHolder: paymentForm.querySelector('.card-holder-input').value,
+        expMonth: paymentForm.querySelector('.month-input').value,
+        expYear: paymentForm.querySelector('.year-input').value,
+        cvv: paymentForm.querySelector('.cvv-input').value,
+    };
 
-    // If all forms are valid, proceed with submission
-    if (areFormsValid) {
-        // Add your logic here to proceed with form submission
-        console.log('All forms are valid. Proceeding with submission...');
-        //Display success message
-        alert('Paid successfully!');
+    if (!paymentData.cardNumber || !paymentData.cardHolder || !paymentData.expMonth || !paymentData.expYear || !paymentData.cvv) {
+        throw new Error('All payment fields must be filled out');
+    }
 
-        // Redirect to the specified page
-        window.location.href = 'ShoppAll.html';
+    const orderData = {
+        shipping_address: { 
+            address: document.getElementById('Address').value,
+            city: document.getElementById('City').value,
+            state: document.getElementById('State').value,
+            postal_code: document.getElementById('Zipcode').value
+        }
+    };
 
+    try {
+        const orderResponse = await fetch('/user/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        if(orderResponse.ok) {
+            // Order created successfully
+            alert('Checkout successful. Thank you for your purchase!');
+            window.location.href = '/shopAll'; // Redirect to shopAll page after successful checkout
+        }
+
+        throw new Error('Checkout failed');
+        
+
+        
+    } catch (error) {
+        alert('Error during payment form submission:', error);
     }
 }
 

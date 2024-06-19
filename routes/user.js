@@ -49,6 +49,9 @@ router.put('/updateCartPrice', User.updateCartPrice);
 // Route to remove an item from the cart
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
+// Route to checkout
+router.post('/checkout', User.Checkout);
+
 // router.post('/products/filter', async (req, res) => {
 //     const { categories, colors, priceRange, materials } = req.body;
 

@@ -55,10 +55,6 @@ updated_at:{
     type:Date,
     default:Date.now
 }
-
-
-
-
 },{timestamps:true});
 
 const Order= mongoose.model('Order', ordersSchema);
