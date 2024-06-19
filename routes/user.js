@@ -5,6 +5,7 @@ const UserSchema = require('../models/User');
 const Collection =  require('../models/Collections');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
+const reviews= require('../models/reviews');
 
 const restrictedPaths = [
     '/Checkout'
@@ -219,4 +220,6 @@ const getCollectionProducts = async (req, res) => {
 
 router.get('/collection/:collectionId', getCollectionProducts);
 router.put('/cancelOrder/:orderId',User.cancelOrder);
+
+router.post('/orders/:orderId/reviews', User.submitReview);
 module.exports = router;
