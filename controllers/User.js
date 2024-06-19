@@ -843,27 +843,28 @@ const getShopAllProducts = async (req, res) => {
 // }
 
 const cancelOrder = async (req, res) => {
-    const { orderId } = req.params;
-
+  
+   console.log("hiiiiii");
     try {
+        const { orderId } = req.params;
         const order = await Orderr.findById(orderId);
         if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
+            return res.status(404).json({ success: false, message: 'Order not found' });
         }
 
         // Check if the order is in a cancellable state (e.g., pending)
-        if (order.status !== 'pending') {
-            return res.status(400).json({ error: 'Order cannot be cancelled' });
-        }
+        // if (order.status !== 'pending') {
+        //     return res.status(400).json({ success: false, message: 'Order cannot be cancelled' });
+        // }
 
-        // Update the order status to cancelled
+        // Update the order status to 'cancelled'
         order.status = 'cancelled';
         await order.save();
 
-        res.status(200).json({ success: true });
+        res.json({ success: true, message: 'Order cancelled successfully' });
     } catch (error) {
-        console.error('Error cancelling order:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error("Error cancelling order:", error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
 
