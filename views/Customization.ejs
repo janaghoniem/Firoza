@@ -25,11 +25,20 @@
                         <div class="card-body">
                             <h4 class="card-title">Ring</h4>
                             <div class="row mb-3 item-row">
+                                <div id="loading-spinner" class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
                                 <canvas id="Ring"></canvas>
                             </div>
                             <!-- End of repeat block -->
+
                             <div class="mt-4">
                                 <a href="/shopAll" class="btn btn-link">&leftarrow; Back to shop</a>
+                                <button id="button1">Red</button>
+                                <button id="button2">Green</button>
+                                <button id="button3">Blue</button>
+                                <button id="button4">Yellow</button>
+                                <button id="button5">White</button>
                                 <a class="buttonP" href="#popup1">Virtal try on</a>
                             </div>
 
@@ -38,7 +47,7 @@
                                     <h2>Scan with your phone</h2>
                                     <a class="close" href="#">&times;</a>
                                     <div class="content">
-                                      el sora hatb2a henaaa
+                                        el sora hatb2a henaaa
                                     </div>
                                 </div>
                             </div>
@@ -55,12 +64,29 @@
                                 <canvas id="canvas3d"></canvas>
 
                             </div>
-                            <div class="d-flex justify-content-between mt-3">
-                                <button id="button1">Red</button>
-                                <button id="button2">Green</button>
-                                <button id="button3">Blue</button>
-                                <button id="button4">Yellow</button>
-                                <button id="button5">White</button>
+                            <div class="d-flex justify-content-between mt-3 displayButton">
+
+
+                            </div>
+                            <div class="buttons">
+                                <button id="Round">Round</button>
+                                <button id="Radient">Radient</button>
+                                <button id="Marquise">Marquise</button>
+                                <button id="Princess">Princess</button>
+
+                            </div>
+
+                            <div class="buttons">
+                                <button id="Heart">Heart</button>
+                                <button id="pear">pear</button>
+                                <button id="Oval">Oval</button>
+                                <button id="Emirald">Emirald</button>
+                            </div>
+                           
+                         
+                            <div class="buttons">
+                                <button id="Cushion">Cushion</button>
+                                <button id="Asscher">Asscher</button>
                             </div>
                             <button class="btn btn-dark btn-block mt-4" id="checkout">Add to cart</button>
                             <a href="/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>

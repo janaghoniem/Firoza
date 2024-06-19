@@ -1,13 +1,16 @@
 import { Application } from 'https://unpkg.com/@splinetool/runtime/build/runtime.js';
-            
+
 const canvas = document.getElementById('Ring');
 const spline = new Application(canvas);
 
+const loadingSpinner = document.getElementById('loading-spinner');
+
+let currentScene = '';
+
 async function changeDiamondColor(color) {
-    // Ensure the scene is loaded
     await spline.loaded;
     const object = spline.findObjectByName('Diamonds');
-    
+
     if (object) {
         object.material.color = new spline.THREE.Color(color);
         spline.update();
@@ -16,38 +19,68 @@ async function changeDiamondColor(color) {
     }
 }
 
-// Load the Spline scene
-spline.load('https://prod.spline.design/s11be4rxx-39bLiO/scene.splinecode').then(() => {
-    console.log('Spline scene loaded successfully');
+async function loadScene(sceneUrl) {
+    // Show the loading spinner and hide the canvas
+    loadingSpinner.style.display = 'block';
+    canvas.style.display = 'none';
+
+    await spline.load(sceneUrl);
+    console.log(`Spline scene ${sceneUrl} loaded successfully`);
+    currentScene = sceneUrl;
+
+    // Hide the loading spinner and show the canvas
+    loadingSpinner.style.display = 'none';
+    canvas.style.display = 'block';
+
+    // Set the initial diamond color to white for the new scene
     spline.setVariables({ White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 });
-   
-    // Set up event listeners for buttons
-    const button1 = document.getElementById('button1');
-    button1.addEventListener('click', () => {
-        spline.setVariables({ White: 0, Red: 100, Blue: 0, Green: 0, Yellow: 0 });
-    });  //red
+}
 
-     const button2 = document.getElementById('button2');
-    button2.addEventListener('click', () => {
-        spline.setVariables({ White: 0, Red: 0, Blue: 0, Green: 100, Yellow: 0 });
-    }); //green
+function setupColorButtons() {
+    const colorButtons = [
+        { id: 'button1', color: { White: 0, Red: 100, Blue: 0, Green: 0, Yellow: 0 } }, // Red
+        { id: 'button2', color: { White: 0, Red: 0, Blue: 0, Green: 100, Yellow: 0 } }, // Green
+        { id: 'button3', color: { White: 0, Red: 0, Blue: 100, Green: 0, Yellow: 0 } }, // Blue
+        { id: 'button4', color: { White: 0, Red: 0, Blue: 0, Green: 0, Yellow: 100 } }, // Yellow
+        { id: 'button5', color: { White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 } }  // White
+    ];
 
-    const button3 = document.getElementById('button3');
-    button3.addEventListener('click', () => {
-        spline.setVariables({ White: 0, Red: 0, Blue: 100, Green: 0, Yellow: 0 });
-    }); //blue
-
-    const button4 = document.getElementById('button4');
-    button4.addEventListener('click', () => {
-        spline.setVariables({ White: 0, Red: 0, Blue: 0, Green: 0, Yellow: 100 });
-    }); //yellow
-
-    const button5 = document.getElementById('button5');
-    button5.addEventListener('click', () => {
-        spline.setVariables({ White: 100, Red: 0, Blue: 0, Green: 0, Yellow: 0 });
+    colorButtons.forEach(button => {
+        const btn = document.getElementById(button.id);
+        btn.addEventListener('click', () => {
+            spline.setVariables(button.color);
+        });
     });
+}
+
+function setupSceneButtons() {
+    const sceneButtons = [
+        { id: 'Round', url: 'https://prod.spline.design/RaxmIcbUxvVf3Drx/scene.splinecode' },
+        { id: 'Radient', url: 'https://prod.spline.design/h7mweeIJpVWR4WRf/scene.splinecode' },
+        { id: 'Marquise', url: 'https://prod.spline.design/nwLkQoqJTywMEeT7/scene.splinecode' },
+        { id: 'Princess', url: 'https://prod.spline.design/lL-xBygJ31YGnyJb/scene.splinecode' },
+        { id: 'Heart', url: 'https://prod.spline.design/pvhUHLNBpbr3VVOu/scene.splinecode' },
+        { id: 'Pear', url: 'https://prod.spline.design/s11be4rxx-39bLiO/scene.splinecode' },
+        { id: 'Oval', url: 'https://prod.spline.design/zHLFkybCIJXBtULS/scene.splinecode' },
+        { id: 'Emerald', url: 'https://prod.spline.design/eLP9bMxlaJtnPp9A/scene.splinecode' },
+        { id: 'Cushion', url: '' },
+        { id: 'Asscher', url: '' }
+    ];
+
+    sceneButtons.forEach(button => {
+        const btn = document.getElementById(button.id);
+        btn.addEventListener('click', async () => {
+            if (button.url) {
+                await loadScene(button.url);
+            } else {
+                console.error(`Scene URL for ${button.id} is not defined`);
+            }
+        });
+    });
+}
+
+// Load the initial scene (Round and White)
+loadScene('https://prod.spline.design/RaxmIcbUxvVf3Drx/scene.splinecode').then(() => {
+    setupColorButtons();
+    setupSceneButtons();
 });
-
-
-
-
