@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/CSS/nav-bar-white.css">
     
     <link rel="stylesheet" href="/CSS/Footer.css">
+    <script src="/Javascript/myAccount.js"></script>
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/myAccount.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -54,7 +55,7 @@
                             </ul>
                             <div class="order-actions">
                                 <% if (order.status === 'pending') { %>
-                                    <button class="cancel-button">Cancel Order</button>
+                                    <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
                                 <% } %>
                                 <% if (order.status === 'delivered') { %>
                                     <button class="review-button">Review Order</button>
@@ -72,6 +73,18 @@
 
     <div class="footer">
         <%- include('./partials/footer.ejs') %>
+    </div>
+
+    <div id="custom-popup" class="custom-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Cancel Order Confirmation</h2>
+            <p>Are you sure you want to cancel this order?</p>
+            <div class="btn-container">
+                <button class="confirm-btn" onclick="confirmCancel()">Yes</button>
+                <button class="cancel-btn" onclick="closePopup()">Go Back</button>
+            </div>
+        </div>
     </div>
 </body>
 
