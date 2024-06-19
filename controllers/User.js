@@ -598,6 +598,8 @@ const getShopAllProducts = async (req, res) => {
     }
 };
 
+
+
 // const getCollectionProducts = async (req, res) => {
 //     const collectionId = req.params.collectionId;
 //     try {
@@ -620,6 +622,24 @@ const getShopAllProducts = async (req, res) => {
 
 
 
+const cancelOrder = async (req, res) => {
+    const { orderId } = req.params;
+    console.log('Received orderId:', orderId); // Log orderId
+    try {
+        const deletedOrder = await Orderr.findByIdAndRemove(orderId);
+        console.log('Deleted order:', deletedOrder); // Log the result
+        if (deletedOrder) {
+            res.json({ message: 'Order cancelled successfully' });
+        } else {
+            res.status(404).json({ message: 'Order not found' });
+        }
+    } catch (error) {
+        console.error('Error cancelling order:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     GetUser,
     AddUser,
@@ -636,6 +656,7 @@ module.exports = {
     filterProducts,
     getUserOrder,
     getShopAllProducts,
-    getIndianProducts
+    getIndianProducts,
+    cancelOrder
 
 };

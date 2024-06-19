@@ -98,7 +98,7 @@ router.get('/Checkout', async (req, res) => {
 router.get('/users/:id', User.getUserById);
 
 router.get('/myAccount', User.getUserOrder );
-
+router.delete('/cancel-order/:orderId', User.cancelOrder);
 
 const getCollectionProducts = async (req, res) => {
     const collectionId = req.params.collectionId;

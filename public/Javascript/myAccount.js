@@ -1,14 +1,25 @@
 function openPopup(orderId) {
-    // Pass orderId to a hidden field or variable to use it in the confirmCancel function
     document.getElementById('custom-popup').style.display = 'block';
+    document.getElementById('order-id').value = orderId;
 }
 
 function closePopup() {
     document.getElementById('custom-popup').style.display = 'none';
 }
 
-function confirmCancel() {
-    // Perform cancel order action here
-    console.log('Order cancelled.');
+async function confirmCancel() {
+    var orderId = document.getElementById('order-id').value;
+
+    try {
+        const response = await fetch(`/cancel-order/${orderId}`, {
+            method: 'DELETE'
+        });
+        const data = await response.json();
+        console.log(data); // Log the response from the server
+        location.reload(); // Reload the page after deleting the order
+    } catch (error) {
+        console.error('Error cancelling order:', error);
+    }
+
     closePopup();
 }
