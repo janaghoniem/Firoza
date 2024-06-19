@@ -57,9 +57,7 @@ app.get('/', (req, res) => {
 //     res.render("main.ejs");
 // });
 
-app.get('/Collections', (req, res) => {
-    res.render("Collections");
-});
+
 
 
 

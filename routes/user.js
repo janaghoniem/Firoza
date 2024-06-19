@@ -61,6 +61,10 @@ router.post('/wishlist/add', User.AddToWishlist);
 // Remove from wishlist
 router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
 
+router.get('/Collections', (req, res) => {
+    res.render("Collections");
+});
+
 
 // router.post('/products/filter', async (req, res) => {
 //     const { categories, colors, priceRange, materials } = req.body;

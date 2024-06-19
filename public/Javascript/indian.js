@@ -43,6 +43,7 @@ window.onclick = function(event) {
         }
     }
 }
+
 async function addToCart(productId, price) {
     try {
         const response = await fetch('/user/add-to-cart', {
@@ -65,6 +66,7 @@ async function addToCart(productId, price) {
         alert('Failed to add product to cart');
     }
 }
+
 
 function gatherFilters() {
     const filters = {

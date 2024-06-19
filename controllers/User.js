@@ -199,8 +199,8 @@ const filterProducts = async (req, res) => {
         sortOption.price = -1;
     }
 
-    console.log("Filters applied:", filters); // Debugging information
-    console.log("Sort option applied:", sortOption); // Debugging information
+    // console.log("Filters applied:", filters); // Debugging information
+    // console.log("Sort option applied:", sortOption); // Debugging information
 
     try {
         const products = await Product.find(filters).sort(sortOption);
@@ -212,7 +212,7 @@ const filterProducts = async (req, res) => {
                 isSoldOut
             };
         });
-        console.log("Filtered products:", productsWithStockInfo); // Debugging information
+        // console.log("Filtered products:", productsWithStockInfo); // Debugging information
         res.status(200).json(productsWithStockInfo);
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -699,6 +699,7 @@ const getWishlist = async (req, res) => {
 };
 
 const AddToWishlist = async (req, res) => {
+    console.log('entered wishlist addition function');
     const { productId } = req.body;
 
     try {
