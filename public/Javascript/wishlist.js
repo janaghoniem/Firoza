@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Select all increment and decrement buttons
     const removeButtons = document.querySelectorAll('.remove-item');
     const totalPriceElements = document.querySelectorAll('.total-price');
     const itemsCountElement = document.querySelector('.items-count');
@@ -8,28 +7,27 @@ document.addEventListener('DOMContentLoaded', function() {
     removeButtons.forEach(button => {
         button.addEventListener('click', function() {
             const itemId = this.closest('.item-row').dataset.item;
-            removeCartItem(itemId);
+            removeFromWishlist(itemId);
         });
     });
 
-    async function removeCartItem(itemId) {
+    async function removeFromWishlist(productId) {
         try {
-            const response = await fetch(`/user/remove-from-wishlist/${itemId}`, {
+            const response = await fetch(`/user/wishlist/remove/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
+            const data = await response.json();
             if (response.ok) {
-                // Item removed successfully from backend, now update frontend
-                const itemRow = document.querySelector(`.item-row[data-item="${itemId}"]`);
-                itemRow.remove();
+                alert(data.message);
+                document.querySelector(`[data-item="${productId}"]`).remove();
             } else {
-                alert('Failed to remove item from cart' + response.statusText);
+                alert(data.error);
             }
         } catch (error) {
-            console.error('Error removing item from cart:', error);
+            console.error('Error removing from wishlist:', error);
         }
     }
 

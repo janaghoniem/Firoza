@@ -35,6 +35,26 @@
             }
         }
 
+        async function addToWishlist(productId) {
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+
         function toggleDropdown(event, dropdownId) {
             var dropdown = document.getElementById(dropdownId);
             var arrow = dropdown.querySelector('.arrow');
@@ -251,7 +271,7 @@
                             <% } %>
                         </a>
                         <ul class="product-links">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#" onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i></a></li>
                             <li><a href="#" onclick="addToCart('<%= product._id %>', '<%= product.price %>')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>

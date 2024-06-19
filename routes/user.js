@@ -38,7 +38,7 @@ router.post('/search', User.Search);
 router.post('/add-to-cart', User.AddToCart)
 
 // Handle POST request for cart
-router.post('/ShoppingCart', User.Cart);
+router.get('/ShoppingCart', User.Cart);
 
 // Handle cart update
 router.put('/updateCart', User.updateCart);
@@ -51,6 +51,16 @@ router.delete('/remove-from-cart/:productId', User.removeFromCart);
 
 // Route to checkout
 router.post('/checkout', User.Checkout);
+
+// Get wishlist
+router.get('/wishlist', User.getWishlist);
+
+// Add to wishlist
+router.post('/wishlist/add', User.AddToWishlist);
+
+// Remove from wishlist
+router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
+
 
 // router.post('/products/filter', async (req, res) => {
 //     const { categories, colors, priceRange, materials } = req.body;

@@ -662,7 +662,116 @@ const BillingInformation = async (req, res) => {
     }
 };
 
+//WISHLIST
+const getWishlist = async (req, res) => {
+    try {
+        if (!req.session.user) {
+            const sessionWishlist = req.session.wishlist ? req.session.wishlist.items : [];
 
+            const wishlistItems = await Promise.all(sessionWishlist.map(async item => {
+                const product = await Product.findById(item.productId);
+                return {
+                    productId: product,
+                    price: item.price
+                };
+            }));
+
+            return res.render('Wishlist', {
+                wishlist: { items: wishlistItems },
+                user: null
+            });
+        }
+
+        const user = await User.findById(req.session.user._id).populate('wishlist.items.productId');
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('Wishlist', {
+            wishlist: user.wishlist,
+            user: user
+        });
+    } catch (error) {
+        console.error('Error fetching wishlist:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const AddToWishlist = async (req, res) => {
+    const { productId } = req.body;
+
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        if (!req.session.user) {
+            if (!req.session.wishlist) {
+                req.session.wishlist = { items: [] };
+            }
+            const existingWishlistItem = req.session.wishlist.items.find(item => item.productId.toString() === productId.toString());
+            if (existingWishlistItem) {
+                return res.status(200).json({ message: 'Product already in guest wishlist' });
+            } else {
+                req.session.wishlist.items.push({
+                    productId: productId,
+                    price: product.price,
+                });
+            }
+            return res.status(200).json({ message: 'Product added to guest wishlist successfully' });
+        }
+
+        const user = await User.findById(req.session.user._id);
+        const existingWishlistItem = user.wishlist.items.find(item => item.productId.toString() === productId.toString());
+        if (existingWishlistItem) {
+            return res.status(200).json({ message: 'Product already in wishlist' });
+        } else {
+            user.wishlist.items.push({
+                productId: productId,
+                price: product.price
+            });
+        }
+
+        await user.save();
+        res.status(200).json({ message: 'Product added to wishlist successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+const removeFromWishlist = async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        if (req.session.user) {
+            // Logged-in user
+            const user = await User.findById(req.session.user._id);
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+
+            // Filter out the item from the user's wishlist
+            user.wishlist.items = user.wishlist.items.filter(item => item.productId.toString() !== productId.toString());
+
+            await user.save();
+
+            res.status(200).json({ message: 'Product removed from wishlist successfully' });
+        } else if (req.session.wishlist) {
+            // Guest user
+            req.session.wishlist.items = req.session.wishlist.items.filter(item => item.productId.toString() !== productId.toString());
+
+            res.status(200).json({ message: 'Product removed from guest wishlist successfully' });
+        } else {
+            res.status(404).send('No wishlist found in session');
+        }
+    } catch (error) {
+        console.error('Error removing from wishlist:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
 
 
 // const getIndianProducts = async (req, res) => {
@@ -740,6 +849,9 @@ module.exports = {
     updateCartPrice,
     removeFromCart,
     Checkout,
+    getWishlist,
+    AddToWishlist,
+    removeFromWishlist,
     getUserById, 
     BillingInformation,
     filterProducts,
