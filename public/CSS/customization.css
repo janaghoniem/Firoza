@@ -267,15 +267,16 @@ a:hover {
   .buttonP {
     font-size: 1em;
     padding: 10px;
-    color: #fff;
-    border: 2px solid #06D85F;
-    border-radius: 20px/50px;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    /* border-radius: 20px/50px; */
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
   .buttonP:hover {
-    background: #06D85F;
+    background: #000000;
+    color: #ffffff;
   }
   
   .overlay {
@@ -337,4 +338,18 @@ a:hover {
     .popup{
       width: 70%;
     }
+  }
+
+
+
+  button{
+    font-size: 1em;
+    background-color: white;
+    padding: 10px;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    /* border-radius: 20px/50px; */
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
   }
