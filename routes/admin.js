@@ -9,6 +9,9 @@ const path = require('path');
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
 const User = require('../models/User');
+const Request = require('../models/Requests');
+
+
 
 // check if admin
 // router.use((req, res, next) => {
@@ -117,5 +120,13 @@ router.post('/EditProduct/:id', adminController.editProduct);
 
 router.get('/Dashboard',adminController.getDashboard);
 router.get('/statistics',adminController.getStatistics);
+
+router.get('/requests', adminController.getAllRequests);
+
+// Route to accept a request
+router.post('/requests/accept/:id', adminController.acceptRequest);
+
+// Route to reject a request
+router.post('/requests/reject/:id', adminController.rejectRequest);
 
 module.exports = router;
