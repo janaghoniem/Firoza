@@ -60,7 +60,7 @@
                                     <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
                                 <% } %>
                                 <% if (order.status === 'delivered') { %>
-                                    <button class="review-button">Review Order</button>
+                                    <button class="review-button" onclick="openReviewPopup('<%= order._id %>')">Review Order</button>
                                 <% } %>
                             </div>
                         </div>
@@ -85,6 +85,24 @@
             <div class="btn-container">
                 <button class="confirm-btn" onclick="confirmCancel()">Yes</button>
                 <button class="cancel-btn" onclick="closePopup()">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <div id="review-popup" class="review-custom-popup">
+        <div class="review-popup-content">
+            <span class="review-close-btn" onclick="closeReviewPopup()">&times;</span>
+            <h2>Write a Review</h2>
+            <div class="review-rating">
+                <span class="fa fa-star" data-rating="1"></span>
+                <span class="fa fa-star" data-rating="2"></span>
+                <span class="fa fa-star" data-rating="3"></span>
+                <span class="fa fa-star" data-rating="4"></span>
+                <span class="fa fa-star" data-rating="5"></span>
+            </div>
+            <textarea id="review-comment" class="review-comment" placeholder="Write your review here..."></textarea>
+            <div class="review-btn-container">
+                <button class="review-confirm-btn" onclick="submitReview()">Submit Review</button>
+                <button class="review-cancel-btn" onclick="closeReviewPopup()">Cancel</button>
             </div>
         </div>
     </div>
