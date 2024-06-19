@@ -49,11 +49,13 @@
                                             <h3><%= product.name %></h3>
                                             <p>Price: $<%= product.price %></p>
                                         </div>
-                                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                                        <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                     </li>
                                 <% }); %>
                             </ul>
+
                             <div class="order-actions">
+                                <h2>total price: <%= order.total_price %></h2>
                                 <% if (order.status === 'pending') { %>
                                     <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
                                 <% } %>
