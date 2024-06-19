@@ -56,6 +56,12 @@ const addCollection = async (req, res) => {
             return res.status(400).json({ message: 'Collection name, description, required' });
         }
 
+        // Check if the collection name already exists
+        const existingCollection = await collections.findOne({ Collection_Name: CollectionName });
+        if (existingCollection) {
+            return res.status(400).json({ message: 'Collection name already exists' });
+        }
+
         // Create a new Product object based on the schema
         const newCollection = new collections({
             Collection_Name: CollectionName,
@@ -70,8 +76,8 @@ const addCollection = async (req, res) => {
         res.status(201).json({ message: 'Collection added successfully' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message });
-    }
+        res.status(500).json({ error: error.message });
+    }
 };
 
 
@@ -335,7 +341,7 @@ const getEditProductPage = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        res.render('EditProduct', { product, getcollections});
+        res.render('EditProduct', { product, getcollections });
     } catch (error) {
         res.status(500).send('Server error');
     }
@@ -484,7 +490,7 @@ const getStatistics = async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
-const getadmin =async(req,res)=>{
+const getadmin = async (req, res) => {
     res.render("AddAdmin.ejs");
 };
 

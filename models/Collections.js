@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const CollectionSchema = new Schema({
     Collection_Name: {
         type: String,
-       
+        unique: true, 
     },
     collection_id: {
         type: Object,
