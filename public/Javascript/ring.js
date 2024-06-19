@@ -63,8 +63,8 @@ function setupSceneButtons() {
         { id: 'Pear', url: 'https://prod.spline.design/s11be4rxx-39bLiO/scene.splinecode' },
         { id: 'Oval', url: 'https://prod.spline.design/zHLFkybCIJXBtULS/scene.splinecode' },
         { id: 'Emerald', url: 'https://prod.spline.design/eLP9bMxlaJtnPp9A/scene.splinecode' },
-        { id: 'Cushion', url: '' },
-        { id: 'Asscher', url: '' }
+        { id: 'Cushion', url: 'https://prod.spline.design/j6ZZfmBxBdlxl0TB/scene.splinecode' },
+        { id: 'Asscher', url: 'https://prod.spline.design/h7mweeIJpVWR4WRf/scene.splinecode' }
     ];
 
     sceneButtons.forEach(button => {
