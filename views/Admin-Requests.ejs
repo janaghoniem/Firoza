@@ -21,6 +21,99 @@
     <!-- <script src="/Javascript/Requests.js"></script> -->
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <title>Layout</title>
+    <script>
+
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     // Function to disable buttons based on request approvement
+        //     const disableButtonsBasedOnApprovement = () => {
+        //         document.querySelectorAll('.accept-btn').forEach(button => {
+        //             const requestId = button.getAttribute('data-id');
+        //             const requestApprovement = document.querySelector(`#approvement-${requestId}`).innerText.trim();
+
+        //             if (requestApprovement !== 'null') {
+        //                 button.disabled = true; // Disable accept button
+        //                 button.nextElementSibling.disabled = true; // Disable reject button
+        //             }
+        //         });
+
+        //         document.querySelectorAll('.reject-btn').forEach(button => {
+        //             const requestId = button.getAttribute('data-id');
+        //             const requestApprovement = document.querySelector(`#approvement-${requestId}`).innerText.trim();
+
+        //             if (requestApprovement !== 'null') {
+        //                 button.disabled = true; // Disable reject button
+        //                 button.previousElementSibling.disabled = true; // Disable accept button
+        //             }
+        //         });
+        //     };
+
+        // });
+        // Call the function to disable buttons initially
+        // disableButtonsBasedOnApprovement();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.accept-btn').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const requestId = button.getAttribute('data-id');
+                    console.log(`Accept button clicked for request ID: ${requestId}`);
+                    try {
+                        const response = await fetch(`/admin/acceptRequest/${requestId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+
+                        });
+                        if (response.ok) {
+                            console.log('Request accepted successfully');
+                            alert('Request accepted successfully');
+                            button.disabled = true; // Disable the button after successful accept
+                            button.nextElementSibling.disabled = true;
+                           window.reload(); // Reload the page to see the changes
+                        } else {
+                            console.error('Failed to accept request');
+                            alert('Failed to accept request');
+                        }
+                    } catch (error) {
+                        console.error('Error accepting request:', error);
+                        alert('Error accepting request');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.reject-btn').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const requestId = button.getAttribute('data-id');
+                    console.log(`Reject button clicked for request ID: ${requestId}`);
+                    try {
+                        const response = await fetch(`/admin/rejectRequest/${requestId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+
+                        });
+                        if (response.ok) {
+                            console.log('Request rejected successfully');
+                            alert('Request rejected successfully');
+                            button.disabled = true; // Disable the button after successful accept
+                            button.nextElementSibling.disabled = true;
+                            window.reload(); // Reload the page to see the changes
+                        } else {
+                            console.error('Failed to reject request');
+                            alert('Failed to reject request');
+                        }
+                    } catch (error) {
+                        console.error('Error rejecting request:', error);
+                        alert('Error rejecting request');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
 </head>
 
 <body>
@@ -54,46 +147,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% requests.forEach(request => { %>
-                        <tr scope="row" class="">
-                            <td>
-                                <label class="control control--checkbox">
-                                    <!-- <input type="checkbox" />
+                        <% requests.forEach(request=> { %>
+                            <tr scope="row" class="">
+                                <td>
+                                    <label class="control control--checkbox">
+                                        <!-- <input type="checkbox" />
                                     <div class="control__indicator"></div> -->
-                                </label>
-                            </td>
-                            <td>
-                                <%= request._id %>
-                            </td>
-                            <td class="pl-0">
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="name">
-                                        <span class="editable" contenteditable="false" data-field="type"><%= request.type %></span>
-                                    </a>
-                                </div>
-                            </td>
-                            <td>
-                                <small class="d-block editable" contenteditable="false" data-field="reason"><%= request.reason %></small>
-                            </td>
-                            <td>
-                                <small class="d-block editable" contenteditable="false" data-field="approvement"><%= request.approvement ? 'Approved' : 'Pending' %></small>
-                            </td>
-                            <td><button class="accept-btn btn btn-success" data-id="<%= request._id %>">Accept</button></td>
-                            <td><button class="reject-btn btn btn-danger" data-id="<%= request._id %>">Reject</button></td>
-                            <td>
-                                <label class="custom-control ios-switch">
-                                    <input type="checkbox" class="ios-switch-control-input" checked="">
-                                    <span class="ios-switch-control-indicator"></span>
-                                </label>
-                            </td>
-                        </tr>
-                        <% }) %>
+                                    </label>
+                                </td>
+                                <td>
+                                    <%= request._id %>
+                                </td>
+                                <td class="pl-0">
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="name">
+                                            <span class="editable" contenteditable="false" data-field="type">
+                                                <%= request.type %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small class="d-block editable" contenteditable="false" data-field="reason">
+                                        <%= request.reason %>
+                                    </small>
+                                </td>
+                                <td>
+                                    <% if (request.approvement===null) { %>
+                                        <small class="d-block text-muted">No response</small>
+                                        <% } else if (request.approvement===true) { %>
+                                            <small class="d-block text-success">Accepted</small>
+                                            <% } else { %>
+                                                <small class="d-block text-danger">Rejected</small>
+                                                <% } %>
+                                </td>
+                                <td><button class="accept-btn btn btn-success"
+                                        data-id="<%= request._id %>">Accept</button></td>
+                                <td><button class="reject-btn btn btn-danger"
+                                        data-id="<%= request._id %>">Reject</button></td>
+                                <td>
+                                    <label class="custom-control ios-switch">
+                                        <input type="checkbox" class="ios-switch-control-input" checked="">
+                                        <span class="ios-switch-control-indicator"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <% }) %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
 
 
 
@@ -104,63 +209,6 @@
     <script src="js/main.js"></script>
     <!-- <script src="/Javascript/Requests.js"></script> -->
 </body>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.accept-btn').forEach(button => {
-        button.addEventListener('click', async () => {
-            const requestId = button.getAttribute('data-id');
-            console.log(`Accept button clicked for request ID: ${requestId}`);
-            try {
-                const response = await fetch(`/admin/acceptRequest/${requestId}`, {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                },
-         
-                });
-                if (response.ok) {
-                    console.log('Request accepted successfully');
-                    alert('Request accepted successfully');
-                    location.reload(); // Reload the page to see the changes
-                } else {
-                    console.error('Failed to accept request');
-                    alert('Failed to accept request');
-                }
-            } catch (error) {
-                console.error('Error accepting request:', error);
-                alert('Error accepting request');
-            }
-        });
-    });
-
-    document.querySelectorAll('.reject-btn').forEach(button => {
-        button.addEventListener('click', async () => {
-            const requestId = button.getAttribute('data-id');
-            console.log(`Reject button clicked for request ID: ${requestId}`);
-            try {
-                const response = await fetch(`/admin/rejectRequest/${requestId}`, {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                },
-            
-                });
-                if (response.ok) {
-                    console.log('Request rejected successfully');
-                    alert('Request rejected successfully');
-                    location.reload(); // Reload the page to see the changes
-                } else {
-                    console.error('Failed to reject request');
-                    alert('Failed to reject request');
-                }
-            } catch (error) {
-                console.error('Error rejecting request:', error);
-                alert('Error rejecting request');
-            }
-        });
-    });
-});
 
 
-</script>
 </html>
