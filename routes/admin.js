@@ -140,9 +140,11 @@ router.get('/AddCollection', (req, res) => {
     res.render("AddCollection.ejs");
 });
 
+
 router.get('/EditCollection', (req, res) => {
     res.render("EditCollection.ejs");
 });
+
 
 router.get('/AddProduct', (req, res) => {
     res.render("addProduct.ejs");

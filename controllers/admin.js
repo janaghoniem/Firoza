@@ -72,7 +72,7 @@ const addCollection = async (req, res) => {
         // Save the collection to the database
         await newCollection.save();
 
-        res.status(201).send('<script>alert("Collection added successfully"); window.location.href = "/path-to-your-redirect-page";</script>');
+        res.status(201).send('<script>alert("Collection added successfully"); window.location.href = "/admin/Dashboard";</script>');
     } catch (error) {
         console.error(error);
         res.status(500).send(`<script>alert("An error occurred: ${error.message}"); window.history.back();</script>`);
