@@ -1280,5 +1280,7 @@ ul.icons.alt li a.icon:hover:before {
     #main {
         width: 100%;
     }
-
+    img{
+        width: 200px;
+    }
 }
