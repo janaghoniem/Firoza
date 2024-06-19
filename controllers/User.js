@@ -5,6 +5,7 @@ const Orderr= require('../models/Orders');
 const collections= require('../models/Collections');
 const reviews= require('../models/reviews');
 const Request=require('../models/Requests');
+const QuizResult = require('../models/Quiz'); 
 
 
 async function getIndianProducts(req, res) {
@@ -34,6 +35,43 @@ async function getIndianProducts(req, res) {
         res.status(500).send('Internal Server Error');
     }
 }
+const renderQuizPage = (req, res) => {
+    res.render('quiz.ejs'); // Render the quiz page (ensure you have a quiz.ejs or equivalent template)
+};
+
+const storeQuizResults = async (req, res) => {
+    try {
+        console.log('Request body:', req.body); // Log request body for debugging
+
+        const { answers, result } = req.body;
+
+        if (!answers || !result) {
+            console.log('Missing answers or result'); // Log missing data
+            return res.status(400).json({ message: 'Answers and result are required.' });
+        }
+
+        if (!req.session.user) {
+            console.log('User not logged in'); // Log user not logged in
+            return res.status(200).json({ message: 'Quiz completed, but results not stored as user is not logged in.' });
+        }
+
+        const userId = req.session.user._id;
+
+        console.log('Creating new quiz result with userId:', userId); // Log userId
+        const quizResult = new QuizResult({
+            userId: userId,
+            answers: answers,
+            result: result
+        });
+
+        await quizResult.save();
+
+        res.status(200).json({ message: 'Quiz results stored successfully.' });
+    } catch (error) {
+        console.error('Error storing quiz results:', error); // Log error
+        res.status(500).json({ message: 'An error occurred while storing quiz results.', error: error.message });
+    }
+};
 
 const GetUser = async (req, res) => {
     console.log('Entered GetUser function');
@@ -1022,5 +1060,7 @@ module.exports = {
     logout,
     getcontactus,
     getcontactusform,
-    addRequest
+    addRequest,
+    storeQuizResults,
+    renderQuizPage
 };

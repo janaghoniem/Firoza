@@ -15,26 +15,27 @@
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
 
-    <div class="container" id="container">
-        <div class="form-container sign-up"></div>
-        <div class="form-container sign-in">
+        <div class="container" id="container">
+
             <form action="/admin/addProduct" method="POST">
                 <h1>Add product</h1>
                 <span>All fields is a must to fill</span>
-                <input type="text" name="name" placeholder="Name Product"  required>
+                <input type="text" name="name" placeholder="Name Product" required>
                 <input type="number" name="price" placeholder="Price" min="1000" required>
                 <select name="collection_id" id="Collections" required>
                     <option value="0">none</option>
 
                     <% collections.forEach(function(collection) { %>
-                        <option value="<%= collection.Collection_Name %>"><%= collection.Collection_Name %></option>
-                    <% }); %>
-                    
+                        <option value="<%= collection.Collection_Name %>">
+                            <%= collection.Collection_Name %>
+                        </option>
+                        <% }); %>
+
                 </select>
                 <select name="category" id="Category" required>
                     <option value="" disabled selected>Category</option>
                     <option value="Ring">Ring</option>
-                    <option value="Necklace">Necklace</option>
+                    <option value="Necklace">Necklaces</option>
                     <option value="Earrings">Earrings</option>
                     <option value="Earrings">Bracelet</option>
 
@@ -67,73 +68,75 @@
                 <h6 class="s"></h6>
                 <span class="sure"></span>
                 <button type="submit" id="submitButton">Sure</button>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h3 class="picture-validation"></h3>
-                    <div id="preview" class="image-container"></div>
-                    <button class="hidden" id="login">Continue Editing</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <input type="text" name="description" placeholder="Product Description" required>
-                    <div id="sizes-container">
-                        <div class="size-quantity-pair">
-                            <select name="sizes[]" class="size-select" required>
-                                <option value="0">standard</option>
-                            </select>
-                            <input type="number" name="quantities[]" placeholder="Quantity" min="0" required>
-                        </div>
+
+                <div class="toggley">
+                    <div class="toggle-paneli toggle-lefty">
+                        <h3 class="picture-validation"></h3>
+                        <div id="preview" class="image-container"></div>
+                        <button class="hidden" id="login">Continue Editing</button>
                     </div>
-                    <select name="material" id="Material" required>
-                        <option value="" disabled selected>Material</option>
-                        <option value="Gold">Gold</option>
-                        <option value="Silver">Silver</option>
-                        <option value="Platinum">Platinum</option>
-                        <option value="Titanium">Titanium</option>
-                    </select>
-                    <select name="color" id="Color" required>
-                        <option value="" disabled selected>Color</option>
-                        <option value="Red">Red</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Green">Green</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Black">Black</option>
-                        <option value="White">White</option>
-                        <option value="Multi">Multicolor</option>
+                    <div class="toggle-paneli toggle-righty">
+                        <input type="text" name="description" placeholder="Product Description" required>
+                        <div id="sizes-container">
+                            <div class="size-quantity-pair">
+                                <select name="sizes[]" class="size-select" style="display: none;">
+                                    <option value="0">standard</option>
+                                </select>
+                                <input type="number" name="quantities[]" placeholder="Quantity" min="0" required>
+                            </div>
+                        </div>
+                        <select name="material" id="Material" required>
+                            <option value="" disabled selected>Material</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Platinum">Platinum</option>
+                            <option value="Titanium">Titanium</option>
+                        </select>
+                        <select name="color" id="Color" required>
+                            <option value="" disabled selected>Color</option>
+                            <option value="Red">Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Green">Green</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Black">Black</option>
+                            <option value="White">White</option>
+                            <option value="Multi">Multicolor</option>
 
-                    </select>
-                    <button type="submit" id="submitButton">Save</button>
-                </div>
-            </div>
+                        </select>
+                        <button type="submit" id="submitButton">Save</button>
+
+
+                    </div>
+
+
             </form>
+
         </div>
-    </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-    const submitButton = document.getElementById('submitButton');
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const submitButton = document.getElementById('submitButton');
 
-    submitButton.addEventListener('click', function(event) {
-        const inputField = document.querySelector('input[name="name"]');
-        const numberField = document.querySelector('input[name="price"]');
-        const categories = document.getElementById('Category');
-        const collections = document.getElementById('Collections');
-        
-        const sureMessage = document.querySelector('.sure');
-        
-        if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
-            event.preventDefault(); // Prevent form submission
-            sureMessage.innerHTML = "Please fill all required fields.";
-        }
-    });
-});
+                submitButton.addEventListener('click', function (event) {
+                    const inputField = document.querySelector('input[name="name"]');
+                    const numberField = document.querySelector('input[name="price"]');
+                    const categories = document.getElementById('Category');
+                    const collections = document.getElementById('Collections');
 
-function addSizeQuantityPair() {
-    const container = document.getElementById('sizes-container');
-    const pairDiv = document.createElement('div');
-    pairDiv.className = 'size-quantity-pair';
-    pairDiv.innerHTML = `
+                    const sureMessage = document.querySelector('.sure');
+
+                    if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
+                        event.preventDefault(); // Prevent form submission
+                        sureMessage.innerHTML = "Please fill all required fields.";
+                    }
+                });
+            });
+
+            function addSizeQuantityPair() {
+                const container = document.getElementById('sizes-container');
+                const pairDiv = document.createElement('div');
+                pairDiv.className = 'size-quantity-pair';
+                pairDiv.innerHTML = `
         <select name="sizes[]" class="size-select" required>
             <option value="" disabled selected>Size</option>
             <option value="9">9</option>
@@ -143,72 +146,72 @@ function addSizeQuantityPair() {
         </select>
         <input type="number" name="quantities[]" placeholder="Quantity" min="1" required>
     `;
-    container.appendChild(pairDiv);
+                container.appendChild(pairDiv);
 
-    // Update the count and check if button should be disabled
-    updateAddButtonState();
-}
-
-let Count = 0;
-
-function updateAddButtonState() {
-    Count++;
-    if (Count === 3) {
-        const addButton = document.getElementById('addB');
-        addButton.disabled = true;
-    }
-}
-
-// Add event listener to the button
-document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('addButton');
-    addButton.addEventListener('click', addSizeQuantityPair);
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('addButton');
-    addButton.addEventListener('click', addSizeQuantityPair);
- });
-//function previewImage(event) {
-//     const files = event.target.files; // Get all selected files
-//     const imagePreview = document.getElementById('imagePreview');
-//     imagePreview.innerHTML = ''; // Clear previous previews
-
-//     // Loop through all selected files
-//     for (let i = 0; i < files.length; i++) {
-//         const file = files[i];
-//         const reader = new FileReader();
-
-//         // Closure to capture the file information
-//         reader.onload = (function(file) {
-//             return function(event) {
-//                 // Create HTML elements to display the preview
-//                 const imgElement = document.createElement('img');
-//                 imgElement.src = event.target.result;
-//                 imgElement.alt = 'Preview Image';
-//                 imgElement.style.maxWidth = '100%';
-//                 imgElement.style.height = 'auto';
-                
-//                 // Append the image element to the preview container
-//                 imagePreview.appendChild(imgElement);
-//             };
-//         })(file);
-
-//         // Read in the image file as a data URL
-//         reader.readAsDataURL(file);
-//     }
-// }
-function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.innerHTML = `<img src="${event.target.result}" alt="Preview Image" style="max-width: 100%; height: auto;">`;
+                // Update the count and check if button should be disabled
+                updateAddButtonState();
             }
 
-            reader.readAsDataURL(file);
-        }
-    </script>
+            let Count = 0;
+
+            function updateAddButtonState() {
+                Count++;
+                if (Count === 3) {
+                    const addButton = document.getElementById('addB');
+                    addButton.disabled = true;
+                }
+            }
+
+            // Add event listener to the button
+            document.addEventListener('DOMContentLoaded', () => {
+                const addButton = document.getElementById('addButton');
+                addButton.addEventListener('click', addSizeQuantityPair);
+            });
+            document.addEventListener('DOMContentLoaded', () => {
+                const addButton = document.getElementById('addButton');
+                addButton.addEventListener('click', addSizeQuantityPair);
+            });
+            //function previewImage(event) {
+            //     const files = event.target.files; // Get all selected files
+            //     const imagePreview = document.getElementById('imagePreview');
+            //     imagePreview.innerHTML = ''; // Clear previous previews
+
+            //     // Loop through all selected files
+            //     for (let i = 0; i < files.length; i++) {
+            //         const file = files[i];
+            //         const reader = new FileReader();
+
+            //         // Closure to capture the file information
+            //         reader.onload = (function(file) {
+            //             return function(event) {
+            //                 // Create HTML elements to display the preview
+            //                 const imgElement = document.createElement('img');
+            //                 imgElement.src = event.target.result;
+            //                 imgElement.alt = 'Preview Image';
+            //                 imgElement.style.maxWidth = '100%';
+            //                 imgElement.style.height = 'auto';
+
+            //                 // Append the image element to the preview container
+            //                 imagePreview.appendChild(imgElement);
+            //             };
+            //         })(file);
+
+            //         // Read in the image file as a data URL
+            //         reader.readAsDataURL(file);
+            //     }
+            // }
+            function previewImage(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    imagePreview.innerHTML = `<img src="${event.target.result}" alt="Preview Image" style="max-width: 100%; height: auto;">`;
+                }
+
+                reader.readAsDataURL(file);
+            }
+        </script>
 </body>
 
 </html>

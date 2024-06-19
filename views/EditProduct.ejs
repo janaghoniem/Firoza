@@ -39,7 +39,10 @@
                     <input type="file" name="img" id="uploadFile" accept="image/*" onchange="previewImage(event)" />
                 </span>
                 <!-- Image preview -->
-                <div id="imagePreview" class="image-preview"></div>
+                <div id="imagePreview" class="image-preview">
+                    <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
+
+                </div>
             </div>
             <h4 class="successful"></h4>
             <h6 class="s"></h6>
@@ -48,7 +51,7 @@
             <div id="sizes-container">
                 <% product.sizes.forEach(size => { %>
                     <div class="size-quantity-pair">
-                        <select name="sizes[]" class="size-select" required>
+                        <select name="sizes[]" class="size-select" required style="display: none;">
                             <option value="0" <%= size.size === "0" ? "selected" : "" %>>Standard</option>
                         </select>
                         <input type="number" name="quantities[]" placeholder="Quantity" min="1" value="<%= size.quantity %>" required>

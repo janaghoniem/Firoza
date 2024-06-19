@@ -56,9 +56,7 @@ app.get('/', (req, res) => {
     res.render('landing-page');
 });
 
-// app.get('/admin', (req, res) => {
-//     res.render("main.ejs");
-// });
+
 
 app.get('/Collections', async (req, res) => {
     try {

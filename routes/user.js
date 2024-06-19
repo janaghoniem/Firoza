@@ -172,4 +172,9 @@ router.get('/ContactUs',User.getcontactus);
 router.get('/contactUsform',User.getcontactusform);
 
 router.post('/submitRequest', User.addRequest);
+
+router.post('/submit-quiz', User.storeQuizResults);
+router.get('/quiz', User.renderQuizPage);
+
+
 module.exports = router;
