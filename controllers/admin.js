@@ -43,7 +43,6 @@ const addAdmin = async (req, res) => {
 
 // Function to add collection
 const addCollection = async (req, res) => {
-
     const {
         CollectionName,
         CollectionDescription,
@@ -53,16 +52,16 @@ const addCollection = async (req, res) => {
     try {
         // Validate input
         if (!CollectionName || !CollectionDescription) {
-            return res.status(400).json({ message: 'Collection name, description, required' });
+            return res.status(400).send('<script>alert("Collection name and description are required"); window.history.back();</script>');
         }
 
         // Check if the collection name already exists
         const existingCollection = await collections.findOne({ Collection_Name: CollectionName });
         if (existingCollection) {
-            return res.status(400).json({ message: 'Collection name already exists' });
+            return res.status(400).send('<script>alert("Collection name already exists"); window.history.back();</script>');
         }
 
-        // Create a new Product object based on the schema
+        // Create a new Collection object based on the schema
         const newCollection = new collections({
             Collection_Name: CollectionName,
             Collection_Description: CollectionDescription,
@@ -70,16 +69,15 @@ const addCollection = async (req, res) => {
             img
         });
 
-        // Save the product to the database
+        // Save the collection to the database
         await newCollection.save();
 
-        res.status(201).json({ message: 'Collection added successfully' });
+        res.status(201).send('<script>alert("Collection added successfully"); window.location.href = "/path-to-your-redirect-page";</script>');
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message });
+        res.status(500).send(`<script>alert("An error occurred: ${error.message}"); window.history.back();</script>`);
     }
 };
-
 
 const getCollections = async (req, res) => {
     try {

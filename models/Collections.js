@@ -7,6 +7,7 @@ const CollectionSchema = new Schema({
     Collection_Name: {
         type: String,
         unique: true, 
+        required:true
     },
     collection_id: {
         type: Object,
@@ -16,7 +17,7 @@ const CollectionSchema = new Schema({
     },
     Collection_Description: {
         type: String,
-        required: false
+        required: true
     },
     No_of_products: {
         type: Number,
@@ -29,7 +30,7 @@ const CollectionSchema = new Schema({
     },
     img: {
         type: String, // Assuming it's a URL or file path to the image
-        // required: true
+        required: true
     },
    Date: {
         type: Date,
