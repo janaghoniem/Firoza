@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // Define the schema for the 'requests' collection
 const requestSchema = new Schema({
     type: { type: String, required: true },
-    approvement: { type: Boolean, default: false },
+    approvement: { type: Boolean, default: null },
     reason: { type: String }
 });
 
