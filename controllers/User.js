@@ -3,6 +3,7 @@ const Product = require('../models/product');
 const bcrypt = require('bcrypt');
 const Orderr= require('../models/Orders');
 const collections= require('../models/Collections');
+const reviews= require('../models/reviews');
 
 
 async function getIndianProducts(req, res) {
@@ -852,12 +853,7 @@ const cancelOrder = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Order not found' });
         }
 
-        // Check if the order is in a cancellable state (e.g., pending)
-        // if (order.status !== 'pending') {
-        //     return res.status(400).json({ success: false, message: 'Order cannot be cancelled' });
-        // }
-
-        // Update the order status to 'cancelled'
+       
         order.status = 'cancelled';
         await order.save();
 
@@ -867,7 +863,51 @@ const cancelOrder = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+// const submitReview = async (req, res) => {
+//     const { orderId } = req.params;
+//     const { rating, comment } = req.body;
 
+//     try {
+//         const newReview = new reviews({
+//             order: orderId,
+//             rating: rating,
+//             comment: comment
+//         });
+
+//         await newReview.save();
+
+//         res.status(201).json({ success: true, message: 'Review submitted successfully' });
+//     } catch (error) {
+//         console.error('Error submitting review:', error);
+//         res.status(500).json({ success: false, message: 'Internal server error' });
+//     }
+// };
+
+const submitReview = async (req, res) => {
+   
+    try {
+        const { orderId } = req.params;
+        const { rating, comment } = req.body;
+        // const userId = req.user._id; 
+        const userId = await User.findById(req.session.user._id);
+    
+      
+        console.log("pppppppppppppppppppppppp");
+        const newReview = new reviews({
+            order: orderId,
+            user: userId,
+            rating: rating,
+            comment: comment
+        });
+
+        await newReview.save();
+
+        res.status(201).json({ success: true, message: 'Review submitted successfully' });
+    } catch (error) {
+        console.error('Error submitting review:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
 module.exports = {
     GetUser,
     AddUser,
@@ -889,5 +929,6 @@ module.exports = {
     getUserOrder,
     getShopAllProducts,
     getIndianProducts,
-    cancelOrder
+    cancelOrder,
+    submitReview
 };
