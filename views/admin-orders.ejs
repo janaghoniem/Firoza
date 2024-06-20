@@ -17,7 +17,8 @@
     <div class="container">
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search by email, date, or product name">
-            <button id="searchBtn">Search</button>
+            <input type="date" id="searchDate">
+            <!-- <button id="searchBtn">Search</button> -->
             <button id="resetBtn" style="margin-left: 10px;">Reset</button> <!-- Reset button added -->
             <p id="searchCount"></p>
         </div>
@@ -47,9 +48,13 @@
                     $<%= order.total_price.toFixed(2) %>
                 </div>
                 <div class="col col-4" data-label="Ordered Products">
-                    <% order.product_ids.forEach(product => { %>
-                    <p><%= product.name %> - Quantity: <%= product.quantity %></p>
-                    <% }) %>
+                    <% if (order.product_ids.length > 0) { %>
+                        <% order.product_ids.forEach(product => { %>
+                            <p><%= product.name %></p>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Unknown Product</p>
+                    <% } %>
                 </div>
                 <div class="col col-5" data-label="Status">
                     <%= order.status %>
@@ -72,42 +77,17 @@
 
         // Add event listener to search input for dynamic search
         const searchInput = document.getElementById('searchInput');
+        const searchDate = document.getElementById('searchDate'); // Reference to search date input
         const searchCount = document.getElementById('searchCount'); // Reference to search count element
         const resetBtn = document.getElementById('resetBtn'); // Reference to reset button
 
-        searchInput.addEventListener('input', async () => {
-            const query = searchInput.value.trim();
-
-            if (query.length > 0) {
-                try {
-                    // Perform search using fetch API
-                    const response = await fetch('/admin/searchOrders', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ query })
-                    });
-
-                    // Parse response and update UI with search results
-                    const { orders } = await response.json();
-                    displaySearchResults(orders);
-
-                    // Display the number of search results dynamically
-                    searchCount.textContent = `Found ${orders.length} order(s)`;
-                } catch (error) {
-                    console.error('Error searching orders:', error);
-                    alert('Failed to search orders.');
-                }
-            } else {
-                clearSearchResults();
-                searchCount.textContent = ''; // Clear search count if input is empty
-            }
-        });
+        searchInput.addEventListener('input', performSearch);
+        searchDate.addEventListener('change', performSearch);
 
         // Event listener for reset button
         resetBtn.addEventListener('click', () => {
             searchInput.value = ''; // Clear search input
+            searchDate.value = '';
             displayAllOrders(); // Display all orders
             searchCount.textContent = ''; // Clear search count
         });
@@ -140,7 +120,7 @@
                 </div>
                 <div class="col col-3" data-label="Total Amount">$${order.total_price.toFixed(2)}</div>
                 <div class="col col-4" data-label="Ordered Products">
-                    ${order.product_ids.map(product => `<p>${product.name} - Quantity: ${product.quantity}</p>`).join('')}
+                    ${order.product_ids.length > 0 ? order.product_ids.map(product => `<p>${product.name}</p>`).join('') : '<p>Unknown Product</p>'}
                 </div>
                 <div class="col col-5" data-label="Status">${order.status}</div>
                 <div class="col col-6" data-label="Ordered Date">${new Date(order.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</div>
@@ -152,6 +132,38 @@
         function clearSearchResults() {
             const orderList = document.querySelector('.responsive-table');
             orderList.innerHTML = '<li class="table-header"><div class="col col-1">Order Id</div><div class="col col-2">Customer Name</div><div class="col col-3">Total Amount</div><div class="col col-4">Ordered Products</div><div class="col col-5">Status</div><div class="col col-6">Ordered Date</div></li>';
+        }
+
+        // Function to perform search based on input and date
+        async function performSearch() {
+            const query = searchInput.value.trim();
+            const date = searchDate.value;
+
+            if (query.length > 0 || date.length > 0) {
+                try {
+                    // Perform search using fetch API
+                    const response = await fetch('/admin/searchOrders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ query, date })
+                    });
+
+                    // Parse response and update UI with search results
+                    const { orders } = await response.json();
+                    displaySearchResults(orders);
+
+                    // Display the number of search results dynamically
+                    searchCount.textContent = `Found ${orders.length} order(s)`;
+                } catch (error) {
+                    console.error('Error searching orders:', error);
+                    alert('Failed to search orders.');
+                }
+            } else {
+                clearSearchResults();
+                searchCount.textContent = ''; // Clear search count if input is empty
+            }
         }
 
         // Initialize originalOrders with current orders on page load

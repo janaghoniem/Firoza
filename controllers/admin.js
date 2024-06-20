@@ -613,14 +613,29 @@ const SearchUsers = async (req, res) => {
 
 
 const SearchOrders = async (req, res) => {
-    const { query } = req.body;
+    const { query, date } = req.body;
     try {
-        // Perform the search query
+        const searchCriteria = [];
+
+        // Add email search criteria
+        if (query) {
+            searchCriteria.push({ 'user_id.email': { $regex: query, $options: 'i' } });
+            searchCriteria.push({ 'product_ids.name': { $regex: query, $options: 'i' } });
+        }
+
+        // Add date search criteria
+        if (date) {
+            const startDate = new Date(date);
+            const endDate = new Date(date);
+            endDate.setDate(endDate.getDate() + 1);
+
+            searchCriteria.push({
+                created_at: { $gte: startDate, $lt: endDate }
+            });
+        }
+
         const orders = await Order.find({
-            $or: [
-                { 'user_id.email': { $regex: query, $options: 'i' } },
-                { 'product_ids.name': { $regex: query, $options: 'i' } }
-            ]
+            $or: searchCriteria
         }).populate('user_id').populate('product_ids');
 
         // Send the results back to the client
