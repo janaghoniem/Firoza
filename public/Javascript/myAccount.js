@@ -204,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayElements = document.querySelectorAll('.user-info-display');
     const editElements = document.querySelectorAll('.user-info-edit');
     const emailInput = document.getElementById('email-input');
+    const emailStatus = document.getElementById('email-status');
 
     editButton.addEventListener('click', () => {
         displayElements.forEach(element => {
@@ -231,20 +232,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for email input
     emailInput.addEventListener('input', async function() {
-        alert('email input')
-        const emailValue = this.value;
-        const userId = '<%= userInfo._id %>'; // Pass the userId from the server
+        const email = this.value;
 
-        if(isValidEmail(email.Value.trim())){
+        if(isValidEmail(email.trim())){
 
             const response = await fetch('/user/check-email-update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ emailValue, userId })
+                body: JSON.stringify({ emailValue: email })
             });
 
+            
             const data = await response.json();
 
             if (data.available) {
@@ -257,11 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailInput.style.borderColor = 'red';
             }
         }
+        else {
+            emailStatus.textContent = 'Invalid Email Address.';
+            emailStatus.style.color = 'red';
+            emailInput.style.borderColor = 'red';
+        }
     });
 
     // Event listener for save button
     saveButton.addEventListener('click', async () => {
-        alert('save entered')
         const firstname = document.querySelector('input[name="firstname"]').value;
         const lastname = document.querySelector('input[name="lastname"]').value;
         const email = emailInput.value;
@@ -272,35 +276,31 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ emailValue: email, userId: '<%= userInfo._id %>' })
+            body: JSON.stringify({ emailValue: email })
         });
 
-        alert('fetch done')
+        
         const data = await response.json();
 
         if (data.available) {
             const updatedInfo = { firstname, lastname, email };
-            alert('data available');
+            
             // Send the updated data to the server
-            fetch('/user/myAccount/Edit-Personal-information', {
+            const response = await fetch('/user/myAccount/Edit-Personal-information', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(updatedInfo)
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showPopup('User information updated successfully');
-                    location.reload(); // Refresh the page to show updated info
-                } else {
-                    showErrorPopup('Error updating user information');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            
+            if (!response.ok) {
+                showErrorPopup('Error updating user information');
+                return;
+            } 
+            
+            location.reload(); 
+            showPopup('User information updated successfully');
         } else {
             alert('not available')
             emailStatus.textContent = 'Email is already taken.';

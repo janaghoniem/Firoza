@@ -222,11 +222,21 @@ const AddUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { firstname, lastname, email } = req.body;
-        const userId = req.user.id; // Make sure req.user.id is set correctly
+        const userId = req.session.user._id;
 
-        const updatedInfo = { firstname, lastname, email };
 
-        const updatedUser = await User.findByIdAndUpdate(userId, updatedInfo, { new: true });
+        // Only set the fields that are provided in the request
+        const updatedInfo = {};
+        if (firstname) updatedInfo.firstname = firstname.trim();
+        if (lastname) updatedInfo.lastname = lastname.trim();
+        if (email) updatedInfo.email = email.trim();
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: updatedInfo },
+            { new: true }
+        );
+
         console.log('User updated.');
         res.sendStatus(200);
     } catch (error) {
@@ -237,13 +247,10 @@ const updateUser = async (req, res) => {
 
 const checkUpdateEmailAvailibility = async (req, res) => {
     console.log('check update email availability.')
-    const { emailValue, userId } = req.body;
+    const { emailValue } = req.body;
     try {
         const user = await User.findOne({ email: emailValue });
-        console.log(emailValue);
-        console.log(user.email);
-        const available = (!user || user._id.toString() === userId);
-        console.log(!user || user._id.toString() === userId.toString())
+        const available = (!user ||  user._id.toString() === req.session.user._id);
         res.json({ available });
     } catch (error) {
         console.error('Error checking email availability:', error);

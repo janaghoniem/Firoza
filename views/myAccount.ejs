@@ -37,8 +37,11 @@
                         </h4>
                         <h4>Email Address: 
                             <span class="user-info-display"><%= userInfo.email %></span>
-                            <input class="user-info-edit" type="email" name="email" id="email-input" value="<%= userInfo.email %>" style="display: none;">
-                            <span id="email-status"></span>
+                            <div>
+                                <input class="user-info-edit" type="email" name="email" id="email-input" value="<%= userInfo.email %>" style="display: none;">
+                                <h6 id="email-status" style="font-weight: 400; margin-left: 1px;"></h6>
+                            </div>
+                            
                         </h4>
                     </div>
                     <div class="info-buttons">
