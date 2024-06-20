@@ -305,13 +305,7 @@ body {
 }
 
 
-.product-grid .product-image .img-1 {
-    transition: all 0.3s ease 0s;
-}
 
-.product-grid:hover .product-image .img-1 {
-    opacity: 0;
-}
 
 .product-grid .product-image .img-2 {
     width: 100%;
