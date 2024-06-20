@@ -67,6 +67,20 @@ function showErrorPopup(message) {
     }, 3000); // Adjust timing as needed
 }
 
+function showErrorPopup(message) {
+    const popup = document.getElementById('login-message-error-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
+}
+
 async function addToCart(productId, price) {
     try {
         const response = await fetch('/user/add-to-cart', {
@@ -86,6 +100,26 @@ async function addToCart(productId, price) {
 
     } catch (error) {
         showErrorPopup('Failed to add product to cart');
+    }
+}
+
+async function addToWishlist(productId) {
+    try {
+        const response = await fetch('/user/wishlist/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            showPopup('Product added to wishlist successfully!');
+        } else {
+            showErrorPopup('Failed to add product to wishlist. Please try again later.');
+        }
+    } catch (error) {
+        console.error('Error adding to wishlist:', error);
     }
 }
 
@@ -204,7 +238,7 @@ function updateProductList(products) {
                             ${soldOutLabel}
                         </a>
                         <ul class="product-links">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#" onclick="addToWishlist('${product._id}')"><i class="fa fa-heart"></i></a></li>
                             <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
@@ -222,10 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
     
-    if (category) {
-        applyCategoryFilter(category);
-    }
-
     document.querySelectorAll('.headyy a').forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -238,9 +268,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    
+    if (category) {
+        applyCategoryFilter(category);
+        const selected = document.querySelector(`.headyy a[data-category="${category}"]`);
+        if (selected) {
+            selected.click();
+        }
+    }
+
     document.getElementById('sort').addEventListener('change', applyFilters);
     document.getElementById('toggle').addEventListener('change', applyFilters);
-    fetchDefaultProducts();
+    if(!category) {
+        fetchDefaultProducts();
+    }
 });
 
 function applyCategoryFilter(category) {

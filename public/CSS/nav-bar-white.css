@@ -704,6 +704,7 @@ header #search-button, #search-button2{
     font-size: medium;
     text-transform: uppercase;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .login-message-popup i {

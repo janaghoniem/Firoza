@@ -139,18 +139,18 @@ async function logout() {
 
         if (response.ok) {
            
-            alert('Logged out successfully');
-            showPopup('Logout successful');
+            // alert('Logged out successfully');
+            showPopup('Logged out successfully.');
             setTimeout(() => {
                 window.location.href = '/'; 
             }, 2000);
           
         
         } else {
-            alert('Failed to log out');
+            showErrorPopup('Failed to log out. Please try again later.');
         }
     } catch (error) {
         console.error('Error during logout:', error);
-        alert('Error during logout');
+        showErrorPopup('An error occurred while logging out. Please try again later.');
     }
 }

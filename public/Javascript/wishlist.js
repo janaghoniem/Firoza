@@ -46,7 +46,10 @@ async function addToCart(productId, price) {
             body: JSON.stringify({ productId, price })
         });
 
-        if (response.ok) {
+        const data = await response.json();
+        alert('Response:', data.body);
+
+        if (response.ok) { 
             removeFromWishlist(productId);
             showPopup('Product added to cart successfully!');
         } else {
