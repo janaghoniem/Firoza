@@ -58,6 +58,13 @@ app.get('/', (req, res) => {
 
 
 
+
+
+// app.get('/admin', (req, res) => {
+//     res.render("main.ejs");
+// });
+
+
 app.get('/Collections', async (req, res) => {
     try {
         const allCollections = await collectiona.find({});
