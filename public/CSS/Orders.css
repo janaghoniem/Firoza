@@ -166,3 +166,37 @@ h2 {
         padding: 5px 0;
     }
 }
+
+.search-bar {
+    display: flex;
+    justify-content: center; /* Center align the search bar */
+    margin-bottom: 20px;
+  }
+
+  #searchInput {
+    width: 40%; /* Increase the width of the search input */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px; /* Add margin to the right of the input */
+  }
+
+  #searchBtn, #resetBtn {
+    padding: 10px 20px; /* Add padding for better spacing */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #resetBtn {
+    background-color: #ae2920; /* Red background for reset button */
+    color: white;
+  }
+
+  #searchCount {
+    margin-left: 20px;
+    font-size: 16px;
+    align-self: center; /* Align the search count vertically */
+  }

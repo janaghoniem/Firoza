@@ -614,18 +614,21 @@ const SearchUsers = async (req, res) => {
 
 const SearchOrders = async (req, res) => {
     const { query } = req.body;
-  try {
-    // Perform the search query
-    const orders = await Order.find({
-      'user_id.email': { $regex: query, $options: 'i' }
-    }).populate('user_id').populate('product_ids');
+    try {
+        // Perform the search query
+        const orders = await Order.find({
+            $or: [
+                { 'user_id.email': { $regex: query, $options: 'i' } },
+                { 'product_ids.name': { $regex: query, $options: 'i' } }
+            ]
+        }).populate('user_id').populate('product_ids');
 
-    // Send the results back to the client
-    res.json({ orders });
-  } catch (error) {
-    console.error('Error searching orders:', error);
-    res.status(500).send('Server Error');
-  }
+        // Send the results back to the client
+        res.json({ orders });
+    } catch (error) {
+        console.error('Error searching orders:', error);
+        res.status(500).send('Server Error');
+    }
 };
 module.exports = {
     addAdmin,
