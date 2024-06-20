@@ -11,12 +11,18 @@ document.getElementById('addAdminForm').addEventListener('submit', async functio
     if (firstName === "") {
         isValid = false;
         alert("First Name is required.");
+    } else if (!isValidName(firstName)) {
+        isValid = false;
+        alert("First Name should contain only letters.");
     }
 
     // Validate last name
     if (lastName === "") {
         isValid = false;
-        alert("Last Name is zeft required.");
+        alert("Last Name is required.");
+    } else if (!isValidName(lastName)) {
+        isValid = false;
+        alert("Last Name should contain only letters.");
     }
 
     // Validate email
@@ -73,6 +79,11 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+function isValidName(name) {
+    // Regular expression to match only letters (a-z, A-Z)
+    const re = /^[a-zA-Z]+$/;
+    return re.test(name);
+}
 async function checkEmailAvailability(email) {
     try {
         const response = await fetch('/admin/checkAddress', {
