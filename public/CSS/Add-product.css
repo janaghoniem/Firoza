@@ -28,6 +28,7 @@ body {
     /* overflow: hidden; */
     width: 1050px;
     height: 10000px;
+    padding: 100px;
 }
 
 .container p {
@@ -42,14 +43,14 @@ body {
 }
 
 .container a {
-    color: #333;
+    color: black;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
 
 .container button {
-    background-color: #BCA18A;
+    background-color: black;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
