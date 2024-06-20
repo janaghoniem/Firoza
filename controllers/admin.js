@@ -612,41 +612,21 @@ const SearchUsers = async (req, res) => {
 };
 
 
-
-
 const SearchOrders = async (req, res) => {
     const { query } = req.body;
+  try {
+    // Perform the search query
+    const orders = await Order.find({
+      'user_id.email': { $regex: query, $options: 'i' }
+    }).populate('user_id').populate('product_ids');
 
-    if (!query) {
-        return res.status(400).json({ error: 'Query is required' });
-    }
-
-    try {
-        const regex = new RegExp(query, 'i'); // Case-insensitive search
-        const products = await Product.find({
-            $or: [
-                { product_id: regex },
-                { name: regex },
-                { material: regex },
-                { description: regex },
-                { category: regex },
-                { color: regex }
-            ]
-        }).limit(9); // Limit results to 10 for performance
-
-        // let didYouMean = [];
-        // if (products.length === 0) {
-        //     didYouMean = spellcheck.getCorrections(query, 1);
-        // }
-
-        res.status(200).json({ products });
-
-    } catch (error) {
-        console.error('Error during search:', error);
-        res.status(500).json({ error: 'Failed to search products' });
-    }
-}
-
+    // Send the results back to the client
+    res.json({ orders });
+  } catch (error) {
+    console.error('Error searching orders:', error);
+    res.status(500).send('Server Error');
+  }
+};
 module.exports = {
     addAdmin,
     addCollection,

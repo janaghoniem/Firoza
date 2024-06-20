@@ -181,5 +181,5 @@ router.post('/checkAddress', adminController.admincheckaddress);
 router.delete('/deleteUser/:id', adminController.deleteUser);
 
 router.post('/searchUsers',adminController.SearchUsers);
-
+router.post('/searchOrders', adminController.SearchOrders);
 module.exports = router;
