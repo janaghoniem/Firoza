@@ -186,7 +186,6 @@ router.get('/customize', (req, res) => {
 router.post('/submitRequest', User.addRequest);
 
 
-<<<<<<< Updated upstream
 router.post('/submit-quiz', async (req, res) => {
     const { answers, result } = req.body;
     try {
@@ -206,10 +205,9 @@ router.post('/submit-quiz', async (req, res) => {
     }
 });
 
-=======
+
 router.post('/submit-quiz', User.storeQuizResults);
     
->>>>>>> Stashed changes
 router.get('/quiz', User.renderQuizPage);
 
 router.get('/Collections', User.getCollectionPage);
