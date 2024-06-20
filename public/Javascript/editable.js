@@ -110,14 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                  
                         console.log('collection deleted successfully');
                         alert('Collection deleted successfully');
                         location.reload();
-                    } else {
-                        console.error('Failed to delete collection');
-                        alert('Failed to delete collection');
-                    }
+                   
+                        // console.error('Failed to delete collection');
+                        // alert('Failed to delete collection');
+                    
                 })
                 .catch((error) => {
                     console.error('Error:', error);
