@@ -300,7 +300,7 @@ const addProduct = async (req, res) => {
         }));
 
         // Create an array of images
-        const images = [img, img2, img3, img4, img5].filter(Boolean); // Filter out undefined or null values
+        const images = [ img2, img3, img4, img5].filter(Boolean); // Filter out undefined or null values
 
         // Create a new Product object based on the schema
         const newProduct = new Product({
@@ -516,7 +516,6 @@ const editProduct = async (req, res) => {
 
         // Handle additional images
         const images = [
-            updatedData.img,
             updatedData.img2,
             updatedData.img3,
             updatedData.img4,
