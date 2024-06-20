@@ -127,6 +127,9 @@ router.post('/check-email-update', User.checkUpdateEmailAvailibility);
 
 router.delete('/cancel-order/:orderId', User.cancelOrder);
 
+//router.get('/products/:productId/reviews', User.getReviewsByProductId);
+
+router.get('/product/:productId', User.getProductDetails);
 
 const getCollectionProducts = async (req, res) => {
     const collectionId = req.params.collectionId;
@@ -188,7 +191,7 @@ router.get('/quiz', User.renderQuizPage);
 
 
 
-router.get('/product/:productId', User.getProductDetails);
+
 
 
 

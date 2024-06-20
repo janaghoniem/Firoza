@@ -68,29 +68,35 @@
         <div class="lower-half-prod">
             <h3>Reviews</h3>
             <hr class="details-divider">
-            <div class="review-box" id="reviews">
-                <div class="review-left">
-                    <div class="review-header">
-                        <div class="review-avatar">
-                            <i class="fa-regular fa-circle-user"></i>
-                        </div>
-                        <div class="review-info">
-                            <p class="reviewer-name">Hala Elaby</p>
-                            <p class="review-date">2 days ago</p>
+            <div id="reviews">
+                <% reviews.forEach(review => { %>
+                    <div class="review-box">
+                        <div class="review-left">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <i class="fa-regular fa-circle-user"></i>
+                                </div>
+                                <div class="review-info">
+                                    <p class="reviewer-name"><%= review.user.firstname %> <%= review.user.lastname %></p>
+                                    <p class="review-date"><%= new Date(review.created_at).toLocaleDateString() %></p>
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <div class="review-rating">
+                                    <% for (let i = 0; i < review.rating; i++) { %>
+                                        <span class="star filled">&#9733;</span>
+                                    <% } %>
+                                    <% for (let i = review.rating; i < 5; i++) { %>
+                                        <span class="star">&#9733;</span>
+                                    <% } %>
+                                </div>
+                                <p class="review-text"><%= review.comment %></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="review-content">
-                        <div class="review-rating">
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                            <span class="star">&#9733;</span>
-                        </div>
-                        <p class="review-text">Very Good product</p>
-                    </div>
-                </div>
-            </div>
-            <hr class="details-divider">
+                    <hr class="details-divider">
+                <% }) %>
+        </div>
         </div>
     </div>
 
@@ -110,5 +116,6 @@
     </script> -->
 
     <script src="/Javascript/productCardDetails.js"></script>
+    <script src="/Javascript/openproduct.js"></script>
 </body>
 </html>
