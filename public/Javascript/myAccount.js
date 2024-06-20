@@ -1,3 +1,4 @@
+
 function openPopup(orderId) {
     const popup = document.getElementById("custom-popup");
     popup.style.display = "block";
@@ -114,7 +115,19 @@ async function submitReview() {
         alert('Please provide a rating and a comment');
     }
 }
-
+function showPopup(message) {
+    const popup = document.querySelector('.login-message-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 5000); // Adjust timing as needed
+}
 async function logout() {
     try {
         const response = await fetch('/user/logout', {
@@ -125,8 +138,14 @@ async function logout() {
         });
 
         if (response.ok) {
+           
             alert('Logged out successfully');
-            window.location.href = '/'; // Redirect to the login page or home page
+            showPopup('Logout successful');
+            setTimeout(() => {
+                window.location.href = '/'; 
+            }, 2000);
+          
+        
         } else {
             alert('Failed to log out');
         }
