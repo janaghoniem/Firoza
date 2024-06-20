@@ -6,6 +6,7 @@ const Collection =  require('../models/Collections');
 const Product = require('../models/product');
 
 const restrictedPaths = [
+    '/myAccount',
     '/Checkout'
 ];
 
@@ -53,29 +54,22 @@ router.post('/checkLoggedIn', User.checkLoggedIn);
 router.post('/search', User.Search);
 
 
-// Handle POST request for add to cart
+// CART
 router.post('/add-to-cart', User.AddToCart)
-
-// Handle POST request for cart
 router.get('/ShoppingCart', User.Cart);
-
-
-router.post('/add-to-cart', User.AddToCart);
 router.post('/ShoppingCart', User.Cart);
-
 router.put('/updateCart', User.updateCart);
 router.put('/updateCartPrice', User.updateCartPrice);
 router.delete('/remove-from-cart/:productId', User.removeFromCart);
+
+// CHECKOUT
+router.post('/Billing-Information', User.BillingInformation);
 router.post('/checkout', User.Checkout);
 
 
-// Get wishlist
+// WISHLIST
 router.get('/wishlist', User.getWishlist);
-
-// Add to wishlist
 router.post('/wishlist/add', User.AddToWishlist);
-
-// Remove from wishlist
 router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
 
 
@@ -110,31 +104,22 @@ router.get('/shopAll',User.getShopAllProducts);
 router.get('/indian',User.getIndianProducts);
 
 
-router.post('/filter', User.filterProducts);
-router.get('/shopAll', User.getShopAllProducts);
+// router.get('/Checkout', async (req, res) => {
+//     try {
+//         const user = await UserSchema.findById(req.session.user._id);
 
-router.post('/Billing-Information', User.BillingInformation);
+//         if (!user) {
+//             return res.status(404).json({ error: 'User not found' });
+//         }
 
-router.get('/Checkout', async (req, res) => {
-    try {
-        const user = await UserSchema.findById(req.session.user._id);
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        res.render('Checkout', { user });
-    } catch (error) {
-        console.error('Error fetching user:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+//         res.render('Checkout', { user });
+//     } catch (error) {
+//         console.error('Error fetching user:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 router.get('/users/:id', User.getUserById);
-
-
-router.get('/myAccount', User.getUserOrder );
-
 
 router.get('/myAccount', User.getUserOrder);
 router.delete('/cancel-order/:orderId', User.cancelOrder);
