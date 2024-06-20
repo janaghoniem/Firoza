@@ -3,7 +3,7 @@ const Product = require('../models/product');
 const bcrypt = require('bcrypt');
 const Orderr = require('../models/Orders');
 const collections = require('../models/Collections');
-const reviews = require('../models/reviews');
+const Review = require('../models/reviews');
 const Request = require('../models/Requests');
 const QuizResult = require('../models/Quiz');
 
@@ -1031,7 +1031,7 @@ const submitReview = async (req, res) => {
             // Logged-in user
             const userId = await User.findById(req.session.user._id);
 
-            const newReview = new reviews({
+            const newReview = new Review({
                 prod: prodId,
                 user: userId,
                 rating: rating,
@@ -1095,17 +1095,18 @@ const addRequest = async (req, res) => {
 const getProductDetails = async (req, res) => {
     try {
         const productId = req.params.productId;
-
-        // Fetch product by ID
+        let reviews;
+        
         const product = await Product.findById(productId);
 
         if (!product) {
             return res.status(404).send('Product not found');
         }
-
+         reviews = await Review.find({ prod: productId }).populate('user');
         // Render productCardDetails.ejs with product data
         res.render('productCardDetails', {
-            product: product
+            product: product,
+            reviews: reviews
         });
     } catch (err) {
         console.error('Error fetching product details:', err);
@@ -1128,6 +1129,25 @@ const getCustomizationImage = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
+
+// const getReviewsByProductId = async (req, res) => {
+//     try {
+
+//         console.log("jjjjjjj");
+//         const { prodId } = req.params;
+//         const reviews = await reviews.find({ prod: prodId }).populate('user', 'name');
+
+//         if (!reviews) {
+//             return res.status(404).json({ success: false, message: 'No reviews found for this product' });
+//         }
+
+//         res.status(200).json({ success: true, reviews });
+//     } catch (error) {
+//         console.error('Error fetching reviews:', error);
+//         res.status(500).json({ success: false, message: 'Internal server error' });
+//     }
+// };
+
 
 module.exports = {
     GetUser,

@@ -600,7 +600,14 @@ h3 {
 .lower-half-prod {
     width: 50vw;
 }
+.star {
+    color: black; 
+    font-size: 20px; 
+}
 
+.star.filled {
+    color: gold; 
+}
 @media only screen and (max-device-width: 1240px) and (-webkit-min-device-pixel-ratio: 1) {
     .upper-half-prod {
         display: flex;
