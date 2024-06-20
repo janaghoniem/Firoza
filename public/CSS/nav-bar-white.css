@@ -67,6 +67,8 @@ header #search-button, #search-button2{
 
 .side-icon {
     display: none;
+    color: #000;
+    cursor: pointer;
     text-decoration: none;
     font-size: 20px;
     position: relative;

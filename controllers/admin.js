@@ -615,15 +615,24 @@ const SearchUsers = async (req, res) => {
 };
 
 
+
 const SearchOrders = async (req, res) => {
     const { query, date } = req.body;
-    try {
-        const searchCriteria = [];
 
-        // Add email search criteria
+    try {
+        // Search criteria arrays
+        const userSearchCriteria = [];
+        const productSearchCriteria = [];
+        const dateSearchCriteria = {};
+
+        // Search for Users by email
         if (query) {
-            searchCriteria.push({ 'user_id.email': { $regex: query, $options: 'i' } });
-            searchCriteria.push({ 'product_ids.name': { $regex: query, $options: 'i' } });
+            userSearchCriteria.push({ email: { $regex: query, $options: 'i' } });
+        }
+
+        // Search for Products by name
+        if (query) {
+            productSearchCriteria.push({ name: { $regex: query, $options: 'i' } });
         }
 
         // Add date search criteria
@@ -632,13 +641,23 @@ const SearchOrders = async (req, res) => {
             const endDate = new Date(date);
             endDate.setDate(endDate.getDate() + 1);
 
-            searchCriteria.push({
-                created_at: { $gte: startDate, $lt: endDate }
-            });
+            dateSearchCriteria.created_at = { $gte: startDate, $lt: endDate };
         }
 
+        // Fetch Users and Products based on search criteria
+        const users = await User.find({ $or: userSearchCriteria });
+        const products = await Product.find({ $or: productSearchCriteria });
+
+        // Extract User and Product IDs
+        const userIds = users.map(user => user._id);
+        const productIds = products.map(product => product._id);
+
+        // Search Orders by User IDs, Product IDs, and Date
         const orders = await Order.find({
-            $or: searchCriteria
+            $and: [
+                { $or: [{ user_id: { $in: userIds } }, { product_ids: { $in: productIds } }] },
+                dateSearchCriteria
+            ]
         }).populate('user_id').populate('product_ids');
 
         // Send the results back to the client
@@ -648,6 +667,7 @@ const SearchOrders = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
 module.exports = {
     addAdmin,
     addCollection,

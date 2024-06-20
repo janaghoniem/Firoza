@@ -7,6 +7,31 @@ const Review = require('../models/reviews');
 const Request = require('../models/Requests');
 const QuizResult = require('../models/Quiz');
 
+const getCollection = async (req, res) => {
+    try {
+        const formattedCollectionName = req.params.collectionName;
+        const collectionName = formattedCollectionName.replace(/-/g, ' ');
+
+        const collection = await Collection.findOne({ Collection_Name: collectionName });
+        console.log(collectionName);
+        if (!collection) {
+            return res.status(404).send('Collection not found');
+        }
+
+        const products = await Product.find({ collection_id: collection.Collection_Name });
+
+        res.render('indian', {
+            img: collection.img,
+            Collection_Name: collection.Collection_Name,
+            Collection_Description: collection.Collection_Description,
+            products: products
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 
 async function getIndianProducts(req, res) {
     try {
@@ -90,11 +115,11 @@ const GetUser = async (req, res) => {
     try {
         // Find user by email
         const user = await User.findOne({ email });
-        const isAdmin = user.isAdmin;
         if (!user) {
             console.log('Email not associated with any account');
             return res.status(400).json({ error: 'The entered email address is not associated with any account' });
         }
+        const isAdmin = user.isAdmin;
 
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
@@ -241,6 +266,43 @@ const updateUser = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+
+const DeleteUser = async (req, res) => {
+    console.log('entered delete function');
+    try {
+        const userId = req.session.user._id;
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            console.log('no user.');
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Remove the user's orders
+        // await Order.deleteMany({ user: userId });
+
+        // // Remove the user's reviews
+        // await Review.deleteMany({ user: userId });
+
+        // Remove the user account
+        await User.findByIdAndDelete(userId);
+
+        // Destroy the session and clear the cookie
+        req.session.destroy(err => {
+            if (err) {
+                return res.status(500).send('Failed to deactivate account. Please try again later.');
+            }
+            console.log('Account deactivated successfully');
+            return res.status(200).json({ success: true, message: 'Account deactivated successfully' });
+        });
+    } catch (error) {
+        console.error('Error deactivating account:', error);
+        return res.status(500).json({ success: false, message: 'An error occurred while deactivating the account' });
+    }
+};
+
 
 const checkUpdateEmailAvailibility = async (req, res) => {
     console.log('check update email availability.')
@@ -1127,6 +1189,18 @@ const getCustomizationImage = async (req, res) => {
     }
 };
 
+const getCollectionPage = async (req, res) => {
+    try {
+        const allCollections = await collections.find({});
+
+        // Render the template with the fetched collections
+        res.render('Collections', { allCollections });
+    } catch (error) {
+        console.error('Error fetching collections:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 // const getReviewsByProductId = async (req, res) => {
 //     try {
 
@@ -1145,11 +1219,25 @@ const getCustomizationImage = async (req, res) => {
 //     }
 // };
 
+const getTopSellingProducts = async () => {
+    try {
+        const topProducts = await Product.aggregate([
+            { $sort: { no_sales: -1 } }, // Sort by no_sales descending
+            { $limit: 10 } // Limit to top 5
+        ]);
+
+        return topProducts;
+    } catch (error) {
+        console.error('Error fetching top selling products:', error);
+        throw error;
+    }
+};
 
 module.exports = {
     GetUser,
     AddUser,
     updateUser,
+    DeleteUser,
     checkUpdateEmailAvailibility,
     checkAddress,
     checkLoggedIn,
@@ -1169,19 +1257,19 @@ module.exports = {
     getUserOrder,
     getShopAllProducts,
     getIndianProducts,
+    getCollection,
     cancelOrder,
     submitReview,
     logout,
-
     getcontactus,
     getcontactusform,
     addRequest,
-
     storeQuizResults,
     renderQuizPage,
     getCustomizationImage,
-
-    getProductDetails
+    getProductDetails,
+    getTopSellingProducts, 
+    getCollectionPage
 
 
 };
