@@ -1,11 +1,11 @@
-const User = require('../models/User'); 
+const User = require('../models/User');
 const Product = require('../models/product');
 const bcrypt = require('bcrypt');
-const Orderr= require('../models/Orders');
-const collections= require('../models/Collections');
-const reviews= require('../models/reviews');
-const Request=require('../models/Requests');
-const QuizResult = require('../models/Quiz'); 
+const Orderr = require('../models/Orders');
+const collections = require('../models/Collections');
+const reviews = require('../models/reviews');
+const Request = require('../models/Requests');
+const QuizResult = require('../models/Quiz');
 
 
 async function getIndianProducts(req, res) {
@@ -35,43 +35,50 @@ async function getIndianProducts(req, res) {
         res.status(500).send('Internal Server Error');
     }
 }
-const renderQuizPage = (req, res) => {
-    res.render('quiz.ejs'); // Render the quiz page (ensure you have a quiz.ejs or equivalent template)
+const renderQuizPage = async (req, res) => {
+    try {
+        let latestQuizResult = null;
+        if (req.session.user) {
+            // Fetch latest quiz result for the logged-in user
+            latestQuizResult = await QuizResult.findOne({ userId: req.session.user._id })
+                .sort({ createdAt: -1 })
+                .exec();
+        }
+        res.render('quiz', { latestQuizResult }); // Pass latestQuizResult to the template
+    } catch (error) {
+        console.error('Error rendering quiz page:', error);
+        res.status(500).send('An error occurred while rendering the quiz page.');
+    }
+
 };
 
 const storeQuizResults = async (req, res) => {
     try {
-        console.log('Request body:', req.body); // Log request body for debugging
+        if (!req.session.user) {
+            return res.status(401).json({ message: 'Unauthorized. Please log in to submit quiz results.' });
+        }
 
         const { answers, result } = req.body;
 
-        if (!answers || !result) {
-            console.log('Missing answers or result'); // Log missing data
-            return res.status(400).json({ message: 'Answers and result are required.' });
-        }
-
-        if (!req.session.user) {
-            console.log('User not logged in'); // Log user not logged in
-            return res.status(200).json({ message: 'Quiz completed, but results not stored as user is not logged in.' });
-        }
+        // Validate answers and result (as per your current validation)
 
         const userId = req.session.user._id;
 
-        console.log('Creating new quiz result with userId:', userId); // Log userId
-        const quizResult = new QuizResult({
-            userId: userId,
-            answers: answers,
-            result: result
-        });
-
-        await quizResult.save();
+        // Store quiz results for the authenticated user
+        const existingResult = await QuizResult.findOneAndUpdate(
+            { userId: userId },
+            { answers: answers, result: result, createdAt: Date.now() },
+            { new: true, upsert: true }
+        );
 
         res.status(200).json({ message: 'Quiz results stored successfully.' });
     } catch (error) {
-        console.error('Error storing quiz results:', error); // Log error
+        console.error('Error storing quiz results:', error);
         res.status(500).json({ message: 'An error occurred while storing quiz results.', error: error.message });
     }
+
 };
+
 
 const GetUser = async (req, res) => {
     console.log('Entered GetUser function');
@@ -250,7 +257,7 @@ const checkAddress = async (req, res) => {
     const { address } = req.body;
     console.log("address: " + address);
 
-    if(address) {
+    if (address) {
         try {
             const userExists = await User.findOne({ email: address });
             if (userExists) {
@@ -264,12 +271,12 @@ const checkAddress = async (req, res) => {
             res.status(500).json({ error: "catch el checkAddress fy error" });
         }
     } else {
-        res.status(500).json({error: "undefined email"})
+        res.status(500).json({ error: "undefined email" })
     }
 }
 
 // Check Login
-const checkLoggedIn = async(req, res) => {
+const checkLoggedIn = async (req, res) => {
     console.log('checking login');
     try {
         if (req.session.user) {
@@ -343,7 +350,7 @@ const Search = async (req, res) => {
                 { name: regex },
                 { material: regex },
                 { description: regex },
-                { category: regex }, 
+                { category: regex },
                 { color: regex }
             ]
         }).limit(9); // Limit results to 10 for performance
@@ -365,7 +372,7 @@ const AddToCart = async (req, res) => {
     console.log('entered add to cart');
     const { productId, price } = req.body;
     console.log('req body valid')
-    if(!productId) {
+    if (!productId) {
         console.log('product undefined')
     }
     try {
@@ -625,7 +632,7 @@ const Checkout = async (req, res) => {
             return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
         }
 
-        const user = await User.findById(req.session.user); 
+        const user = await User.findById(req.session.user);
 
         const cartData = await getCartDetails(user._id);
         console.log('cart data fetched');
@@ -698,7 +705,7 @@ const getUserById = async (req, res) => {
 };
 
 
-const getUserOrder= async(req, res) => {
+const getUserOrder = async (req, res) => {
     try {
         // Check if the user is authenticated and their ID is available in the session
         if (!req.session.user || !req.session.user._id) {
@@ -741,7 +748,7 @@ const BillingInformation = async (req, res) => {
         // Find the user by session user ID
         if (!req.session.user) {
             return res.status(404).json({ error: 'User not found' });
-        } 
+        }
 
         const user = await User.findById(req.session.user._id);
 
@@ -903,7 +910,7 @@ const removeFromWishlist = async (req, res) => {
 // const getIndianProducts = async (req, res) => {
 //     try {
 //         const indianProducts = await Product.find({ collection_id: '2' }); // Fetch products with collection_id '2'
-    
+
 //         res.render('indian', { products: indianProducts });
 //       } catch (error) {
 //         console.error('Error fetching Indian collection products:', error);
@@ -928,7 +935,7 @@ const getShopAllProducts = async (req, res) => {
 //     try {
 //         const collection = await Collection.findById(collectionId); // Assuming you have a Collection model
 //         const products = await Product.find({ collection_id: collectionId });
-        
+
 //         res.render('collection', {
 //             collectionName: collection.name,
 //             collectionDescription: collection.description,
@@ -965,8 +972,8 @@ const getShopAllProducts = async (req, res) => {
 // }
 
 const cancelOrder = async (req, res) => {
-  
-   console.log("hiiiiii");
+
+    console.log("hiiiiii");
     try {
         const { orderId } = req.params;
         const order = await Orderr.findById(orderId);
@@ -974,7 +981,7 @@ const cancelOrder = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Order not found' });
         }
 
-       
+
         order.status = 'cancelled';
         await order.save();
 
@@ -1005,9 +1012,13 @@ const cancelOrder = async (req, res) => {
 // };
 
 const submitReview = async (req, res) => {
+
+
+
     try {
         const { prodId } = req.params;
         const { rating, comment } = req.body;
+
 
         if (req.session.user) {
             // Logged-in user
@@ -1025,8 +1036,8 @@ const submitReview = async (req, res) => {
             if (!userId) {
                 return res.status(404).send('User not found');
             }
-        }
 
+        }
        
         res.status(201).json({ success: true, message: 'Review submitted successfully' });
     } catch (error) {
@@ -1045,11 +1056,11 @@ const logout = (req, res) => {
 };
 
 
-const getcontactus = async(req,res)=>{
+const getcontactus = async (req, res) => {
     res.render("ContactUs.ejs");
 };
- 
-const getcontactusform = async(req,res)=>{
+
+const getcontactusform = async (req, res) => {
     res.render("ContactUsForm.ejs");
 };
 
@@ -1077,7 +1088,7 @@ const addRequest = async (req, res) => {
 const getProductDetails = async (req, res) => {
     try {
         const productId = req.params.productId;
-        
+
         // Fetch product by ID
         const product = await Product.findById(productId);
 
@@ -1104,7 +1115,7 @@ module.exports = {
     checkLoggedIn,
     Search,
     AddToCart,
-    Cart, 
+    Cart,
     updateCart,
     updateCartPrice,
     removeFromCart,
@@ -1112,7 +1123,7 @@ module.exports = {
     getWishlist,
     AddToWishlist,
     removeFromWishlist,
-    getUserById, 
+    getUserById,
     BillingInformation,
     filterProducts,
     getUserOrder,
