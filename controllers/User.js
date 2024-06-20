@@ -1113,6 +1113,22 @@ const getProductDetails = async (req, res) => {
     }
 };
 
+
+const getCustomizationImage = async (req, res) => {
+    try {
+        const { stone, color } = req.params;
+        const customItem = await custom.findOne({ stone, color });
+
+        if (!customItem) {
+            return res.status(404).send('Item not found');
+        }
+
+        res.json({ img2: customItem.img2 });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
 module.exports = {
     GetUser,
     AddUser,
@@ -1146,7 +1162,7 @@ module.exports = {
 
     storeQuizResults,
     renderQuizPage,
-
+    getCustomizationImage,
 
     getProductDetails
 

@@ -191,20 +191,8 @@ router.get('/quiz', User.renderQuizPage);
 router.get('/product/:productId', User.getProductDetails);
 
 
-router.get('/Customization/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const customa = await Customa.findOne({ customize_id: id });
 
-        if (!customa) {
-            return res.status(404).json({ error: 'Customization not found' });
-        }
+router.get('/Customization',User.getCustomizationImage);
 
-        res.status(200).json(customa);
-    } catch (error) {
-        console.error('Error fetching customization:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
 
 module.exports = router;
