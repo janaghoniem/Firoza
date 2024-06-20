@@ -180,4 +180,6 @@ router.post('/checkAddress', adminController.admincheckaddress);
 
 router.delete('/deleteUser/:id', adminController.deleteUser);
 
+router.post('/searchUsers',adminController.SearchUsers);
+
 module.exports = router;

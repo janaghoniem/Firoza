@@ -127,7 +127,7 @@ const deleteCollection = async (req, res) => {
         // Delete all products with the same collection ID (collection name)
         const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
 
-       
+
 
         res.status(200).json({ message: 'Collection and associated products deleted successfully' });
     } catch (error) {
@@ -577,14 +577,75 @@ const admincheckaddress = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-      const userId = req.params.id;
-      await User.findByIdAndDelete(userId);
-      res.status(200).json({ message: 'User deleted successfully' });
+        const userId = req.params.id;
+        await User.findByIdAndDelete(userId);
+        res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
-      console.error('Error deleting user:', error);
-      res.status(500).json({ error: 'Failed to delete the user' });
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Failed to delete the user' });
     }
-  };
+};
+
+const SearchUsers = async (req, res) => {
+    const { query } = req.body;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Query is required' });
+    }
+
+    try {
+        const regex = new RegExp(query, 'i'); // Case-insensitive search
+        const users = await User.find({
+            $or: [
+                 // Searching by user ID (if matches)
+                { email: regex }, // Searching by email
+                { firstname: regex }, // Searching by firstname
+                { lastname: regex } // Searching by lastname
+            ]
+        });
+
+        res.status(200).json({ users });
+    } catch (error) {
+        console.error('Error searching users:', error);
+        res.status(500).json({ error: 'Failed to search users' });
+    }
+};
+
+
+
+
+const SearchOrders = async (req, res) => {
+    const { query } = req.body;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Query is required' });
+    }
+
+    try {
+        const regex = new RegExp(query, 'i'); // Case-insensitive search
+        const products = await Product.find({
+            $or: [
+                { product_id: regex },
+                { name: regex },
+                { material: regex },
+                { description: regex },
+                { category: regex },
+                { color: regex }
+            ]
+        }).limit(9); // Limit results to 10 for performance
+
+        // let didYouMean = [];
+        // if (products.length === 0) {
+        //     didYouMean = spellcheck.getCorrections(query, 1);
+        // }
+
+        res.status(200).json({ products });
+
+    } catch (error) {
+        console.error('Error during search:', error);
+        res.status(500).json({ error: 'Failed to search products' });
+    }
+}
 
 module.exports = {
     addAdmin,
@@ -606,7 +667,9 @@ module.exports = {
     acceptRequest,
     rejectRequest,
     admincheckaddress,
-     deleteUser
+    deleteUser,
+    SearchOrders,
+    SearchUsers
 };
 
 
