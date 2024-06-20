@@ -447,6 +447,7 @@ h2 {
     display: flex;
     justify-content: center;
     margin-bottom: 20px; 
+    margin-left: -15px;
 }
 
 .review-rating .fa-regular {
@@ -457,6 +458,10 @@ h2 {
 }
 
 .review-rating .fa.checked {
+    color: gold; 
+}
+
+.review-rating .fa-star:hover {
     color: gold; 
 }
 

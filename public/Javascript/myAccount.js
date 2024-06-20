@@ -248,3 +248,18 @@ function toggleOrders() {
     }
 }
 
+const regularIcons = document.querySelectorAll('.review-rating .fa-regular');
+
+regularIcons.forEach(icon => {
+    icon.addEventListener('mouseenter', function() {
+        this.classList.remove('fa-regular'); // Remove regular class
+        this.classList.add('fa-solid'); // Add solid class
+    });
+
+    icon.addEventListener('mouseleave', function() {
+        this.classList.remove('fa-solid'); // Remove solid class
+        this.classList.add('fa-regular'); // Add regular class back
+    });
+});
+
+
