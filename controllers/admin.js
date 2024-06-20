@@ -303,10 +303,17 @@ const deleteProduct = async (req, res) => {
             return res.status(404).json({ error: 'Product not found' });
         }
 
-        const users = await User.find({ 'cart.productId': id });
+        const usersWithCartItem = await User.find({ 'cart.items.productId': id });
+        for (const user of usersWithCartItem) {
+            user.cart.items = user.cart.items.filter(item => item.productId.toString() !== id.toString());
+            user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            await user.save();
+        }
 
-        for (const user of users) {
-            user.cart = user.cart.filter(item => item.productId.toString() !== id.toString());
+        // Remove product from users' wishlists
+        const usersWithWishlistItem = await User.find({ wishlist: id });
+        for (const user of usersWithWishlistItem) {
+            user.wishlist = user.wishlist.filter(item => item.toString() !== id.toString());
             await user.save();
         }
 
