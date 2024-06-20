@@ -9,31 +9,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    async function removeFromWishlist(productId) {
-        try {
-            const response = await fetch(`/user/wishlist/remove/${productId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await response.json();
-            if (response.ok) {
-                alert(data.message);
-                document.querySelector(`[data-item="${productId}"]`).remove();
-            } else {
-                showErrorPopup('Failed to remove product from wishlist. Please try again later.');
-            }
-        } catch (error) {
-            console.error('Error removing from wishlist:', error);
-        }
-    }
-
 });
  
  
 
 //  -----------------------------------------------------------------------------------------------------
+
+async function removeFromWishlist(productId) {
+    try {
+        const response = await fetch(`/user/wishlist/remove/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok) {
+            document.querySelector(`[data-item="${productId}"]`).remove();
+        } else {
+            showErrorPopup('Failed to remove product from wishlist. Please try again later.');
+        }
+    } catch (error) {
+        console.error('Error removing from wishlist:', error);
+    }
+}
 
 
 async function addToCart(productId, price) {
@@ -47,11 +45,10 @@ async function addToCart(productId, price) {
         });
 
         const data = await response.json();
-        alert('Response:', data.body);
 
         if (response.ok) { 
-            removeFromWishlist(productId);
             showPopup('Product added to cart successfully!');
+            removeFromWishlist(productId);
         } else {
             showErrorPopup('Failed to add product to cart. Please try again later.');
         }

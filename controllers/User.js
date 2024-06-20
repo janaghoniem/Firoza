@@ -300,7 +300,6 @@ const AddToCart = async (req, res) => {
     try {
         console.log('try entered')
         const product = await Product.findById(productId);
-        console.log('product: ' + product);
         if (!product) {
             console.log('product not found')
             return res.status(404).json({ error: 'Product not found' });
@@ -328,6 +327,7 @@ const AddToCart = async (req, res) => {
             return res.status(200).json({ message: 'Product added to guest cart successfully' });
         }
 
+        console.log('user');
         const user = await User.findById(req.session.user._id);
         const existingCartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
         if (existingCartItem) {
@@ -343,6 +343,7 @@ const AddToCart = async (req, res) => {
         user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
         await user.save();
+        console.log('product added to user cart successfully')
         res.status(200).json({ message: 'Product added to cart successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
