@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const removeButtons = document.querySelectorAll('.remove-item');
-    const totalPriceElements = document.querySelectorAll('.total-price');
-    const itemsCountElement = document.querySelector('.items-count');
  
     // Attach click event listeners to each remove button
     removeButtons.forEach(button => {
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 async function addToCart(productId, price) {
-    alert(productId);
     try {
         const response = await fetch('/user/add-to-cart', {
             method: 'POST',
@@ -50,15 +47,29 @@ async function addToCart(productId, price) {
         });
 
         if (response.ok) {
-            alert('Product added to cart successfully!');
+            removeFromWishlist(productId);
+            showPopup('Product added to cart successfully!');
         } else {
             alert('Failed to add product to cart');
         }
 
     } catch (error) {
-        alert('Error:', error);
-        alert('Failed to add product to cart');
+        return;
     }
+}
+
+function showPopup(message) {
+    const popup = document.querySelector('.login-message-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
 }
 
 

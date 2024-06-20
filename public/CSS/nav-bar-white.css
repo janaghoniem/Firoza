@@ -682,12 +682,12 @@ header #search-button, #search-button2{
     width: 350px;
     display: none;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.258); /* Semi-transparent background for popup */
-    backdrop-filter: blur(5px); /* Blur effect for background */
+    background-color: rgba(0, 0, 0, 0.496); /* Semi-transparent background for popup */
+    backdrop-filter: blur(4px); /* Blur effect for background */
     padding: 20px;
     margin: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.732); /* Optional: Box shadow for depth */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.759); /* Optional: Box shadow for depth */
     transition: opacity 0.5s ease-in-out; /* Transition for opacity */
     z-index: 99999999999999999999;
 }

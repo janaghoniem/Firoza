@@ -190,7 +190,6 @@ document.addEventListener('DOMContentLoaded',  function() {
             const data = await response.json();
     
             if (data.loggedIn) {
-                alert('User Already in session');
                 window.location.href = '/user/MyAccount';
             } else {
                 popupContainer.style.display = 'flex';

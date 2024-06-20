@@ -61,7 +61,11 @@ const GetUser = async (req, res) => {
         // Merge guest cart with user cart
         if (req.session.cart && req.session.cart.items.length > 0) {
             req.session.cart.items.forEach(sessionItem => {
-                const existingItem = user.cart.items.find(dbItem => dbItem.productId.toString() === sessionItem.productId.toString());
+                if (!sessionItem.productId) {
+                    console.log(`Missing productId for session item: ${JSON.stringify(sessionItem)}`);
+                    return; // Skip this session item
+                }
+                const existingItem = user.cart.items.find(dbItem => dbItem.productId && dbItem.productId.toString() === sessionItem.productId.toString());
                 if (existingItem) {
                     existingItem.quantity += sessionItem.quantity;
                 } else {
@@ -85,7 +89,11 @@ const GetUser = async (req, res) => {
         // Merge guest wishlist with user wishlist
         if (req.session.wishlist && req.session.wishlist.length > 0) {
             req.session.wishlist.forEach(sessionItem => {
-                const existingItem = user.wishlist.find(dbItem => dbItem.productId.toString() === sessionItem.productId.toString());
+                if (!sessionItem.productId) {
+                    console.log(`Missing productId for wishlist item: ${JSON.stringify(sessionItem)}`);
+                    return; // Skip this session item
+                }
+                const existingItem = user.wishlist.find(dbItem => dbItem.productId && dbItem.productId.toString() === sessionItem.productId.toString());
                 if (!existingItem) {
                     user.wishlist.push(sessionItem); // Assuming sessionItem has been properly populated with productId references
                 }
@@ -104,6 +112,7 @@ const GetUser = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 
 // Handle User signup
 const AddUser = async (req, res) => {
