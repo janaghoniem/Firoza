@@ -2,118 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
-    <link rel="stylesheet" href="/CSS/Orders.css">
-    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
-    <script src="/Javascript/nav-bar.js"></script>
-    <script src="/Javascript/adminNavbar.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="stylesheet" href="/CSS/Orders.css">
+  <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
+  <script src="/Javascript/nav-bar.js"></script>
+  <script src="/Javascript/adminNavbar.js"></script>
 </head>
 
 <body>
-    <%- include('./partials/Admin-NavBar.ejs') %>
+  <% include('./partials/Admin-NavBar.ejs') %>
 
     <div class="container">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search by email, date, or product name">
-            <input type="date" id="searchDate">
-            <!-- <button id="searchBtn">Search</button> -->
-            <button id="resetBtn" style="margin-left: 10px;">Reset</button> <!-- Reset button added -->
-            <p id="searchCount"></p>
-        </div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by email, date, or product name">
+        <input type="date" id="searchDate">
+        <!-- <button id="searchBtn">Search</button> -->
+        <button id="resetBtn" style="margin-left: 10px;">Reset</button> <!-- Reset button added -->
+        <p id="searchCount"></p>
+      </div>
 
-        <ul class="responsive-table">
-            <li class="table-header">
-                <div class="col col-1">Order Id</div>
-                <div class="col col-2">Customer Name</div>
-                <div class="col col-3">Total Amount</div>
-                <div class="col col-4">Ordered Products</div>
-                <div class="col col-5">Status</div>
-                <div class="col col-6">Ordered Date</div>
-            </li>
-            <% orders.forEach(order => { %>
-            <li class="table-row">
-                <div class="col col-1" data-label="Order Id">
-                    <%= order._id %>
-                </div>
-                <div class="col col-2" data-label="Customer Name">
-                    <% if (order.user_id) { %>
-                    <p><%= order.user_id.email %></p>
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">Order Id</div>
+          <div class="col col-2">Customer Name</div>
+          <div class="col col-3">Total Amount</div>
+          <div class="col col-4">Ordered Products</div>
+          <div class="col col-5">Status</div>
+          <div class="col col-6">Ordered Date</div>
+        </li>
+        <% orders.forEach(order=> { %>
+          <li class="table-row">
+            <div class="col col-1" data-label="Order Id">
+              <%= order._id %>
+            </div>
+            <div class="col col-2" data-label="Customer Name">
+              <% if (order.user_id) { %>
+                <p>
+                  <%= order.user_id.email %>
+                </p>
+                <% } else { %>
+                  <p>Unknown User</p>
+                  <% } %>
+            </div>
+            <div class="col col-3" data-label="Total Amount">
+              $<%= order.total_price.toFixed(2) %>
+            </div>
+            <div class="col col-4" data-label="Ordered Products">
+              <% if (order.product_ids.length> 0) { %>
+                <% order.product_ids.forEach(product=> { %>
+                  <p>
+                    <%= product.name %>
+                  </p>
+                  <% }) %>
                     <% } else { %>
-                    <p>Unknown User</p>
-                    <% } %>
-                </div>
-                <div class="col col-3" data-label="Total Amount">
-                    $<%= order.total_price.toFixed(2) %>
-                </div>
-                <div class="col col-4" data-label="Ordered Products">
-                    <% if (order.product_ids.length > 0) { %>
-                        <% order.product_ids.forEach(product => { %>
-                            <p><%= product.name %></p>
-                        <% }) %>
-                    <% } else { %>
-                        <p>Unknown Product</p>
-                    <% } %>
-                </div>
-                <div class="col col-5" data-label="Status">
-                    <%= order.status %>
-                </div>
-                <div class="col col-6" data-label="Ordered Date">
-                    <%= new Date(order.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
-                </div>
-            </li>
-            <% }) %>
-        </ul>
+                      <p>Unknown Product</p>
+                      <% } %>
+            </div>
+            <div class="col col-5" data-label="Status">
+              <%= order.status %>
+            </div>
+            <div class="col col-6" data-label="Ordered Date">
+              <%= new Date(order.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
+            </div>
+          </li>
+          <% }) %>
+      </ul>
     </div>
 
     <script>
-        let originalOrders = []; // Variable to store original orders list
+      let originalOrders = []; // Variable to store original orders list
 
-        // Function to initialize originalOrders with current orders
-        function initializeOriginalOrders() {
-            originalOrders = JSON.parse('<%- JSON.stringify(orders) %>'); // Convert orders to JSON and store in originalOrders
-        }
+      // Function to initialize originalOrders with current orders
+      function initializeOriginalOrders() {
+        originalOrders = JSON.parse('<%- JSON.stringify(orders) %>'); // Convert orders to JSON and store in originalOrders
+      }
 
-        // Add event listener to search input for dynamic search
-        const searchInput = document.getElementById('searchInput');
-        const searchDate = document.getElementById('searchDate'); // Reference to search date input
-        const searchCount = document.getElementById('searchCount'); // Reference to search count element
-        const resetBtn = document.getElementById('resetBtn'); // Reference to reset button
+      // Add event listener to search input for dynamic search
+      const searchInput = document.getElementById('searchInput');
+      const searchDate = document.getElementById('searchDate'); // Reference to search date input
+      const searchCount = document.getElementById('searchCount'); // Reference to search count element
+      const resetBtn = document.getElementById('resetBtn'); // Reference to reset button
 
-        searchInput.addEventListener('input', performSearch);
-        searchDate.addEventListener('change', performSearch);
+      searchInput.addEventListener('input', performSearch);
+      searchDate.addEventListener('change', performSearch);
 
-        // Event listener for reset button
-        resetBtn.addEventListener('click', () => {
-            searchInput.value = ''; // Clear search input
-            searchDate.value = '';
-            displayAllOrders(); // Display all orders
-            searchCount.textContent = ''; // Clear search count
+      // Event listener for reset button
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = ''; // Clear search input
+        searchDate.value = '';
+        displayAllOrders(); // Display all orders
+        searchCount.textContent = ''; // Clear search count
+      });
+
+      // Function to display all orders from original list
+      function displayAllOrders() {
+        clearSearchResults();
+        originalOrders.forEach(order => {
+          addOrderToTable(order);
         });
+      }
 
-        // Function to display all orders from original list
-        function displayAllOrders() {
-            clearSearchResults();
-            originalOrders.forEach(order => {
-                addOrderToTable(order);
-            });
-        }
+      // Function to display search results in the table
+      function displaySearchResults(orders) {
+        clearSearchResults();
+        orders.forEach(order => {
+          addOrderToTable(order);
+        });
+      }
 
-        // Function to display search results in the table
-        function displaySearchResults(orders) {
-            clearSearchResults();
-            orders.forEach(order => {
-                addOrderToTable(order);
-            });
-        }
-
-        // Function to add a single order to the table
-        function addOrderToTable(order) {
-            const orderList = document.querySelector('.responsive-table');
-            const newRow = document.createElement('li');
-            newRow.classList.add('table-row');
-            newRow.innerHTML = `
+      // Function to add a single order to the table
+      function addOrderToTable(order) {
+        const orderList = document.querySelector('.responsive-table');
+        const newRow = document.createElement('li');
+        newRow.classList.add('table-row');
+        newRow.innerHTML = `
                 <div class="col col-1" data-label="Order Id">${order._id}</div>
                 <div class="col col-2" data-label="Customer Name">
                     ${order.user_id ? `<p>${order.user_id.email}</p>` : '<p>Unknown User</p>'}
@@ -125,49 +129,49 @@
                 <div class="col col-5" data-label="Status">${order.status}</div>
                 <div class="col col-6" data-label="Ordered Date">${new Date(order.created_at).toLocaleDateString('en-US', { timeZone: 'UTC' })}</div>
             `;
-            orderList.appendChild(newRow);
+        orderList.appendChild(newRow);
+      }
+
+      // Function to clear search results from the table
+      function clearSearchResults() {
+        const orderList = document.querySelector('.responsive-table');
+        orderList.innerHTML = '<li class="table-header"><div class="col col-1">Order Id</div><div class="col col-2">Customer Name</div><div class="col col-3">Total Amount</div><div class="col col-4">Ordered Products</div><div class="col col-5">Status</div><div class="col col-6">Ordered Date</div></li>';
+      }
+
+      // Function to perform search based on input and date
+      async function performSearch() {
+        const query = searchInput.value.trim();
+        const date = searchDate.value;
+
+        if (query.length > 0 || date.length > 0) {
+          try {
+            // Perform search using fetch API
+            const response = await fetch('/admin/searchOrders', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ query, date })
+            });
+
+            // Parse response and update UI with search results
+            const { orders } = await response.json();
+            displaySearchResults(orders);
+
+            // Display the number of search results dynamically
+            searchCount.textContent = `Found ${orders.length} order(s)`;
+          } catch (error) {
+            console.error('Error searching orders:', error);
+            alert('Failed to search orders.');
+          }
+        } else {
+          displayAllOrders();
+          searchCount.textContent = ''; // Clear search count if input is empty
         }
+      }
 
-        // Function to clear search results from the table
-        function clearSearchResults() {
-            const orderList = document.querySelector('.responsive-table');
-            orderList.innerHTML = '<li class="table-header"><div class="col col-1">Order Id</div><div class="col col-2">Customer Name</div><div class="col col-3">Total Amount</div><div class="col col-4">Ordered Products</div><div class="col col-5">Status</div><div class="col col-6">Ordered Date</div></li>';
-        }
-
-        // Function to perform search based on input and date
-        async function performSearch() {
-            const query = searchInput.value.trim();
-            const date = searchDate.value;
-
-            if (query.length > 0 || date.length > 0) {
-                try {
-                    // Perform search using fetch API
-                    const response = await fetch('/admin/searchOrders', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ query, date })
-                    });
-
-                    // Parse response and update UI with search results
-                    const { orders } = await response.json();
-                    displaySearchResults(orders);
-
-                    // Display the number of search results dynamically
-                    searchCount.textContent = `Found ${orders.length} order(s)`;
-                } catch (error) {
-                    console.error('Error searching orders:', error);
-                    alert('Failed to search orders.');
-                }
-            } else {
-                clearSearchResults();
-                searchCount.textContent = ''; // Clear search count if input is empty
-            }
-        }
-
-        // Initialize originalOrders with current orders on page load
-        initializeOriginalOrders();
+      // Initialize originalOrders with current orders on page load
+      initializeOriginalOrders();
     </script>
 </body>
 

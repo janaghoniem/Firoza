@@ -2,6 +2,10 @@
   font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
 
 }
+html{
+  background-color: #f3f3f3;
+}
+
 header {
     /* background-color:  rgba(0, 0, 0, 0.1); */
     /* backdrop-filter: blur(4px); */

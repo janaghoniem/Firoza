@@ -494,8 +494,8 @@ const calculateCRR = async (startDate, endDate) => {
 
 const getStatistics = async (req, res) => {
     try {
-        const startDate = new Date('2024-06-16T00:00:00Z');
-        const endDate = new Date('2024-06-17T00:00:00Z');
+        const startDate = new Date('2024-06-01');
+        const endDate = new Date('2024-07-01');
 
         const retentionRate = await calculateCRR(startDate, endDate);
         // Count the number of users
