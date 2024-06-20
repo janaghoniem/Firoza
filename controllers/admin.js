@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const Product = require('../models/product');
 const Order = require('../models/Orders');
 const Request = require('../models/Requests');
+const Customization = require('../models/Customization')
 const { v4: uuidv4 } = require('uuid');
 
 // Function to add an admin
@@ -122,12 +123,12 @@ const deleteCollection = async (req, res) => {
 
         // Extract the collection name from the deleted collection
         const collectionName = deletedCollection.Collection_Name;
-        
+
         // Delete all products with the same collection ID (collection name)
         const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
 
         res.status(200).send(`<script>alert("Deleted collection with ID: ${id} and ${deletedProducts.deletedCount} associated products"); window.location.href = "/main";</script>`);
-        
+
         res.status(200).json({ message: 'Collection and associated products deleted successfully' });
     } catch (error) {
         console.error('Error deleting collection:', error);
@@ -574,6 +575,31 @@ const admincheckaddress =async (req, res) => {
     }
 }
 
+const customize = async () => {
+    try {
+        const combinations = [];
+
+        stones.forEach(stone => {
+            colors.forEach(color => {
+                const price = generatePrice(stone, color);
+                const combination = {
+                    customize_id: `${stone}-${color}`, // Or any unique ID logic
+                    price: price,
+                    img1: `path/to/images/${customize_id}.jpg`, // Replace with the actual image path or logic to generate it
+                    img2: `path/to/images/${customize_id}_2.jpg`, // Replace with the actual image path or logic to generate it
+                    stone: stone,
+                    color: color
+                };
+                combinations.push(combination);
+            });
+        });
+
+        await Customization.insertMany(combinations);
+        console.log('All combinations inserted successfully');
+    } catch (error) {
+        console.error('Error');
+    }
+}
 
 module.exports = {
     addAdmin,
@@ -594,8 +620,11 @@ module.exports = {
     getAllRequests,
     acceptRequest,
     rejectRequest,
-    admincheckaddress
+    admincheckaddress,
+    customize
 };
+
+
 
 //function to get orders
 

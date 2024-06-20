@@ -13,6 +13,7 @@ const Product = require('./models/product');
 const Order = require('./models/Orders'); 
 const collectiona = require('./models/Collections');
 const Request = require('./models/Requests'); 
+const Customa = require('./models/Customization'); 
 
 const app = express();
 const port = 3000;
@@ -139,11 +140,95 @@ app.get('/user/:collectionName', async (req, res) => {
 
 
 
-
-
-
 // app.use('/', Product);
+const combinations = [
+    { stone: 'Round', color: 'White' },
+    { stone: 'Round', color: 'Green' },
+    { stone: 'Round', color: 'Blue' },
+    { stone: 'Round', color: 'Yellow' },
+    { stone: 'Round', color: 'Red' },
 
+    { stone: 'Radiant', color: 'White' },
+    { stone: 'Radiant', color: 'Green' },
+    { stone: 'Radiant', color: 'Blue' },
+    { stone: 'Radiant', color: 'Yellow' },
+    { stone: 'Radiant', color: 'Red' },
+
+    { stone: 'Heart', color: 'White' },
+    { stone: 'Heart', color: 'Green' },
+    { stone: 'Heart', color: 'Blue' },
+    { stone: 'Heart', color: 'Yellow' },
+    { stone: 'Heart', color: 'Red' },
+
+    { stone: 'Princess', color: 'White' },
+    { stone: 'Princess', color: 'Green' },
+    { stone: 'Princess', color: 'Blue' },
+    { stone: 'Princess', color: 'Yellow' },
+    { stone: 'Princess', color: 'Red' },
+
+    { stone: 'Pear', color: 'White' },
+    { stone: 'Pear', color: 'Green' },
+    { stone: 'Pear', color: 'Blue' },
+    { stone: 'Pear', color: 'Yellow' },
+    { stone: 'Pear', color: 'Red' },
+
+    { stone: 'Oval', color: 'White' },
+    { stone: 'Oval', color: 'Green' },
+    { stone: 'Oval', color: 'Blue' },
+    { stone: 'Oval', color: 'Yellow' },
+    { stone: 'Oval', color: 'Red' },
+
+    { stone: 'Marquise', color: 'White' },
+    { stone: 'Marquise', color: 'Green' },
+    { stone: 'Marquise', color: 'Blue' },
+    { stone: 'Marquise', color: 'Yellow' },
+    { stone: 'Marquise', color: 'Red' },
+
+    { stone: 'Emerald', color: 'White' },
+    { stone: 'Emerald', color: 'Green' },
+    { stone: 'Emerald', color: 'Blue' },
+    { stone: 'Emerald', color: 'Yellow' },
+    { stone: 'Emerald', color: 'Red' },
+
+    { stone: 'Cushion', color: 'White' },
+    { stone: 'Cushion', color: 'Green' },
+    { stone: 'Cushion', color: 'Blue' },
+    { stone: 'Cushion', color: 'Yellow' },
+    { stone: 'Cushion', color: 'Red' },
+
+    { stone: 'Asscher', color: 'White' },
+    { stone: 'Asscher', color: 'Green' },
+    { stone: 'Asscher', color: 'Blue' },
+    { stone: 'Asscher', color: 'Yellow' },
+    { stone: 'Asscher', color: 'Red' }
+];
+
+
+async function seedDatabase() {
+    try {
+        await Customa.deleteMany({}); // Clear existing data (optional)
+
+        for (let i = 0; i < combinations.length; i++) {
+            const { stone, color } = combinations[i];
+            const newCustom = new Customa({
+                customize_id: `${stone}_${color}`, // Adjust customize_id format as needed
+                price: 0, // Set the price accordingly
+                img1: '', // Set image paths if applicable
+                img2: '',
+                stone: stone,
+                color: color
+            });
+            await newCustom.save();
+            console.log(`Inserted combination: ${stone}, ${color}`);
+        }
+
+        console.log('Database seeding completed.');
+        mongoose.connection.close();
+    } catch (err) {
+        console.error('Error seeding database:', err);
+    }
+}
+seedDatabase();
 app.use((req, res) => {
     res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
 });
@@ -153,7 +238,7 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-
+// app.get('/customize',customize);
 
 
 //global error handling
