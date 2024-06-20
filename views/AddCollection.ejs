@@ -1,69 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Collection</title>
-    <link rel="stylesheet" href="/CSS/Edit.css">
-    <script src="/Javascript/add.js"></script>
-    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
-    <script src="/Javascript/nav-bar.js"></script>
-    <script src="/Javascript/adminNavbar.js"></script>
+    <link rel="stylesheet" href="../CSS/landing-style.css">
+    <link rel="stylesheet" href="/CSS/AddAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="/Javascript/AddAdmin.js" defer></script>
+    <title>Document</title>
 </head>
+
 <body>
     <%- include('./partials/Admin-NavBar.ejs') %>
-
-    
-    <div class="container" id="container">
-        <div class="form-container second">
-            <!-- <form method="post" action="/admin/addCollection">
-                <h1>Are you sure ?</h1>
-                <span class="sure"></span>
-
-                <button type="submit" id="submitButton">Sure</button>
-                <button type="submit" class="hidden" id="goBackButton">Continue editing</button>
-                
-
-            </form> -->
-        </div>
-        <div class="form-container first">
-            <form method="post" action="/admin/addCollection" >
-                <h1>Add a new Collection</h1>
-                <span>All fields are required to add new collection</span>
-                <input type="text" placeholder="Collection name" name= "CollectionName" onkeypress="return  TextOnly(event)"
-                    title="only text is allowed">
-                <textarea placeholder="Add Description" name="CollectionDescription" required></textarea>
-                <div class="uploadOuter">
-                    <label for="uploadFile" class="btn btn-primary">Upload Image</label>
-                    <strong>OR</strong>
-                    <span class="dragBox">
-                        Drag and Drop image here
-                        <input type="file" onChange="dragNdrop(event)" name="img" ondragover="drag()" ondrop="drop()" id="uploadFile" />
-                    </span>
-
+    <div class="container">
+        <form id="addAdminForm" method="POST" action="/admin/saveaddAdmin">
+            <h2>Add Admin</h2>
+            <div class="form-row">
+                <div class="input-data">
+                    <input type="text" id="firstName" name="firstName">
+                    <div class="underline"></div>
+                    <label for="firstName">First Name</label>
                 </div>
-                <button type="submit" id="submitButton">Sure</button>
-                <h4 class="successful"></h4>
-                <h6 class="s"></h6>
-                <!-- <button class="hidden" id="editButton">Add</button> -->
-            </form>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <!-- <h1>Welcome Back!</h1>
-                    <p>Enter your personal details to use all of site features</p> -->
-                    <h3 class="picture-validation"></h3>
-                    <div id="preview" class="image-container"></div>
-                    <button class="hidden" id="login">go back</button>
-                </div>
-                <div class="toggle-panel toggle-right">
-                    
-                    <!-- <button class="hidden" id="register">Add</button> -->
+                <div class="input-data">
+                    <input type="text" id="lastName" name="lastName" >
+                    <div class="underline"></div>
+                    <label for="lastName">Last Name</label>
                 </div>
             </div>
-        </div>
+            <div class="form-row">
+                <div class="input-data">
+                    <input type="email" id="email" name="email" >
+                    <div class="underline"></div>
+                    <label for="email">Email Address</label>
+                </div>
+                <div class="input-data">
+                    <input type="password" id="password" name="password" >
+                    <div class="underline"></div>
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div id="emailError" style="color: red; display: none;"></div>
+            <div class="form-row submit-btn">
+                <div class="input-data">
+                    <div class="inner"></div>
+                    <input type="submit" value="Add">
+                </div>
+            </div>
+        </form>
     </div>
-
 </body>
+
 </html>

@@ -11,9 +11,5 @@ const customaSchema = new mongoose.Schema({
 });
 
 customaSchema.index({ stone: 1, color: 1 }, { unique: true });
-
-const Customa = mongoose.model('Customize-ring', customaSchema);
-
-
-
-module.exports = Customa;
+const custom = mongoose.model('Customize-ring', customaSchema);
+module.exports = custom;

@@ -33,9 +33,7 @@ document.getElementById('addAdminForm').addEventListener('submit', async functio
             emailError.textContent = "Email already in use.";
             emailError.style.display = 'block';
             document.getElementById('email').style.borderColor = 'red';
-        } else {
-            emailError.style.display = 'none';
-            document.getElementById('email').style.borderColor = '';
+            alert("Email already taken");
         }
     }
 
@@ -48,7 +46,7 @@ document.getElementById('addAdminForm').addEventListener('submit', async functio
     // If all validations pass, submit the form via fetch
     if (isValid) {
         try {
-            const response = await fetch('/admin/addAdmin', {
+            const response = await fetch('/admin/saveaddAdmin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,7 +59,7 @@ document.getElementById('addAdminForm').addEventListener('submit', async functio
                 alert('Admin added successfully');
                 window.location.href = '/admin/addAdmin'; // Redirect to the add admin page or another appropriate page
             } else {
-                alert('Failed to add admin');
+                alert('Failed to add admin the mail is already taken ');
                 console.log("msh bey add al admin");
             }
         } catch (error) {
@@ -84,15 +82,18 @@ async function checkEmailAvailability(email) {
             },
             body: JSON.stringify({ address: email })
         });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+
+        if (response.ok) {
+            console.log("Email is available");
+            return true;
+        } else {
+            alert("email is not available");
+            console.log("Email is not available");
+            return false;
         }
-        const data = await response.json();
-        console.log("rah shaf al email ");
-        return data.available;
     } catch (error) {
-        console.log("msh 3aref ygeeb al email");
+        console.log("Error checking email availability: ", error);
         alert('Error checking email availability: ' + error);
-        return false; 
+        return false;
     }
 }
