@@ -93,7 +93,11 @@ async function addToCart(productId, price) {
 
         if (response.ok) {
             const result = await response.json();
+
             showPopup('Product added to cart successfully!');
+
+          
+
         } else {
             showErrorPopup('Failed to add product to cart. Please try again later.');
         }
