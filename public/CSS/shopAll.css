@@ -558,7 +558,19 @@ body{
 .filter-selected{
     padding-top: 10em;
 }
-
+.popupMessage{
+    position: fixed;
+    top:2%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background-color: #d05d05;
+    padding:10px 20px;
+    border:1px solid black;
+    border-radius:5px;
+    display:none;
+    z-index:9999;
+    animation: slideDown 0.5s ease forwards;
+}
 
 @media screen and (max-width: 990px) {
     .col {
