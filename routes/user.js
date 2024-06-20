@@ -171,6 +171,11 @@ router.post('/logout', User.logout);
 router.get('/ContactUs',User.getcontactus);
 router.get('/contactUsform',User.getcontactusform);
 
+
+router.get('/customize', (req, res) => {
+    res.render("Customization.ejs");
+});
+
 router.post('/submitRequest', User.addRequest);
 
 router.post('/submit-quiz', User.storeQuizResults);

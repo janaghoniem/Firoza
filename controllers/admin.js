@@ -127,7 +127,7 @@ const deleteCollection = async (req, res) => {
         // Delete all products with the same collection ID (collection name)
         const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
 
-        res.status(200).send(`<script>alert("Deleted collection with ID: ${id} and ${deletedProducts.deletedCount} associated products"); window.location.href = "/main";</script>`);
+       
 
         res.status(200).json({ message: 'Collection and associated products deleted successfully' });
     } catch (error) {
@@ -560,7 +560,7 @@ const rejectRequest = async (req, res) => {
     }
 };
 
-const admincheckaddress =async (req, res) => {
+const admincheckaddress = async (req, res) => {
     try {
         const { address } = req.body;
         const user = await User.findOne({ email: address });
@@ -574,7 +574,6 @@ const admincheckaddress =async (req, res) => {
         res.status(500).json({ available: false });
     }
 }
-
 
 
 module.exports = {
@@ -597,7 +596,7 @@ module.exports = {
     acceptRequest,
     rejectRequest,
     admincheckaddress,
-
+    
 };
 
 

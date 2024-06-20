@@ -139,6 +139,28 @@ app.get('/user/:collectionName', async (req, res) => {
 
 
 // app.use('/', Product);
+
+const stonePrices = {
+    'Round': 100,
+    'Radiant': 150,
+    'Heart': 200,
+    'Princess': 250,
+    'Pear': 300,
+    'Oval': 350,
+    'Marquise': 400,
+    'Emerald': 450,
+    'Cushion': 500,
+    'Asscher': 550
+};
+
+const colorPrices = {
+    'White': 10,
+    'Green': 20,
+    'Blue': 30,
+    'Yellow': 40,
+    'Red': 50
+};
+
 const combinations = [
     { stone: 'Round', color: 'White' },
     { stone: 'Round', color: 'Green' },
@@ -201,32 +223,65 @@ const combinations = [
     { stone: 'Asscher', color: 'Red' }
 ];
 
+// function calculatePrice(stone, color) {
+//     const stonePrice = stonePrices[stone];
+//     const colorPrice = colorPrices[color];
+//     return stonePrice + colorPrice;
+// }
 
-async function seedDatabase() {
-    try {
-        await Customa.deleteMany({}); // Clear existing data (optional)
+// async function debugDatabase() {
+//     const indexes = await Customa.collection.getIndexes();
+//     console.log('Indexes:', indexes);
 
-        for (let i = 0; i < combinations.length; i++) {
-            const { stone, color } = combinations[i];
-            const newCustom = new Customa({
-                customize_id: `${stone}_${color}`, // Adjust customize_id format as needed
-                price: 0, // Set the price accordingly
-                img1: '', // Set image paths if applicable
-                img2: '',
-                stone: stone,
-                color: color
-            });
-            await newCustom.save();
-            console.log(`Inserted combination: ${stone}, ${color}`);
-        }
+//     const existingData = await Customa.find({});
+//     console.log('Existing Data:', existingData);
+// }
 
-        console.log('Database seeding completed.');
-        mongoose.connection.close();
-    } catch (err) {
-        console.error('Error seeding database:', err);
-    }
-}
-seedDatabase();
+// debugDatabase();
+
+// async function seedDatabase() {
+//     try {
+//         await Customa.deleteMany({}); // Clear existing data
+//         await Customa.collection.drop();
+//         console.log('Collection dropped successfully.');
+//         for (let i = 0; i < combinations.length; i++) {
+//             const { stone, color } = combinations[i];
+
+//             // Check for invalid data
+//             if (!stone || !color) {
+//                 console.error(`Invalid combination at index ${i}:`, combinations[i]);
+//                 continue; // Skip invalid entries
+//             }
+
+//             console.log(`Preparing to insert combination: ${stone}, ${color}`); // Detailed logging
+//             const price = calculatePrice(stone, color);
+//             const newCustom = new Customa({
+//                 customize_id: `${stone}_${color}`, // Adjust customize_id format as needed
+//                 price: price, // Set the price accordingly
+//                 img1: '', // Set image paths if applicable
+//                 img2: '',
+//                 stone: stone,
+//                 color: color
+//             });
+
+//             try {
+//                 await newCustom.save();
+//                 console.log(`Inserted combination: ${stone}, ${color}`);
+//             } catch (saveError) {
+//                 console.error(`Error inserting combination ${stone}, ${color}:`, saveError.message);
+//             }
+//         }
+
+//         console.log('Database seeding completed.');
+//         mongoose.connection.close();
+//     } catch (err) {
+//         console.error('Error seeding database:', err);
+//     }
+// }
+
+// seedDatabase();
+
+
 app.use((req, res) => {
     res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
 });

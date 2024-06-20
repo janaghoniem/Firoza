@@ -145,7 +145,6 @@ router.get('/EditCollection', (req, res) => {
     res.render("EditCollection.ejs");
 });
 
-// router.post('/customize', adminController.customize);
 
 router.get('/AddProduct', (req, res) => {
     res.render("addProduct.ejs");
