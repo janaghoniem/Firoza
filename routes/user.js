@@ -193,9 +193,9 @@ router.post('/submit-quiz', async (req, res) => {
         if (result === 'egypt') {
             products = await Product.find({ collection_id: 'Egyptian' }).limit(4);
         } else if (result === 'india') {
-            products = await Product.find({ collection_id: 'indian' }).limit(4);
+            products = await Product.find({ collection_id: 'The Indian Collection' }).limit(4);
         } else if (result === 'minimalist') {
-            products = await Product.find({ collection_id: 'none' }).limit(4);
+            products = await Product.find({ collection_id: '0' }).limit(4);
         }
         
         res.json({ message: 'Quiz submitted successfully!', products });
