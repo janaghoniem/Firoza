@@ -66,9 +66,15 @@
                                             <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                             <div class="product-details">
                                                 <h2><%= product.name %></h2>
+                                                
                                                 <p>Price: $<%= product.price %></p>
                                             </div>
                                         </li>
+                                        <% if (order.status === 'delivered') { %>
+                                            <div class="order-actions">
+                                            <button class="review-button" onclick="openReviewPopup('<%= product._id %>')">Review Product</button>
+                                                </div>
+                                        <% } %>
                                     <% }); %>
                                 </ul>
     
@@ -77,9 +83,7 @@
                                     <% if (order.status === 'pending') { %>
                                         <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
                                     <% } %>
-                                    <% if (order.status === 'delivered') { %>
-                                        <button class="review-button" onclick="openReviewPopup('<%= order._id %>')">Review Order</button>
-                                    <% } %>
+                                   
                                 </div>
                             </div>
                         <% }); %>

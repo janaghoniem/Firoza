@@ -37,10 +37,10 @@ function confirmCancel() {
     }
     closePopup();
 }
-function openReviewPopup(orderId) {
+function openReviewPopup(prodId) {
     const popup = document.getElementById("review-popup");
     popup.style.display = "block";
-    popup.dataset.orderId = orderId;
+    popup.dataset.prodId = prodId;
 
     const stars = popup.querySelectorAll('.review-rating .fa-star');
     stars.forEach(star => {
@@ -51,7 +51,7 @@ function openReviewPopup(orderId) {
 function closeReviewPopup() {
     const popup = document.getElementById("review-popup");
     popup.style.display = "none";
-    popup.dataset.orderId = "";
+    popup.dataset.prodId = "";
 
     const comment = document.getElementById("review-comment");
     comment.value = "";
@@ -83,29 +83,30 @@ function setRating(rating) {
 
 async function submitReview() {
     const popup = document.getElementById("review-popup");
-    const orderId = popup.dataset.orderId;
+    const prodId = popup.dataset.prodId; // Ensure this matches what is expected in your backend route
     const rating = popup.dataset.rating;
     const comment = document.getElementById("review-comment").value;
 
-    
-    if (orderId && rating && comment) {
+    if (prodId && rating && comment) {
         try {
-            const response = await fetch(`/user/orders/${orderId}/reviews`, {
+            const response = await fetch(`/user/orders/${prodId}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    orderId: orderId,
+                    prod: prodId,
                     rating: rating,
                     comment: comment
                 })
             });
+
             const result = await response.json();
             alert(result.message);
+            
             if (result.success) {
                 closeReviewPopup();
-                window.location.reload();
+                window.location.reload(); // Reload the page after successful submission
             }
         } catch (error) {
             console.error('Error submitting review:', error);
