@@ -160,25 +160,26 @@ const getCollectionProducts = async (req, res) => {
 };
 
 router.get('/collection/:collectionId', getCollectionProducts);
-router.post('/cancelOrder/:orderId', async (req, res) => {
-    const { orderId } = req.params;
+router.put('/cancelOrder/:orderId',User.cancelOrder);
+// router.post('/cancelOrder/:orderId', async (req, res) => {
+//     const { orderId } = req.params;
 
-    try {
-        const order = await Order.findById(orderId);
-        if (!order) {
-            return res.status(404).json({ success: false, message: 'Order not found' });
-        }
+//     try {
+//         const order = await Order.findById(orderId);
+//         if (!order) {
+//             return res.status(404).json({ success: false, message: 'Order not found' });
+//         }
 
-        // Update the order status to 'cancelled'
-        order.status = 'cancelled';
-        await order.save();
+//         // Update the order status to 'cancelled'
+//         order.status = 'cancelled';
+//         await order.save();
 
-        res.json({ success: true, message: 'Order cancelled successfully' });
-    } catch (error) {
-        console.error("Error cancelling order:", error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-});
+//         res.json({ success: true, message: 'Order cancelled successfully' });
+//     } catch (error) {
+//         console.error("Error cancelling order:", error);
+//         res.status(500).json({ success: false, message: 'Internal server error' });
+//     }
+// });
 router.post('/orders/:orderId/reviews', User.submitReview);
 router.post('/logout', User.logout);
 
