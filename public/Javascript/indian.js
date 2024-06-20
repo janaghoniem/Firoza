@@ -39,6 +39,34 @@ window.onclick = function(event) {
     }
 }
 
+function showPopup(message) {
+    const popup = document.getElementById('login-message-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
+}
+
+function showErrorPopup(message) {
+    const popup = document.getElementById('login-message-error-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
+}
+
 async function addToCart(productId, price) {
     try {
         const response = await fetch('/user/add-to-cart', {
@@ -51,14 +79,13 @@ async function addToCart(productId, price) {
 
         if (response.ok) {
             const result = await response.json();
-            alert('Product added to cart successfully!');
+            showPopup('Product added to cart successfully!');
         } else {
-            alert('Failed to add product to cart');
+            showErrorPopup('Failed to add product to cart. Please try again later.');
         }
 
     } catch (error) {
-        alert('Error:', error);
-        alert('Failed to add product to cart');
+        showErrorPopup('Failed to add product to cart');
     }
 }
 
@@ -116,11 +143,10 @@ async function applyFilters() {
             const products = await response.json();
             updateProductList(products);
         } else {
-            alert('Failed to apply filters');
+            showErrorPopup('Failed to apply filters');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error:', error);
     }
 }
 
@@ -142,11 +168,10 @@ async function fetchDefaultProducts() {
             const products = await response.json();
             updateProductList(products);
         } else {
-            alert('Failed to fetch products');
+            showErrorPopup('Failed to fetch products');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error:', error);
     }
 }
 
@@ -226,5 +251,5 @@ function applyCategoryFilter(category) {
             checkbox.checked = true;
         }
     });
-    applyFilters();
+    applyFilters(); 
 }

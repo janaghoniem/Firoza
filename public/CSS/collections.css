@@ -39,7 +39,7 @@
     align-items: center;
 }
 
-.collection-text {
+.collection-text, .dynamic {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,17 +74,21 @@
     text-transform: uppercase;
 }
 
-.collection-text a{
+.collection-text a, .dynamic a{
     font-family: "Libre Caslon Text", serif;
     font-weight: 500;
     font-style: normal;
     line-height: 2rem;
     text-transform: uppercase;
     text-decoration: none;
+    color: black;
 }
-.dynamic{
+
+.dynamic a{
     text-decoration: none;
+    color: black;
 }
+
 .dynamic:hover{
     text-decoration: underline;
 }
@@ -93,7 +97,7 @@
     letter-spacing: 0.9rem;
 }
 
-.collection-text h4{
+.collection-text h4, .dynamic a{
     font-size: 20px;
     letter-spacing: 0.6rem;
 }

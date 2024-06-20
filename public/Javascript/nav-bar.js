@@ -356,9 +356,12 @@ document.addEventListener('DOMContentLoaded',  function() {
                 exitPopupButton.click();
                 showPopup('Login Successful');
                 if (userData.isAdmin) {
-                    window.location.href = '/admin'; // Redirect to admin page
+                    window.location.href = '/admin/Dashboard'; // Redirect to admin page
                 }
             }
+        } else {
+            exitPopupButton.click();
+            showErrorPopup('Failed to login. Please try again later.');
         }
     });
     
@@ -426,8 +429,7 @@ document.addEventListener('DOMContentLoaded',  function() {
             }
             return true;
         } catch (error) {
-            alert('Error checking email availability:' + error);
-            return false; // Default to false in case of errors
+            return false;
         }
     }
 
@@ -542,7 +544,8 @@ document.addEventListener('DOMContentLoaded',  function() {
                     showPopup("Account created successfully!");
                     exitPopupButton.click();
                 } else {
-                    alert(data.error); // Display error message
+                    showErrorPopup("Failed to create account. Please try again later."); 
+                    exitPopupButton.click();
                 }
             } catch (error) {
                 console.error('Error:', error);

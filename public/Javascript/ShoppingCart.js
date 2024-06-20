@@ -69,15 +69,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (updateResponse.ok) {
                     window.location.href = '/user/Checkout'; // Proceed to checkout page
                 } else {
-                    const errorData = await updateResponse.json();
-                    alert('Failed to update cart price: ' + errorData.error);
+                    // const errorData = await updateResponse.json();
+                    showErrorPopup('An error has occurred. Please try again later.');
                 }
             } else {
+                showErrorPopup('Please sign in to checkout.')
                 popupContainer.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             }
         } catch (error) {
-            alert('Error:', error);
+            console.log('Error:', error);
         }
     });
 
@@ -93,17 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('Cart updated successfully');
                 quantityInput.value = quantity;
 
                 // Update total price display based on updated totalprice from backend
                 updateTotalPrice(data.totalprice); // Make sure this function updates the UI
             } else {
                 const errorData = await response.json();
-                alert('Failed to update cart: ' + errorData.error);
+                showErrorPopup(errorData.error);
             }
         } catch (error) {
-            alert('Error updating cart:', error);
+            console.error('Error updating cart:', error);
         }
     }
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 itemRow.remove();
                 updateTotalPrice();
             } else {
-                alert('Failed to remove item from cart' + response.statusText);
+                showErrorPopup('Failed to remove item from cart. Please try again later.');
             }
         } catch (error) {
             console.error('Error removing item from cart:', error);
@@ -164,4 +164,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial check to disable checkout button if cart is empty
     updateTotalPrice();
+
+    function showErrorPopup(message) {
+        const popup = document.getElementById('login-message-error-popup');
+        const popupMessage = popup.querySelector('h2');
+        popupMessage.textContent = message;
+        
+        // Show the popup
+        popup.classList.add('show');
+        
+        // Automatically hide popup after 3 seconds
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); // Adjust timing as needed
+    }
 });

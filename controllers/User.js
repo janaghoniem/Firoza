@@ -417,14 +417,14 @@ const updateCart = async (req, res) => {
         const product = await Product.findById(productId);
 
         if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
+            return res.status(404).json({ error: 'Product not found.' });
         }
 
         // Find the correct size variant and check quantity
         const sizeVariant = product.sizes.find(size => size.quantity >= quantity);
 
         if (!sizeVariant) {
-            return res.status(400).json({ error: 'Insufficient product quantity available' });
+            return res.status(400).json({ error: 'Insufficient product quantity available.' });
         }
 
         if (!req.session.user) {

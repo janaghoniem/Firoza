@@ -110,7 +110,7 @@ function handleFormSubmission(event) {
                 containerDiv.classList.remove('hidden');
             } else {
                 console.error('Failed to save billing information');
-                alert('Failed to save billing information');
+                showErrorPopup('Failed to save billing information');
             }
         });
     } else {
@@ -210,7 +210,7 @@ async function handlePaymentFormSubmission(event) {
             }
         } catch (error) {
             console.error('Error during payment form submission:', error.message);
-            alert('Error during payment form submission');
+            showErrorPopup('Error during payment form submission');
         }
     }
 }

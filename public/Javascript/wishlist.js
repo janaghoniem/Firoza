@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(data.message);
                 document.querySelector(`[data-item="${productId}"]`).remove();
             } else {
-                alert(data.error);
+                showErrorPopup('Failed to remove product from wishlist. Please try again later.');
             }
         } catch (error) {
             console.error('Error removing from wishlist:', error);
@@ -50,7 +50,7 @@ async function addToCart(productId, price) {
             removeFromWishlist(productId);
             showPopup('Product added to cart successfully!');
         } else {
-            alert('Failed to add product to cart');
+            showErrorPopup('Failed to add product to cart. Please try again later.');
         }
 
     } catch (error) {
@@ -59,7 +59,21 @@ async function addToCart(productId, price) {
 }
 
 function showPopup(message) {
-    const popup = document.querySelector('.login-message-popup');
+    const popup = document.getElementById('login-message-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
+}
+
+function showErrorPopup(message) {
+    const popup = document.getElementById('login-message-error-popup');
     const popupMessage = popup.querySelector('h2');
     popupMessage.textContent = message;
     
