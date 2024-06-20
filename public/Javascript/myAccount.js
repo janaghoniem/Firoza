@@ -116,18 +116,33 @@ async function submitReview() {
     }
 }
 function showPopup(message) {
-    const popup = document.querySelector('.login-message-popup');
+    const popup = document.getElementById('login-message-popup');
     const popupMessage = popup.querySelector('h2');
     popupMessage.textContent = message;
     
     // Show the popup
     popup.classList.add('show');
     
-    
+    // Automatically hide popup after 3 seconds
     setTimeout(() => {
         popup.classList.remove('show');
-    }, 5000); // Adjust timing as needed
+    }, 3000); // Adjust timing as needed
 }
+
+function showErrorPopup(message) {
+    const popup = document.getElementById('login-message-error-popup');
+    const popupMessage = popup.querySelector('h2');
+    popupMessage.textContent = message;
+    
+    // Show the popup
+    popup.classList.add('show');
+    
+    // Automatically hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3000); // Adjust timing as needed
+}
+
 async function logout() {
     try {
         const response = await fetch('/user/logout', {
@@ -158,11 +173,36 @@ async function logout() {
 
 //ADDED BY JANA FOR STYLISTIC PURPOSES
 document.addEventListener('DOMContentLoaded', () => {
+
+    function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+
+    async function checkEmailAvailability(email) {
+        try {
+            const response = await fetch('/user/checkAddress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ address: email })
+            });
+            if (!response.ok) {
+                return false;
+            }
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     const editButton = document.getElementById('edit-button');
     const saveButton = document.getElementById('save-button');
     const cancelButton = document.getElementById('cancel-button');
     const displayElements = document.querySelectorAll('.user-info-display');
     const editElements = document.querySelectorAll('.user-info-edit');
+    const emailInput = document.getElementById('email-input');
 
     editButton.addEventListener('click', () => {
         displayElements.forEach(element => {
@@ -188,50 +228,87 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelButton.style.display = 'none';
     });
 
-    // saveButton.addEventListener('click', () => {
-    //     // Here, you would send the updated information to the server via an AJAX request.
-    //     // For simplicity, this example just toggles the view back to display mode.
+    // Event listener for email input
+    emailInput.addEventListener('input', async function() {
+        alert('email input')
+        const emailValue = this.value;
+        const userId = '<%= userInfo._id %>'; // Pass the userId from the server
 
-    //     displayElements.forEach((element, index) => {
-    //         const inputElement = editElements[index];
-    //         element.textContent = inputElement.value;
-    //         element.style.display = 'inline';
-    //         inputElement.style.display = 'none';
-    //     });
+        if(isValidEmail(email.Value.trim())){
 
-    //     editButton.style.display = 'inline';
-    //     saveButton.style.display = 'none';
-    //     cancelButton.style.display = 'none';
+            const response = await fetch('/user/check-email-update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ emailValue, userId })
+            });
 
-    //     // Send the updated data to the server
-    //     const updatedInfo = {
-    //         firstname: document.querySelector('input[name="firstname"]').value,
-    //         lastname: document.querySelector('input[name="lastname"]').value,
-    //         email: document.querySelector('input[name="email"]').value,
-    //     };
+            const data = await response.json();
 
-    //     fetch('/update-user-info', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(updatedInfo)
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             // Optionally show a success message or handle success
-    //             console.log('User information updated successfully');
-    //         } else {
-    //             // Optionally show an error message or handle error
-    //             console.error('Error updating user information');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // });
+            if (data.available) {
+                emailStatus.textContent = 'Email is available.';
+                emailStatus.style.color = 'green';
+                emailInput.style.borderColor = 'green';
+            } else {
+                emailStatus.textContent = 'Email is already taken.';
+                emailStatus.style.color = 'red';
+                emailInput.style.borderColor = 'red';
+            }
+        }
+    });
+
+    // Event listener for save button
+    saveButton.addEventListener('click', async () => {
+        alert('save entered')
+        const firstname = document.querySelector('input[name="firstname"]').value;
+        const lastname = document.querySelector('input[name="lastname"]').value;
+        const email = emailInput.value;
+
+        // Final validation before sending the update request
+        const response = await fetch('/user/check-email-update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ emailValue: email, userId: '<%= userInfo._id %>' })
+        });
+
+        alert('fetch done')
+        const data = await response.json();
+
+        if (data.available) {
+            const updatedInfo = { firstname, lastname, email };
+            alert('data available');
+            // Send the updated data to the server
+            fetch('/user/myAccount/Edit-Personal-information', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedInfo)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showPopup('User information updated successfully');
+                    location.reload(); // Refresh the page to show updated info
+                } else {
+                    showErrorPopup('Error updating user information');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } else {
+            alert('not available')
+            emailStatus.textContent = 'Email is already taken.';
+            emailStatus.style.color = 'red';
+            emailInput.style.borderColor = 'red';
+        }
+    });
 });
+
 
 function toggleOrders() {
     const ordersContainer = document.querySelector('.orders-container');
@@ -257,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
             stars.forEach(s => {
                 const sRating = parseInt(s.getAttribute('data-rating'));
                 if (sRating <= rating) {
-                    s.classList.remove('fa-regular');
+                    s.classList.remove('fa-regular'); 
                     s.classList.add('fa-solid');
                 } else {
                     s.classList.remove('fa-solid');

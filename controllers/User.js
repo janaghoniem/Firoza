@@ -86,6 +86,7 @@ const GetUser = async (req, res) => {
     try {
         // Find user by email
         const user = await User.findOne({ email });
+        const isAdmin = user.isAdmin;
         if (!user) {
             console.log('Email not associated with any account');
             return res.status(400).json({ error: 'The entered email address is not associated with any account' });
@@ -145,7 +146,7 @@ const GetUser = async (req, res) => {
         req.session.user = user;
 
         // Return user data including isAdmin flag
-        res.status(200).json({ user });
+        res.status(200).json({ user, isAdmin });
     } catch (error) {
         console.error('Error in GetUser:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -210,6 +211,38 @@ const AddUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+const updateUser = async (req, res) => {
+    try {
+        const { firstname, lastname, email } = req.body;
+        const userId = req.user.id; // Make sure req.user.id is set correctly
+
+        const updatedInfo = { firstname, lastname, email };
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedInfo, { new: true });
+        console.log('User updated.');
+        res.sendStatus(200);
+    } catch (error) {
+        console.error('Error updating user info:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+const checkUpdateEmailAvailibility = async (req, res) => {
+    console.log('check update email availability.')
+    const { emailValue, userId } = req.body;
+    try {
+        const user = await User.findOne({ email: emailValue });
+        console.log(emailValue);
+        console.log(user.email);
+        const available = (!user || user._id.toString() === userId);
+        console.log(!user || user._id.toString() === userId.toString())
+        res.json({ available });
+    } catch (error) {
+        console.error('Error checking email availability:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 // Check Address
 const checkAddress = async (req, res) => {
@@ -1060,6 +1093,8 @@ const getProductDetails = async (req, res) => {
 module.exports = {
     GetUser,
     AddUser,
+    updateUser,
+    checkUpdateEmailAvailibility,
     checkAddress,
     checkLoggedIn,
     Search,

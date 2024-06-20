@@ -359,6 +359,7 @@ document.addEventListener('DOMContentLoaded',  function() {
                 if (userData.isAdmin) {
                     window.location.href = '/admin/Dashboard'; // Redirect to admin page
                 }
+                // location.reload();
             }
         } else {
             exitPopupButton.click();
@@ -542,8 +543,9 @@ document.addEventListener('DOMContentLoaded',  function() {
     
                 const data = await response.json();
                 if (response.ok) {
-                    showPopup("Account created successfully!");
                     exitPopupButton.click();
+                    // location.reload();
+                    showPopup("Account created successfully!");
                 } else {
                     showErrorPopup("Failed to create account. Please try again later."); 
                     exitPopupButton.click();
