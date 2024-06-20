@@ -200,3 +200,11 @@ h2 {
     font-size: 16px;
     align-self: center; /* Align the search count vertically */
   }
+  
+  #searchDate {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 180px; /* Adjust width as needed */
+}
