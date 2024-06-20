@@ -175,31 +175,47 @@ function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
-
+//-----------------------------------------------------------------------------
 const form = document.getElementById('contactUsForm');
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const formData = new FormData(form);
-    const requestBody = Object.fromEntries(formData.entries()); // Convert FormData to object
-    
+
+    const firstName = document.getElementById('first-name-form-field').value;
+    const lastName = document.getElementById('last-name-form-field').value;
+    const email = document.getElementById('email-address-form-field').value;
+    const subject = document.getElementById('subject-select-field').value;
+    const reason = document.getElementById('reason-form-field').value;
+
     try {
         const response = await fetch('/user/submitRequest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(requestBody) // Send data as JSON string
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                subject,
+                reason
+            })
         });
+
+        console.log('Response:', response); // Debug statement to log response object
         
         if (!response.ok) {
             throw new Error('Failed to submit request');
         }
         
         const data = await response.json();
-        console.log(data);
+        console.log('Response Data:', data); // Debug statement to log response data
+        alert('Request submitted successfully!'); 
         // Handle success response
+        console.log('Request submitted successfully:', data.message);
+        alert();
     } catch (error) {
         console.error('Error submitting request:', error);
+        alert('Failed to submit request. Please try again.'); // Debug statement to log error
         // Handle error
     }
 });

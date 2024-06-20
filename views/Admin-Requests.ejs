@@ -37,7 +37,7 @@
                 });
             };
 
-            disableButtonsBasedOnApprovement();
+            //disableButtonsBasedOnApprovement();
 
             document.querySelectorAll('.accept-btn').forEach(button => {
                 button.addEventListener('click', async () => {
@@ -121,7 +121,10 @@
                                 </label>
                             </th>
                             <th scope="col">Request ID</th>
-                            <th scope="col">Type</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Subject</th>
                             <th scope="col">Reason</th>
                             <th scope="col">Approvement</th>
                             <th scope="col">Accept Request</th>
@@ -146,11 +149,38 @@
                                 <td>
                                     <%= request._id %>
                                 </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="name">
+                                            <span class="editable" contenteditable="false" data-field="firstName">
+                                                <%= request.firstName %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="name">
+                                            <span class="editable" contenteditable="false" data-field="lastName">
+                                                <%= request.lastName %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="#" class="name">
+                                            <span class="editable" contenteditable="false" data-field="email">
+                                                <%= request.email %>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
                                 <td class="pl-0">
                                     <div class="d-flex align-items-center">
                                         <a href="#" class="name">
-                                            <span class="editable" contenteditable="false" data-field="type">
-                                                <%= request.type %>
+                                            <span class="editable" contenteditable="false" data-field="subject">
+                                                <%= request.subject %>
                                             </span>
                                         </a>
                                     </div>
@@ -161,18 +191,16 @@
                                     </small>
                                 </td>
                                 <td>
-                                    <% if (request.approvement===null) { %>
+                                    <% if (request.approvement === null) { %>
                                         <small class="d-block text-muted">No response</small>
-                                        <% } else if (request.approvement===true) { %>
-                                            <small class="d-block text-success">Accepted</small>
-                                            <% } else { %>
-                                                <small class="d-block text-danger">Rejected</small>
-                                                <% } %>
+                                    <% } else if (request.approvement === true) { %>
+                                        <small class="d-block text-success">Accepted</small>
+                                    <% } else { %>
+                                        <small class="d-block text-danger">Rejected</small>
+                                    <% } %>
                                 </td>
-                                <td><button class="accept-btn btn btn-success"
-                                        data-id="<%= request._id %>">Accept</button></td>
-                                <td><button class="reject-btn btn btn-danger"
-                                        data-id="<%= request._id %>">Reject</button></td>
+                                <td><button class="accept-btn btn btn-success" data-id="<%= request._id %>">Accept</button></td>
+                                <td><button class="reject-btn btn btn-danger" data-id="<%= request._id %>">Reject</button></td>
                                 <td>
                                     <label class="custom-control ios-switch">
                                         <input type="checkbox" class="ios-switch-control-input" checked="">
@@ -180,13 +208,13 @@
                                     </label>
                                 </td>
                             </tr>
-                            <% }) %>
+                        <% }) %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    
 
 
 
