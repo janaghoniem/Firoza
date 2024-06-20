@@ -20,16 +20,16 @@
                 <div class="container">
                     <div class="row gx-5">
                         <aside class="col-lg-6">
-                            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image">
-                                    <img style="max-width: 100%; max-height: 70vh; margin: auto;" class="rounded-4 fit"
+                            <div class="border rounded-4 mb-3 d-flex justify-content-center" >
+                                <a id="mainImageLink" data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image">
+                                    <img id="mainImage"  class="rounded-4 fit"
                                         src="<%= product.img %>" alt="Product Image" />
                                 </a>
                             </div>
                             <div class="d-flex justify-content-center mb-3">
                                 <% product.images.forEach(function(image) { %>
-                                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" class="item-thumb">
-                                        <img width="60" height="60" class="rounded-2" src="<%= product.images[0] %>" alt="Product Image" />
+                                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2 item-thumb" target="_blank" data-type="image">
+                                        <img width="60" height="60" class="rounded-2" src="<%= image %>" alt="Product Image" />
                                     </a>
                                 <% }); %>
                             </div>
@@ -298,17 +298,22 @@
    
 
     
-    <!-- <script>
-        // Populate product details from session storage
-        const productDetails = JSON.parse(sessionStorage.getItem('productDetails'));
-        if (productDetails) {
-            document.getElementById('productImage').src = `/images/Indian/Newfolder/${productDetails.img}`;
-            document.getElementById('productName').textContent = productDetails.name;
-            document.getElementById('productPrice').textContent = productDetails.price;
-            document.getElementById('productDescription').innerHTML = productDetails.description;
-            // You can add more details as needed
-        }
-    </script> -->
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mainImage = document.getElementById("mainImage");
+        var mainImageLink = document.getElementById("mainImageLink");
+        var thumbnails = document.querySelectorAll(".item-thumb img");
+
+        thumbnails.forEach(function(thumbnail) {
+            thumbnail.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+                var newSrc = thumbnail.src;
+                mainImage.src = newSrc;
+                mainImageLink.href = newSrc; // Update the href of the main link
+            });
+        });
+    });
+</script>
 
     <script src="/Javascript/productCardDetails.js"></script>
     <script src="/Javascript/openproduct.js"></script>
