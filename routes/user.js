@@ -93,7 +93,7 @@ router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
 //         res.status(500).json({ message: 'Error fetching products', error });
 //     }
 // });
-
+router.get('/stores',User.getStore);
 router.post('/filter', User.filterProducts); 
 
 router.get('/shopAll',User.getShopAllProducts);

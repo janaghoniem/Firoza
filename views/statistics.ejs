@@ -88,17 +88,7 @@
               17K
             </h1>
           </div>
-          <div class="stat-box">
-            <div class="stat-title">
-              Cart Abandonment Rate
-              <span class="stat-percentage red">
-                <img src="../images/statistics/arrow-up-red.svg" alt="" />12%
-              </span>
-            </div>
-            <h1 class="number-fs">
-              23.57%
-            </h1>
-          </div>
+          
           <div class="stat-box">
             <div class="stat-title">
               Customer Retention Rate (From Yesterday)
@@ -130,49 +120,30 @@
 
         <!-- Row 4 - Devices -->
         <div class="row-4">
-          <div class="box device-box">
+          <div class="box device-box" >
             <div class="box-title">Quiz Stats</div>
-            <div class="select-months">
-              <div class="select-month active">
-                May
-              </div>
-              <div class="select-month">
-                June
-              </div>
-              <div class="select-month">
-                July
-              </div>
-              <div class="select-month">
-                August
-              </div>
-            </div>
+        
             <div class="month-info">
-              <div class="month-info-box">
-                Indian | 52%
-                <div class="month-bar" style="width: 62%;"></div>
-              </div>
-              <div class="month-info-box">
-                Egyptian | 15%
-                <div class="month-bar" style="width: 25%;"></div>
-              </div>
-              <div class="month-info-box">
-                Middle Eastern | 36%
-                <div class="month-bar" style="width: 46%;"></div>
-              </div>
-              <div class="month-info-box">
-                Vintage | 36%
-                <div class="month-bar" style="width: 46%;"></div>
-              </div>
-              <div class="month-info-box">
-                Minimalist | 6%
-                <div class="month-bar" style="width: 10%;"></div>
-              </div>
+                <div class="month-info-box">
+                    Indian | <%= resultPercentages.indian %>%
+                    <div class="month-bar" style="width: <%= resultPercentages.indian %>%;"></div>
+                </div>
+                <div class="month-info-box">
+                    Egyptian | <%= resultPercentages.egyptian %>%
+                    <div class="month-bar" style="width: <%= resultPercentages.egyptian %>%;"></div>
+                </div>
+                <div class="month-info-box">
+                    Minimalist | <%= resultPercentages.minimalist %>%
+                    <div class="month-bar" style="width: <%= resultPercentages.minimalist %>%;"></div>
+                </div>
             </div>
-          </div>
-          <div class="box device-box">
-            <!-- <div class="box-title">User Demographics</div> -->
-            <div class="reference-details">
-              <!-- <div class="reference">
+        </div>
+        
+        </div>
+        <div class="box device-box">
+          <!-- <div class="box-title">User Demographics</div> -->
+          <div class="reference-details">
+            <!-- <div class="reference">
                   <span>Male</span>
                   <span>13%</span>
                 </div>
@@ -192,14 +163,14 @@
                   <span>Age: above 48</span>
                   <span>23%</span>
                 </div> -->
-              <div class="box-title">Jewelry preference insights</div>
-              <div class="reference-details">
-                <% responses.forEach(response=> { %>
-                  <div class="reference">
-                    <span>#<%= response %></span>
-                  </div>
-                  <% }) %>
-              </div>
+            <div class="box-title">Jewelry preference insights</div>
+            <div class="reference-details">
+              <% responses.forEach(response=> { %>
+                <div class="reference">
+                  <span>#<%= response %></span>
+                </div>
+                <% }) %>
+            </div>
           </div>
       </main>
       <aside class="side-bar">

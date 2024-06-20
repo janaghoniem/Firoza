@@ -8,6 +8,11 @@ const Request = require('../models/Requests');
 const QuizResult = require('../models/Quiz');
 const CustomizeRing = require('../models/Customization');
 
+
+const getStore=async (req, res) => {
+    res.render('stores');
+};
+
 const getCollection = async (req, res) => {
     try {
         const formattedCollectionName = req.params.collectionName;
@@ -1390,6 +1395,7 @@ module.exports = {
     getTopSellingProducts, 
     getCollectionPage,
     getCustomProduct,
-    AddToCartCustomRing
+    AddToCartCustomRing,
+    getStore
 
 };

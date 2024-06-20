@@ -562,7 +562,6 @@ const calculateCRR = async (startDate, endDate) => {
         throw error;
     }
 };
-
 const getStatistics = async (req, res) => {
     try {
         const startDate = new Date('2024-06-01');
@@ -589,7 +588,31 @@ const getStatistics = async (req, res) => {
             .sort({ no_sales: -1 })
             .limit(4) // Limit to top 4 for display purposes
             .select('name no_sales');
+            const quizResults = await QuizResult.find().select('result -_id');
 
+            // Initialize counters for each result type
+            let resultCounts = {
+                minimalist: 0,
+                indian: 0,
+                egyptian: 0
+            };
+    
+            // Count occurrences of each result
+            quizResults.forEach(result => {
+                if (result.result in resultCounts) {
+                    resultCounts[result.result]++;
+                }
+            });
+    
+            // Calculate total number of results
+            const totalResults = quizResults.length;
+    
+            // Calculate the percentage of each result type
+            const percentages = {
+                minimalist: ((resultCounts.minimalist / totalResults) * 100).toFixed(2),
+                indian: ((resultCounts.indian / totalResults) * 100).toFixed(2),
+                egyptian: ((resultCounts.egyptian / totalResults) * 100).toFixed(2)
+            };
         // Retrieve user responses from the quiz database
         const userResponses = await QuizResult.find().select('userResponse -_id');
 
@@ -597,12 +620,14 @@ const getStatistics = async (req, res) => {
         const responses = userResponses.map(response => response.userResponse);
 
         // Render the statistics view with user count, best sellers, most purchased products, and user responses
-        res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2), responses });
+        res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2), responses, resultPercentages: percentages });
     } catch (error) {
         console.error('Error fetching statistics:', error);
         res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
+
+
 
 const getadmin = async (req, res) => {
     res.render("AddAdmin.ejs");
