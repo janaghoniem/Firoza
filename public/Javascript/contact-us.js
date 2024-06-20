@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validateFormSubmission() {
+
         let valid = true;
         fnerror.textContent = '';
         lnerror.textContent = '';
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(submitbutton){
         submitbutton.addEventListener('click', () => {
             if(!validateFormSubmission())
-                event.preventDefault();
+                e.preventDefault();
             //popup message sent
     
             //clear fields

@@ -867,6 +867,7 @@ const cancelOrder = async (req, res) => {
 //     const { orderId } = req.params;
 //     const { rating, comment } = req.body;
 
+<<<<<<< Updated upstream
 //     try {
 //         const newReview = new reviews({
 //             order: orderId,
@@ -916,6 +917,14 @@ const logout = (req, res) => {
         res.clearCookie('connect.sid'); // Assuming you're using express-session
         res.json({ success: true, message: 'Logged out successfully' });
     });
+=======
+ const getcontactus = async(req,res)=>{
+    res.render("ContactUs.ejs");
+};
+ 
+const getcontactusform = async(req,res)=>{
+    res.render("ContactUsForm.ejs");
+>>>>>>> Stashed changes
 };
 module.exports = {
     GetUser,
@@ -939,6 +948,11 @@ module.exports = {
     getShopAllProducts,
     getIndianProducts,
     cancelOrder,
+<<<<<<< Updated upstream
     submitReview,
     logout
+=======
+    getcontactus,
+    getcontactusform
+>>>>>>> Stashed changes
 };
