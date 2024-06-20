@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 //routers
 const userRouter = require('./routes/user'); 
 const AdminRouter = require('./routes/admin'); 
+const appRouter = require('./routes/app');
 //models
 const User = require('./models/User');
 const Product = require('./models/product'); 
@@ -40,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
 app.use('/admin',AdminRouter);
-
+app.use('/',appRouter);
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -50,11 +51,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Route for the landing page
-app.get('/', (req, res) => {
-    res.render('landing-page');
-});
 
 
 
@@ -161,14 +157,13 @@ app.get('/user/:collectionName', async (req, res) => {
 //     'Asscher': 6000
 // };
 
-const colorPrices = {
-    'White': 2000,
-    'Green': 3000,
-    'Blue': 2500,
-    'Yellow': 1000,
-    'Red': 4000
-};
-
+// const colorPrices = {
+//     'White': 2000,
+//     'Green': 3000,
+//     'Blue': 2500,
+//     'Yellow': 1000,
+//     'Red': 4000
+// };
 
 // const combinations = [
 //     { stone: 'Round', color: 'White' },
@@ -212,6 +207,68 @@ const colorPrices = {
 //     { stone: 'Marquise', color: 'Blue' },
 //     { stone: 'Marquise', color: 'Yellow' },
 //     { stone: 'Marquise', color: 'Red' },
+
+// const combinations = [
+//     { stone: 'Round', color: 'White' },
+//     { stone: 'Round', color: 'Green' },
+//     { stone: 'Round', color: 'Blue' },
+//     { stone: 'Round', color: 'Yellow' },
+//     { stone: 'Round', color: 'Red' },
+
+//     { stone: 'Radiant', color: 'White' },
+//     { stone: 'Radiant', color: 'Green' },
+//     { stone: 'Radiant', color: 'Blue' },
+//     { stone: 'Radiant', color: 'Yellow' },
+//     { stone: 'Radiant', color: 'Red' },
+
+//     { stone: 'Heart', color: 'White' },
+//     { stone: 'Heart', color: 'Green' },
+//     { stone: 'Heart', color: 'Blue' },
+//     { stone: 'Heart', color: 'Yellow' },
+//     { stone: 'Heart', color: 'Red' },
+
+//     { stone: 'Princess', color: 'White' },
+//     { stone: 'Princess', color: 'Green' },
+//     { stone: 'Princess', color: 'Blue' },
+//     { stone: 'Princess', color: 'Yellow' },
+//     { stone: 'Princess', color: 'Red' },
+
+//     { stone: 'Pear', color: 'White' },
+//     { stone: 'Pear', color: 'Green' },
+//     { stone: 'Pear', color: 'Blue' },
+//     { stone: 'Pear', color: 'Yellow' },
+//     { stone: 'Pear', color: 'Red' },
+
+//     { stone: 'Oval', color: 'White' },
+//     { stone: 'Oval', color: 'Green' },
+//     { stone: 'Oval', color: 'Blue' },
+//     { stone: 'Oval', color: 'Yellow' },
+//     { stone: 'Oval', color: 'Red' },
+
+//     { stone: 'Marquise', color: 'White' },
+//     { stone: 'Marquise', color: 'Green' },
+//     { stone: 'Marquise', color: 'Blue' },
+//     { stone: 'Marquise', color: 'Yellow' },
+//     { stone: 'Marquise', color: 'Red' },
+
+//     { stone: 'Emerald', color: 'White' },
+//     { stone: 'Emerald', color: 'Green' },
+//     { stone: 'Emerald', color: 'Blue' },
+//     { stone: 'Emerald', color: 'Yellow' },
+//     { stone: 'Emerald', color: 'Red' },
+
+//     { stone: 'Cushion', color: 'White' },
+//     { stone: 'Cushion', color: 'Green' },
+//     { stone: 'Cushion', color: 'Blue' },
+//     { stone: 'Cushion', color: 'Yellow' },
+//     { stone: 'Cushion', color: 'Red' },
+
+//     { stone: 'Asscher', color: 'White' },
+//     { stone: 'Asscher', color: 'Green' },
+//     { stone: 'Asscher', color: 'Blue' },
+//     { stone: 'Asscher', color: 'Yellow' },
+//     { stone: 'Asscher', color: 'Red' }
+// ];
 
 //     { stone: 'Emerald', color: 'White' },
 //     { stone: 'Emerald', color: 'Green' },

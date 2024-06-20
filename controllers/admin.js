@@ -408,8 +408,10 @@ const editProduct = async (req, res) => {
 const getDashboard = async (req, res) => {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    
 
     try {
+        const userCount = await User.countDocuments({ isAdmin: false });
         // 1. Count documents (orders) created in the last 30 days
         const orderCount = await Order.countDocuments({
             createdAt: { $gte: thirtyDaysAgo }
@@ -438,7 +440,8 @@ const getDashboard = async (req, res) => {
         res.render('main', {
             ordersLast30Days: orderCount,
             revenueLast30Days,
-            productsOutOfStock
+            productsOutOfStock,
+            count:userCount
         });
     } catch (error) {
         console.error('Error fetching order count:', error);
