@@ -208,5 +208,26 @@ app.listen(port, () => {
   
 //   order2.save()
 //     .then(() => console.log('Order 2 saved successfully'))
+<<<<<<< Updated upstream
 //     .c
+=======
+//     .catch(err => console.error('Error saving Order 2:', err));
+
+// const newRequest = new Request({
+//     type: 'Sample Request',
+//     approvement: null, // Setting approvement to null
+//     reason: 'This is a sample reason'
+// });
+
+// // Save the new request to the database
+// newRequest.save()
+//     .then(savedRequest => {
+//         console.log('New request saved successfully:', savedRequest);
+//         mongoose.connection.close(); // Close the connection after saving
+//     })
+//     .catch(err => {
+//         console.error('Error saving new request:', err);
+//         mongoose.connection.close(); // Close the connection in case of error
+//     });
+>>>>>>> Stashed changes
 
