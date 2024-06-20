@@ -78,15 +78,31 @@ const renderQuizPage = async (req, res) => {
 };
 const storeQuizResults = async (req, res) => {
     const { answers, result } = req.body;
+    
+    // Extract color and material from answers
+    const colorAnswer = answers.find(answer => answer.question === 1); // Assuming question 2 is for color
+    const materialAnswer = answers.find(answer => answer.question === 3); // Assuming question 3 is for material
+    
+    const color = colorAnswer ? colorAnswer.value : null;
+    const material = materialAnswer ? materialAnswer.value : null;
+
     try {
         let products = [];
-        if (result === 'egypt') {
-            products = await Product.find({ collection_id: 'Egyptian' }).limit(4);
-        } else if (result === 'india') {
-            products = await Product.find({ collection_id: 'The Indian Collection' }).limit(4);
-        } else if (result === 'minimalist') {
-            products = await Product.find({ collection_id: '0' }).limit(4);
+
+        const query = {
+            collection_id: result === 'egypt' ? 'Egyptian' : 
+                          result === 'india' ? 'The Indian Collection' : '0'
+        };
+
+        if (color) {
+            query.color = color;
         }
+
+        if (material) {
+            query.material = material;
+        }
+
+        products = await Product.find(query).limit(4);
 
         // Check if user is logged in
         if (req.session.user) {
@@ -109,7 +125,6 @@ const storeQuizResults = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while submitting the quiz.' });
     }
 };
-
 
 const GetUser = async (req, res) => {
     console.log('Entered GetUser function');
