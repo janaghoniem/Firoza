@@ -96,7 +96,10 @@
                 </div>
                 <div class="action-buttons">
                     <button id="show-more-button" class="show-more-button" onclick="toggleOrders()">Show More Orders</button>
-                    <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
+                    <div style="display: flex; flex-direction: row;">
+                        <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
+                        <button id="deactivate-button" class="logout-button" onclick="deactivate()">Delete Account</button>
+                    </div>
                 </div>
             </section>
            
@@ -114,6 +117,28 @@
             <p>Are you sure you want to cancel this order?</p>
             <div class="btn-container">
                 <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Yes</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <div id="logout-popup" class="custom-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Cancel Order Confirmation</h2>
+            <p>Are you sure you want to cancel this order?</p>
+            <div class="btn-container">
+                <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Logout</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <div id="deactivate-popup" class="custom-popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Are you sure you want to delete your account?</h2>
+            <p>This action cannot be undone. Deleting your account removes all your information, order history and jewelry preferences.</p>
+            <div class="btn-container">
+                <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Delete</button>
                 <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
             </div>
         </div>

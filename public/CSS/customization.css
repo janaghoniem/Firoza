@@ -2,7 +2,7 @@
 
 
 * {
-    font-family: 'futura pt', 'Nunito Sans', 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
+    font-family: 'Nunito Sans', 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
 }
 
 body {
@@ -21,6 +21,10 @@ a {
 
 a:hover {
     color: #000;
+}
+
+.logo {
+    font-family: sans-serif;
 }
 
 /*  -----------------header------------------------------------- */

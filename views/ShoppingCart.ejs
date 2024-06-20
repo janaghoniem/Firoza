@@ -77,14 +77,14 @@
                        <strong class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) + 100 %></strong>
                     </div>
                     <button class="btn btn-dark btn-block mt-4" id="checkout">CHECKOUT</button>
-                    <a href="/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
+                    <a href="/user/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                  </div>
               </div>
            </div>
         </div>
      </div>
+   <!-- <link rel="stylesheet" href="/css/Footer.css"> -->
    <script src="../Javascript/ShoppingCart.js"></script>
-   <%- include('./partials/footer.ejs') %>
-
+     
 </body>
 </html>

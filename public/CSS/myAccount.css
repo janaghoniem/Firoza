@@ -111,10 +111,10 @@ h2 {
 }
 
 .info-buttons button {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
     font-family: 'futura pt';
     font-weight: 500;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border: 1px solid #1f1f1f;
     border-radius: 0;
     text-transform: uppercase;
@@ -130,18 +130,8 @@ h2 {
 }
 
 .info-buttons button:hover {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-}
-
-#save-button {
-    background-color: black;
-    color: white;
-}
-
-#save-button:hover {
-    background-color: white;
-    color: black;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
 }
 
 .info input {
@@ -321,7 +311,7 @@ h2 {
     text-decoration: none;
     line-height: 0.8rem;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 10px;
     align-self: center;
 }
 

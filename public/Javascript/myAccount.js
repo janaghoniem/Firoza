@@ -116,6 +116,7 @@ async function submitReview() {
         alert('Please provide a rating and a comment');
     }
 }
+
 function showPopup(message) {
     const popup = document.getElementById('login-message-popup');
     const popupMessage = popup.querySelector('h2');
@@ -168,6 +169,23 @@ async function logout() {
     } catch (error) {
         console.error('Error during logout:', error);
         showErrorPopup('An error occurred while logging out. Please try again later.');
+    }
+}
+
+async function deactivate() {
+    try {
+        const response = await fetch('/user/deactivate' , {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if(response.ok) {
+            show
+        }
+    } catch {
+
     }
 }
 
