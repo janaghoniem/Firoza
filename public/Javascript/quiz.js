@@ -1,3 +1,73 @@
+function showPopup(message) {
+        const popup = document.getElementById('login-message-popup');
+        const popupMessage = popup.querySelector('h2');
+        popupMessage.textContent = message;
+        
+        // Show the popup
+        popup.classList.add('show');
+        
+        // Automatically hide popup after 3 seconds
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); // Adjust timing as needed
+        }
+
+        function showErrorPopup(message) {
+            const popup = document.getElementById('login-message-error-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+            
+            // Show the popup
+            popup.classList.add('show');
+            
+            // Automatically hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000); // Adjust timing as needed
+        }
+    
+        async function addToCart(productId, price) {
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showPopup('Product added to cart successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to cart. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showErrorPopup('Failed to add product to cart. Please try again later.');
+            }
+        }
+
+        async function addToWishlist(productId) {
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showPopup('Product added to wishlist successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to wishlist. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+
 document.addEventListener("DOMContentLoaded", function () {
     const resultsDiv = document.querySelector('.results');
     const resultsHeader = document.getElementById('results-header');
@@ -124,14 +194,14 @@ document.addEventListener("DOMContentLoaded", function () {
         suggestedProductsDiv.className = 'suggested-products';
         suggestedProductsDiv.innerHTML = '<h3>Products Suggested for You</h3>';
         
-        const productsRow = document.createElement('div');
-        productsRow.className = 'row';
-        
-        products.forEach(product => {
-            const productCol = document.createElement('div');
-            productCol.className = 'col';
+        const carouselDiv = document.createElement('div');
+        carouselDiv.className = 'owl-carousel owl-theme';
 
-            productCol.innerHTML = `
+        products.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.className = 'item';
+
+            productItem.innerHTML = `
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="/user/product/${product._id}" class="image" onclick="fetchProductDetails('${product._id}')">
@@ -149,10 +219,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
             
-            productsRow.appendChild(productCol);
+            carouselDiv.appendChild(productItem);
         });
-        
-        suggestedProductsDiv.appendChild(productsRow);
+
+        suggestedProductsDiv.appendChild(carouselDiv);
         resultsDiv.appendChild(suggestedProductsDiv);
+
+        // Initialize Owl Carousel
+        $(carouselDiv).owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        });
     }
 });

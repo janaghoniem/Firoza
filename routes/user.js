@@ -4,6 +4,7 @@ const User = require('../controllers/User');
 const UserSchema = require('../models/User');
 const Collection =  require('../models/Collections');
 const Product = require('../models/product');
+const QuizResult = require('../models/Quiz');
 
 const restrictedPaths = [
     '/myAccount',
@@ -69,8 +70,6 @@ router.post('/checkout', User.Checkout);
 router.get('/wishlist', User.getWishlist);
 router.post('/wishlist/add', User.AddToWishlist);
 router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
-
-
 
 
 // router.post('/products/filter', async (req, res) => {
@@ -187,6 +186,7 @@ router.get('/customize', (req, res) => {
 router.post('/submitRequest', User.addRequest);
 
 
+<<<<<<< Updated upstream
 router.post('/submit-quiz', async (req, res) => {
     const { answers, result } = req.body;
     try {
@@ -206,6 +206,10 @@ router.post('/submit-quiz', async (req, res) => {
     }
 });
 
+=======
+router.post('/submit-quiz', User.storeQuizResults);
+    
+>>>>>>> Stashed changes
 router.get('/quiz', User.renderQuizPage);
 
 router.get('/Collections', User.getCollectionPage);

@@ -75,30 +75,38 @@ const renderQuizPage = async (req, res) => {
     }
 
 };
-
 const storeQuizResults = async (req, res) => {
+    const { answers, result } = req.body;
     try {
-        if (!req.session.user) {
-            return res.status(401).json({ message: 'Unauthorized. Please log in to submit quiz results.' });
+        let products = [];
+        if (result === 'egypt') {
+            products = await Product.find({ collection_id: 'Egyptian' }).limit(4);
+        } else if (result === 'india') {
+            products = await Product.find({ collection_id: 'The Indian Collection' }).limit(4);
+        } else if (result === 'minimalist') {
+            products = await Product.find({ collection_id: '0' }).limit(4);
         }
 
-        const { answers, result } = req.body;
+        // Check if user is logged in
+        if (req.session.user) {
+            const userId = req.session.user._id;
 
-        const userId = req.session.user._id;
+            // Store quiz results for the authenticated user
+            const existingResult = await QuizResult.findOneAndUpdate(
+                { userId: userId },
+                { answers: answers, result: result, createdAt: Date.now() },
+                { new: true, upsert: true }
+            );
 
-        // Store quiz results for the authenticated user
-        const existingResult = await QuizResult.findOneAndUpdate(
-            { userId: userId },
-            { answers: answers, result: result, createdAt: Date.now() },
-            { new: true, upsert: true }
-        );
-
-        res.status(200).json({ message: 'Quiz results stored successfully.' });
+            res.json({ message: 'Quiz submitted successfully!', products });
+        } else {
+            // User is not logged in, just return the results without saving
+            res.json({ message: 'Quiz results displayed (not saved)', products });
+        }
     } catch (error) {
-        console.error('Error storing quiz results:', error);
-        res.status(500).json({ message: 'An error occurred while storing quiz results.', error: error.message });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'An error occurred while submitting the quiz.' });
     }
-
 };
 
 
