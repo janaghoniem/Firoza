@@ -323,3 +323,21 @@ body {
     background-color: #a0522d;
  }
 
+ .logout-button {
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logout-button:hover {
+    background-color: #a0522d;
+}
