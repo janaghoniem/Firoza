@@ -34,10 +34,14 @@ const productSchema = new Schema({
         required: true
     },
     img: {
-        type: String, // Assuming it's a URL or file path to the image
+        type: String, // Assuming it's a URL or file path to the main image
         required: true
     },
-    sizes: [sizeQuantitySchema], // Array of size and quantity objects
+    images: [{
+        type: String,
+        required: false // Images array is not required
+    }],
+    sizes: [sizeQuantitySchema],
     rating: {
         type: Number,
         required: false,

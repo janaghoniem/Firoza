@@ -233,6 +233,10 @@ const addProduct = async (req, res) => {
         category,
         price,
         img,
+        img2,
+        img3,
+        img4,
+        img5,
         material,
         color,
         rating,
@@ -258,6 +262,9 @@ const addProduct = async (req, res) => {
             quantity: quantities[index]
         }));
 
+        // Create an array of images
+        const images = [img, img2, img3, img4, img5].filter(Boolean); // Filter out undefined or null values
+
         // Create a new Product object based on the schema
         const newProduct = new Product({
             product_id,
@@ -267,6 +274,7 @@ const addProduct = async (req, res) => {
             category,
             price,
             img,
+            images,
             sizes: sizeQuantityPairs,
             rating: rating || 0,
             material,
@@ -283,6 +291,7 @@ const addProduct = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 
