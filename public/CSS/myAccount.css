@@ -345,17 +345,32 @@ h2 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
 
 .popup-content {
-    background-color: #000000ce;
-    backdrop-filter: blur(30px);
+    background-color: #ffffffec;
+    /* backdrop-filter: blur(60px); */
     padding: 80px;
     border: 1px solid #000000;
     border-radius: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
+}
+
+.close-btn {
+    color: rgb(0, 0, 0);
+    font-size: 30px; /* Increase the size of the 'x' */
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px; /* Adjust as needed to position vertically */
+    right: 20px; /* Adjust as needed to position horizontally */
+}
+
+.close-btn:hover {
+    color: #CCC;
 }
 
 
@@ -400,14 +415,17 @@ h2 {
 }
 
 .review-popup-content {
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: #ffffffec;
+    /* backdrop-filter: blur(60px); */
+    border: 1px solid #000000;
+    color: rgb(0, 0, 0);
     margin: 10% auto; 
     padding: 30px; 
-    border: 1px solid #888;
+    text-align: center;
     width: 80%;
     max-width: 600px;
     position: relative;
-    border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -431,9 +449,9 @@ h2 {
     margin-bottom: 20px; 
 }
 
-.review-rating .fa {
-    font-size: 28px; 
-    margin: 0 8px; 
+.review-rating .fa-regular {
+    font-size: 30px; 
+    margin: 0 5px; 
     cursor: pointer;
     transition: color 0.3s; 
 }
@@ -457,38 +475,4 @@ h2 {
 .review-btn-container {
     display: flex;
     justify-content: space-between;
-}
-
-.review-confirm-btn, .review-cancel-btn {
-    background-color: #8B4513; 
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.review-confirm-btn:hover, .review-cancel-btn:hover {
-    background-color: #a0522d;
- }
-
- .logout-button {
-    background-color: #8B4513;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.logout-button:hover {
-    background-color: #a0522d;
 }

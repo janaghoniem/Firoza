@@ -106,7 +106,7 @@
             <h2>Cancel Order Confirmation</h2>
             <p>Are you sure you want to cancel this order?</p>
             <div class="btn-container">
-                <button class="confirm-cancel-buttons" onclick="confirmCancel()">Yes</button>
+                <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Yes</button>
                 <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
             </div>
         </div>
@@ -116,16 +116,16 @@
             <span class="review-close-btn" onclick="closeReviewPopup()">&times;</span>
             <h2>Write a Review</h2>
             <div class="review-rating">
-                <span class="fa fa-star" data-rating="1"></span>
-                <span class="fa fa-star" data-rating="2"></span>
-                <span class="fa fa-star" data-rating="3"></span>
-                <span class="fa fa-star" data-rating="4"></span>
-                <span class="fa fa-star" data-rating="5"></span>
+                <span class="fa-regular fa-star" data-rating="2"></span>
+                <span class="fa-regular fa-star" data-rating="3"></span>
+                <span class="fa-regular fa-star" data-rating="4"></span>
+                <span class="fa-regular fa-star" data-rating="5"></span>
+                <span class="fa-regular fa-star" data-rating="5"></span>
             </div>
-            <textarea id="review-comment" class="review-comment" placeholder="Write your review here..."></textarea>
+            <textarea id="review-comment" class="review-comment" placeholder="Write your review here..." style="font-family: 'futura pt'; font-size: larger; font-weight: 400;"></textarea>
             <div class="review-btn-container">
-                <button class="review-confirm-btn" onclick="submitReview()">Submit Review</button>
-                <button class="review-cancel-btn" onclick="closeReviewPopup()">Cancel</button>
+                <button class="confirm-cancel-buttons" onclick="submitReview()">Submit Review</button>
+                <button class="confirm-cancel-buttons" onclick="closeReviewPopup()">Cancel</button>
             </div>
         </div>
     </div>
