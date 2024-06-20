@@ -39,7 +39,6 @@ const renderQuizPage = async (req, res) => {
     try {
         let latestQuizResult = null;
         if (req.session.user) {
-            // Fetch latest quiz result for the logged-in user
             latestQuizResult = await QuizResult.findOne({ userId: req.session.user._id })
                 .sort({ createdAt: -1 })
                 .exec();
@@ -59,8 +58,6 @@ const storeQuizResults = async (req, res) => {
         }
 
         const { answers, result } = req.body;
-
-        // Validate answers and result (as per your current validation)
 
         const userId = req.session.user._id;
 
