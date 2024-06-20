@@ -18,8 +18,7 @@
     <div class="container">
 
       <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search by email, first name, or last name">
-        <button id="searchBtn">Search</button>
+        <input type="text" id="searchInput" placeholder="Search by email,name">
         <button id="resetBtn" style="margin-left: 10px;">Reset</button> <!-- Reset button added -->
         <p id="searchCount"></p> 
       </div>
@@ -102,7 +101,7 @@
             alert('Failed to search users.');
           }
         } else {
-          clearSearchResults();
+          displayAllUsers();
           searchCount.textContent = ''; // Clear search count if input is empty
         }
       });
