@@ -154,3 +154,81 @@ async function logout() {
         showErrorPopup('An error occurred while logging out. Please try again later.');
     }
 }
+
+
+//ADDED BY JANA FOR STYLISTIC PURPOSES
+document.addEventListener('DOMContentLoaded', () => {
+    const editButton = document.getElementById('edit-button');
+    const saveButton = document.getElementById('save-button');
+    const cancelButton = document.getElementById('cancel-button');
+    const displayElements = document.querySelectorAll('.user-info-display');
+    const editElements = document.querySelectorAll('.user-info-edit');
+
+    editButton.addEventListener('click', () => {
+        displayElements.forEach(element => {
+            element.style.display = 'none';
+        });
+        editElements.forEach(element => {
+            element.style.display = 'inline';
+        });
+        editButton.style.display = 'none';
+        saveButton.style.display = 'inline';
+        cancelButton.style.display = 'inline';
+    });
+
+    cancelButton.addEventListener('click', () => {
+        displayElements.forEach(element => {
+            element.style.display = 'inline';
+        });
+        editElements.forEach(element => {
+            element.style.display = 'none';
+        });
+        editButton.style.display = 'inline';
+        saveButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+    });
+
+    // saveButton.addEventListener('click', () => {
+    //     // Here, you would send the updated information to the server via an AJAX request.
+    //     // For simplicity, this example just toggles the view back to display mode.
+
+    //     displayElements.forEach((element, index) => {
+    //         const inputElement = editElements[index];
+    //         element.textContent = inputElement.value;
+    //         element.style.display = 'inline';
+    //         inputElement.style.display = 'none';
+    //     });
+
+    //     editButton.style.display = 'inline';
+    //     saveButton.style.display = 'none';
+    //     cancelButton.style.display = 'none';
+
+    //     // Send the updated data to the server
+    //     const updatedInfo = {
+    //         firstname: document.querySelector('input[name="firstname"]').value,
+    //         lastname: document.querySelector('input[name="lastname"]').value,
+    //         email: document.querySelector('input[name="email"]').value,
+    //     };
+
+    //     fetch('/update-user-info', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(updatedInfo)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //             // Optionally show a success message or handle success
+    //             console.log('User information updated successfully');
+    //         } else {
+    //             // Optionally show an error message or handle error
+    //             console.error('Error updating user information');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // });
+});

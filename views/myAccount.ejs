@@ -25,12 +25,27 @@
             <h2>MY ACCOUNT</h2>
             <!-- <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p> -->
             <section class="personal-info">
-                <h3>YOUR PERSONAL INFORMATION </h3>
+                <h3>YOUR PERSONAL INFORMATION</h3>
                 <% if (userInfo) { %>
-                    <p>First Name: <%= userInfo.firstname %></p>
-                    <p>Last Name: <%= userInfo.lastname %></p>
-                    <p>Email Address: <%= userInfo.email %></p>
-                   
+                    <div class="info">
+                        <h4>First Name: 
+                            <span class="user-info-display"><%= userInfo.firstname %></span>
+                            <input class="user-info-edit" type="text" name="firstname" value="<%= userInfo.firstname %>" style="display: none;">
+                        </h4>
+                        <h4>Last Name: 
+                            <span class="user-info-display"><%= userInfo.lastname %></span>
+                            <input class="user-info-edit" type="text" name="lastname" value="<%= userInfo.lastname %>" style="display: none;">
+                        </h4>
+                        <h4>Email Address: 
+                            <span class="user-info-display"><%= userInfo.email %></span>
+                            <input class="user-info-edit" type="email" name="email" value="<%= userInfo.email %>" style="display: none;">
+                        </h4>
+                    </div>
+                    <div class="info-buttons">
+                        <button id="edit-button">Edit</button>
+                        <button id="save-button" style="display: none;">Save</button>
+                        <button id="cancel-button" style="display: none;">Cancel</button>
+                    </div>
                 <% } else { %>
                     <p>User data not found.</p>
                 <% } %>

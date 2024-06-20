@@ -115,6 +115,7 @@ a:hover {
     padding: 15px 43px;
     text-decoration: none;
     line-height: 0.8rem;
+    cursor: pointer;
     /* margin-bottom: 20px;
     margin-top: -10px; */
 }

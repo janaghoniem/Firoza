@@ -72,10 +72,77 @@ body {
     font-size: 1.6rem;
 }
 
-.wrapper p, button{
+.personal-info h4{
     font-family: 'futura pt',"Libre Caslon Text", serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 1.3rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+    margin: 20px;
+}
 
-   
+.info {
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info span, input {
+    font-weight: 600;
+    text-transform: none;
+    color: black;
+}
+
+.info-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-buttons button {
+    background: rgba(0, 0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 350px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.info-buttons button:hover {
+    background-color: black;
+    color: white;
+}
+
+#save-button {
+    background-color: black;
+    color: white;
+}
+
+#save-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.info input {
+    font-family: 'futura pt';
+    border-color: none;
+    padding: 8px;
+    font-size: 1rem;
+    margin: 6px;
 }
 
 .account-container {
