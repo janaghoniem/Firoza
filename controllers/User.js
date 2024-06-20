@@ -1005,24 +1005,29 @@ const cancelOrder = async (req, res) => {
 // };
 
 const submitReview = async (req, res) => {
-   
     try {
-        const { orderId } = req.params;
+        const { prodId } = req.params;
         const { rating, comment } = req.body;
-        // const userId = req.user._id; 
-        const userId = await User.findById(req.session.user._id);
+
+        if (req.session.user) {
+            // Logged-in user
+            const userId = await User.findById(req.session.user._id);
+
+            const newReview = new reviews({
+                prod: prodId,
+                user: userId,
+                rating: rating,
+                comment: comment
+            });
     
-      
-        console.log("pppppppppppppppppppppppp");
-        const newReview = new reviews({
-            order: orderId,
-            user: userId,
-            rating: rating,
-            comment: comment
-        });
+            await newReview.save();
+    
+            if (!userId) {
+                return res.status(404).send('User not found');
+            }
+        }
 
-        await newReview.save();
-
+       
         res.status(201).json({ success: true, message: 'Review submitted successfully' });
     } catch (error) {
         console.error('Error submitting review:', error);
