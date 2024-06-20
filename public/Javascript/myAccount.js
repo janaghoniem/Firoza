@@ -114,3 +114,24 @@ async function submitReview() {
         alert('Please provide a rating and a comment');
     }
 }
+
+async function logout() {
+    try {
+        const response = await fetch('/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert('Logged out successfully');
+            window.location.href = '/'; // Redirect to the login page or home page
+        } else {
+            alert('Failed to log out');
+        }
+    } catch (error) {
+        console.error('Error during logout:', error);
+        alert('Error during logout');
+    }
+}

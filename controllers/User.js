@@ -908,6 +908,15 @@ const submitReview = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+const logout = (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Failed to log out' });
+        }
+        res.clearCookie('connect.sid'); // Assuming you're using express-session
+        res.json({ success: true, message: 'Logged out successfully' });
+    });
+};
 module.exports = {
     GetUser,
     AddUser,
@@ -930,5 +939,6 @@ module.exports = {
     getShopAllProducts,
     getIndianProducts,
     cancelOrder,
-    submitReview
+    submitReview,
+    logout
 };
