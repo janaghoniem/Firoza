@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    order: {
+    prod: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order',
+        ref: 'product',
         required: true
     },
     user: {

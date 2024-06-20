@@ -168,7 +168,7 @@ router.put('/cancelOrder/:orderId',User.cancelOrder);
 //         res.status(500).json({ success: false, message: 'Internal server error' });
 //     }
 // });
-router.post('/orders/:orderId/reviews', User.submitReview);
+router.post('/orders/:prodId/reviews', User.submitReview);
 router.post('/logout', User.logout);
 
 
