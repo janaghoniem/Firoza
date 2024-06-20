@@ -8,7 +8,7 @@ const Customization = require('../models/Customization')
 const Review = require('../models/reviews');
 const { v4: uuidv4 } = require('uuid');
 const formidable = require('formidable')
-
+const QuizResult = require('../models/Quiz')
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {
@@ -563,7 +563,6 @@ const calculateCRR = async (startDate, endDate) => {
     }
 };
 
-
 const getStatistics = async (req, res) => {
     try {
         const startDate = new Date('2024-06-01');
@@ -591,13 +590,20 @@ const getStatistics = async (req, res) => {
             .limit(4) // Limit to top 4 for display purposes
             .select('name no_sales');
 
-        // Render the statistics view with user count, best sellers, and most purchased products
-        res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2) });
+        // Retrieve user responses from the quiz database
+        const userResponses = await QuizResult.find().select('userResponse -_id');
+
+        // Extract responses into an array
+        const responses = userResponses.map(response => response.userResponse);
+
+        // Render the statistics view with user count, best sellers, most purchased products, and user responses
+        res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2), responses });
     } catch (error) {
         console.error('Error fetching statistics:', error);
         res.status(500).json({ error: 'Failed to fetch statistics' });
     }
 };
+
 const getadmin = async (req, res) => {
     res.render("AddAdmin.ejs");
 };

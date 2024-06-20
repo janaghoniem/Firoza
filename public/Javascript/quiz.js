@@ -146,7 +146,8 @@ function showPopup(message) {
         
                 resultsDiv.innerHTML = `<h3>${resultText}</h3>`;
                 resultsHeader.style.display = 'block';
-        
+                const userResponse = document.getElementById('userResponse').value;
+
                 const answers = Object.values(questionSelections);
         
                 try {
@@ -155,7 +156,7 @@ function showPopup(message) {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ answers, result: resultCategory }),
+                        body: JSON.stringify({ answers, result: resultCategory ,userResponse}),
                     });
         
                     const data = await response.json();

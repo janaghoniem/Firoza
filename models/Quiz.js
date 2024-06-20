@@ -7,6 +7,7 @@ const quizResultSchema = new mongoose.Schema({
         category: { type: String, required: true }
     }],
     result: { type: String, required: true },
+    userResponse: { type: String }, // New field for the user's response
     createdAt: { type: Date, default: Date.now }
 });
 

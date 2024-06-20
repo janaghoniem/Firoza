@@ -77,10 +77,10 @@ const renderQuizPage = async (req, res) => {
 
 };
 const storeQuizResults = async (req, res) => {
-    const { answers, result } = req.body;
+    const { answers, result, userResponse } = req.body;
     
     // Extract color and material from answers
-    const colorAnswer = answers.find(answer => answer.question === 1); // Assuming question 2 is for color
+    const colorAnswer = answers.find(answer => answer.question === 1); // Assuming question 1 is for color
     const materialAnswer = answers.find(answer => answer.question === 3); // Assuming question 3 is for material
     
     const color = colorAnswer ? colorAnswer.value : null;
@@ -111,7 +111,7 @@ const storeQuizResults = async (req, res) => {
             // Store quiz results for the authenticated user
             const existingResult = await QuizResult.findOneAndUpdate(
                 { userId: userId },
-                { answers: answers, result: result, createdAt: Date.now() },
+                { answers: answers, result: result, userResponse: userResponse, createdAt: Date.now() },
                 { new: true, upsert: true }
             );
 
