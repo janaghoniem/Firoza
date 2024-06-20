@@ -476,7 +476,6 @@ const getEditCollectionPage = async (req, res) => {
     }
 };
 
-
 const getEditProductPage = async (req, res) => {
     try {
         const productId = req.params.id;
@@ -488,11 +487,14 @@ const getEditProductPage = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
+        // Pass product, including images, to the view
         res.render('EditProduct', { product, getcollections });
     } catch (error) {
+        console.error(error);
         res.status(500).send('Server error');
     }
 };
+
 
 // Function to handle product edits
 const editProduct = async (req, res) => {
@@ -501,18 +503,35 @@ const editProduct = async (req, res) => {
         const updatedData = req.body;
 
         // Ensure the sizes are processed correctly if they come as arrays
-        if (Array.isArray(updatedData.sizes)) {
+        if (Array.isArray(updatedData.sizes) && Array.isArray(updatedData.quantities)) {
             updatedData.sizes = updatedData.sizes.map((size, index) => ({
                 size,
                 quantity: updatedData.quantities[index]
             }));
         }
+
+        // Handle additional images
+        const images = [
+            updatedData.img,
+            updatedData.img2,
+            updatedData.img3,
+            updatedData.img4,
+            updatedData.img5
+        ].filter(Boolean); // Filter out undefined or null values
+
+        if (images.length > 0) {
+            updatedData.images = images;
+        }
+
         const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
+
         if (!updatedProduct) {
             return res.status(404).send('Product not found');
         }
+
         res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
