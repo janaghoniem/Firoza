@@ -25,7 +25,7 @@
             <h2>MY ACCOUNT</h2>
             <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p>
             <section class="personal-info">
-                <h3>YOUR PERSONAL INFORMATION <a href="#">Edit</a></h3>
+                <h3>YOUR PERSONAL INFORMATION </h3>
                 <% if (userInfo) { %>
                     <p>First Name: <%= userInfo.firstname %></p>
                     <p>Last Name: <%= userInfo.lastname %></p>
@@ -68,6 +68,7 @@
                 <% } else { %>
                     <p>No orders found.</p>
                 <% } %>
+                <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
             </section>
            
         </div>

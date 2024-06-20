@@ -1,12 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
+
+html {
+    background-image: url('/images/Admin/chat-background1.jpeg' );
+    background-size: 100%; 
+    background-position: center;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'futura pt',"Libre Caslon Text", serif;
     color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-   
+    
+    background-size: cover; 
+    background-position: center;
 }
 
 .header, .footer {
@@ -37,23 +49,32 @@ body {
     flex-direction: column;
     padding-top: 150px; 
     padding-bottom: 100px; 
+    font-family: 'futura pt',"Libre Caslon Text", serif;
+   
 }
-
+.wrapper h3, h2, p, button{
+    font-family: 'futura pt',"Libre Caslon Text", serif;
+   
+}
 .account-container {
     width: 60%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9); 
     border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 20px; /* Space between header and content */
-    margin-bottom: 20px; /* Space between footer and content */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; 
+    margin-bottom: 20px; 
 }
 
 .account-container h2 {
     text-align: center;
     border-bottom: 1px solid #ddd;
+    font-weight: 400;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .account-container section {
@@ -63,18 +84,18 @@ body {
 .account-container h3 {
     display: flex;
     justify-content: space-between;
-    /* border-bottom: 1px solid #ddd; */
+    border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
-.personal-info h3{
-    border-bottom: 1px solid #ddd; 
-}
+
 .personal-info ,
 .order-history  {
     border-bottom: 1px solid #ddd;
+    padding:20px 0;
 }
-.order-history {
-    border-bottom: 1px solid #ddd; 
+.order-history h3{
+   margin-bottom:20px;
+  
 }
 .order-box {
     border: 1px solid #ddd;
@@ -116,7 +137,7 @@ body {
 }
 
 .product-details {
-    flex: 1; /* Take remaining space */
+    flex: 1; 
 }
 
 .product-details h3,
@@ -214,6 +235,7 @@ body {
     opacity: 0.8;
 }
 
+
 .review-custom-popup {
     display: none;
     position: fixed;
@@ -223,17 +245,19 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
 .review-popup-content {
     background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 10% auto; 
+    padding: 30px; 
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
     position: relative;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .review-close-btn {
@@ -253,30 +277,67 @@ body {
 .review-rating {
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px; 
 }
 
 .review-rating .fa {
-    font-size: 24px;
-    margin: 0 5px;
+    font-size: 28px; 
+    margin: 0 8px; 
     cursor: pointer;
+    transition: color 0.3s; 
 }
 
 .review-rating .fa.checked {
-    color: gold;
+    color: gold; 
 }
 
 .review-comment {
     width: 100%;
     height: 100px;
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 20px; 
+    padding: 15px; 
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    resize: none; 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
 .review-btn-container {
     display: flex;
     justify-content: space-between;
+}
+
+.review-confirm-btn, .review-cancel-btn {
+    background-color: #8B4513; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.review-confirm-btn:hover, .review-cancel-btn:hover {
+    background-color: #a0522d;
+ }
+
+ .logout-button {
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logout-button:hover {
+    background-color: #a0522d;
 }

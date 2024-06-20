@@ -1,49 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz!</title>
-    <script src="../Javascript/Quiz.js"></script>
-    <script src="../Javascript/landing-script.js"></script>
-    <link rel="stylesheet" href="/CSS/nav-bar-white.css">
-    <link rel="stylesheet" href="/CSS/Footer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="/Javascript/nav-bar.js"></script>
-    <link rel="stylesheet" href="/CSS/Quiz.css">
-</head>
-<body>
+<!DOCTYPE HTML>
 
-    <%- include('./partials/Nav-bar.ejs') %>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/CSS/Quiz.css" >
+        <script src="/Javascript/nav-bar.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    
-    <div class="haya">
-        <div class="info">
-            <div class="pop">
-                <h1>Pop Quiz! What's your personal style?</h1>
-                <hr>
-            </div>
-            <div class="intro">
-                <p>Like a timeless piece of jewelry, style is eternal. <br>
-                     Trends may come and go, but your unique essence remains. Here, within our diverse collections, <br>
-                     we're not just about selling jewelry; we're about helping you discover the shimmering facets of your own style. <br>
-                      Let's journey together through our quiz and unearth the treasures that perfectly reflect the brilliance of you!</p>
-            </div>
-        </div>>
-        <div class="container">
-            <div class="card1">
-                <p>Discover yourself!</p>
-                <p>It's not just about finding jewelry; it's about finding pieces that resonate with your inner sparkle. Get ready to explore, express, and embrace what makes you shine!</p>
-                <button onclick="window.location.href='PersonalQuiz.html'">Start now!</button>
-            </div>
-            <div class="card2">
-                <p>Quiz party!</p>
-                <p>This is your chance to discover your jewelry style with your favorite people by your side. Let the quiz party begin and let the good times roll!</p>
-                <button onclick="window.location.href='Quizparty.html'">Discover</button>
-            </div>
-            
+	</head>
+	<body class="is-preload">
+        <div class="par">
+            <a href="/" class="logo">FIROZA</a>
         </div>
-    </div>
-    
-</body>
+        <div class="imgy" >
+            <!-- <img src="/images/Indian/Newfolder/Firefly 20240613032637.png" alt=""> -->
+        </div>
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Pop Quiz!<br />
+                            What's your personal style?</h1>
+						<p>Within our diverse collections, we're not just about selling jewelry<br />
+                            we're about helping you discover the shimmering facets of your own style.<br> Let's journey together through our quiz and unearth the treasures that perfectly reflect the brilliance of you!</a>.</p>
+						<ul class="actions">
+							<li><a href="#" class="button icon solid solo fa-solid fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<section class="post-featured">
+								<header class="major">
+									<h2>Which destination<br />
+                                    catches your fancy the most?</h2>
+								</header>
+								<button class="image main"><img src="/images/Quiz/Egypt.jpeg" alt="" height="250"/></button>
+                                <button class="image main"><img src="/images/Quiz/download (9).jpeg" alt="" height="250"/></button>
+                                <button class="image main"><img src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_fe45e31c.jpg" alt="" height="250"/></button>
+                                <button class="image main"><img src="/images/Quiz/WhatsApp Image 2024-06-19 at 04.52.16_cf8b165e.jpg" alt="" height="250"/></button>
+							</section>
+
+						<!-- Posts -->
+							
+								<section class="post-featured">
+                                    <header class="major">
+                                        <h2>Which colors<br />
+                                        resonate with you the most?</h2>
+                                    </header>
+                                    <button class="image main"><img src="/images/Quiz/download (13).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Quiz/Учимся легко сочетать цвета! _ Шить просто — Выкройки-Легко_рф.jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Quiz/download (18).jpeg" alt="" height="250"/></button>
+                                </section>
+								<section class="post-featured">
+                                    <header class="major">
+                                        <h2>If you could attend a themed party inspired<br/>
+                                        by a specific culture, which one would you choose?</h2>
+                                    </header>
+                                    <button class="image main"><img src="/images/Quiz/New folder/download (12).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Quiz/New folder/download (10).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Quiz/New folder/download (11).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Quiz/New folder/15'' Finger Loop Satin Stretchy Gloves - Black.jpeg" alt="" height="250"/></button>
+
+                                </section>
+								<article>
+									<header>
+										<h2><a href="#">Which material do you prefer in your jewelry?<br />
+									</header>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/Firefly 20240619071819.png" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/download (20).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/marina-pearl-choker-442561_800x.webp" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt="" height="250"/></button>
+
+								</article>
+								<article>
+									<header>
+										<h2><a href="#">Which of these hobbies<br />
+                                            is most appealing to you?</a></h2>
+									</header>
+									<button class="image main"><img src="/images/Indian/Newfolder/Nine Beautiful Places You Have To Visit In Peru.jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/download (25).jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/⚜️.jpeg" alt="" height="250"/></button>
+
+								</article>
+								<article>
+									<header>
+										<h2><a href="#">Which piece of jewelry<br />
+                                            appeals to you</a></h2>
+									</header>
+									<button class="image main"><img src="/images/Indian/Newfolder/Finding Your Creative Path with S A D É.jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/XXL Double Link Choker - Silver Rhodium Plated.jpeg" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Indian/Newfolder/nemean-cuff-set-655678_800x.webp" alt="" height="250"/></button>
+                                    <button class="image main"><img src="/images/Vintage/cards/img3.jpeg" alt="" height="250"/></button>
+
+								</article>
+                                <article>
+									<header>
+										<h2><a href="#">Are there any trends or styles you're currently<br />
+                                            interested in exploring in your jewelry collection?</a></h2>
+									</header>
+									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+                                    <textarea placeholder="type here.." style="border-color:black ; color: black;"></textarea >
+								</article>
+							
+					</div>
+                    <div class="parent" style="display: flex;
+                    justify-content: center;
+                    height: 5vh;
+                    align-items: flex-start;">
+                        <button style="margin-top: 20px;">Submit</button>
+                    </div>
+                    <label style="margin-top: 50px;">enter your name and email, we can send you the results!</label>
+
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						
+					</footer>
+			</div>
+
+	</body>
 </html>

@@ -33,8 +33,9 @@ const addAdmin = async (req, res) => {
         });
 
         await newAdmin.save();
-        res.status(201).json({ message: 'Admin added successfully' });
+        res.status(200).json({ message: 'Admin added successfully' });
     } catch (error) {
+        console.error('Error adding admin:', error);
         res.status(500).json({ error: error.message });
     }
 };
@@ -518,8 +519,6 @@ const getadmin = async (req, res) => {
     res.render("AddAdmin.ejs");
 };
 
-
-
 // Get all requests
 const getAllRequests = async (req, res) => {
     try {
@@ -553,6 +552,20 @@ const rejectRequest = async (req, res) => {
     }
 };
 
+const admincheckaddress =async (req, res) => {
+    try {
+        const { address } = req.body;
+        const user = await User.findOne({ email: address });
+        if (user) {
+            res.status(200).json({ available: false });
+        } else {
+            res.status(200).json({ available: true });
+        }
+    } catch (error) {
+        console.error('Error checking email availability:', error);
+        res.status(500).json({ available: false });
+    }
+}
 
 
 module.exports = {
@@ -573,7 +586,8 @@ module.exports = {
     getadmin,
     getAllRequests,
     acceptRequest,
-    rejectRequest
+    rejectRequest,
+    admincheckaddress
 };
 
 //function to get orders

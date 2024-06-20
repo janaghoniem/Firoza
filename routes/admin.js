@@ -176,4 +176,5 @@ router.post('/acceptRequest/:id', adminController.acceptRequest);
 // Route to reject a request
 router.post('/rejectRequest/:id', adminController.rejectRequest);
 
+router.post('/checkAddress', adminController.admincheckaddress);
 module.exports = router;

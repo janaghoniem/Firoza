@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validateFormSubmission() {
+
         let valid = true;
         fnerror.textContent = '';
         lnerror.textContent = '';
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(submitbutton){
         submitbutton.addEventListener('click', () => {
             if(!validateFormSubmission())
-                event.preventDefault();
+                e.preventDefault();
             //popup message sent
     
             //clear fields
@@ -121,4 +122,84 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
     
+});
+
+
+///--------------------------------------------------------------------------------------------------------------------------------------
+document.getElementById('contactUsForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    const firstName = document.getElementById('first-name-form-field').value.trim();
+    const lastName = document.getElementById('last-name-form-field').value.trim();
+    const email = document.getElementById('email-address-form-field').value.trim();
+    const subject = document.getElementById('subject-select-field').value.trim();
+    const reason = document.getElementById('reason-form-field').value.trim();
+
+    if (firstName === "") {
+        isValid = false;
+        document.getElementById('first-name-form-field-error').textContent = "First Name is required.";
+    } else {
+        document.getElementById('first-name-form-field-error').textContent = "";
+    }
+
+    if (lastName === "") {
+        isValid = false;
+        document.getElementById('last-name-form-field-error').textContent = "Last Name is required.";
+    } else {
+        document.getElementById('last-name-form-field-error').textContent = "";
+    }
+
+    if (email === "") {
+        isValid = false;
+        document.getElementById('email-address-form-field-error').textContent = "Email is required.";
+    } else if (!validateEmail(email)) {
+        isValid = false;
+        document.getElementById('email-address-form-field-error').textContent = "Invalid Email Address.";
+    } else {
+        document.getElementById('email-address-form-field-error').textContent = "";
+    }
+
+    if (reason === "") {
+        isValid = false;
+        document.getElementById('reason-form-field-error').textContent = "Reason is required.";
+    } else {
+        document.getElementById('reason-form-field-error').textContent = "";
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+function validateEmail(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+const form = document.getElementById('contactUsForm');
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const requestBody = Object.fromEntries(formData.entries()); // Convert FormData to object
+    
+    try {
+        const response = await fetch('/user/submitRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody) // Send data as JSON string
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to submit request');
+        }
+        
+        const data = await response.json();
+        console.log(data);
+        // Handle success response
+    } catch (error) {
+        console.error('Error submitting request:', error);
+        // Handle error
+    }
 });
