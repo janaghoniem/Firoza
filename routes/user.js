@@ -4,8 +4,6 @@ const User = require('../controllers/User');
 const UserSchema = require('../models/User');
 const Collection =  require('../models/Collections');
 const Product = require('../models/product');
-const Order = require('../models/Orders');
-const reviews= require('../models/reviews');
 
 const restrictedPaths = [
     '/Checkout'
@@ -109,6 +107,7 @@ router.post('/filter', User.filterProducts);
 
 router.get('/shopAll',User.getShopAllProducts);
 
+router.get('/indian',User.getIndianProducts);
 
 
 router.post('/filter', User.filterProducts);
@@ -139,64 +138,6 @@ router.get('/myAccount', User.getUserOrder );
 
 router.get('/myAccount', User.getUserOrder);
 router.delete('/cancel-order/:orderId', User.cancelOrder);
-router.get('/Collections', async (req, res) => {
-    try {
-        const allCollections = await Collection.find({});
-
-        // Render the template with the fetched collections
-        res.render('Collections', { allCollections });
-    } catch (error) {
-        console.error('Error fetching collections:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-router.get('/Customize', (req, res) => {
-    res.render("Customization.ejs");
-});
-router.get('/quiz', (req, res) => {
-    res.render('quiz');
-});
-
-
-// router.get('/shopAll', (req, res) => {
-//     const category = req.query.category;
-//     if (category) {
-//         // Logic to fetch products based on the category
-//         res.send('Products for category: ' + category);
-//     } else {
-//         res.status(404).send('Category not found');
-//     }
-// });
-
-
-router.get('/stores', (req, res) => {
-    res.render("stores.ejs");
-});
-router.get('/user/:collectionName', async (req, res) => {
-    try {
-        const formattedCollectionName = req.params.collectionName;
-        const collectionName = formattedCollectionName.replace(/-/g, ' ');
-
-        const collection = await Collection.findOne({ Collection_Name: collectionName });
-        console.log(collectionName);
-        if (!collection) {
-            return res.status(404).send('Collection not found');
-        }
-
-        const products = await Product.find({ collection_id: collection.Collection_Name });
-
-        res.render('/indian', {
-            img: collection.img,
-            Collection_Name: collection.Collection_Name,
-            Collection_Description: collection.Collection_Description,
-            products: products
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
 
 
 const getCollectionProducts = async (req, res) => {
@@ -219,12 +160,9 @@ const getCollectionProducts = async (req, res) => {
 };
 
 router.get('/collection/:collectionId', getCollectionProducts);
-router.put('/cancelOrder/:orderId',User.cancelOrder);
+router.post('/cancelOrder/:orderId', async (req, res) => {
+    const { orderId } = req.params;
 
-<<<<<<< Updated upstream
-router.post('/orders/:orderId/reviews', User.submitReview);
-router.post('/logout', User.logout);
-=======
     try {
         const order = await Order.findById(orderId);
         if (!order) {
@@ -241,8 +179,11 @@ router.post('/logout', User.logout);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+router.post('/orders/:orderId/reviews', User.submitReview);
+router.post('/logout', User.logout);
 
 router.get('/ContactUs',User.getcontactus);
 router.get('/contactUsform',User.getcontactusform);
->>>>>>> Stashed changes
+
+router.post('/submitRequest', User.addRequest);
 module.exports = router;

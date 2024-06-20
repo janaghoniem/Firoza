@@ -208,9 +208,6 @@ app.listen(port, () => {
   
 //   order2.save()
 //     .then(() => console.log('Order 2 saved successfully'))
-<<<<<<< Updated upstream
-//     .c
-=======
 //     .catch(err => console.error('Error saving Order 2:', err));
 
 // const newRequest = new Request({
@@ -229,5 +226,4 @@ app.listen(port, () => {
 //         console.error('Error saving new request:', err);
 //         mongoose.connection.close(); // Close the connection in case of error
 //     });
->>>>>>> Stashed changes
 

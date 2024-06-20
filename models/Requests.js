@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 // Define the schema for the 'requests' collection
 const requestSchema = new Schema({
-    type: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    subject: { type: String, required: true },
     approvement: { type: Boolean, default: null },
     reason: { type: String }
 });

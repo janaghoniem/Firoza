@@ -132,7 +132,8 @@ document.getElementById('contactUsForm').addEventListener('submit', function(eve
     const firstName = document.getElementById('first-name-form-field').value.trim();
     const lastName = document.getElementById('last-name-form-field').value.trim();
     const email = document.getElementById('email-address-form-field').value.trim();
-    const message = document.getElementById('message-form-field').value.trim();
+    const subject = document.getElementById('subject-select-field').value.trim();
+    const reason = document.getElementById('reason-form-field').value.trim();
 
     if (firstName === "") {
         isValid = false;
@@ -158,11 +159,11 @@ document.getElementById('contactUsForm').addEventListener('submit', function(eve
         document.getElementById('email-address-form-field-error').textContent = "";
     }
 
-    if (message === "") {
+    if (reason === "") {
         isValid = false;
-        document.getElementById('message-form-field-error').textContent = "Message is required.";
+        document.getElementById('reason-form-field-error').textContent = "Reason is required.";
     } else {
-        document.getElementById('message-form-field-error').textContent = "";
+        document.getElementById('reason-form-field-error').textContent = "";
     }
 
     if (!isValid) {
@@ -174,3 +175,31 @@ function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
+
+const form = document.getElementById('contactUsForm');
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const requestBody = Object.fromEntries(formData.entries()); // Convert FormData to object
+    
+    try {
+        const response = await fetch('/user/submitRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody) // Send data as JSON string
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to submit request');
+        }
+        
+        const data = await response.json();
+        console.log(data);
+        // Handle success response
+    } catch (error) {
+        console.error('Error submitting request:', error);
+        // Handle error
+    }
+});
