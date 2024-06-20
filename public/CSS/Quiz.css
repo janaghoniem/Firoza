@@ -79,13 +79,13 @@ html {
 }
 
 body {
-    /* background-image: url('/images/Admin/collection-back.jpeg');
+    background-image: url('/images/Quiz/BlackTexture.jpeg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    margin: 0; */
-    background-color: #000000;
+    margin: 0;
+    /* background-color: #000000; */
 }
 /* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 body.is-preload *,
