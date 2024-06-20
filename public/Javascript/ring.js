@@ -85,19 +85,4 @@ document.addEventListener("DOMContentLoaded", function () {
         setupColorButtons();
         setupSceneButtons();
     });
-
-
-
-    // Fetch and display the custom image
-    const stone = 'yourStone'; // Replace with your stone value
-    const color = 'yourColor'; // Replace with your color value
-
-    fetch(`/user/Customization/${stone}/${color}`)
-        .then(response => response.json())
-        .then(data => {
-            const imgPath = `/images/Customization/${data.img2}.png`;
-            document.getElementById('customImage').src = imgPath;
-        })
-        .catch(error => console.error('Error fetching image:', error));
 });
-
