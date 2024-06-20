@@ -38,12 +38,27 @@ document.addEventListener('DOMContentLoaded', function() {
 //  -----------------------------------------------------------------------------------------------------
 
 
-function addToCart(button) {
-    // Get the parent div of the button
-    var parentDiv = button.parentNode.parentNode;
-    
-    // Hide the parent div
-    parentDiv.style.display = 'none';
+async function addToCart(productId, price) {
+    alert(productId);
+    try {
+        const response = await fetch('/user/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, price })
+        });
+
+        if (response.ok) {
+            alert('Product added to cart successfully!');
+        } else {
+            alert('Failed to add product to cart');
+        }
+
+    } catch (error) {
+        alert('Error:', error);
+        alert('Failed to add product to cart');
+    }
 }
 
 

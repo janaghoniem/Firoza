@@ -46,7 +46,7 @@ const userSchema = mongoose.Schema(
         }],
         wishlist: [{   
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'product'
+            ref: 'Product'
         }],
         orders: [{
             type: mongoose.Schema.Types.ObjectId,

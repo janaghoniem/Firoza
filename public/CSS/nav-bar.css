@@ -19,7 +19,7 @@
     font-family: 'Nunito Sans', 'PT Sans','Didact Gothic','Garet', sans-serif;
     font-weight: 100;
     padding: 0px;
-    margin: 0px;
+    margin: 0px; 
     box-sizing: border-box;
     scroll-behavior: smooth;
     transition: all .3s cubic-bezier(.39,.575,.565,1);

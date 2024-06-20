@@ -234,13 +234,13 @@ async function handlePaymentFormSubmission() {
             body: JSON.stringify(orderData)
         });
 
-        if(orderResponse.ok) {
-            // Order created successfully
-            alert('Checkout successful. Thank you for your purchase!');
-            window.location.href = '/shopAll'; // Redirect to shopAll page after successful checkout
+        if(!orderResponse.ok) {
+            throw new Error('Checkout failed');
         }
 
-        throw new Error('Checkout failed');
+        // Order created successfully
+        alert('Checkout successful. Thank you for your purchase!');
+        window.location.href = '/shopAll'; // Redirect to shopAll page after successful checkout
         
 
         

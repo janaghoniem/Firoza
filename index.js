@@ -164,49 +164,52 @@ app.listen(port, () => {
 // });
 
 
+//Order data for Jana Ghoniem
 // const order1 = new Order({
 //     user_id: new mongoose.Types.ObjectId('6671369b45c4005caab95051'),
 //     product_ids: [
-//       new mongoose.Types.ObjectId('6671b01b380e51dad157ca65'),
-//       new mongoose.Types.ObjectId('6671b01b380e51dad157ca65')
+//        new mongoose.Types.ObjectId('666f66f88e74f044945fb5fb'),
+//         new mongoose.Types.ObjectId('666f66c68e74f044945fb5f8')
 //     ],
 //     total_price: 320000,
 //     status: 'pending',
 //     shipping_address: {
-//       country: 'Egypt',
-//       city: 'Cairo',
-//       state: 'Cairo Governorate', // Add the state
-//       street: '123 Nile Street',
-//       address: 'Apartment 12', // Add the address
-//       postal_code: 12345
+//         country: 'Egypt',
+//         city: 'Cairo',
+//         state: 'Cairo Governorate', // Add the state
+//         street: '123 Nile Street',
+//         address: 'Apartment 12', // Add the address
+//         postal_code: 12345
 //     },
 //     Payment_method: 'credit_card' 
-//   });
-  
-//   const order2 = new Order({
+// });
+
+// Order data forJana Ghoniem
+// const order2 = new Order({
 //     user_id: new mongoose.Types.ObjectId('6671369b45c4005caab95051'),
 //     product_ids: [
-//       new mongoose.Types.ObjectId('6671b01b380e51dad157ca65')
+//        new mongoose.Types.ObjectId('666f611c8f1bfa19966dd9f2')
 //     ],
 //     total_price: 120000,
 //     status: 'delivered',
 //     shipping_address: {
-//       country: 'Egypt',
-//       city: 'Alexandria',
-//       state: 'Alexandria Governorate', // Add the state
-//       street: '456 Sea Road',
-//       address: 'Villa 34', // Add the address
-//       postal_code: 54321
+//         country: 'Egypt',
+//         city: 'Alexandria',
+//         state: 'Alexandria Governorate', // Add the state
+//         street: '456 Sea Road',
+//         address: 'Villa 34', // Add the address
+//         postal_code: 54321
 //     },
 //     Payment_method: 'credit_card'
-//   });
-  
-//   // Save orders to the database
-//   order1.save()
+// });
+
+// // Save orders to the database
+// order1.save()
 //     .then(() => console.log('Order 1 saved successfully'))
 //     .catch(err => console.error('Error saving Order 1:', err));
-  
-//   order2.save()
+
+// order2.save()
 //     .then(() => console.log('Order 2 saved successfully'))
-//     .c
+//     .catch(err => console.error('Error saving Order 2:', err));
+
 
