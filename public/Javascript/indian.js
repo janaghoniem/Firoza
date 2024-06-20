@@ -238,8 +238,8 @@ function updateProductList(products) {
                             ${soldOutLabel}
                         </a>
                         <ul class="product-links">
-                            <li><a href="#" onclick="addToWishlist('${product._id}')"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#" onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a onclick="addToWishlist('${product._id}')"><i class="fa fa-heart"></i></a></li>
+                            <li><a onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                     <div class="product-content">
