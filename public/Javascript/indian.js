@@ -237,7 +237,7 @@ function updateProductList(products) {
             <div class="col">
                 <div class="product-grid">
                     <div class="product-image">
-                        <a href="#" class="image">
+                        <a href="/user/product/${product._id}" class="image" onclick="fetchProductDetails('${product._id}')">
                             <img class="img-1" src="/images/Indian/Newfolder/${product.img}">
                             ${soldOutLabel}
                         </a>
