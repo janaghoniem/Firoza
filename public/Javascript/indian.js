@@ -1,4 +1,4 @@
- function toggleDropdown(event, dropdownId) {
+function toggleDropdown(event, dropdownId) {
     var dropdown = document.getElementById(dropdownId);
     var arrow = dropdown.querySelector('.arrow');
 
@@ -44,13 +44,11 @@ function showPopup(message) {
     const popupMessage = popup.querySelector('h2');
     popupMessage.textContent = message;
     
-    // Show the popup
     popup.classList.add('show');
     
-    // Automatically hide popup after 3 seconds
     setTimeout(() => {
         popup.classList.remove('show');
-    }, 3000); // Adjust timing as needed
+    }, 3000);
 }
 
 function showErrorPopup(message) {
@@ -58,13 +56,11 @@ function showErrorPopup(message) {
     const popupMessage = popup.querySelector('h2');
     popupMessage.textContent = message;
     
-    // Show the popup
     popup.classList.add('show');
     
-    // Automatically hide popup after 3 seconds
     setTimeout(() => {
         popup.classList.remove('show');
-    }, 3000); // Adjust timing as needed
+    }, 3000);
 }
 
 async function addToCart(productId, price) {
@@ -78,12 +74,7 @@ async function addToCart(productId, price) {
         });
 
         if (response.ok) {
-            const result = await response.json();
-
             showPopup('Product added to cart successfully!');
-
-          
-
         } else {
             showErrorPopup('Failed to add product to cart. Please try again later.');
         }
@@ -102,14 +93,15 @@ async function addToWishlist(productId) {
             },
             body: JSON.stringify({ productId })
         });
-        const data = await response.json();
+
         if (response.ok) {
             showPopup('Product added to wishlist successfully!');
         } else {
             showErrorPopup('Failed to add product to wishlist. Please try again later.');
         }
+
     } catch (error) {
-        console.error('Error adding to wishlist:', error);
+        showErrorPopup('Failed to add product to wishlist');
     }
 }
 
@@ -170,7 +162,7 @@ async function applyFilters() {
             showErrorPopup('Failed to apply filters');
         }
     } catch (error) {
-        console.error('Error:', error);
+        showErrorPopup('Error applying filters');
     }
 }
 
@@ -195,7 +187,7 @@ async function fetchDefaultProducts() {
             showErrorPopup('Failed to fetch products');
         }
     } catch (error) {
-        console.error('Error:', error);
+        showErrorPopup('Error fetching products');
     }
 }
 
@@ -219,8 +211,9 @@ function updateProductList(products) {
 
     products.forEach(product => {
         const soldOutLabel = product.isSoldOut ? '<span class="sold-out-label">Sold Out</span>' : '';
+        const disabledClass = product.isSoldOut ? 'class="disabled"' : '';
         const productHtml = `
-            <div class="col">
+            <div class="col ${product.isSoldOut ? 'sold-out' : ''}">
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="/user/product/${product._id}" class="image" onclick="fetchProductDetails('${product._id}')">
@@ -228,8 +221,8 @@ function updateProductList(products) {
                             ${soldOutLabel}
                         </a>
                         <ul class="product-links">
-                            <li><a onclick="addToWishlist('${product._id}')"><i class="fa fa-heart"></i></a></li>
-                            <li><a onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a ${disabledClass} onclick="addToWishlist('${product._id}')"><i class="fa fa-heart"></i></a></li>
+                            <li><a ${disabledClass} onclick="addToCart('${product._id}', '${product.price}')" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                     <div class="product-content">
@@ -241,7 +234,15 @@ function updateProductList(products) {
         `;
         productContainer.innerHTML += productHtml;
     });
+
+    // Apply CSS class to disable sold out buttons
+    document.querySelectorAll('.disabled').forEach(element => {
+        element.classList.add('disabled');
+        element.style.pointerEvents = 'none';
+        element.style.opacity = '0.5';
+    });
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
@@ -252,13 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = event.target.getAttribute('data-category');
             applyCategoryFilter(category);
             
-            // Apply CSS classes to hide relevant elements
             document.querySelector('.headyy').classList.add('category-selected');
             document.querySelector('.haya').classList.add('filter-selected');
         });
     });
 
-    
     if (category) {
         applyCategoryFilter(category);
         const selected = document.querySelector(`.headyy a[data-category="${category}"]`);
@@ -269,7 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('sort').addEventListener('change', applyFilters);
     document.getElementById('toggle').addEventListener('change', applyFilters);
-    if(!category) {
+
+    if (!category) {
         fetchDefaultProducts();
     }
 });
