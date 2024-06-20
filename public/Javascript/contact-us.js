@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const taerror = document.getElementById('message-form-field-error');
 
     const submitbutton = document.getElementById('submit-button');
+    const backbutton = document.getElementById('back-button');
 
     function isValidPhoneNumber(number) {
         const phoneNumberPattern = /^(?:(?:\+|00)([1-9]\d{0,2}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})$/;
@@ -114,6 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         return valid;
+    }
+
+    if(backbutton){
+        backbutton.addEventListener('click', () => {
+            event.preventDefault();
+            window.location.href = "/user/ContactUs";
+        })
     }
 
     if(submitbutton){
