@@ -222,4 +222,5 @@ router.get('/collection/:collectionId', getCollectionProducts);
 router.put('/cancelOrder/:orderId',User.cancelOrder);
 
 router.post('/orders/:orderId/reviews', User.submitReview);
+router.post('/logout', User.logout);
 module.exports = router;
