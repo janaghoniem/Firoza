@@ -25,7 +25,7 @@ const Request = require('../models/Requests');
 // });
 
 // Route to add a User
-router.post('/addAdmin', adminController.addAdmin);
+router.post('/saveaddAdmin', adminController.addAdmin);
 router.get('/addAdmin', adminController.getadmin);
 
 
@@ -178,4 +178,7 @@ router.post('/acceptRequest/:id', adminController.acceptRequest);
 router.post('/rejectRequest/:id', adminController.rejectRequest);
 
 router.post('/checkAddress', adminController.admincheckaddress);
+
+router.delete('/deleteUser/:id', adminController.deleteUser);
+
 module.exports = router;

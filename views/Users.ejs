@@ -4,50 +4,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orders</title>
+  <title>Users</title>
   <link rel="stylesheet" href="/CSS/Orders.css">
   <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
   <script src="/Javascript/nav-bar.js"></script>
   <script src="/Javascript/adminNavbar.js"></script>
 </head>
 
-<body>
-  <%- include('./partials/Admin-NavBar.ejs') %>
 
+  <body>
+    <%- include('./partials/Admin-NavBar.ejs') %>
+  
     <div class="container">
-
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-1">First Name</div>
           <div class="col col-2">Last Name</div>
           <div class="col col-3">Type</div>
           <div class="col col-4">Email</div>
-          <div class="col col-5">Status</div>
+          <div class="col col-5">User ID</div>
+          <div class="col col-6">Actions</div>
         </li>
-        <% if (users.length> 0) { %>
-          <% users.forEach(user=> { %> <!-- Note the lowercase 'users' -->
+        <% if (users.length > 0) { %>
+          <% users.forEach(user => { %>
             <li class="table-row">
-              <div class="col col-1">
+              <div class="col col-1" data-label="First Name">
                 <%= user.firstname %>
               </div>
-              <div class="col col-2">
+              <div class="col col-2" data-label="Last Name">
                 <%= user.lastname %>
               </div>
-              <div class="col col-3">
+              <div class="col col-3" data-label="Type">
                 <%= user.isAdmin ? 'Admin' : 'User' %>
               </div>
-              <div class="col col-4">
+              <div class="col col-4" data-label="Email">
                 <%= user.email %>
               </div>
-              <div class="col col-5">status</div>
-            </li>
-            <% }) %>
-              <% } else { %>
-                <p>There are no Users to display...</p>
+              <div class="col col-5" data-label="User ID">
+                <%= user._id %>
+              </div>
+              <div class="col col-6" data-label="Actions">
+                <% if (user.isAdmin) { %> <!-- Check if the current user is an admin -->
+                  <button class="delete-btn" data-user-id="<%= user._id %>">Delete</button>
                 <% } %>
-
+              </div>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <p>There are no users to display...</p>
+        <% } %>
       </ul>
     </div>
-</body>
-
-</html>
+  
+    <script>
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+          const userId = this.getAttribute('data-user-id');
+          const confirmation = confirm('Are you sure you want to delete this user?');
+  
+          if (confirmation) {
+            try {
+              const response = await fetch(`/admin/deleteUser/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+  
+              if (response.ok) {
+                alert('User deleted successfully.');
+                location.reload(); // Reload the page to reflect the changes
+              } else {
+                alert('Failed to delete the user.');
+              }
+            } catch (error) {
+              console.error('Error deleting user:', error);
+              alert('Error deleting user.');
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+  
+  </html>

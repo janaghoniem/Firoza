@@ -127,7 +127,7 @@ const deleteCollection = async (req, res) => {
         // Delete all products with the same collection ID (collection name)
         const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
 
-        res.status(200).send(`<script>alert("Deleted collection with ID: ${id} and ${deletedProducts.deletedCount} associated products"); window.location.href = "/main";</script>`);
+       
 
         res.status(200).json({ message: 'Collection and associated products deleted successfully' });
     } catch (error) {
@@ -565,7 +565,7 @@ const admincheckaddress =async (req, res) => {
         const { address } = req.body;
         const user = await User.findOne({ email: address });
         if (user) {
-            res.status(200).json({ available: false });
+            res.status(500).json({ available: false });
         } else {
             res.status(200).json({ available: true });
         }
@@ -575,6 +575,16 @@ const admincheckaddress =async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    try {
+      const userId = req.params.id;
+      await User.findByIdAndDelete(userId);
+      res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ error: 'Failed to delete the user' });
+    }
+  };
 
 
 module.exports = {
@@ -597,7 +607,7 @@ module.exports = {
     acceptRequest,
     rejectRequest,
     admincheckaddress,
-
+    deleteUser
 };
 
 
