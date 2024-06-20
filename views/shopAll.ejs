@@ -11,6 +11,11 @@
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/shopAll.css">
     <script src="/Javascript/indian.js"></script>
+<<<<<<< Updated upstream
+=======
+    <script src="/Javascript/openproduct.js"></script>
+
+>>>>>>> Stashed changes
 </head>
 
 <body>
@@ -153,8 +158,8 @@
                 <div class="col">
                     <div class="product-grid">
                         <div class="product-image">
-                            <a href="#" class="image">
-                                <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
+                            <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
+                                <img class="img-1"  src="/images/Indian/Newfolder/<%= product.img %>">
                             </a>
                             <ul class="product-links">
                                 <li><a onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i></a></li>
@@ -162,10 +167,10 @@
                             </ul>
                         </div>
                         <div class="product-content">
-                            <h3 class="title"><a href="#">
+                            <h3 class="title" ><a href="#">
                                     <%= product.name %>
                                 </a></h3>
-                            <div class="price">
+                            <div class="price" >
                                 <%= product.price %>
                             </div>
                         </div>

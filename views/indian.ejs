@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/Javascript/nav-bar.js"></script>
+    <script src="/Javascript/openproduct.js"></script>
     <link rel="stylesheet" href="/CSS/indian.css">
     <link rel="stylesheet" href="/CSS/indian2.css">
 
@@ -295,7 +296,7 @@
                     data-material="<%= product.material %>" data-price="<%= product.price %>">
                     <div class="product-grid">
                         <div class="product-image">
-                            <a href="#" class="image">
+                            <a href="/user/product/<%= product._id %>" class="image"  onclick="fetchProductDetails('<%= product._id %>')">
                                 <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
                                 <% if (product.sizes.every(size=> size.quantity === 0)) { %>
                                     <span class="sold-out-label">Sold Out</span>
