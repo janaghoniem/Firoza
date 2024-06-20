@@ -168,6 +168,7 @@ router.put('/cancelOrder/:orderId',User.cancelOrder);
 router.post('/orders/:orderId/reviews', User.submitReview);
 router.post('/logout', User.logout);
 
+
 router.get('/ContactUs',User.getcontactus);
 router.get('/contactUsform',User.getcontactusform);
 
@@ -178,8 +179,12 @@ router.get('/customize', (req, res) => {
 
 router.post('/submitRequest', User.addRequest);
 
+
 router.post('/submit-quiz', User.storeQuizResults);
 router.get('/quiz', User.renderQuizPage);
 
+
+
+router.get('/product/:productId', User.getProductDetails);
 
 module.exports = router;

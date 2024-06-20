@@ -1006,6 +1006,7 @@ const logout = (req, res) => {
     });
 };
 
+
 const getcontactus = async(req,res)=>{
     res.render("ContactUs.ejs");
 };
@@ -1034,6 +1035,28 @@ const addRequest = async (req, res) => {
     }
 };
 
+
+const getProductDetails = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        
+        // Fetch product by ID
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+
+        // Render productCardDetails.ejs with product data
+        res.render('productCardDetails', {
+            product: product
+        });
+    } catch (err) {
+        console.error('Error fetching product details:', err);
+        return res.status(500).send('Internal Server Error');
+    }
+};
+
 module.exports = {
     GetUser,
     AddUser,
@@ -1058,9 +1081,16 @@ module.exports = {
     cancelOrder,
     submitReview,
     logout,
+
     getcontactus,
     getcontactusform,
     addRequest,
+
     storeQuizResults,
-    renderQuizPage
+    renderQuizPage,
+
+
+    getProductDetails
+
+
 };
