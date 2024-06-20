@@ -750,8 +750,10 @@ const editProduct = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
+
         // res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
         res.status(200).send('<script>alert("Product updated successfully"); window.location.href = "/admin/product";</script>');
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });

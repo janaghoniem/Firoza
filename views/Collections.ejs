@@ -25,7 +25,7 @@
         <section class="collection-text">
             <h3 style="text-decoration: none;"><% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
                 <% allCollections.forEach(function(collection) { %>
-                    <% if (collection.Collection_Name === 'Egyptian collection') { %>
+                    <% if (collection.Collection_Name === 'Egyptian') { %>
                         <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
                             <%= collection.Collection_Name %> Collection
                         </a><br>

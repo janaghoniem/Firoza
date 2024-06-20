@@ -84,30 +84,27 @@
     <script>
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', async function() {
-                const card = this.closest('.card');
-                const productId = card.getAttribute('data-id');
-                
-                const response = await fetch(`/admin/deleteProduct/${productId}`, {
-                    method: 'DELETE'
-                });
+                if (confirm('Are you sure you want to delete this product?')) {
+                    const card = this.closest('.card');
+                    const productId = card.getAttribute('data-id');
+                    
+                    const response = await fetch(`/admin/deleteProduct/${productId}`, {
+                        method: 'DELETE'
+                    });
 
-                if (response.ok) {
-                    card.remove();
-                } else {
-                    alert('Failed to delete product');
+                    if (response.ok) {
+                        card.remove();
+                    } else {
+                        alert('Failed to delete product');
+                    }
                 }
             });
         });
 
         document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', async function() {
+            button.addEventListener('click', function() {
                 const card = this.closest('.card');
                 const productId = card.getAttribute('data-id');
-                
-                const response = await fetch(`/admin/deleteProduct/${productId}`, {
-                    method: 'POST'
-                });
-                // Redirect to the edit page for the selected product
                 window.location.href = `/admin/EditProduct/${productId}`;
             });
         });
