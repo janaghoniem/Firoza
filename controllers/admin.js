@@ -575,31 +575,7 @@ const admincheckaddress =async (req, res) => {
     }
 }
 
-const customize = async () => {
-    try {
-        const combinations = [];
 
-        stones.forEach(stone => {
-            colors.forEach(color => {
-                const price = generatePrice(stone, color);
-                const combination = {
-                    customize_id: `${stone}-${color}`, // Or any unique ID logic
-                    price: price,
-                    img1: `path/to/images/${customize_id}.jpg`, // Replace with the actual image path or logic to generate it
-                    img2: `path/to/images/${customize_id}_2.jpg`, // Replace with the actual image path or logic to generate it
-                    stone: stone,
-                    color: color
-                };
-                combinations.push(combination);
-            });
-        });
-
-        await Customization.insertMany(combinations);
-        console.log('All combinations inserted successfully');
-    } catch (error) {
-        console.error('Error');
-    }
-}
 
 module.exports = {
     addAdmin,
@@ -621,7 +597,7 @@ module.exports = {
     acceptRequest,
     rejectRequest,
     admincheckaddress,
-    customize
+
 };
 
 
