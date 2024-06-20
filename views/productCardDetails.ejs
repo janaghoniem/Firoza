@@ -22,14 +22,18 @@
                 <br>
                 <p>EGP <%= product.price %></p>
                 <br><br>
-                <div class="rate-stat">
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star">&#9733;</span>
-                    <span class="star5">&#9733;</span>
-                    <a href="#reviews" class="stat">(4)</a>
-                    <a href="#reviews" class="stat">(3 reviews)</a>
+                <div class="rate-stat" id="rate-stat">
+                    <% for (let i = 0; i < Math.floor(averageRating); i++) { %>
+                        <span class="star filled">&#9733;</span>
+                    <% } %>
+                    <% if (averageRating % 1 >= 0.5) { %>
+                        <span class="star">&#9733;</span>
+                    <% } %>
+                    <% for (let i = Math.ceil(averageRating); i <= 5; i++) { %>
+                        <span class="star">&#9733;</span>
+                    <% } %>
+                    <a href="#reviews" class="stat" id="average-rating">(Average Rating: <%= averageRating.toFixed(1) %>)</a>
+                    <a href="#reviews" class="stat" id="review-count">(<%= reviewCount %> review<%= reviewCount !== 1 ? 's' : '' %>)</a>
                 </div>
                 <div class="button-container">
                     <span class="button add-to-bag" onclick="addToCart('<%= product._id %>')"><i class="fas fa-shopping-bag"></i>Add to bag</span>

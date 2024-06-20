@@ -1170,10 +1170,20 @@ const getProductDetails = async (req, res) => {
             return res.status(404).send('Product not found');
         }
          reviews = await Review.find({ prod: productId }).populate('user');
-        // Render productCardDetails.ejs with product data
+         let averageRating = 0;
+        if (reviews.length > 0) {
+            const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0); // Calculate total rating
+            averageRating = totalRating / reviews.length; // Calculate average rating
+        }
+       
+        const reviewCount = reviews.length;
+
+         // Render productCardDetails.ejs with product data
         res.render('productCardDetails', {
             product: product,
-            reviews: reviews
+            reviews: reviews,
+            averageRating: averageRating, // Add averageRating to template data
+            reviewCount: reviewCount 
         });
     } catch (err) {
         console.error('Error fetching product details:', err);
