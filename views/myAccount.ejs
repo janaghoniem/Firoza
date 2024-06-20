@@ -54,14 +54,16 @@
                 <h3>ORDER HISTORY</h3>
                 <% if (ordersUser.length > 0) { %>
                     <% ordersUser.forEach(order => { %>
-                        <h2>Order ID: <%= order._id %></h2>
                         <div class="order-box">
-                            <h3 class="status">Order Status: <%= order.status %></h3>
+                            <div class="order-info">
+                                <h2>Order ID: <%= order._id %></h2>
+                                <h2 class="status">Order Status: <%= order.status %></h2>
+                            </div>
                             <ul class="product-list">
                                 <% order.product_ids.forEach(product => { %>
                                     <li class="product-item">
                                         <div class="product-details">
-                                            <h3><%= product.name %></h3>
+                                            <h2><%= product.name %></h2>
                                             <p>Price: $<%= product.price %></p>
                                         </div>
                                         <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">

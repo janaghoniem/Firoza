@@ -174,26 +174,39 @@ body {
     border-bottom: 1px solid #ddd;
     padding:20px 0;
 }
+
 .order-history h3{
    margin-bottom:20px;
-  
 }
+
+.order-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-history h2 {
+    font-size: 1.2rem;
+    border: none;
+}
+
 .order-box {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 15px;
     margin: 10px 0;
     background: #f9f9f9;
-    
 }
 
 .order-box h2 {
     margin-top: 0;
 }
+
 .order-box h3 {
     margin: 10px 0;
-   
 }
+
 .status {
     border-bottom: 1px solid #ddd;
 }
@@ -234,29 +247,45 @@ body {
 .product-item h3 {
     margin: 0;
 }
+
 .order-actions {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    align-items: center;
+}
+
+.order-actions h2 {
+    color: black;
+    margin-top: 10px;
+    padding: 15px 43px;
 }
 
 .order-actions button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
+    background-color: black;
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: white;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 12px;
+    text-align: center;
+    width: 200px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
     cursor: pointer;
+    margin: 5px;
+} 
+    
+.order-actions button:hover {
+    background-color: white;
+    color: black;
 }
 
-.order-actions .cancel-button {
-    background-color: #7e531f;
-    color: white;
-}
 
-.order-actions .review-button {
-    background-color: #7e531f;
-    color: white;
-}
 .custom-popup {
     display: none;
     position: fixed;
