@@ -250,7 +250,8 @@ document.addEventListener('DOMContentLoaded',  function() {
 
     exitPopupButton.addEventListener('click', () => {
         popupContainer.style.display = 'none';
-        document.body.style.overflow = 'scroll';
+        document.body.style.overflowX = 'none';
+        document.body.style.overflowY = 'scroll';
     });
     
         

@@ -19,33 +19,34 @@
     justify-content: center;
 }
 
-.CU h1 {
+.title h1 {
     text-transform: uppercase;
     font-weight: 800;
-    font-size: 30px;
+    font-size: 30px; /* No change here */
     font-family: "Engravers' Gothic BT", sans-serif;
-    text-transform: uppercase;
     letter-spacing: 0.05em;
     color: black;
     margin-top: 180px;
+    border-bottom: 1px solid #282828;
+    padding: 20px;
 }
 
 .main {
-    padding: 50px;
+    padding: 60px; /* Increased padding */
     display: flex;
     flex-flow: row wrap;
 }
 
 .main-content {
     color: black;
-    margin-top: 30px;
+    margin-top: 35px; /* Increased margin-top */
     text-decoration: none;
-    padding: 1.25rem;
+    padding: 1.5rem; /* Increased padding */
     background-color: #f0ede8;
-    width: 396px;
-    height: 129px;
+    width: 450px; /* Increased width */
+    height: 150px; /* Increased height */
     border: .0625rem solid rgba(0, 0, 0, 0);
-    margin-right: 20px;
+    margin-right: 25px; /* Increased margin-right */
 }
 
 .main-content:hover {
@@ -65,10 +66,10 @@
 }
 
 .icon {
-    margin-top: -35px;
-    font-size: 30px;
+    margin-top: -40px; /* Increased margin-top */
+    font-size: 35px; /* Increased font-size */
     color: black;
-    margin-right: 20px;
+    margin-right: 25px; /* Increased margin-right */
 }
 
 .main-text-content {
@@ -80,7 +81,7 @@
 }
 
 .main-text-content h3 {
-    font-size: medium;
+    font-size: large; /* Increased font-size */
     font-weight: 800;
 }
 
@@ -90,26 +91,87 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
-    font-size: large;
+    margin-top: 20px; /* Increased margin-top */
+    font-size: x-large; /* Increased font-size */
     color: black;
 }
 
 #email {
-    margin-top: 7px;
-    margin-left: 3.125rem;
+    margin-top: 10px; /* Increased margin-top */
+    margin-left: 3.5rem; /* Increased margin-left */
 }
 
-.cspopup-form {
-    background-color: white;
+.FAQ {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.FAQ .title {
+    margin-bottom: -80px;
+    margin-top: -70px;
     padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 590px;
-    height: auto;
-    max-height: 650px;
-    overflow: scroll;
 }
 
+.FAQ-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 120px;
+}
+
+.FAQ-item {
+    border-bottom: 1px solid #ccc;
+    padding: 50px 0;
+    width: 100%;
+}
+
+.question-button-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.question-button-div h2 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.question-button-div i {
+    font-size: 25px;
+    display: none;
+    color: #000000;
+}
+
+.FAQ-item p {
+    display: none;
+    font-family: 'futura pt';
+    font-weight: 300;
+    letter-spacing: 0.06rem;
+    font-size: 24px;
+    margin: 40px 0 0 0;
+}
+
+.FAQ-item.active p {
+    display: block;
+}
+
+.FAQ-item.active .fa-minus {
+    display: inline;
+}
+
+.FAQ-item .fa-plus {
+    display: inline;
+}
+
+.FAQ-item.active .fa-plus {
+    display: none;
+}
+
+
+/* <!----------FORM-----------> */
 
 #main-form {
     display: flex;
@@ -155,7 +217,34 @@ textarea {
     resize: both;
 }
 
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons button {
+    margin: 5px;
+}
+
 .submit-button {
+    background-color: black;
+    color: white;
+    border: 1px solid #1f1f1f;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 18px;
+    padding: 18px 45px;
+    text-decoration: none;
+    line-height: 1.125rem;
+    margin-bottom: 20px;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+.back-button {
     background: rgba(0, 0, 0, 0);
     color: #1f1f1f;
     border: 1px solid #1f1f1f;
@@ -167,12 +256,9 @@ textarea {
     line-height: 1.125rem;
     margin-bottom: 20px;
     margin-top: -10px;
+    cursor: pointer;
 }
 
-.submit-button:hover {
-    background-color: #1f1f1f;
-    color: white;
-}
 
 form {
     display: flex;

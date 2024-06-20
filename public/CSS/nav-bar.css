@@ -76,6 +76,10 @@ header:hover #search-button, #search-button2{
     background-color: transparent;
 }
 
+header:hover .side-icon {
+    color: #000;
+}
+
 .header-scrolled {
     background-color: white;
 }
@@ -100,6 +104,7 @@ header:hover #search-button, #search-button2{
     font-size: 20px;
     position: relative;
     margin-left: -40px;
+    cursor: pointer;
 }
 
 .navigation a{

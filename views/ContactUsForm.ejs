@@ -33,18 +33,19 @@
                 <div class="vertical-form">
                     <label for="subject-select-field" class="login-nav-text-style">Subject*</label>
                     <select name="subject-select-field" id="subject-select-field">
-                        <option value="Product Information" selected>Product Information</option>
-                        <option value="Product Purchase">Product Purchase</option>
-                        <option value="Boutique Information">Boutique Information</option>
-                        <option value="e-Repair Jewelry">e-Repair Jewelry</option>
+                        <option value="Return Request" selected>Return Request</option>
+                        <option value="Exchange Request">Exchange Request</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Other">Other</option>
                     </select>
                     <label for="reason-form-field" class="login-nav-text-style">Reason*</label>
                     <input type="text" name="reason-form-field" id="reason-form-field" placeholder="Insert Reason">
                     <p id="reason-form-field-error" class="input-error"></p>
                 </div>
             </div>
-            <div>
-                <button class="submit-button login-nav-text-style" id="submit-button" type="submit">Submit</button>
+            <div class="buttons">
+                <button class="submit-button" id="submit-button" type="submit">Submit</button>
+                <button class="back-button" id="back-button" href="/user/ContactUs">Back</button>
             </div>
         </form>
     </section>

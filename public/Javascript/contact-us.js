@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             arrowDown.style.display = 'none';
             arrowUp.style.display = 'block';
     
-            emailUs.style.height = '165px'
+            emailUs.style.height = '180px'
             email.style.display = 'block';
         });
     
@@ -21,9 +21,18 @@ document.addEventListener('DOMContentLoaded', function() {
             arrowDown.style.display = 'block';
     
             email.style.display = 'none';
-            emailUs.style.height = '129px'
+            emailUs.style.height = '150px'
         });
     }
+
+    const faqItems = document.querySelectorAll('.FAQ-item');
+
+    faqItems.forEach(item => {
+        const questionButtonDiv = item.querySelector('.question-button-div');
+        questionButtonDiv.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
 
     // cs.addEventListener('click', () => {
     //     event.preventDefault();
