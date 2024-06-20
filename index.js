@@ -161,56 +161,56 @@ app.get('/user/:collectionName', async (req, res) => {
 //     'Asscher': 6000
 // };
 
-// const colorPrices = {
-//     'White': 2000,
-//     'Green': 3000,
-//     'Blue': 2500,
-//     'Yellow': 1000,
-//     'Red': 4000
-// };
+const colorPrices = {
+    'White': 2000,
+    'Green': 3000,
+    'Blue': 2500,
+    'Yellow': 1000,
+    'Red': 4000
+};
 
-// const combinations = [
-//     { stone: 'Round', color: 'White' },
-//     { stone: 'Round', color: 'Green' },
-//     { stone: 'Round', color: 'Blue' },
-//     { stone: 'Round', color: 'Yellow' },
-//     { stone: 'Round', color: 'Red' },
+const combinations = [
+    { stone: 'Round', color: 'White' },
+    { stone: 'Round', color: 'Green' },
+    { stone: 'Round', color: 'Blue' },
+    { stone: 'Round', color: 'Yellow' },
+    { stone: 'Round', color: 'Red' },
 
-//     { stone: 'Radiant', color: 'White' },
-//     { stone: 'Radiant', color: 'Green' },
-//     { stone: 'Radiant', color: 'Blue' },
-//     { stone: 'Radiant', color: 'Yellow' },
-//     { stone: 'Radiant', color: 'Red' },
+    { stone: 'Radiant', color: 'White' },
+    { stone: 'Radiant', color: 'Green' },
+    { stone: 'Radiant', color: 'Blue' },
+    { stone: 'Radiant', color: 'Yellow' },
+    { stone: 'Radiant', color: 'Red' },
 
-//     { stone: 'Heart', color: 'White' },
-//     { stone: 'Heart', color: 'Green' },
-//     { stone: 'Heart', color: 'Blue' },
-//     { stone: 'Heart', color: 'Yellow' },
-//     { stone: 'Heart', color: 'Red' },
+    { stone: 'Heart', color: 'White' },
+    { stone: 'Heart', color: 'Green' },
+    { stone: 'Heart', color: 'Blue' },
+    { stone: 'Heart', color: 'Yellow' },
+    { stone: 'Heart', color: 'Red' },
 
-//     { stone: 'Princess', color: 'White' },
-//     { stone: 'Princess', color: 'Green' },
-//     { stone: 'Princess', color: 'Blue' },
-//     { stone: 'Princess', color: 'Yellow' },
-//     { stone: 'Princess', color: 'Red' },
+    { stone: 'Princess', color: 'White' },
+    { stone: 'Princess', color: 'Green' },
+    { stone: 'Princess', color: 'Blue' },
+    { stone: 'Princess', color: 'Yellow' },
+    { stone: 'Princess', color: 'Red' },
 
-//     { stone: 'Pear', color: 'White' },
-//     { stone: 'Pear', color: 'Green' },
-//     { stone: 'Pear', color: 'Blue' },
-//     { stone: 'Pear', color: 'Yellow' },
-//     { stone: 'Pear', color: 'Red' },
+    { stone: 'Pear', color: 'White' },
+    { stone: 'Pear', color: 'Green' },
+    { stone: 'Pear', color: 'Blue' },
+    { stone: 'Pear', color: 'Yellow' },
+    { stone: 'Pear', color: 'Red' },
 
-//     { stone: 'Oval', color: 'White' },
-//     { stone: 'Oval', color: 'Green' },
-//     { stone: 'Oval', color: 'Blue' },
-//     { stone: 'Oval', color: 'Yellow' },
-//     { stone: 'Oval', color: 'Red' },
+    { stone: 'Oval', color: 'White' },
+    { stone: 'Oval', color: 'Green' },
+    { stone: 'Oval', color: 'Blue' },
+    { stone: 'Oval', color: 'Yellow' },
+    { stone: 'Oval', color: 'Red' },
 
-//     { stone: 'Marquise', color: 'White' },
-//     { stone: 'Marquise', color: 'Green' },
-//     { stone: 'Marquise', color: 'Blue' },
-//     { stone: 'Marquise', color: 'Yellow' },
-//     { stone: 'Marquise', color: 'Red' },
+    { stone: 'Marquise', color: 'White' },
+    { stone: 'Marquise', color: 'Green' },
+    { stone: 'Marquise', color: 'Blue' },
+    { stone: 'Marquise', color: 'Yellow' },
+    { stone: 'Marquise', color: 'Red' },
 
 // const combinations = [
 //     { stone: 'Round', color: 'White' },
@@ -261,18 +261,18 @@ app.get('/user/:collectionName', async (req, res) => {
 //     { stone: 'Emerald', color: 'Yellow' },
 //     { stone: 'Emerald', color: 'Red' },
 
-//     { stone: 'Cushion', color: 'White' },
-//     { stone: 'Cushion', color: 'Green' },
-//     { stone: 'Cushion', color: 'Blue' },
-//     { stone: 'Cushion', color: 'Yellow' },
-//     { stone: 'Cushion', color: 'Red' },
+    { stone: 'Cushion', color: 'White' },
+    { stone: 'Cushion', color: 'Green' },
+    { stone: 'Cushion', color: 'Blue' },
+    { stone: 'Cushion', color: 'Yellow' },
+    { stone: 'Cushion', color: 'Red' },
 
-//     { stone: 'Asscher', color: 'White' },
-//     { stone: 'Asscher', color: 'Green' },
-//     { stone: 'Asscher', color: 'Blue' },
-//     { stone: 'Asscher', color: 'Yellow' },
-//     { stone: 'Asscher', color: 'Red' }
-// ];
+    { stone: 'Asscher', color: 'White' },
+    { stone: 'Asscher', color: 'Green' },
+    { stone: 'Asscher', color: 'Blue' },
+    { stone: 'Asscher', color: 'Yellow' },
+    { stone: 'Asscher', color: 'Red' }
+];
 
 //     { stone: 'Emerald', color: 'White' },
 //     { stone: 'Emerald', color: 'Green' },
@@ -300,15 +300,15 @@ app.get('/user/:collectionName', async (req, res) => {
 //     return stonePrice + colorPrice;
 // }
 
-// async function debugDatabase() {
-//     const indexes = await Customa.collection.getIndexes();
-//     console.log('Indexes:', indexes);
+async function debugDatabase() {
+    const indexes = await Customa.collection.getIndexes();
+    console.log('Indexes:', indexes);
 
-//     const existingData = await Customa.find({});
-//     console.log('Existing Data:', existingData);
-// }
+    const existingData = await Customa.find({});
+    console.log('Existing Data:', existingData);
+}
 
-// debugDatabase();
+debugDatabase();
 
 // async function seedDatabase() {
 //     try {
@@ -323,6 +323,7 @@ app.get('/user/:collectionName', async (req, res) => {
 //                 console.error(`Invalid combination at index ${i}:`, combinations[i]);
 //                 continue; // Skip invalid entries
 //             }
+
 
 //             console.log(`Preparing to insert combination: ${stone}, ${color}`); // Detailed logging
 //             const price = calculatePrice(stone, color);
@@ -355,14 +356,7 @@ app.get('/user/:collectionName', async (req, res) => {
 //             }
 //         }
 
-//         console.log('Database seeding completed.');
-//         mongoose.connection.close();
-//     } catch (err) {
-//         console.error('Error seeding database:', err);
-//     }
-// }
-
-// seedDatabase();
+//seedDatabase();
 
 //             await newCustom.save();
 //             console.log(`Inserted combination: ${stone}, ${color}`);

@@ -85,4 +85,26 @@ document.addEventListener("DOMContentLoaded", function () {
         setupColorButtons();
         setupSceneButtons();
     });
+
+
+
+    async function fetchCustomizationData(customizeId) {
+        try {
+            const response = await fetch(`/api/customization/${customizeId}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                const imgElement = document.getElementById('customImage');
+                imgElement.src = `/images/Customization/${data.img2}.png`;
+            } else {
+                console.error('Failed to fetch customization data:', data.error);
+            }
+        } catch (error) {
+            console.error('Error fetching customization data:', error);
+        }
+    }
+
+    // Call the function with the desired customize_id
+    const customizeId = 'Round_Blue'; // Example customize_id
+    fetchCustomizationData(customizeId);
 });
