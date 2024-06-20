@@ -232,3 +232,19 @@ document.addEventListener('DOMContentLoaded', () => {
     //     });
     // });
 });
+
+function toggleOrders() {
+    const ordersContainer = document.querySelector('.orders-container');
+    const showMoreButton = document.getElementById('show-more-button');
+
+    if (ordersContainer.classList.contains('expanded')) {
+        ordersContainer.classList.remove('expanded');
+        ordersContainer.classList.add('unexpanded');
+        showMoreButton.textContent = 'Show More';
+    } else {
+        ordersContainer.classList.remove('unexpanded');
+        ordersContainer.classList.add('expanded');
+        showMoreButton.textContent = 'Show Less';
+    }
+}
+

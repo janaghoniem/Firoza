@@ -104,10 +104,10 @@ body {
 }
 
 .info-buttons button {
-    background: rgba(0, 0, 0, 0);
+    background-color: black;
     font-family: 'futura pt';
     font-weight: 500;
-    color: #1f1f1f;
+    color: white;
     border: 1px solid #1f1f1f;
     border-radius: 0;
     text-transform: uppercase;
@@ -123,8 +123,8 @@ body {
 }
 
 .info-buttons button:hover {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 #save-button {
@@ -175,6 +175,18 @@ body {
     padding:20px 0;
 }
 
+.orders-container {
+    transition: height 0.5s ease-in-out;
+}
+
+.unexpanded{
+    max-height: 380px;
+    overflow: hidden;
+}
+
+.expanded {
+   height: fit-content; 
+}
 .order-history h3{
    margin-bottom:20px;
 }
@@ -192,11 +204,12 @@ body {
 }
 
 .order-box {
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
+    border-bottom: 1px solid #ddd;
     border-radius: 4px;
     padding: 15px;
     margin: 10px 0;
-    background: #f9f9f9;
+    /* background: #f9f9f9; */
 }
 
 .order-box h2 {
@@ -283,6 +296,38 @@ body {
 .order-actions button:hover {
     background-color: white;
     color: black;
+}
+
+.action-buttons button {
+    background-color: black;
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: white;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 350px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    cursor: pointer;
+    margin: 10px 0;
+    align-self: center;
+}
+
+.action-buttons button:hover {
+    background-color: white;
+    color: black;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 

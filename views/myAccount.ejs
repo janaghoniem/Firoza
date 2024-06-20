@@ -52,40 +52,45 @@
             </section>
             <section class="order-history">
                 <h3>ORDER HISTORY</h3>
-                <% if (ordersUser.length > 0) { %>
-                    <% ordersUser.forEach(order => { %>
-                        <div class="order-box">
-                            <div class="order-info">
-                                <h2>Order ID: <%= order._id %></h2>
-                                <h2 class="status">Order Status: <%= order.status %></h2>
+                <div class="orders-container unexpanded">
+                    <% if (ordersUser.length > 0) { %>
+                        <% ordersUser.forEach(order => { %>
+                            <div class="order-box">
+                                <div class="order-info">
+                                    <h2>Order ID: <%= order._id %></h2>
+                                    <h2 class="status">Order Status: <%= order.status %></h2>
+                                </div>
+                                <ul class="product-list">
+                                    <% order.product_ids.forEach(product => { %>
+                                        <li class="product-item">
+                                            <div class="product-details">
+                                                <h2><%= product.name %></h2>
+                                                <p>Price: $<%= product.price %></p>
+                                            </div>
+                                            <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
+                                        </li>
+                                    <% }); %>
+                                </ul>
+    
+                                <div class="order-actions">
+                                    <h2>total price: <%= order.total_price %></h2>
+                                    <% if (order.status === 'pending') { %>
+                                        <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
+                                    <% } %>
+                                    <% if (order.status === 'delivered') { %>
+                                        <button class="review-button" onclick="openReviewPopup('<%= order._id %>')">Review Order</button>
+                                    <% } %>
+                                </div>
                             </div>
-                            <ul class="product-list">
-                                <% order.product_ids.forEach(product => { %>
-                                    <li class="product-item">
-                                        <div class="product-details">
-                                            <h2><%= product.name %></h2>
-                                            <p>Price: $<%= product.price %></p>
-                                        </div>
-                                        <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
-                                    </li>
-                                <% }); %>
-                            </ul>
-
-                            <div class="order-actions">
-                                <h2>total price: <%= order.total_price %></h2>
-                                <% if (order.status === 'pending') { %>
-                                    <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
-                                <% } %>
-                                <% if (order.status === 'delivered') { %>
-                                    <button class="review-button" onclick="openReviewPopup('<%= order._id %>')">Review Order</button>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <p>No orders found.</p>
-                <% } %>
-                <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No orders found.</p>
+                    <% } %>
+                </div>
+                <div class="action-buttons">
+                    <button id="show-more-button" class="show-more-button" onclick="toggleOrders()">Show More Orders</button>
+                    <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
+                </div>
             </section>
            
         </div>
