@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Javascript/Checkout.js">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/CSS/Checkout.css">
     <title>Complete your purchase</title>
 </head>
@@ -64,11 +66,13 @@
         <form action="" class="payment-form">
             <div class="inputBox">
                 <span>CARD NUMBER</span>
-                <input type="text" maxlength="16" class="card-number-input">
+                <input type="text" maxlength="19" class="card-number-input">
+                <p class="card-length-message"></p>
             </div>
             <div class="inputBox">
                 <span>CARD HOLDER</span>
                 <input type="text" class="card-holder-input">
+                <p class="error-message"></p>
             </div>
             <div class="flexbox">
                 <div class="inputBox">
@@ -108,10 +112,11 @@
                 <div class="inputBox">
                     <span>cvv</span>
                     <input type="text" maxlength="4" class="cvv-input">
+                    <p class="error-message"></p>
                 </div>
             </div>
             <input type="submit" value="PAY EGP <%= user.cart.totalprice %>" class="submit-btn" id="final-checkout-btn" onclick="handlePaymentFormSubmission()">
-            <input type="submit" value="Back" class="submit-btn" onclick="window.location.href = 'ShoppAll.html';">
+            <input type="submit" value="Back" class="submit-btn">
         </form>
     </div>
 

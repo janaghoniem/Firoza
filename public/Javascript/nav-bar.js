@@ -553,7 +553,21 @@ document.addEventListener('DOMContentLoaded',  function() {
     
     
     function showPopup(message) {
-        const popup = document.querySelector('.login-message-popup');
+        const popup = document.getElementById('login-message-popup');
+        const popupMessage = popup.querySelector('h2');
+        popupMessage.textContent = message;
+        
+        // Show the popup
+        popup.classList.add('show');
+        
+        // Automatically hide popup after 3 seconds
+        setTimeout(() => {
+            popup.classList.remove('show');
+        }, 3000); // Adjust timing as needed
+    }
+
+    function showErrorPopup(message) {
+        const popup = document.getElementById('login-message-error-popup');
         const popupMessage = popup.querySelector('h2');
         popupMessage.textContent = message;
         
