@@ -123,3 +123,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+
+
+///--------------------------------------------------------------------------------------------------------------------------------------
+document.getElementById('contactUsForm').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    const firstName = document.getElementById('first-name-form-field').value.trim();
+    const lastName = document.getElementById('last-name-form-field').value.trim();
+    const email = document.getElementById('email-address-form-field').value.trim();
+    const message = document.getElementById('message-form-field').value.trim();
+
+    if (firstName === "") {
+        isValid = false;
+        document.getElementById('first-name-form-field-error').textContent = "First Name is required.";
+    } else {
+        document.getElementById('first-name-form-field-error').textContent = "";
+    }
+
+    if (lastName === "") {
+        isValid = false;
+        document.getElementById('last-name-form-field-error').textContent = "Last Name is required.";
+    } else {
+        document.getElementById('last-name-form-field-error').textContent = "";
+    }
+
+    if (email === "") {
+        isValid = false;
+        document.getElementById('email-address-form-field-error').textContent = "Email is required.";
+    } else if (!validateEmail(email)) {
+        isValid = false;
+        document.getElementById('email-address-form-field-error').textContent = "Invalid Email Address.";
+    } else {
+        document.getElementById('email-address-form-field-error').textContent = "";
+    }
+
+    if (message === "") {
+        isValid = false;
+        document.getElementById('message-form-field-error').textContent = "Message is required.";
+    } else {
+        document.getElementById('message-form-field-error').textContent = "";
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+function validateEmail(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
