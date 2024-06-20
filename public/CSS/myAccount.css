@@ -450,19 +450,24 @@ h2 {
     margin-left: -15px;
 }
 
-.review-rating .fa-regular {
+.fa-star {
     font-size: 30px; 
     margin: 0 5px; 
     cursor: pointer;
     transition: color 0.3s; 
 }
 
-.review-rating .fa.checked {
+.fa-star.checked,
+.fa-star:hover {
     color: gold; 
 }
 
-.review-rating .fa-star:hover {
-    color: gold; 
+.fa-solid.fa-star {
+    color: gold;
+}
+
+.fa-star.fa-regular {
+    color: black; /* Default color for non-hovered or non-checked stars */
 }
 
 .review-comment {

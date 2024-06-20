@@ -248,18 +248,50 @@ function toggleOrders() {
     }
 }
 
-const regularIcons = document.querySelectorAll('.review-rating .fa-regular');
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.review-rating .fa-star');
 
-regularIcons.forEach(icon => {
-    icon.addEventListener('mouseenter', function() {
-        this.classList.remove('fa-regular'); // Remove regular class
-        this.classList.add('fa-solid'); // Add solid class
-    });
+    stars.forEach(star => {
+        star.addEventListener('mouseenter', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            stars.forEach(s => {
+                const sRating = parseInt(s.getAttribute('data-rating'));
+                if (sRating <= rating) {
+                    s.classList.remove('fa-regular');
+                    s.classList.add('fa-solid');
+                } else {
+                    s.classList.remove('fa-solid');
+                    s.classList.add('fa-regular');
+                }
+            });
+        });
 
-    icon.addEventListener('mouseleave', function() {
-        this.classList.remove('fa-solid'); // Remove solid class
-        this.classList.add('fa-regular'); // Add regular class back
+        star.addEventListener('click', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            stars.forEach(s => {
+                const sRating = parseInt(s.getAttribute('data-rating'));
+                if (sRating <= rating) {
+                    s.classList.add('checked');
+                } else {
+                    s.classList.remove('checked');
+                }
+            });
+        });
+
+        star.addEventListener('mouseleave', function() {
+            stars.forEach(s => {
+                if (!s.classList.contains('checked')) {
+                    s.classList.remove('fa-solid');
+                    s.classList.add('fa-regular');
+                }
+            });
+            const checkedStars = document.querySelectorAll('.review-rating .checked');
+            checkedStars.forEach(checkedStar => {
+                checkedStar.classList.add('fa-solid');
+            });
+        });
     });
 });
+
 
 
