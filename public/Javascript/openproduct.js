@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (productId) {
         fetchProductDetails(productId);
+        fetchAndDisplayReviews(productId);
     }
 
     function fetchProductDetails(productId) {
@@ -43,4 +44,49 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching product details:', error));
     }
+    async function fetchAndDisplayReviews(productId) {
+        try {
+            const response = await fetch(`/user/products/${productId}/reviews`);
+            const result = await response.json();
+
+            if (result.success) {
+                const reviewsContainer = document.getElementById('reviews');
+                reviewsContainer.innerHTML = ''; // Clear any existing reviews
+
+                result.reviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review-box');
+
+                    reviewElement.innerHTML = `
+                        <div class="review-left">
+                            <div class="review-header">
+                                <div class="review-avatar">
+                                    <i class="fa-regular fa-circle-user"></i>
+                                </div>
+                                <div class="review-info">
+                                    <p class="reviewer-name">${review.user.name}</p>
+                                    <p class="review-date">${new Date(review.created_at).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                            <div class="review-content">
+                                <div class="review-rating">
+                                    ${'&#9733;'.repeat(review.rating)}
+                                    ${'&#9733;'.repeat(5 - review.rating)}
+                                </div>
+                                <p class="review-text">${review.comment}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            } else {
+                console.error('Error fetching reviews:', result.message);
+            }
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+        }
+    }
+
 });
+
