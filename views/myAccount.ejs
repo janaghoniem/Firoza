@@ -63,11 +63,11 @@
                                 <ul class="product-list">
                                     <% order.product_ids.forEach(product => { %>
                                         <li class="product-item">
+                                            <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                             <div class="product-details">
                                                 <h2><%= product.name %></h2>
                                                 <p>Price: $<%= product.price %></p>
                                             </div>
-                                            <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                         </li>
                                     <% }); %>
                                 </ul>
@@ -106,8 +106,8 @@
             <h2>Cancel Order Confirmation</h2>
             <p>Are you sure you want to cancel this order?</p>
             <div class="btn-container">
-                <button class="confirm-btn" onclick="confirmCancel()">Yes</button>
-                <button class="cancel-btn" onclick="closePopup()">Go Back</button>
+                <button class="confirm-cancel-buttons" onclick="confirmCancel()">Yes</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
             </div>
         </div>
     </div>
