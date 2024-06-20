@@ -11,11 +11,11 @@
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="/CSS/shopAll.css">
     <script src="/Javascript/indian.js"></script>
-<<<<<<< Updated upstream
-=======
+
+
     <script src="/Javascript/openproduct.js"></script>
 
->>>>>>> Stashed changes
+
 </head>
 
 <body>
@@ -180,6 +180,31 @@
         </div>
         <%- include('./partials/footer.ejs') %>
 
+
+        
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    if (productId) {
+        fetchProductDetails(productId);
+    }
+
+    function fetchProductDetails(productId) {
+        fetch(`/user/product/${productId}`) // Ensure this matches your route
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.prod-pic img').src = `/images/Indian/Newfolder/${data.img}`;
+                document.querySelector('#product-name').innerText = data.name;
+                document.querySelector('#product-price').innerText = data.price;
+                document.querySelector('#product-description').innerText = data.description;
+            })
+            .catch(error => console.error('Error fetching product details:', error));
+    }
+});
+    </script>
+        
 </body>
 
 </html>
