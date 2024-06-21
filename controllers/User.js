@@ -1182,6 +1182,19 @@ const getCustomizationImage = async (req, res) => {
 //     }
 // };
 
+const getTopSellingProducts = async () => {
+    try {
+        const topProducts = await Product.aggregate([
+            { $sort: { no_sales: -1 } }, // Sort by no_sales descending
+            { $limit: 10 } // Limit to top 5
+        ]);
+
+        return topProducts;
+    } catch (error) {
+        console.error('Error fetching top selling products:', error);
+        throw error;
+    }
+};
 
 module.exports = {
     GetUser,
@@ -1210,16 +1223,14 @@ module.exports = {
     cancelOrder,
     submitReview,
     logout,
-
     getcontactus,
     getcontactusform,
     addRequest,
-
     storeQuizResults,
     renderQuizPage,
     getCustomizationImage,
-
-    getProductDetails
+    getProductDetails,
+    getTopSellingProducts
 
 
 };

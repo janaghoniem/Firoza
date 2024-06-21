@@ -85,159 +85,27 @@
             </button>
 
             <div class="carousel__track-container">
-                <ul class="carousel__track  best-sellers-multiple-card-slide" id = "carousel__track">
-                    <li class="carousel__slide current-slide">
+                <ul class="carousel__track best-sellers-multiple-card-slide" id="carousel__track">
+                    <% topProducts.forEach(product => { %>
+                    <li class="carousel__slide">
                         <div class="carousel__content">
-                            <div class="card" id="carousel-card">
+                            <div class="card">
                                 <div class="imge">
-                                    <img src="/images/Landing/exp/bracelet2.jpg" height="300" width="250">
+                                    <img src="/images/Indian/Newfolder/<%= product.img %>" height="300" width="250">
                                     <i class="fa-regular fa-heart"></i>
                                 </div>
                                 <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
+                                    <p><%= product.name %></p>
+                                    <p>EGP <%= product.price %></p>
                                     <button onclick="showAlert()">Add to cart</button>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/necklace2.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button>Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/earrings2.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button>Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product2.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button>Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product8.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button>Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product4.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button onclick="showAlert()">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product10.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button onclick="showAlert()">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product7.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button onclick="showAlert()">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product6.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button onclick="showAlert()">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="carousel__slide">
-                        <div class="carousel__content">
-                            <div class="card">
-                                <div class="imge">
-                                    <img src="/images/Landing/exp/product1.jpg" height="300" width="250">
-                                    <i class="fa-regular fa-heart"></i>
-                                </div>
-                                <div class="info">
-                                    <p>Gold dangle drop earring.</p>
-                                    <p>EGP 12,000</p>
-                                    <button onclick="showAlert()">Add to cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    <% }); %>
                 </ul>
             </div>
+
             <button class="carousel__button carousel__button--right" id="carousel__button--right">
                 <i class="fa-solid fa-angle-right"></i>
             </button>
