@@ -20,16 +20,16 @@
                 <div class="container">
                     <div class="row gx-5">
                         <aside class="col-lg-6">
-                            <div class="border rounded-4 mb-3 d-flex justify-content-center">
-                                <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image">
-                                    <img style="max-width: 100%; max-height: 70vh; margin: auto;" class="rounded-4 fit"
+                            <div class="border rounded-4 mb-3 d-flex justify-content-center" >
+                                <a id="mainImageLink" data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image">
+                                    <img id="mainImage"  class="rounded-4 fit"
                                         src="<%= product.img %>" alt="Product Image" />
                                 </a>
                             </div>
                             <div class="d-flex justify-content-center mb-3">
                                 <% product.images.forEach(function(image) { %>
-                                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" class="item-thumb">
-                                        <img width="60" height="60" class="rounded-2" src="<%= product.images[0] %>" alt="Product Image" />
+                                    <a data-fslightbox="mygalley" class="border mx-1 rounded-2 item-thumb" target="_blank" data-type="image">
+                                        <img width="60" height="60" class="rounded-2" src="<%= image %>" alt="Product Image" />
                                     </a>
                                 <% }); %>
                             </div>
@@ -133,47 +133,57 @@
                     </div>
                    
                    
-                    <div id="similar-products" >
-                        <div class="item-list1">
-                            <div class="product-grid smaller-card">
-                              <div class="product-image">
-                                <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
-                                  <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
-                                </a>
-                                <ul class="product-links">
-                                    <li>
-                                        <% if (isAvailable) { %>
-                                            <a onclick="addToWishlist('<%= product._id %>')">
-                                                <i class="fa fa-heart"></i>
-                                            </a>
-                                        <% } else { %>
-                                            <span class="disabled-box">
-                                                <i class="fa fa-heart"></i>
-                                            </span>
-                                        <% } %>
-                                    </li>
-                                    <li>
-                                        <% if (isAvailable) { %>
-                                            <a onclick="addToCart('<%= product._id %>', '<%= product.price %>')">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </a>
-                                        <% } else { %>
-                                            <span class="disabled-box">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </span>
-                                        <% } %>
-                                    </li>
-                                </ul>
-                              </div>
-                              <div class="product-content">
-                                <h3 class="title"><a href="#"> <%= product.name %> </a></h3>
-                                <div class="price"> <%= product.price %> </div>
-                               
+                    <div id="similar-products">
+                        <% similarProducts.forEach(product => { %>
+                            <% let isAvailable = false; %>
+                    
+                            <% if (product.sizes && product.sizes.length > 0) { %>
+                                <% product.sizes.forEach(size => { %>
+                                    <% if (size.quantity > 0) { %>
+                                        <% isAvailable = true; %>
+                                        <% return; %>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                    
+                            <!-- Render similar product card -->
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
+                                        <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
+                                    </a>
+                                    <ul class="product-links">
+                                        <li>
+                                            <% if (isAvailable) { %>
+                                                <a onclick="addToWishlist('<%= product._id %>')">
+                                                    <i class="fa fa-heart"></i>
+                                                </a>
+                                            <% } else { %>
+                                                <span class="disabled-box">
+                                                    <i class="fa fa-heart"></i>
+                                                </span>
+                                            <% } %>
+                                        </li>
+                                        <li>
+                                            <% if (isAvailable) { %>
+                                                <a onclick="addToCart('<%= product._id %>', '<%= product.price %>')">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </a>
+                                            <% } else { %>
+                                                <span class="disabled-box">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </span>
+                                            <% } %>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="title"><a href="/user/product/<%= product._id %>"><%= product.name %></a></h3>
+                                    <div class="price">EGP <%= product.price %></div>
+                                </div>
                             </div>
-                          
-                              </div>
-                            </div>
-                          </div>
+                        <% }) %>
+                    </div>
                     </div>
                     
                 </div>
@@ -298,17 +308,22 @@
    
 
     
-    <!-- <script>
-        // Populate product details from session storage
-        const productDetails = JSON.parse(sessionStorage.getItem('productDetails'));
-        if (productDetails) {
-            document.getElementById('productImage').src = `/images/Indian/Newfolder/${productDetails.img}`;
-            document.getElementById('productName').textContent = productDetails.name;
-            document.getElementById('productPrice').textContent = productDetails.price;
-            document.getElementById('productDescription').innerHTML = productDetails.description;
-            // You can add more details as needed
-        }
-    </script> -->
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var mainImage = document.getElementById("mainImage");
+        var mainImageLink = document.getElementById("mainImageLink");
+        var thumbnails = document.querySelectorAll(".item-thumb img");
+
+        thumbnails.forEach(function(thumbnail) {
+            thumbnail.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+                var newSrc = thumbnail.src;
+                mainImage.src = newSrc;
+                mainImageLink.href = newSrc; // Update the href of the main link
+            });
+        });
+    });
+</script>
 
     <script src="/Javascript/productCardDetails.js"></script>
     <script src="/Javascript/openproduct.js"></script>
