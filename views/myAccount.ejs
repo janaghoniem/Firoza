@@ -98,7 +98,7 @@
                     <button id="show-more-button" class="show-more-button" onclick="toggleOrders()">Show More Orders</button>
                     <div style="display: flex; flex-direction: row;">
                         <button id="logout-button" class="logout-button" onclick="logout()">Logout</button>
-                        <button id="deactivate-button" class="logout-button" onclick="deactivate()">Delete Account</button>
+                        <button id="deactivate-button" class="logout-button" onclick="openPopup('deactivate-popup')">Delete Account</button>
                     </div>
                 </div>
             </section>
@@ -110,42 +110,42 @@
         <%- include('./partials/footer.ejs') %>
     </div>
 
-    <div id="custom-popup" class="custom-popup">
+    <div id="cancel-order-popup" class="custom-popup">
         <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <span class="close-btn" onclick="closePopup('cancel-order-popup')">&times;</span>
             <h2>Cancel Order Confirmation</h2>
             <p>Are you sure you want to cancel this order?</p>
             <div class="btn-container">
                 <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Yes</button>
-                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup('cancel-order-popup')">Go Back</button>
             </div>
         </div>
     </div>
     <div id="logout-popup" class="custom-popup">
         <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>Cancel Order Confirmation</h2>
-            <p>Are you sure you want to cancel this order?</p>
+            <span class="close-btn" onclick="closePopup('logout-popup')">&times;</span>
+            <h2>Logout Confirmation</h2>
+            <p>Are you sure you want to logout?</p>
             <div class="btn-container">
-                <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Logout</button>
-                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
+                <button class="confirm-cancel-buttons confirm" onclick="logout()">Logout</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup('logout-popup')">Go Back</button>
             </div>
         </div>
     </div>
     <div id="deactivate-popup" class="custom-popup">
         <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <span class="close-btn" onclick="closePopup('deactivate-popup')">&times;</span>
             <h2>Are you sure you want to delete your account?</h2>
-            <p>This action cannot be undone. Deleting your account removes all your information, order history and jewelry preferences.</p>
+            <p>This action cannot be undone. Deleting your account removes all your information, order history, and jewelry preferences.</p>
             <div class="btn-container">
-                <button class="confirm-cancel-buttons confirm" onclick="confirmCancel()">Delete</button>
-                <button class="confirm-cancel-buttons" onclick="closePopup()">Go Back</button>
+                <button class="confirm-cancel-buttons confirm" onclick="deactivate()">Delete</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup('deactivate-popup')">Go Back</button>
             </div>
         </div>
     </div>
     <div id="review-popup" class="review-custom-popup">
         <div class="review-popup-content">
-            <span class="review-close-btn" onclick="closeReviewPopup()">&times;</span>
+            <span class="review-close-btn" onclick="closePopup('review-popup')">&times;</span>
             <h2>Write a Review</h2>
             <div class="review-rating">
                 <span class="fa-regular fa-star" data-rating="1"></span>
@@ -157,10 +157,11 @@
             <textarea id="review-comment" class="review-comment" placeholder="Write your review here..." style="font-family: 'futura pt'; font-size: larger; font-weight: 400;"></textarea>
             <div class="review-btn-container">
                 <button class="confirm-cancel-buttons" onclick="submitReview()">Submit Review</button>
-                <button class="confirm-cancel-buttons" onclick="closeReviewPopup()">Cancel</button>
+                <button class="confirm-cancel-buttons" onclick="closePopup('review-popup')">Cancel</button>
             </div>
         </div>
     </div>
+    
 </body>
 
 </html>

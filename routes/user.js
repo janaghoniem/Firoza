@@ -123,6 +123,7 @@ router.get('/users/:id', User.getUserById);
 
 router.get('/myAccount', User.getUserOrder);
 router.post('/myAccount/Edit-Personal-information', User.updateUser);
+router.delete('/deactivate', User.DeleteUser);
 router.post('/check-email-update', User.checkUpdateEmailAvailibility);
 
 router.delete('/cancel-order/:orderId', User.cancelOrder);
