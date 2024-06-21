@@ -43,59 +43,8 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // const editButtons = document.querySelectorAll('.edit-btn');
-    // const deleteButtons = document.querySelectorAll('.delete-btn');
-    // console.log("JavaScript Loaded");
-
-    // editButtons.forEach(button => {
-    //     button.addEventListener('click', (event) => {
-    //         console.log("Edit button clicked");
-    //         const button = event.target;
-    //         const row = button.closest('tr');
-    //         const isEditing = button.textContent === 'Save';
-
-    //         row.querySelectorAll('.editable').forEach(element => {
-    //             element.contentEditable = !isEditing;
-    //             element.style.border = isEditing ? 'none' : '1px solid #ccc';
-    //         });
-
-    //         button.textContent = isEditing ? 'Edit' : 'Save';
-    //         console.log("Toggled edit mode");
-
-    //         if (isEditing) {
-    //             const id = button.dataset.id;
-    //             const collectionName = row.querySelector('.editable[data-field="Collection_Name"]').textContent.trim();
-    //             const description = row.querySelector('.editable[data-field="Collection_Description"]').textContent.trim();
-    //             console.log(`Updating collection: ${id}, ${collectionName}, ${description}`);
-
-    //             fetch(`/admin/editCollection/${id}`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({ collectionName, description }),
-    //             })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 if (data.success) {
-    //                     console.log('Success:', data);
-    //                     alert('Collection updated successfully');
-    //                 } else {
-    //                     console.error('Failed to update collection');
-    //                     alert('Failed to update collection');
-    //                 }
-    //                 button.disabled = false;
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error:', error);
-    //                 alert('Error updating ');
-    //                 button.disabled = false;
-    //             });
-    //         }
-    //     });
-    // });
-
-
+    //const editButtons = document.querySelectorAll('.edit-btn');
+   
     const editForm = document.getElementById('editForm');
     const collectionId = '<%= collectionId %>'; // Pass the collection ID from the server to the client
     document.getElementById('collectionId').value = collectionId;
@@ -141,7 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   
+const deleteButtons = document.querySelectorAll('.delete-btn');
+console.log("da5al gowa el client");
     deleteButtons.forEach(button => {
+        console.log(deleteButtons);
         button.addEventListener('click', (event) => {
             const button = event.target;
             const id = button.dataset.id;
