@@ -9,29 +9,34 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center content horizontally */
 }
 
 .main-content {
-    margin-top: 5%;
+    margin-top: 110px; /* Increased margin-top for more space */
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
 }
-
+.img-prod{
+    width:200px;
+    height:200px;
+    object-fit: contain;
+}
 .review-container {
     display: flex;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 800px;
-    overflow: hidden;
+    width: 800px; /* Fixed width for review container */
+    margin-bottom: 20px; /* Add margin for spacing between reviews */
     background-color: white;
 }
 
 .prod-info {
     background-color: #000000;
     padding: 20px;
-    width: 250px;
+    width: 200px; /* Width of product info section */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +60,7 @@ body {
 .review-content {
     background-color: white;
     padding: 20px;
-    width: 550px;
+    flex-grow: 1; /* Expand to fill remaining space */
 }
 
 .review-header {
