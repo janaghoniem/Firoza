@@ -320,8 +320,8 @@ a:hover {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 30%;
-    position: relative;
+    width: 60%;
+    position: fixed;
     transition: all 5s ease-in-out;
 }
 

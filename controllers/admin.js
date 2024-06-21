@@ -36,7 +36,8 @@ const addAdmin = async (req, res) => {
         });
 
         await newAdmin.save();
-        res.status(200).json({ message: 'Admin added successfully' });
+        return res.status(200).send('<script>alert("Admin added successfully"); window.history.back();</script>');
+        // res.status(200).json({ message: 'Admin added successfully' });
     } catch (error) {
         console.error('Error adding admin:', error);
         res.status(500).json({ error: error.message });
@@ -112,6 +113,35 @@ const getCollections = async (req, res) => {
 //     }
 // };
 
+
+//deih el 4aglaaaa just in case
+
+// const deleteCollection = async (req, res) => {
+//     console.log("Entered the deleteCollection function");
+//     try {
+//         const { id } = req.params;
+//         // Find the collection by ID
+//         const deletedCollection = await collections.findByIdAndDelete(id);
+
+//         if (!deletedCollection) {
+//             return res.status(404).json({ error: 'Collection not found' });
+//         }
+
+//         // Extract the collection name from the deleted collection
+//         const collectionName = deletedCollection.Collection_Name;
+
+//         // Delete all products with the same collection ID (collection name)
+//         const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
+
+
+
+//         res.status(200).json({ message: 'Collection and associated products deleted successfully' });
+//     } catch (error) {
+//         console.error('Error deleting collection:', error);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// };
+
 const deleteCollection = async (req, res) => {
     console.log("Entered the deleteCollection function");
     try {
@@ -126,17 +156,42 @@ const deleteCollection = async (req, res) => {
         // Extract the collection name from the deleted collection
         const collectionName = deletedCollection.Collection_Name;
 
-        // Delete all products with the same collection ID (collection name)
-        const deletedProducts = await Product.deleteMany({ collection_id: collectionName });
+        // Find all products with the same collection ID (collection name)
+        const products = await Product.find({ collection_id: collectionName });
 
+        // Array to store promises of deleteProduct calls
+        const deleteProductPromises = [];
 
+        // Delete each product and remove references from users' carts
+        for (const product of products) {
+            // Push the promise of deleteProduct to the array
+            deleteProductPromises.push(deleteProduct({ params: { id: product._id } }));
+            
+            // Remove product references from users' carts
+            await User.updateMany(
+                { 
+                    $or: [
+                        { 'cart.items.productId': product._id }
+                    ] 
+                },
+                { 
+                    $pull: { 
+                        'cart.items': { productId: product._id }
+                    }
+                }
+            );
+        }
 
-        res.status(200).json({ message: 'Collection and associated products deleted successfully' });
+        // Wait for all deleteProduct promises to resolve
+        await Promise.all(deleteProductPromises);
+        return res.status(200).send('<script>alert("Collection and associated products deleted successfully, and references removed from carts"); window.history.back();</script>');
+        // res.status(200).json({ message: 'Collection and associated products deleted successfully, and references removed from carts' });
     } catch (error) {
         console.error('Error deleting collection:', error);
         res.status(500).json({ error: 'Server error' });
     }
 };
+
 
 
 
@@ -190,6 +245,7 @@ const editCollection = async (req, res) => {
         );
 
         if (!updatedCollection) {
+            
             return res.status(404).json({ success: false, message: 'Collection not found' });
         }
 
@@ -404,7 +460,8 @@ const deleteProduct = async (req, res) => {
         const deletedProduct = await Product.findByIdAndDelete(id);
 
         if (!deletedProduct) {
-            return res.status(404).json({ error: 'Product not found' });
+            // return res.status(404).json({ error: 'Product not found' });
+            return res.status(404).send('<script>alert("Product not found"); window.history.back();</script>');
         }
 
         const usersWithCartItem = await User.find({ 'cart.items.productId': id });
@@ -421,7 +478,8 @@ const deleteProduct = async (req, res) => {
             await user.save();
         }
 
-        res.status(200).json({ message: 'Product deleted successfully' });
+        // res.status(200).json({ message: 'Product deleted successfully' });
+        return res.status(202).send('<script>alert("Product deleted successfully"); window.history.back();</script>');
     } catch (error) {
         console.error('Error deleting product:', error);
         res.status(500).json({ error: 'Server error' });
@@ -476,7 +534,8 @@ const getEditCollectionPage = async (req, res) => {
 
         res.render('EditCollection', { collection });
     } catch (error) {
-        res.status(500).send('Server error');
+        // res.status(500).send('Server error');
+        return res.status(500).send('<script>alert("Server error"); window.history.back();</script>');
     }
 };
 
@@ -488,14 +547,16 @@ const getEditProductPage = async (req, res) => {
         const product = await Product.findById(productId);
 
         if (!product) {
-            return res.status(404).send('Product not found');
+            // return res.status(404).send('Product not found');
+            return res.status(404).send('<script>alert("Product not found"); window.history.back();</script>');
         }
 
         // Pass product, including images, to the view
         res.render('EditProduct', { product, getcollections });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server error');
+        // res.status(500).send('Server error');
+        return res.status(500).send('<script>alert("erver error"); window.history.back();</script>');
     }
 };
 
@@ -533,6 +594,7 @@ const editProduct = async (req, res) => {
         }
 
         res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+        return res.status(200).send('<script>alert("Product updated successfully"); window.history.back();</script>');
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -581,6 +643,7 @@ const getDashboard = async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching order count:', error);
+        
         res.status(500).render('error', { error }); // Render an error page or handle the error as needed
     }
 };
@@ -687,7 +750,8 @@ const getStatistics = async (req, res) => {
         res.render('statistics', { count: userCount, bestSellers, mostPurchased, retentionRate: retentionRate.toFixed(2), responses, resultPercentages: percentages });
     } catch (error) {
         console.error('Error fetching statistics:', error);
-        res.status(500).json({ error: 'Failed to fetch statistics' });
+        // res.status(500).json({ error: 'Failed to fetch statistics' });
+        return res.status(500).send('<script>alert("Failed to fetch statistics"); window.history.back();</script>');
     }
 };
 
@@ -704,7 +768,9 @@ const getAllRequests = async (req, res) => {
         res.render('Admin-Requests', { requests }); // Render the 'requests' view and pass the requests data
     } catch (err) {
         console.error('Error fetching requests:', err);
-        res.status(500).send('Internal Server Error');
+        // res.status(500).send('Internal Server Error');
+        return res.status(500).send('<script>alert("Internal Server Error"); window.history.back();</script>');
+        
     }
 };
 
@@ -715,7 +781,8 @@ const acceptRequest = async (req, res) => {
         res.sendStatus(200);
     } catch (err) {
         console.error('Error accepting request:', err);
-        res.status(500).send('Internal Server Error');
+        // res.status(500).send('Internal Server Error');
+        return res.status(500).send('<script>alert("Internal Server Error"); window.history.back();</script>');
     }
 };
 
@@ -726,7 +793,8 @@ const rejectRequest = async (req, res) => {
         res.sendStatus(200);
     } catch (err) {
         console.error('Error rejecting request:', err);
-        res.status(500).send('Internal Server Error');
+        // res.status(500).send('Internal Server Error');
+        return res.status(500).send('<script>alert("Internal Server Error"); window.history.back();</script>');
     }
 };
 
@@ -750,9 +818,11 @@ const deleteUser = async (req, res) => {
         const userId = req.params.id;
         await User.findByIdAndDelete(userId);
         res.status(200).json({ message: 'User deleted successfully' });
+        // return res.status(200).send('<script>alert("User deleted successfully"); window.history.back();</script>');
     } catch (error) {
         console.error('Error deleting user:', error);
         res.status(500).json({ error: 'Failed to delete the user' });
+        // return res.status(500).send('<script>alert("Failed to delete the user"); window.history.back();</script>');
     }
 };
 
@@ -760,7 +830,8 @@ const SearchUsers = async (req, res) => {
     const { query } = req.body;
 
     if (!query) {
-        return res.status(400).json({ error: 'Query is required' });
+       // return res.status(400).json({ error: 'Query is required' });
+        return res.status(400).send('<script>alert("Query is required"); window.history.back();</script>');
     }
 
     try {
@@ -777,7 +848,8 @@ const SearchUsers = async (req, res) => {
         res.status(200).json({ users });
     } catch (error) {
         console.error('Error searching users:', error);
-        res.status(500).json({ error: 'Failed to search users' });
+        // res.status(500).json({ error: 'Failed to search users' });
+        return res.status(500).send('<script>alert("Failed to search users"); window.history.back();</script>');
     }
 };
 
@@ -832,6 +904,7 @@ const SearchOrders = async (req, res) => {
     } catch (error) {
         console.error('Error searching orders:', error);
         res.status(500).send('Server Error');
+        return res.status(500).send('<script>alert("Server Error"); window.history.back();</script>');
     }
 };
 const getReviews = async (req, res) => {
@@ -840,7 +913,8 @@ const getReviews = async (req, res) => {
         res.render('reviewsAdmin', { reviews });
     } catch (error) {
         console.error('Error fetching reviews:', error);
-        res.status(500).send('Internal Server Error');
+        return res.status(500).send('<script>alert("Server Error"); window.history.back();</script>');
+        // res.status(500).send('Internal Server Error');
     }
 };
 module.exports = {
