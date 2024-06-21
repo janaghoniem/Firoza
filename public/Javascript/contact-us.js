@@ -229,10 +229,9 @@ form.addEventListener('submit', async (event) => {
         alert('Request submitted successfully!'); 
         // Handle success response
         console.log('Request submitted successfully:', data.message);
-        alert();
     } catch (error) {
         console.error('Error submitting request:', error);
-        alert('Failed to submit request. Please try again.'); // Debug statement to log error
+        //alert('Failed to submit request. Please try again.'); // Debug statement to log error
         // Handle error
     }
 });

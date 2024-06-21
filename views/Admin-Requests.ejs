@@ -26,13 +26,18 @@
             const manageButtonsVisibility = () => {
                 document.querySelectorAll('tr').forEach(row => {
                     const approvementStatuses = row.querySelectorAll('.approvement-status');
-                    
+
                     approvementStatuses.forEach(item => {
                         const requestApprovement = item.innerText.trim();
-                        
+
                         if (requestApprovement !== 'No response') {
+                            row.querySelector('.accept-btn').disabled = true;
+                            row.querySelector('.reject-btn').disabled = true;
+
+
                             row.querySelector('.accept-btn').style.display = 'none';
                             row.querySelector('.reject-btn').style.display = 'none';
+
                         } else {
                             row.querySelector('.accept-btn').style.display = 'inline-block';
                             row.querySelector('.reject-btn').style.display = 'inline-block';
@@ -40,7 +45,7 @@
                     });
                 });
             };
-    
+
             manageButtonsVisibility()
             //  disableButtonsBasedOnApprovement();
 
@@ -58,7 +63,7 @@
                         });
                         if (response.ok) {
                             console.log('Request accepted successfully');
-                            alert('Request accepted successfully');
+                            //alert('Request accepted successfully');
                             button.style.display = 'none'; // Disable the button after successful accept
                             button.style.display = 'none';
                             location.reload(); // Reload the page to see the changes
@@ -87,10 +92,11 @@
 
                         });
                         if (response.ok) {
+
                             console.log('Request rejected successfully');
-                            alert('Request rejected successfully');
+                            //alert('Request rejected successfully');
                             button.style.display = 'none'; // Disable the button after successful accept
-                            button.nextElementSibling.style.display = 'none';
+                            button.style.display = 'none';
                             location.reload(); // Reload the page to see the changes
                         } else {
                             console.error('Failed to reject request');
