@@ -175,7 +175,8 @@ const editCollection = async (req, res) => {
     // Ensure the collection name contains only letters
     const nameRegex = /^[A-Za-z\s]+$/;
     if (!nameRegex.test(CollectionName)) {
-        return res.status(400).json({ success: false, message: 'Collection name must contain only letters.' });
+        // return res.status(400).json({ success: false, message: 'Collection name must contain only letters.' });
+        return res.status(400).send('<script>alert("Collection name must contain only letters"); window.history.back();</script>');
     }
 
     try {
@@ -192,7 +193,8 @@ const editCollection = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Collection not found' });
         }
 
-        res.status(200).json({ success: true, message: 'Collection updated successfully' });
+        // res.status(200).json({ success: true, message: 'Collection updated successfully' });
+        return res.status(200).send('<script>alert("Collection updated successfully"); window.history.back();</script>');
     } catch (error) {
         console.error('Error updating collection:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
@@ -281,12 +283,14 @@ const addProduct = async (req, res) => {
     try {
         // Validate input
         if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !quantities) {
-            return res.status(400).json({ message: 'All fields are required' });
+            // return res.status(400).json({ message: 'All fields are required' });
+            return res.status(400).send('<script>alert("All fields are required"); window.history.back();</script>');
         }
 
         // Ensure sizes and quantities arrays are the same length
         if (sizes.length !== quantities.length) {
-            return res.status(400).json({ message: 'Add a size or quantity' });
+            // return res.status(400).json({ message: 'Add a size or quantity' });
+            return res.status(400).send('<script>alert("Add a size or quantity"); window.history.back();</script>');
         }
 
         // Create size-quantity pairs
@@ -317,8 +321,8 @@ const addProduct = async (req, res) => {
 
         // Save the product to the database
         await newProduct.save();
-
-        res.status(201).json({ message: 'Product added successfully', data: newProduct });
+        return res.status(201).send('<script>alert("Product added successfully"); window.history.back();</script>');
+        // res.status(201).json({ message: 'Product added successfully', data: newProduct });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
