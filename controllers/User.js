@@ -45,7 +45,7 @@ async function getIndianProducts(req, res) {
         const collection = await collections.findOne({ Collection_Name: 'The Indian Collection' });
 
         if (!collection) {
-            return res.status(404).send('Collection not found');
+            res.status(404).render('404');
         }
 
         // Fetch products associated with this collection

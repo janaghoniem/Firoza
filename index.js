@@ -49,6 +49,14 @@ app.set('views', path.join(__dirname, 'views'));
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res) => {
+    res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
+});
+
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
 
 
 
@@ -237,14 +245,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use((req, res) => {
-    res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
-});
 
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
 
 // app.get('/customize',customize);
 

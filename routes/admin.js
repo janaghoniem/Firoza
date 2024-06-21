@@ -14,15 +14,14 @@ const Request = require('../models/Requests');
 
 
 // check if admin
-// router.use((req, res, next) => {
-//     if (req.session.user !== undefined && req.session.user.isAdmin) {
-//         next();
-//     }
-//     else {
-//         console.log(req.session.user);
-//         console.log('You are not an Admin')
-//     }
-// });
+router.use((req, res, next) => {
+    if (req.session.user !== undefined && req.session.user.isAdmin) {
+        next();
+    }
+    else {
+        res.status(403).render('notAuthorized');
+    }
+});
 
 // Route to add a User
 router.post('/saveaddAdmin', adminController.addAdmin);
@@ -70,15 +69,15 @@ router.get('/indian', async (req, res) => {
 });
 
 
-router.get('/shopAll', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.render('shopAll', { products });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
-});
+// router.get('/shopAll', async (req, res) => {
+//     try {
+//         const products = await Product.find();
+//         res.render('shopAll', { products });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send('Server error');
+//     }
+// });
 
 
 router.get('/getProduct/:id', async (req, res) => {

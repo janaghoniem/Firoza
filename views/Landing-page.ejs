@@ -93,7 +93,7 @@
                                 <div class="carousel__content">
                                     <div class="card" id="carousel-card">
                                         <div class="imge">
-                                            <img src="/images/Indian/Newfolder/<%= topProducts[0].img %>" height="300" width="250">
+                                            <img src="<%= topProducts[0].img %>" height="300" width="250">
                                             <i class="fa-regular fa-heart"></i>
                                         </div>
                                         <div class="info">
@@ -110,9 +110,9 @@
                                 <div class="carousel__content">
                                     <div class="card">
                                         <div class="imge">
-                                            <img src="/images/Indian/Newfolder/<%= product.img %>" height="300"
+                                            <img src="<%= product.img %>" height="300"
                                                 width="250">
-                                            <i class="fa-regular fa-heart"></i>
+                                            <i class="fa-regular fa-heart" onclick="addToWishlist('<%= product._id %>')"></i>
                                         </div>
                                         <div class="info">
                                             <p>
@@ -120,7 +120,7 @@
                                             </p>
                                             <p>EGP <%= product.price %>
                                             </p>
-                                            <button onclick="showAlert()">Add to cart</button>
+                                            <button onclick="addToCart('<%= product._id %>' , '<%= product.price %>')">Add to cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -162,4 +162,85 @@
         <%- include('./partials/footer.ejs') %>
 </body>
 
-</html>
+<script>
+            function showPopup(message) {
+            const popup = document.getElementById('login-message-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        function showErrorPopup(message) {
+            const popup = document.getElementById('login-message-error-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        async function addToCart(productId, price) {
+            const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the cart.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    showPopup('Product added to cart successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to cart. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showErrorPopup('Failed to add product to cart. Please try again later.');
+            }
+        }
+
+        async function addToWishlist(productId) {
+            const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the wishlist.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                if (response.ok) {
+                    showPopup('Product added to wishlist successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to wishlist. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+</script>
+
+</html> 
