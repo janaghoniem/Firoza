@@ -66,24 +66,21 @@
     </div>
 
     <script>
-      
       let originalUsers = []; // Variable to store original users list
-  
+
       // Function to initialize originalUsers with current users
       function initializeOriginalUsers() {
         originalUsers = JSON.parse('<%- JSON.stringify(users) %>'); // Convert users to JSON and store in originalUsers
       }
-      
-  
-      
+
       // Add event listener to search input for dynamic search
       const searchInput = document.getElementById('searchInput');
       const searchCount = document.getElementById('searchCount'); // Reference to search count element
       const resetBtn = document.getElementById('resetBtn'); // Reference to reset button
-  
+
       searchInput.addEventListener('input', async () => {
         const query = searchInput.value.trim();
-  
+
         if (query.length > 0) {
           try {
             // Perform search using fetch API
@@ -94,11 +91,11 @@
               },
               body: JSON.stringify({ query })
             });
-  
+
             // Parse response and update UI with search results
             const { users } = await response.json();
             displaySearchResults(users);
-  
+
             // Display the number of search results dynamically
             searchCount.textContent = `Found ${users.length} user(s)`;
           } catch (error) {
@@ -110,30 +107,32 @@
           searchCount.textContent = ''; // Clear search count if input is empty
         }
       });
-  
+
       // Event listener for reset button
       resetBtn.addEventListener('click', () => {
         searchInput.value = ''; // Clear search input
         displayAllUsers(); // Display all users
         searchCount.textContent = ''; // Clear search count
       });
-  
+
       // Function to display all users from original list
       function displayAllUsers() {
         clearSearchResults();
         originalUsers.forEach(user => {
           addUserToTable(user);
         });
+        setupDeleteButtons(); // Ensure delete buttons are set up
       }
-  
+
       // Function to display search results in the table
       function displaySearchResults(users) {
         clearSearchResults();
         users.forEach(user => {
           addUserToTable(user);
         });
+        setupDeleteButtons(); // Ensure delete buttons are set up
       }
-  
+
       // Function to add a single user to the table
       function addUserToTable(user) {
         const userList = document.querySelector('.responsive-table');
@@ -150,15 +149,18 @@
           </div>
         `;
         userList.appendChild(newRow);
-  
-        // Add delete button event listener
-        const deleteBtn = newRow.querySelector('.delete-btn');
-        if (deleteBtn) {
-          deleteBtn.addEventListener('click', async () => {
+      }
+
+      // Function to set up delete button event listeners
+      function setupDeleteButtons() {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const userId = e.target.getAttribute('data-user-id');
             const confirmation = confirm('Are you sure you want to delete this user?');
             if (confirmation) {
               try {
-                const response = await fetch(`/admin/deleteUser/${user._id}`, {
+                const response = await fetch(`/admin/deleteUser/${userId}`, {
                   method: 'DELETE',
                   headers: {
                     'Content-Type': 'application/json'
@@ -176,18 +178,18 @@
               }
             }
           });
-        }
+        });
       }
-  
+
       // Function to clear search results from the table
       function clearSearchResults() {
         const userList = document.querySelector('.responsive-table');
         userList.innerHTML = '<li class="table-header"><div class="col col-1">First Name</div><div class="col col-2">Last Name</div><div class="col col-3">Type</div><div class="col col-4">Email</div><div class="col col-5">User ID</div><div class="col col-6">Actions</div></li>';
       }
-  
+
       // Initialize originalUsers with current users on page load
       initializeOriginalUsers();
-      
+      displayAllUsers(); // Display all users on initial load
     </script>
 </body>
 
