@@ -201,7 +201,7 @@
         fetch(`/user/product/${productId}`) // Ensure this matches your route
             .then(response => response.json())
             .then(data => {
-                document.querySelector('.prod-pic img').src = `/images/Indian/Newfolder/${data.img}`;
+                document.querySelector('.prod-pic img').src = data.img;
                 document.querySelector('#product-name').innerText = data.name;
                 document.querySelector('#product-price').innerText = data.price;
                 document.querySelector('#product-description').innerText = data.description;

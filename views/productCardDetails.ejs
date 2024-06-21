@@ -29,7 +29,7 @@
                             <div class="d-flex justify-content-center mb-3">
                                 <% product.images.forEach(function(image) { %>
                                     <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" class="item-thumb">
-                                        <img width="60" height="60" class="rounded-2" src="<%= product.image %>" alt="Product Image" />
+                                        <img width="60" height="60" class="rounded-2" src="<%= product.images[0] %>" alt="Product Image" />
                                     </a>
                                 <% }); %>
                             </div>
