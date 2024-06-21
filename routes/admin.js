@@ -53,7 +53,7 @@ router.get('/addProduct', async (req, res) => {
 
 
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
-router.post('/admin/validateCollectionName', adminController.validateCollectionName);
+router.post('/editCollection/validateCollectionName', adminController.validateCollectionName);
 
 router.get('/EditLayout', adminController.getCollections );
 router.delete('/deleteCollection/:id', adminController.deleteCollection);

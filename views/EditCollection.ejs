@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/Edit.css">
     <script src="/Javascript/editCollection.js"></script>
-    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
+    <link rel="stylesheet" href="/CSS/nav-bar-white.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
     <title>Edit Collection</title>
@@ -20,14 +20,14 @@
             <form id="editForm" method="post" action="/admin/editCollection/<%= collection._id %>">
                 <h1>Edit the Collection</h1>
                 <input type="hidden" id="collectionId" name="collectionId">
-                <input type="text" id="collectionName" name="CollectionName" placeholder="Collection name"  value="<%= collection.Collection_Name %>" required onkeypress="return TextOnly(event)" title="only text is allowed">
-                <textarea id="collectionDescription" name="CollectionDescription" placeholder="Add Description" value="<%= collection.Collection_Description %>" required></textarea>
+                <input type="text" id="collectionName" name="CollectionName" placeholder="Collection name"  value="<%= collection.Collection_Name %>" title="only text is allowed">
+                <textarea id="collectionDescription" name="CollectionDescription" placeholder="Add Description" value="<%= collection.Collection_Description %>"></textarea>
                 <div class="uploadOuter">
                     <label for="uploadFile" class="btn btn-primary"></label>
                     <strong>OR</strong>
                     <span class="dragBox">
                         Drag and Drop image here
-                        <input type="file" id="uploadFile" name="img" required />
+                        <input type="file" id="uploadFile" name="img" />
                     </span>
                 </div>
                 <button type="submit" id="submitButton">Save Changes</button>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/main.css">
     <!-- <link rel="stylesheet" href="/CSS/Admin-NavBar.css"> -->
-       <link rel="stylesheet" href="/CSS/nav-bar.css">
+    <link rel="stylesheet" href="/CSS/nav-bar.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,49 +18,56 @@
 
     <%- include('./partials/Admin-NavBar.ejs') %>
 
-    <section class="main-section">
-        <video id="video-background" autoplay loop muted>
-            <source src="/videos/Admin/video.mp4" type="video/mp4">
-        </video>
+        <section class="main-section">
+            <video id="video-background" autoplay loop muted>
+                <source src="/videos/Admin/video.mp4" type="video/mp4">
+            </video>
 
 
 
-        <table>
-            <tr>
-                <th class="first">
-                    <h2>$<%= revenueLast30Days.toFixed(2) %></h2> <br>
+            <table>
+                <tr>
+                    <th class="first">
+                        <h2>$<%= revenueLast30Days.toFixed(2) %>
+                        </h2> <br>
 
-                </th>
-                <th class="second">
-                    <h2><%= ordersLast30Days %></h2> <br>
+                    </th>
+                    <th class="second">
+                        <h2>
+                            <%= ordersLast30Days %>
+                        </h2> <br>
 
-                </th>
-                <th class="third">
-                    <h2><%= count %></h2> <br>
+                    </th>
+                    <th class="third">
+                        <h2>
+                            <%= count %>
+                        </h2> <br>
 
+                        </td>
+                    <th class="forth">
+                        <h2>
+                            <%= productsOutOfStock.length %>
+                        </h2> <br>
+
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Revenue last 30 days</h4>
                     </td>
-                <th class="forth">
-                    <h2><%= productsOutOfStock.length %></h2> <br>
+                    <td>
+                        <h4>Orders last 30 days</h4>
+                    </td>
+                    <td>
+                        <h4>No of users</h4>
+                    </td>
+                    <td>
+                        <h4>Products out of stock</h4>
+                    </td>
+                </tr>
+            </table>
 
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <h4>Revenue last 30 days</h4>
-                </td>
-                <td>
-                    <h4>Orders last 30 days</h4>
-                </td>
-                <td>
-                    <h4>No of users</h4>
-                </td>
-                <td>
-                    <h4>Products out of stock</h4>
-                </td>
-            </tr>
-        </table>
-
-        <!-- <table class="responsive-table">
+            <!-- <table class="responsive-table">
             <tr>
                 <td><%= ordersLast30Days %></td>
                 <th>Orders last 30 days</th>
@@ -79,35 +86,36 @@
             </tr>
         </table> -->
 
-    </section>
+        </section>
 
-    <section class="layout-section">
-        <div class="button-container">
+        <section class="layout-section">
+            <div class="button-container">
 
-            <div class="admin-button">
+                <div class="admin-button">
 
-                <button class="collection-button" onclick="window.location.href = '/admin/addCollection';">Add Collection
+                    <button class="collection-button" onclick="window.location.href = '/admin/addCollection';">Add
+                        Collection
 
-                </button>
-            </div>
+                    </button>
+                </div>
 
-            <div class="admin-button">
+                <div class="admin-button">
 
-                <button class="collection-button" onclick="window.location.href = '/EditCollection';">Edit
-                    Collection
+                    <button class="collection-button" onclick="window.location.href = '/admin/EditLayout';">View
+                        Collections
 
-                </button>
-            </div>
-
+                    </button>
+                </div>
+                <!-- 
             <div class="admin-button">
 
                 <button class="collection-button" onclick="window.location.href = 'edit-layout.html';">Edit Layout
 
                 </button>
-            </div>
+            </div> -->
 
-        </div>
-    </section>
+            </div>
+        </section>
 
 </body>
 

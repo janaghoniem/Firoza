@@ -46,49 +46,56 @@ document.addEventListener('DOMContentLoaded', () => {
     //const editButtons = document.querySelectorAll('.edit-btn');
    
     const editForm = document.getElementById('editForm');
-    const collectionId = '<%= collectionId %>'; // Pass the collection ID from the server to the client
-    document.getElementById('collectionId').value = collectionId;
+            const collectionId = '<%= collectionId %>'; // Pass the collection ID from the server to the client
+            document.getElementById('collectionId').value = collectionId;
 
-    editForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+            editForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
 
-        const formData = new FormData(editForm);
-        formData.append('collectionId', collectionId);
+                const formData = new FormData(editForm);
+                formData.append('collectionId', collectionId);
 
-        try {
-            // Validate that the collection name is unique
-            const collectionName = formData.get('CollectionName');
-            const validateResponse = await fetch(`/admin/validateCollectionName`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ collectionName, collectionId }),
+                // Ensure the collection name contains only letters
+                const collectionName = formData.get('CollectionName');
+                const nameRegex = /^[A-Za-z\s]+$/;
+                if (!nameRegex.test(collectionName)) {
+                    alert('Collection name must contain only letters.');
+                    return;
+                }
+
+                try {
+                    // Validate that the collection name is unique
+                    const validateResponse = await fetch(`/editCollection/validateCollectionName`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ collectionName, collectionId }),
+                    });
+                    const validateResult = await validateResponse.json();
+
+                    if (!validateResult.isUnique) {
+                        alert('Collection name already exists. Please choose another name.');
+                        return;
+                    }
+
+                    const response = await fetch(`/admin/editCollection/${collectionId}`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Collection updated successfully');
+                        location.reload();
+                    } else {
+                        alert('Failed to update collection: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error updating collection');
+                }
             });
-            const validateResult = await validateResponse.json();
-
-            if (!validateResult.isUnique) {
-                alert('Collection name already exists. Please choose another name.');
-                return;
-            }
-
-            const response = await fetch(`/admin/editCollection/${collectionId}`, {
-                method: 'POST',
-                body: formData,
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                alert('Collection updated successfully');
-            } else {
-                alert('Failed to update collection');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error updating collection');
-        }
-    });
-
   
 const deleteButtons = document.querySelectorAll('.delete-btn');
 console.log("da5al gowa el client");

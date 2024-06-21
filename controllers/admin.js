@@ -141,12 +141,44 @@ const deleteCollection = async (req, res) => {
 
 
 //edit collection on the server side
+// const editCollection = async (req, res) => {
+//     const collectionId = req.params.id;
+//     const { CollectionName, CollectionDescription } = req.body;
+
+//     try {
+//         // Update the collection document by its collection_id
+//         const updatedCollection = await collections.findByIdAndUpdate(
+//             collectionId,
+//             {
+//                 Collection_Name: CollectionName,
+//                 Collection_Description: CollectionDescription
+//             },
+//             { new: true }
+//         );
+
+//         if (!updatedCollection) {
+//             return res.status(404).json({ error: 'Collection not found' });
+//         }
+
+//         res.status(200).json({ success: true, data: updatedCollection });
+//     } catch (error) {
+//         console.error('Error updating collection:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+
+
 const editCollection = async (req, res) => {
     const collectionId = req.params.id;
     const { CollectionName, CollectionDescription } = req.body;
 
+    // Ensure the collection name contains only letters
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(CollectionName)) {
+        return res.status(400).json({ success: false, message: 'Collection name must contain only letters.' });
+    }
+
     try {
-        // Update the collection document by its collection_id
         const updatedCollection = await collections.findByIdAndUpdate(
             collectionId,
             {
@@ -157,15 +189,16 @@ const editCollection = async (req, res) => {
         );
 
         if (!updatedCollection) {
-            return res.status(404).json({ error: 'Collection not found' });
+            return res.status(404).json({ success: false, message: 'Collection not found' });
         }
 
-        res.status(200).json({ success: true, data: updatedCollection });
+        res.status(200).json({ success: true, message: 'Collection updated successfully' });
     } catch (error) {
         console.error('Error updating collection:', error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };
+
 
 
 // const editCollection = async (req, res) => {
