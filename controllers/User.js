@@ -95,7 +95,7 @@ const storeQuizResults = async (req, res) => {
         let products = [];
 
         const query = {
-            collection_id: result === 'egypt' ? 'Egyptian' : 
+            collection_id: result === 'egypt' ? 'The Egyptian' : 
                           result === 'india' ? 'The Indian Collection' : '0'
         };
 
