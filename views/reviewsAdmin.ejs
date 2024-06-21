@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/adminNavbar.js"></script>
+    <script src="../Javascript/admin-collections.js"></script>
     <link rel="stylesheet" href="/CSS/reviewsAdmin.css">
 </head>
 <%- include('./partials/Admin-NavBar.ejs') %>
@@ -16,29 +17,42 @@
    
     <!-- not dynamic yet!!! -->
     <div class="main-content">
-    <div class="review-container">
-        <div class="prod-info">
-            <img src="profile-pic.jpg" alt="Prod pic" class="prod-pic">
-            <div class="prod-name">Ring</div>
-           
-        </div>
-        <div class="review-content">
-            <div class="review-header">
-                <div class="reviewer-name">Jessica P.</div>
-                <div class="stars">★★★★★</div>
+        <% reviews.forEach(review => { %>
+            <div class="review-container">
+                <% if (review.prod) { %>
+                    <div class="prod-info">
+                        <img class="img-prod" src="/images/Indian/Newfolder/<%= review.prod.img %>" alt="<%= review.prod.name %>">
+                        <div class="prod-name"><%= review.prod.name %></div>
+                    </div>
+                <% } else { %>
+                    <div class="prod-info">
+                        <p>Product Deleted</p>
+                    </div>
+                <% } %>
+                <div class="review-content">
+                    <div class="review-header">
+                        <div class="reviewer-name"><%= review.user.firstname %> <%= review.user.lastname %></div>
+                        <div class="stars">
+                            <% for (let i = 0; i < review.rating; i++) { %>
+                                <i class="fas fa-star"></i>
+                            <% } %>
+                            <% for (let i = review.rating; i < 5; i++) { %>
+                                <i class="far fa-star"></i>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="review-body">
+                        <p><strong><%= review.commentTitle %></strong></p>
+                        <p><%= review.comment %></p>
+                    </div>
+                    <div class="review-footer">
+                        <button class="action-button"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                </div>
             </div>
-            <div class="review-body">
-                <p><strong>Soft and Comfortable</strong></p>
-                <p>The material is very soft and comfortable. The fit is perfect and exactly what I was looking for. The underwear come up high and cover my entire bottom, no readjusting needed throughout the day. I was really worried that the added liner would bunch and become uncomfortable, but it stayed put all day.</p>
-            </div>
-            <div class="review-footer">
-                <button class="action-button"><i class="fas fa-trash-alt"></i> Delete</button>
-               
-           
-            </div>
-        </div>
+        <% }) %>
     </div>
-</div>
+    
     <%- include('./partials/footer.ejs') %>
     <script src="/Javascript/reviewsAdmin.js"></script>
 </body>

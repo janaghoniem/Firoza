@@ -5,7 +5,7 @@ const adminController = require('../controllers/admin');
 const Product = require('../models/product'); 
 const multer = require('multer');
 const path = require('path');
-
+const Review = require('../models/reviews'); 
 const getCollections  = require('../models/Collections'); 
 const Order = require('../models/Orders');
 const User = require('../models/User');
@@ -182,4 +182,5 @@ router.delete('/deleteUser/:id', adminController.deleteUser);
 
 router.post('/searchUsers',adminController.SearchUsers);
 router.post('/searchOrders', adminController.SearchOrders);
+router.get('/reviewsAdmin', adminController.getReviews);
 module.exports = router;
