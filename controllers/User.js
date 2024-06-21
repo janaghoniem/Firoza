@@ -462,6 +462,7 @@ const AddToCart = async (req, res) => {
     console.log('entered add to cart');
     const { productId, price } = req.body;
     console.log('req body valid')
+    console.log(productId);
     if (!productId) {
         console.log('product undefined')
     }
@@ -520,16 +521,20 @@ const AddToCart = async (req, res) => {
 
 const AddToCartCustomRing = async (req, res) => {
     console.log('entered add to cart custom ring');
-    const { productId } = req.body;
+    const { color, shape } = req.body;
+    console.log(color);
+    console.log(shape);
 
-    if (!productId) {
-        return res.status(400).json({ error: 'Product ID is required' });
+    if (!color || !shape) {
+        console.log('undefined fields')
+        return res.status(400).json({ error: 'Color and shape are required' });
     }
 
     try {
-        const customProduct = await CustomizeRing.findById(productId);
+        const customProduct = await CustomizeRing.findOne({ color, shape });
 
         if (!customProduct) {
+            console.log('no product')
             return res.status(404).json({ error: 'Customized product not found' });
         }
 
@@ -538,29 +543,29 @@ const AddToCartCustomRing = async (req, res) => {
                 req.session.cart = { items: [] };
             }
 
-            const existingCartItem = req.session.cart.items.find(item => item.productId.toString() === productId.toString());
+            const existingCartItem = req.session.cart.items.find(item => item.productId.toString() === customProduct._id.toString());
 
             if (existingCartItem) {
                 existingCartItem.quantity += 1;
             } else {
                 req.session.cart.items.push({
-                    productId: productId,
+                    productId: customProduct._id,
                     quantity: 1,
                     price: customProduct.price
                 });
             }
-            console.log('added custom ring to cart.')
+            console.log('added custom ring to cart.');
             return res.status(200).json({ message: 'Customized product added to guest cart successfully' });
         }
 
         const user = await User.findById(req.session.user._id);
-        const existingCartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
+        const existingCartItem = user.cart.items.find(item => item.productId.toString() === customProduct._id.toString());
 
         if (existingCartItem) {
             existingCartItem.quantity += 1;
         } else {
             user.cart.items.push({
-                productId: productId,
+                productId: customProduct._id,
                 quantity: 1,
                 price: customProduct.price
             });
@@ -569,8 +574,10 @@ const AddToCartCustomRing = async (req, res) => {
         user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
         await user.save();
+        console.log('Customized product added to cart successfully')
         res.status(200).json({ message: 'Customized product added to cart successfully' });
     } catch (error) {
+        console.error('Error adding customized product to cart:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };

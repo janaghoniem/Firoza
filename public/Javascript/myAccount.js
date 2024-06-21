@@ -1,4 +1,3 @@
-
 function openPopup(popupId, dataId) {
     const popup = document.getElementById(popupId);
     popup.style.display = "block";
@@ -43,7 +42,7 @@ async function confirmCancel() {
 
 async function submitReview() {
     const popup = document.getElementById("review-popup");
-    const prodId = popup.dataset.prodId;
+    const prodId = popup.dataset.id;
     const rating = popup.dataset.rating;
     const comment = document.getElementById("review-comment").value;
 
@@ -70,6 +69,7 @@ async function submitReview() {
         alert('Please provide a rating and a comment');
     }
 }
+
 
 async function logout() {
     try {

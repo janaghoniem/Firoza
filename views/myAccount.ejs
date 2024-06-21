@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="/CSS/myAccount.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
-
-
 <body>
     <div class="header">
         <%- include('./partials/Nav-bar.ejs') %>
@@ -22,7 +19,6 @@
     <div class="wrapper">
         <div class="account-container">
             <h2>MY ACCOUNT</h2>
-            <!-- <p>Please tell us about your preferences and special occasions by editing your personal information. We would love to share your celebration with exclusive content and surprises. Stay tuned!</p> -->
             <section class="personal-info">
                 <h3>YOUR PERSONAL INFORMATION</h3>
                 <% if (userInfo) { %>
@@ -41,7 +37,6 @@
                                 <input class="user-info-edit" type="email" name="email" id="email-input" value="<%= userInfo.email %>" style="display: none;">
                                 <h6 id="email-status" style="font-weight: 400; margin-left: 1px;"></h6>
                             </div>
-                            
                         </h4>
                     </div>
                     <div class="info-buttons">
@@ -69,24 +64,21 @@
                                             <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                             <div class="product-details">
                                                 <h2><%= product.name %></h2>
-                                                
                                                 <p>Price: $<%= product.price %></p>
                                             </div>
-                                        </li>
-                                        <% if (order.status === 'delivered') { %>
-                                            <div class="order-actions">
-                                            <button class="review-button" onclick="openReviewPopup('<%= product._id %>')">Review Product</button>
+                                            <% if (order.status === 'delivered') { %>
+                                                <div class="order-actions">
+                                                    <button class="review-button" onclick="openPopup('review-popup', '<%= product._id %>')">Review Product</button>
                                                 </div>
-                                        <% } %>
+                                            <% } %>
+                                        </li>
                                     <% }); %>
                                 </ul>
-    
                                 <div class="order-actions">
-                                    <h2>total price: <%= order.total_price %></h2>
+                                    <h2>Total Price: $<%= order.total_price %></h2>
                                     <% if (order.status === 'pending') { %>
-                                        <button class="cancel-button" onclick="openPopup('<%= order._id %>')">Cancel Order</button>
+                                        <button class="cancel-button" onclick="openPopup('cancel-order-popup', '<%= order._id %>')">Cancel Order</button>
                                     <% } %>
-                                   
                                 </div>
                             </div>
                         <% }); %>
@@ -102,7 +94,6 @@
                     </div>
                 </div>
             </section>
-           
         </div>
     </div>
 
