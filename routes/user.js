@@ -186,30 +186,8 @@ router.get('/customize', (req, res) => {
 router.post('/submitRequest', User.addRequest);
 
 
-<<<<<<< Updated upstream
-router.post('/submit-quiz', async (req, res) => {
-    const { answers, result } = req.body;
-    try {
-        let products = [];
-        if (result === 'egypt') {
-            products = await Product.find({ collection_id: 'Egyptian' }).limit(4);
-        } else if (result === 'india') {
-            products = await Product.find({ collection_id: 'The Indian Collection' }).limit(4);
-        } else if (result === 'minimalist') {
-            products = await Product.find({ collection_id: '0' }).limit(4);
-        }
-        
-        res.json({ message: 'Quiz submitted successfully!', products });
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ message: 'An error occurred while submitting the quiz.' });
-    }
-});
-
-=======
 router.post('/submit-quiz', User.storeQuizResults);
     
->>>>>>> Stashed changes
 router.get('/quiz', User.renderQuizPage);
 
 router.get('/Collections', User.getCollectionPage);
