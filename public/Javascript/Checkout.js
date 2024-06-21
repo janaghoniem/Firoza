@@ -201,7 +201,6 @@ async function handlePaymentFormSubmission(event) {
                 body: JSON.stringify(orderData)
             });
 
-            alert(response.status);
             if (response.ok) {
                 showPopup('Checkout successful. Thank you for your purchase!');
                 await new Promise(resolve => setTimeout(resolve, 2000)); // 2000 milliseconds (2 seconds) delay as an example
