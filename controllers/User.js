@@ -1385,8 +1385,8 @@ const getProductDetails = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        const similarProducts = await Product.find({ category: product.category }).limit(3);
-
+       // const similarProducts = await Product.find({ category: product.category }).limit(3);
+        const similarProducts = await Product.find({ category: product.category, _id: { $ne: productId } }).limit(3);
          reviews = await Review.find({ prod: productId }).populate('user');
          let averageRating = 0;
         if (reviews.length > 0) {

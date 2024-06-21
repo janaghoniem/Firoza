@@ -113,7 +113,33 @@ a {
 .button i {
     margin-right: 10px;
 }
+.button-soldout{
+    background-color: gray;
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #ffffff;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 400px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    cursor: pointer;
+    margin: 10px;
+}
 
+/* .button-soldout:hover {
+    color: #000000;
+    background-color: white;
+} */
+
+.button-soldout i {
+    margin-right: 10px;
+}
 .description-part {
     cursor: pointer;
     margin: 30px;
