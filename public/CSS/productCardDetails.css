@@ -1,7 +1,3 @@
-
-
-
-
 body {
     background-color: #f3f3f3;
 }
@@ -10,8 +6,8 @@ body {
     padding: 0px;
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: center;  
+    align-items: center;
+    justify-content: center;
 }
 
 .upper-half-prod {
@@ -22,9 +18,9 @@ body {
 
 .prod-pic {
     flex: 0 0 30vw;
-    height: 600px; 
-    width: 500px; 
-    margin:20px;
+    height: 600px;
+    width: 500px;
+    margin: 20px;
 }
 
 .prod-pic img {
@@ -110,7 +106,8 @@ a {
 .button i {
     margin-right: 10px;
 }
-.button-soldout{
+
+.button-soldout {
     background-color: gray;
     font-family: 'futura pt';
     font-weight: 500;
@@ -137,6 +134,7 @@ a {
 .button-soldout i {
     margin-right: 10px;
 }
+
 .description-part {
     cursor: pointer;
     margin: 30px;
@@ -182,6 +180,7 @@ a {
 .item.active p {
     display: block;
 }
+
 .item img {
     display: none;
     font-family: 'futura pt';
@@ -189,8 +188,8 @@ a {
     letter-spacing: 0.06rem;
     font-size: 15px;
     margin: 20px 0 0 0;
-    height:200px; 
-    width:200px;
+    height: 200px;
+    width: 200px;
 }
 
 .item.active img {
@@ -209,7 +208,8 @@ a {
     display: none;
 }
 
-.description-part p, span {
+.description-part p,
+span {
     font-family: 'futura pt';
     font-weight: 500;
     margin-right: 20px;
@@ -244,9 +244,9 @@ a {
     display: flex; /* Show product cards when item is active */
     flex-wrap: wrap;
     justify-content: center;
-    
     gap: 20px; /* Adjust gap between cards as needed */
 }
+
 .product-card {
     width: 200px; /* Adjust width as needed */
     background-color: #ffffff;
@@ -257,10 +257,9 @@ a {
     margin-bottom: 20px;
 }
 
-
 .product-image {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     height: 150px; /* Fixed height for the product image */
 }
 
@@ -304,6 +303,16 @@ a {
     color: black;
 }
 
+.product-links li .disabled-box {
+    background-color: #e0e0e0; /* Gray background for disabled box */
+    color: #cccccc; /* Light gray text for disabled box */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+}
+
+.product-links li .disabled-box:hover {
+    background-color: #e0e0e0; /* Maintain background color on hover */
+}
+
 .product-content {
     padding: 10px;
 }
@@ -339,6 +348,7 @@ a {
 .disabled-box:hover {
     background-color: #e0e0e0; /* Maintain background color on hover */
 }
+
 .c-pic {
     position: relative;
     width: 150px;
@@ -354,33 +364,12 @@ a {
 
 .c-pic i {
     position: absolute;
-    margin-top: 12px;
-    margin-left: -40px;
+    margin-top: 7%;
+    margin-left: 85%;
+    color: #ffffff;
+    cursor: pointer;
     font-size: 20px;
-    color: rgb(113, 46, 15);
-}
-
-.c-pic i:hover {
-    transform: scale(1.1);
-}
-
-.c-pic img:hover {
-    transform: scale(1.2);
-    transition: transform 0.4s ease;
-}
-
-.c-info {
-    font-weight: 90;
-    text-align: center;
-    margin-top: 1px;
-    width: 97%;
-    height: auto;
-    padding-bottom: 0;
-    font-family: 'gill sans', 'gill sans mt', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.c-info p {
-    margin: 0;
+    z-index: 1;
 }
 
 .curtain-btn {
@@ -493,7 +482,7 @@ h3 {
     width: 50vw;
 }
 
-.lower-half-prod h3{
+.lower-half-prod h3 {
     font-family: 'futura pt';
     text-transform: uppercase;
     font-weight: 500;
@@ -510,7 +499,6 @@ h3 {
     color: gold; 
 }
 
-
 .product-image .image {
     display: flex;
     justify-content: center;
@@ -521,12 +509,12 @@ h3 {
 
 .disabled-box {
     display: inline-block;
-   
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
+
 .product-links li a,
 .product-links li .disabled-box {
     display: flex;
@@ -540,8 +528,20 @@ h3 {
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
-.disabled-box i {
-    color: #888; /* Color for the disabled icon */
+
+.product-links li a:hover {
+    background-color: #dddddd;
+    color: black;
+}
+
+.product-links li .disabled-box {
+    background-color: #e0e0e0; /* Gray background for disabled box */
+    color: #cccccc; /* Light gray text for disabled box */
+    cursor: not-allowed; /* Change cursor to not-allowed */
+}
+
+.product-links li .disabled-box:hover {
+    background-color: #e0e0e0; /* Maintain background color on hover */
 }
 
 .product-image .image img {
@@ -549,6 +549,7 @@ h3 {
     max-width: 100%;
     max-height: 100%;
 }
+
 @media only screen and (max-device-width: 1240px) and (-webkit-min-device-pixel-ratio: 1) {
     .upper-half-prod {
         display: flex;
