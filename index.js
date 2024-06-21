@@ -3,15 +3,15 @@ const session = require('express-session');
 const path = require('path');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const userRouter = require('./routes/user'); 
-const AdminRouter = require('./routes/admin'); 
+const userRouter = require('./routes/user');
+const AdminRouter = require('./routes/admin');
 const appRouter = require('./routes/app');
 const User = require('./models/User');
-const Product = require('./models/product'); 
-const Order = require('./models/Orders'); 
+const Product = require('./models/product');
+const Order = require('./models/Orders');
 const collectiona = require('./models/Collections');
-const Request = require('./models/Requests'); 
-const Customa = require('./models/Customization'); 
+const Request = require('./models/Requests');
+const Customa = require('./models/Customization');
 
 const app = express();
 const port = 3000;
@@ -37,8 +37,8 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
-app.use('/admin',AdminRouter);
-app.use('/',appRouter);
+app.use('/admin', AdminRouter);
+app.use('/', appRouter);
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -86,7 +86,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     try {
 //         const productId = req.params.id;
 //         const product = await Product.findById(productId);
-        
+
 //         res.render('EditProduct',  { product } ); 
 //     } catch (error) {
 //         console.error('Error fetching product:', error);
@@ -95,7 +95,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }); 
 
 // app.use('/', Product);
-
 // const stonePrices = {
 //     'Round': 7500,
 //     'Radiant': 7000,
@@ -160,74 +159,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     { stone: 'Marquise', color: 'Yellow' },
 //     { stone: 'Marquise', color: 'Red' },
 
-// const combinations = [
-//     { stone: 'Round', color: 'White' },
-//     { stone: 'Round', color: 'Green' },
-//     { stone: 'Round', color: 'Blue' },
-//     { stone: 'Round', color: 'Yellow' },
-//     { stone: 'Round', color: 'Red' },
-
-//     { stone: 'Radiant', color: 'White' },
-//     { stone: 'Radiant', color: 'Green' },
-//     { stone: 'Radiant', color: 'Blue' },
-//     { stone: 'Radiant', color: 'Yellow' },
-//     { stone: 'Radiant', color: 'Red' },
-
-//     { stone: 'Heart', color: 'White' },
-//     { stone: 'Heart', color: 'Green' },
-//     { stone: 'Heart', color: 'Blue' },
-//     { stone: 'Heart', color: 'Yellow' },
-//     { stone: 'Heart', color: 'Red' },
-
-//     { stone: 'Princess', color: 'White' },
-//     { stone: 'Princess', color: 'Green' },
-//     { stone: 'Princess', color: 'Blue' },
-//     { stone: 'Princess', color: 'Yellow' },
-//     { stone: 'Princess', color: 'Red' },
-
-//     { stone: 'Pear', color: 'White' },
-//     { stone: 'Pear', color: 'Green' },
-//     { stone: 'Pear', color: 'Blue' },
-//     { stone: 'Pear', color: 'Yellow' },
-//     { stone: 'Pear', color: 'Red' },
-
-//     { stone: 'Oval', color: 'White' },
-//     { stone: 'Oval', color: 'Green' },
-//     { stone: 'Oval', color: 'Blue' },
-//     { stone: 'Oval', color: 'Yellow' },
-//     { stone: 'Oval', color: 'Red' },
-
-//     { stone: 'Marquise', color: 'White' },
-//     { stone: 'Marquise', color: 'Green' },
-//     { stone: 'Marquise', color: 'Blue' },
-//     { stone: 'Marquise', color: 'Yellow' },
-//     { stone: 'Marquise', color: 'Red' },
-
 //     { stone: 'Emerald', color: 'White' },
 //     { stone: 'Emerald', color: 'Green' },
 //     { stone: 'Emerald', color: 'Blue' },
 //     { stone: 'Emerald', color: 'Yellow' },
 //     { stone: 'Emerald', color: 'Red' },
-
-//     { stone: 'Cushion', color: 'White' },
-//     { stone: 'Cushion', color: 'Green' },
-//     { stone: 'Cushion', color: 'Blue' },
-//     { stone: 'Cushion', color: 'Yellow' },
-//     { stone: 'Cushion', color: 'Red' },
-
-//     { stone: 'Asscher', color: 'White' },
-//     { stone: 'Asscher', color: 'Green' },
-//     { stone: 'Asscher', color: 'Blue' },
-//     { stone: 'Asscher', color: 'Yellow' },
-//     { stone: 'Asscher', color: 'Red' }
-// ];
-
-//     { stone: 'Emerald', color: 'White' },
-//     { stone: 'Emerald', color: 'Green' },
-//     { stone: 'Emerald', color: 'Blue' },
-//     { stone: 'Emerald', color: 'Yellow' },
-//     { stone: 'Emerald', color: 'Red' },
-
 
 //     { stone: 'Cushion', color: 'White' },
 //     { stone: 'Cushion', color: 'Green' },
@@ -257,7 +193,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }
 
 // debugDatabase();
-
 // async function seedDatabase() {
 //     try {
 //         await Customa.deleteMany({}); // Clear existing data
@@ -272,29 +207,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 //                 continue; // Skip invalid entries
 //             }
 
-
 //             console.log(`Preparing to insert combination: ${stone}, ${color}`); // Detailed logging
 //             const price = calculatePrice(stone, color);
 //             const newCustom = new Customa({
 //                 customize_id: `${stone}_${color}`, // Adjust customize_id format as needed
 //                 price: price, // Set the price accordingly
-
-// async function seedDatabase() {
-//     try {
-//         await Customa.deleteMany({}); // Clear existing data (optional)
-
-//         for (let i = 0; i < combinations.length; i++) {
-//             const { stone, color } = combinations[i];
-//             const newCustom = new Customa({
-//                 customize_id: `${stone}_${color}`, // Adjust customize_id format as needed
-//                 price: 0, // Set the price accordingly
-
 //                 img1: '', // Set image paths if applicable
 //                 img2: '',
 //                 stone: stone,
 //                 color: color
 //             });
-
 
 //             try {
 //                 await newCustom.save();
@@ -304,19 +226,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 //             }
 //         }
 
-//seedDatabase();
-
-//             await newCustom.save();
-//             console.log(`Inserted combination: ${stone}, ${color}`);
-//         }
-
 //         console.log('Database seeding completed.');
 //         mongoose.connection.close();
 //     } catch (err) {
 //         console.error('Error seeding database:', err);
 //     }
 // }
+
 // seedDatabase();
+
+
+
 app.use((req, res) => {
     res.status(404).render('404', { user: (req.session.user === undefined ? "" : req.session.user) });
 });
@@ -354,7 +274,7 @@ app.listen(port, () => {
 //         address: 'Apartment 12', // Add the address
 //         postal_code: 12345
 //     },
-//     Payment_method: 'credit_card' 
+//     Payment_method: 'credit_card'
 // });
 
 // Order data forJana Ghoniem
