@@ -5,6 +5,7 @@ const Product = require('../models/product');
 const Order = require('../models/Orders');
 const Request = require('../models/Requests');
 const Customization = require('../models/Customization')
+const Review = require('../models/reviews');
 const { v4: uuidv4 } = require('uuid');
 
 // Function to add an admin
@@ -704,7 +705,15 @@ const SearchOrders = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
-
+const getReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find().populate('user').populate('prod');
+        res.render('reviewsAdmin', { reviews });
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 module.exports = {
     addAdmin,
     addCollection,
@@ -727,7 +736,8 @@ module.exports = {
     admincheckaddress,
     deleteUser,
     SearchOrders,
-    SearchUsers
+    SearchUsers,
+    getReviews
 };
 
 

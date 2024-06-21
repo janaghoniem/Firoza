@@ -1272,6 +1272,7 @@ const getProductDetails = async (req, res) => {
 };
 
 
+
 const getCustomizationImage = async (req, res) => {
     try {
         const { stone, color } = req.params;
