@@ -43,7 +43,7 @@
         <% products.forEach(product => { %>
             <div class="card" data-id="<%= product._id %>">
                 <div class="card__image-holder">
-                    <img class="card__image" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>" />
+                    <img class="card__image" src="<%= product.img %>" alt="<%= product.name %>" />
                 </div>
                 <div class="card-title">
                     <a href="#" class="toggle-info btn">

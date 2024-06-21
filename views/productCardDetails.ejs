@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="/CSS/navBar.css">
     <link rel="stylesheet" href="/CSS/productCardDetails.css">
     <link rel="stylesheet" href="/CSS/card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Product Details</title>
 </head>
 <body>
     <%- include('./partials/Nav-Bar.ejs') %>
     <div class="whole-prod-page">
         <div class="upper-half-prod">
+
             <section class="py-5" >
                 <div class="container">
                     <div class="row gx-5">
@@ -68,11 +70,25 @@
                 </div>
             </section>
 
+
+          
             <div class="price-rating">
                 <h2><%= product.name %></h2>
                 <br>
                 <p>EGP <%= product.price %></p>
                 <br><br>
+                <% let isAvailable = false; %>
+
+<% if (product.sizes && product.sizes.length > 0) { %>
+    <% product.sizes.forEach(size => { %>
+        <% if (size.quantity > 0) { %>
+            <% isAvailable = true; %>
+            <% return; %>
+        <% } %>
+    <% }) %>
+<% } %>
+
+
                 <div class="rate-stat" id="rate-stat">
                     <% for (let i = 0; i < Math.floor(averageRating); i++) { %>
                         <span class="star filled">&#9733;</span>
@@ -87,8 +103,14 @@
                     <a href="#reviews" class="stat" id="review-count">(<%= reviewCount %> review<%= reviewCount !== 1 ? 's' : '' %>)</a>
                 </div>
                 <div class="button-container">
-                    <span class="button add-to-bag" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i class="fas fa-shopping-bag"></i>Add to bag</span>
-                    <span class="button add-to-wishlist" onclick="addToWishlist('<%= product._id %>')"><i class="fas fa-heart"></i>Add to wishlist</span>
+                   
+                    <% if (isAvailable) { %>
+                        <span class="button add-to-bag" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i class="fas fa-shopping-bag"></i>Add to bag</span>
+                        <span class="button add-to-wishlist" onclick="addToWishlist('<%= product._id %>')"><i class="fas fa-heart"></i>Add to wishlist</span>
+                    <% } else { %>
+                        <span class="button-soldout" ><i class="fas fa-shopping-bag"></i>Sold Out</span>
+                        <span class="button-soldout" ><i class="fas fa-heart"></i>Sold Out</span>
+                   <% } %>
                 </div>
                 <div class="item">
                     <div class="question-button-div">
@@ -155,6 +177,9 @@
                               <div class="product-content">
                                 <h3 class="title"><a href="#"> <%= product.name %> </a></h3>
                                 <div class="price"> <%= product.price %> </div>
+                               
+                            </div>
+                          
                               </div>
                             </div>
                           </div>
@@ -164,7 +189,8 @@
             </div>
             </div>
         </div>
-        
+         
+       
         <div class="lower-half-prod">
             <h3>Reviews</h3>
             <hr class="details-divider">
@@ -231,15 +257,7 @@
 
         async function addToCart(productId, price) {
            
-         // const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
-
-            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
-
-            if (isSoldOut) {
-                showErrorPopup('This product is sold out and cannot be added to the cart.');
-                return;
-            }
-
+          
            
             try {
                 const response = await fetch('/user/add-to-cart', {
@@ -264,14 +282,8 @@
 
         async function addToWishlist(productId) {
 
-            //const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
-            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
-
-            if (isSoldOut) {
-                showErrorPopup('This product is sold out and cannot be added to the wishlist.');
-                return;
-            }
-
+           
+           
 
             try {
                 const response = await fetch('/user/wishlist/add', {
