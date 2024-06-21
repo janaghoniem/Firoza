@@ -53,7 +53,6 @@ router.post('/checkAddress', User.checkAddress);
 router.post('/checkLoggedIn', User.checkLoggedIn);
 router.post('/search', User.Search);
 
-
 // CART
 router.post('/add-to-cart', User.AddToCart)
 router.get('/ShoppingCart', User.Cart);
@@ -65,7 +64,6 @@ router.delete('/remove-from-cart/:productId', User.removeFromCart);
 // CHECKOUT
 router.post('/Billing-Information', User.BillingInformation);
 router.post('/checkout', User.Checkout);
-
 
 // WISHLIST
 router.get('/wishlist', User.getWishlist);
@@ -153,6 +151,7 @@ const getCollectionProducts = async (req, res) => {
 
 router.get('/collection/:collectionId', getCollectionProducts);
 router.put('/cancelOrder/:orderId',User.cancelOrder);
+
 // router.post('/cancelOrder/:orderId', async (req, res) => {
 //     const { orderId } = req.params;
 
@@ -172,6 +171,7 @@ router.put('/cancelOrder/:orderId',User.cancelOrder);
 //         res.status(500).json({ success: false, message: 'Internal server error' });
 //     }
 // });
+
 router.post('/orders/:prodId/reviews', User.submitReview);
 router.post('/logout', User.logout);
 
@@ -205,13 +205,12 @@ router.post('/submit-quiz', async (req, res) => {
         res.status(500).json({ message: 'An error occurred while submitting the quiz.' });
     }
 });
+
 router.get('/quiz', User.renderQuizPage);
 
+router.get('/Collections', User.getCollectionPage);
 
-
-
-
-
+router.get('/collections/:collectionName', User.getCollection);
 
 router.get('/Customization',User.getCustomizationImage);
 

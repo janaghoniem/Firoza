@@ -56,14 +56,14 @@
         <section class="collection-text">
             <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
             <% allCollections.forEach(function(collection) { %>
-                <% if (collection.Collection_Name === 'The Indian') { %>
-                    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                <% if (collection.Collection_Name === 'The Indian Collection') { %>
+                    <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                         <%= collection.Collection_Name %> Collection
                         
                     </a><br>
                 <% } %>
             <% }); %>
-            <h3>THE INDIAN</h3>
+            <!-- <h3>THE INDIAN</h3> -->
             <h4>HIGH JEWELRY COLLECTION</h4>
             <p>Woven with the threads of time, our Indian High Jewelry Collection celebrates a legacy that <br>
                 transcends generations. Each piece embodies the soul of Hindustan, echoing the grandeur of <br>
