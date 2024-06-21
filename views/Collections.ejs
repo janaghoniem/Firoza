@@ -26,7 +26,7 @@
             <h3 style="text-decoration: none;"><% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
                 <% allCollections.forEach(function(collection) { %>
                     <% if (collection.Collection_Name === 'Egyptian') { %>
-                        <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                        <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                             <%= collection.Collection_Name %> Collection
                         </a><br>
                     <% } %>
@@ -56,7 +56,7 @@
         <section class="collection-text">
             <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
             <% allCollections.forEach(function(collection) { %>
-                <% if (collection.Collection_Name === 'The Indian') { %>
+                <% if (collection.Collection_Name === 'The Indian collection') { %>
                     <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                         <%= collection.Collection_Name %> Collection
                         
@@ -116,7 +116,7 @@
         <div class="dynamic" style="text-decoration: none; color: black;">
             <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
             <% allCollections.forEach(function(collection) { %>
-                <% if (collection.Collection_Name !== 'Indian Collection' && collection.Collection_Name !== 'Egyptian collection') { %>
+                <% if (collection.Collection_Name !== 'The Indian collection' && collection.Collection_Name !== 'Egyptian') { %>
                     <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                         <%= collection.Collection_Name %> Collection
                         <img src="/images/Indian/Newfolder/<%= collection.img %>" width="100%">
