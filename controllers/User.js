@@ -617,7 +617,7 @@ const Cart = async (req, res) => {
                         name: 'Customized Ring',
                         color: customized.color,
                         stone: customized.stone,
-                        img: customized.img1,
+                        img: "/images/Customization/RoundWhite.png",
                         quantity: item.quantity,
                         price: customized.price,
                         type: 'custom'
@@ -658,7 +658,7 @@ const Cart = async (req, res) => {
                         name: 'Customized Ring',
                         color: customized.color,
                         stone: customized.stone,
-                        img: customized.img1,
+                        img: "/images/Customization/RoundWhite.png",
                         quantity: item.quantity,
                         price: customized.price,
                         type: 'custom'
@@ -684,7 +684,7 @@ const Cart = async (req, res) => {
                 name: 'Customized Ring',
                 color: customized.color,
                 stone: customized.stone,
-                img: customized.img1,
+                img: "/images/Customization/RoundWhite.png",
                 quantity: item.quantity,
                 price: customized.price,
                 type: 'custom'
