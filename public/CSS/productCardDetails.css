@@ -231,14 +231,11 @@ span {
 #similar-products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
 }
 
-.product-card {
-    display: none; /* Initially hide product cards */
-    transition: all 0.3s ease;
-}
+
 
 .item.active .product-card {
     display: flex; /* Show product cards when item is active */
@@ -255,6 +252,10 @@ span {
     overflow: hidden;
     transition: box-shadow 0.3s ease;
     margin-bottom: 20px;
+    display: none; /* Initially hide product cards */
+    transition: all 0.3s ease;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust gap between cards */
 }
 
 .product-image {
@@ -289,10 +290,10 @@ span {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px; /* Square button dimensions */
-    height: 30px; /* Square button dimensions */
+    width: 30px; 
+    height: 30px;
     background-color: #f0f0f0;
-    border-radius: 4px; /* Square border radius */
+    border-radius: 0; /* Square border radius */
     color: #555555;
     font-size: 16px;
     transition: background-color 0.3s ease;
@@ -304,13 +305,13 @@ span {
 }
 
 .product-links li .disabled-box {
-    background-color: #e0e0e0; /* Gray background for disabled box */
-    color: #cccccc; /* Light gray text for disabled box */
-    cursor: not-allowed; /* Change cursor to not-allowed */
+    background-color: #e0e0e0; 
+    color: #cccccc; 
+    cursor: not-allowed;
 }
 
 .product-links li .disabled-box:hover {
-    background-color: #e0e0e0; /* Maintain background color on hover */
+    background-color: #e0e0e0; 
 }
 
 .product-content {
