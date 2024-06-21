@@ -1330,6 +1330,7 @@ const submitReview = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+
 const logout = (req, res) => {
     req.session.destroy(err => {
         if (err) {
