@@ -36,52 +36,52 @@
                     <a href="#reviews" class="stat" id="review-count">(<%= reviewCount %> review<%= reviewCount !== 1 ? 's' : '' %>)</a>
                 </div>
                 <div class="button-container">
-                    <span class="button add-to-bag" onclick="addToCart('<%= product._id %>')"><i class="fas fa-shopping-bag"></i>Add to bag</span>
+                    <span class="button add-to-bag" onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i class="fas fa-shopping-bag"></i>Add to bag</span>
                     <span class="button add-to-wishlist" onclick="addToWishlist('<%= product._id %>')"><i class="fas fa-heart"></i>Add to wishlist</span>
                 </div>
-                <div class="prod-details">
-                    <hr class="details-divider">
-                    <span class="description-part" onclick="toggleDetails('description-content')">
-                        Product Description <i class="fas fa-plus"></i>
-                    </span>
-                    <div id="description-content" class="details-content">
-                        <p><%= product.description %></p>
+                <div class="item">
+                    <div class="question-button-div">
+                        <h5>Product Description</h5>
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-minus"></i>
                     </div>
+                    <p><%= product.description %></p>
                 </div>
-                <div class="prod-details">
-                    <hr class="details-divider">
-                    <span class="description-part" onclick="toggleDetails('shipping-returns-content')">
-                        Shipping and Returns <i class="fas fa-plus"></i>
-                    </span>
-                    <div id="shipping-returns-content" class="details-content">
-                        <div class="item">
-                            <i class="fas fa-shipping-fast"></i>
+                <div class="item">
+                    <div class="question-button-div">
+                        <h5>Shipping and Returns</h5>
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
+                    <div id="shipping-returns-content">
+                        <div class="item-list">
+                            <!-- <i class="fas fa-shipping-fast"></i> -->
                             <p><span>Ship to Home</span><br>
                             Standard Shipping<br>
                             FREE on all orders $75+.<br>
                             Arrives in 3-4 business days.</p>
                         </div>
-                        <div class="item">
-                            <i class="fas fa-truck"></i>
+                        <div class="item-list">
+                            <!-- <i class="fas fa-truck"></i> -->
                             <p><span>Express Shipping</span><br>
                             Free on Lab-Grown Diamonds.<br>
                             Arrives in 1-2 business days.</p>
                         </div>
-                        <div class="item">
-                            <i class="fas fa-store"></i>
+                        <div class="item-list">
+                            <!-- <i class="fas fa-store"></i> -->
                             <p><span>In-Store Pickup</span><br>
                             Free on all orders.<br>
                             Ready for pickup within 2 hours.</p>
                         </div>
-                        <div class="item">
-                            <i class="fas fa-undo"></i>
+                        <div class="item-list">
+                            <!-- <i class="fas fa-undo"></i> -->
                             <p><span>Returns</span><br>
                             Free and easy returns within 30 days, online or in-store.<br>
                             Prepaid return label included.</p>
                         </div>
                     </div>
                 </div>
-                <div class="prod-details">
+                <!-- <div class="prod-details">
                     <hr class="details-divider">
                     <span class="description-part" onclick="toggleDetails('similar-products-content')">
                         Similar Products <i class="fas fa-plus"></i>
@@ -89,7 +89,8 @@
                     <div id="similar-products-content" class="details-content">
                         <p>Details about similar products...</p>
                     </div>
-                </div>
+                    <p>Details about shipping and returns...</p>
+                </div> -->
             </div>
             </div>
         </div>
@@ -128,6 +129,77 @@
         </div>
     </div>
 
+    <script>
+        function showPopup(message) {
+            const popup = document.getElementById('login-message-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+            
+            // Show the popup
+            popup.classList.add('show');
+            
+            // Automatically hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000); // Adjust timing as needed
+        }
+
+        function showErrorPopup(message) {
+            const popup = document.getElementById('login-message-error-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+            
+            // Show the popup
+            popup.classList.add('show');
+            
+            // Automatically hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000); // Adjust timing as needed
+        }
+
+        async function addToCart(productId, price) {
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showPopup('Product added to cart successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to cart. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showErrorPopup('Failed to add product to cart. Please try again later.');
+            }
+        }
+
+        async function addToWishlist(productId) {
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showPopup('Product added to wishlist successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to wishlist. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+    </script>
    
 
     

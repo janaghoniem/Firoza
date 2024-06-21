@@ -321,20 +321,20 @@ h3{
 
 
 
-  * {
+* {
     font-family: 'Nunito Sans', 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
 }
 
+body {
+    background-color: #f3f3f3;
+}
+
 .whole-prod-page {
-    padding: 30px;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     align-items: center; 
     justify-content: center;  
-    width: 90%;
-    
-    
-    
 }
 
 .upper-half-prod {
@@ -345,8 +345,8 @@ h3{
 
 .prod-pic {
     flex: 0 0 30vw;
-    height: 410px; 
-    width: 300px; 
+    height: 600px; 
+    width: 500px; 
     margin:20px;
 }
 
@@ -355,23 +355,26 @@ h3{
     height: 100%;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    
-   
-    
 }
 
 .price-rating {
     flex: 1;
-    margin:20px;
+    margin: 20px 30px;
 }
 
 .price-rating h2 {
-    font-size: 40px;
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 35px;
     margin-left: 5px;
 }
 
 .price-rating p {
+    font-family: 'futura pt';
+    text-transform: uppercase;
     font-size: 20px;
+    font-weight: 400;
     margin-left: 5px;
 }
 
@@ -404,15 +407,27 @@ a {
 }
 
 .button {
-    display: inline-block;
-    background-color: black;
-    color: white;
-    padding: 20px 40px;
-    cursor: pointer;
-    font-size: 18px;
+    background-color: rgb(0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #ffffff;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
     text-align: center;
-    margin: 10px;
     width: 400px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.button:hover {
+    color: #000000;
+    background-color: white;
 }
 
 .button i {
@@ -425,8 +440,63 @@ a {
     font-size: 30px;
 }
 
-.description-part p {
+.item {
+    border-bottom: 1px solid #ccc;
+    padding: 40px 0;
+    width: 400px;
+}
+
+.question-button-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.question-button-div h5 {
+    font-family: 'futura pt';
+    font-weight: 500;
     margin-right: 20px;
+    margin: 0;
+    font-size: 18px;
+}
+
+.question-button-div i {
+    font-size: 25px;
+    display: none;
+    color: #000000;
+}
+
+.item p {
+    display: none;
+    font-family: 'futura pt';
+    font-weight: 400;
+    letter-spacing: 0.06rem;
+    font-size: 15px;
+    margin: 20px 0 0 0;
+}
+
+.item.active p {
+    display: block;
+}
+
+.item.active .fa-minus {
+    display: inline;
+}
+
+.item .fa-plus {
+    display: inline;
+}
+
+.item.active .fa-plus {
+    display: none;
+}
+
+.description-part p, span {
+    font-family: 'futura pt';
+    font-weight: 500;
+    margin-right: 20px;
+    font-size: 15px;
 }
 
 .details-content {
@@ -598,8 +668,19 @@ h3 {
 }
 
 .lower-half-prod {
+    margin: 30px;
+    padding: 50px;
     width: 50vw;
 }
+
+.lower-half-prod h3{
+    font-family: 'futura pt';
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 35px;
+    margin-left: 5px;
+}
+
 .star {
     color: black; 
     font-size: 20px; 
