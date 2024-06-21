@@ -479,6 +479,18 @@ a {
 .item.active p {
     display: block;
 }
+.item img {
+    display: none;
+    font-family: 'futura pt';
+    font-weight: 400;
+    letter-spacing: 0.06rem;
+    font-size: 15px;
+    margin: 20px 0 0 0;
+}
+
+.item.active img {
+    display: block;
+}
 
 .item.active .fa-minus {
     display: inline;
