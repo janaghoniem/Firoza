@@ -29,7 +29,7 @@
                             <div class="d-flex justify-content-center mb-3">
                                 <% product.images.forEach(function(image) { %>
                                     <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" class="item-thumb">
-                                        <img width="60" height="60" class="rounded-2" src="<%= product.image %>" alt="Product Image" />
+                                        <img width="60" height="60" class="rounded-2" src="<%= product.images[0] %>" alt="Product Image" />
                                     </a>
                                 <% }); %>
                             </div>
@@ -141,8 +141,28 @@
                                   <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
                                 </a>
                                 <ul class="product-links">
-                                  <li><a onclick="addToWishlist('<%= product._id %>')"><i class="fa fa-heart"></i></a></li>
-                                  <li><a onclick="addToCart('<%= product._id %>', '<%= product.price %>')"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li>
+                                        <% if (isAvailable) { %>
+                                            <a onclick="addToWishlist('<%= product._id %>')">
+                                                <i class="fa fa-heart"></i>
+                                            </a>
+                                        <% } else { %>
+                                            <span class="disabled-box">
+                                                <i class="fa fa-heart"></i>
+                                            </span>
+                                        <% } %>
+                                    </li>
+                                    <li>
+                                        <% if (isAvailable) { %>
+                                            <a onclick="addToCart('<%= product._id %>', '<%= product.price %>')">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        <% } else { %>
+                                            <span class="disabled-box">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </span>
+                                        <% } %>
+                                    </li>
                                 </ul>
                               </div>
                               <div class="product-content">
