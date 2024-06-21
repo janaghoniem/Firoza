@@ -117,7 +117,7 @@
             <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
             <% allCollections.forEach(function(collection) { %>
                 <% if (collection.Collection_Name !== 'Indian Collection' && collection.Collection_Name !== 'Egyptian collection') { %>
-                    <a href="/user/<%= formatCollectionName(collection.Collection_Name) %>">
+                    <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                         <%= collection.Collection_Name %> Collection
                         <img src="/images/Indian/Newfolder/<%= collection.img %>" width="100%">
                     </a><br>

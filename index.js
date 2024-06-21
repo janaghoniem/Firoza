@@ -73,7 +73,7 @@ app.get('/Collections', async (req, res) => {
     }
 });
 
-app.get('/user/:collectionName', async (req, res) => {
+app.get('/user/collections/:collectionName', async (req, res) => {
     try {
         const formattedCollectionName = req.params.collectionName;
         const collectionName = formattedCollectionName.replace(/-/g, ' ');
