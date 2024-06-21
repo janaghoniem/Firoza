@@ -869,6 +869,7 @@ const getUserOrder = async (req, res) => {
         // Check if the user is authenticated and their ID is available in the session
         if (!req.session.user || !req.session.user._id) {
             return res.status(403).send('User not authenticated');
+           //return res.redirect('/notAuthorized');
         }
 
         const userId = req.session.user._id;

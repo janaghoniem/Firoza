@@ -199,6 +199,8 @@ router.get('/Customization', User.getCustomizationImage);
 router.get('/customization/ring', User.getCustomProduct);
 
 router.post('/add-to-cart-custom', User.AddToCartCustomRing);
-
+// router.get('/user/myAccount/notAuthorized', (req, res) => {
+//     res.render('notAuthorized'); 
+// });
 
 module.exports = router;
