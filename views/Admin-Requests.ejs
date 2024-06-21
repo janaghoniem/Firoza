@@ -89,8 +89,8 @@
                         if (response.ok) {
                             console.log('Request rejected successfully');
                             alert('Request rejected successfully');
-                            button.disabled = true; // Disable the button after successful accept
-                            button.nextElementSibling.disabled = true;
+                            button.style.display = 'none'; // Disable the button after successful accept
+                            button.nextElementSibling.style.display = 'none';
                             location.reload(); // Reload the page to see the changes
                         } else {
                             console.error('Failed to reject request');
