@@ -67,20 +67,6 @@ function showErrorPopup(message) {
     }, 3000); // Adjust timing as needed
 }
 
-function showErrorPopup(message) {
-    const popup = document.getElementById('login-message-error-popup');
-    const popupMessage = popup.querySelector('h2');
-    popupMessage.textContent = message;
-    
-    // Show the popup
-    popup.classList.add('show');
-    
-    // Automatically hide popup after 3 seconds
-    setTimeout(() => {
-        popup.classList.remove('show');
-    }, 3000); // Adjust timing as needed
-}
-
 async function addToCart(productId, price) {
     try {
         const response = await fetch('/user/add-to-cart', {

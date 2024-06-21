@@ -194,7 +194,11 @@ router.get('/Collections', User.getCollectionPage);
 
 router.get('/collections/:collectionName', User.getCollection);
 
-router.get('/Customization',User.getCustomizationImage);
+router.get('/Customization', User.getCustomizationImage);
+
+router.get('/customization/ring', User.getCustomProduct);
+
+router.post('/add-to-cart-custom', User.AddToCartCustomRing);
 
 
 module.exports = router;

@@ -6,13 +6,14 @@ const collections = require('../models/Collections');
 const Review = require('../models/reviews');
 const Request = require('../models/Requests');
 const QuizResult = require('../models/Quiz');
+const CustomizeRing = require('../models/Customization');
 
 const getCollection = async (req, res) => {
     try {
         const formattedCollectionName = req.params.collectionName;
         const collectionName = formattedCollectionName.replace(/-/g, ' ');
 
-        const collection = await Collection.findOne({ Collection_Name: collectionName });
+        const collection = await collections.findOne({ Collection_Name: collectionName });
         console.log(collectionName);
         if (!collection) {
             return res.status(404).send('Collection not found');
@@ -501,6 +502,63 @@ const AddToCart = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+const AddToCartCustomRing = async (req, res) => {
+    console.log('entered add to cart custom ring');
+    const { productId } = req.body;
+
+    if (!productId) {
+        return res.status(400).json({ error: 'Product ID is required' });
+    }
+
+    try {
+        const customProduct = await CustomizeRing.findById(productId);
+
+        if (!customProduct) {
+            return res.status(404).json({ error: 'Customized product not found' });
+        }
+
+        if (!req.session.user) {
+            if (!req.session.cart) {
+                req.session.cart = { items: [] };
+            }
+
+            const existingCartItem = req.session.cart.items.find(item => item.productId.toString() === productId.toString());
+
+            if (existingCartItem) {
+                existingCartItem.quantity += 1;
+            } else {
+                req.session.cart.items.push({
+                    productId: productId,
+                    quantity: 1,
+                    price: customProduct.price
+                });
+            }
+            console.log('added custom ring to cart.')
+            return res.status(200).json({ message: 'Customized product added to guest cart successfully' });
+        }
+
+        const user = await User.findById(req.session.user._id);
+        const existingCartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
+
+        if (existingCartItem) {
+            existingCartItem.quantity += 1;
+        } else {
+            user.cart.items.push({
+                productId: productId,
+                quantity: 1,
+                price: customProduct.price
+            });
+        }
+
+        user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+        await user.save();
+        res.status(200).json({ message: 'Customized product added to cart successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 const Cart = async (req, res) => {
     try {
@@ -1207,6 +1265,22 @@ const getCustomizationImage = async (req, res) => {
     }
 };
 
+
+const getCustomProduct = async (req, res) => {
+    const { color, shape } = req.body;
+    try {
+        const product = await CustomizeRing.findOne({ color, stone: shape });
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching custom product:', error);
+        res.status(500).json({ message: 'An error occurred while fetching the custom product' });
+    }
+};
+
 const getCollectionPage = async (req, res) => {
     try {
         const allCollections = await collections.find({});
@@ -1287,7 +1361,8 @@ module.exports = {
     getCustomizationImage,
     getProductDetails,
     getTopSellingProducts, 
-    getCollectionPage
-
+    getCollectionPage,
+    getCustomProduct,
+    AddToCartCustomRing
 
 };

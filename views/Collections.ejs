@@ -56,7 +56,7 @@
         <section class="collection-text">
             <% function formatCollectionName(name) { return name.replace(/\s+/g, '-'); } %>
             <% allCollections.forEach(function(collection) { %>
-                <% if (collection.Collection_Name === 'The Indian Collection') { %>
+                <% if (collection.Collection_Name === 'The Indian') { %>
                     <a href="/user/collections/<%= formatCollectionName(collection.Collection_Name) %>">
                         <%= collection.Collection_Name %> Collection
                         
