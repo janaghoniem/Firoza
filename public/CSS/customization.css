@@ -295,13 +295,13 @@ a:hover {
     color: #ffffff;
 }
 
+
 .overlay {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    /* margin-top:100px; */
     background: rgba(0, 0, 0, 0.7);
     transition: opacity 500ms;
     visibility: hidden;
@@ -315,14 +315,15 @@ a:hover {
 }
 
 .popup {
-    margin: 500px auto;
-    margin-right: 100vh;
+    position: relative;
+    margin: 10% auto;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 60%;
-    position: fixed;
-    transition: all 5s ease-in-out;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
 }
 
 .popup h2 {
@@ -347,21 +348,20 @@ a:hover {
 }
 
 .popup .content {
-    max-height: 30%;
+    max-height: 400px;
     overflow: auto;
 }
 
-@media screen and (max-width: 700px) {
-    .box {
-        width: 70%;
-    }
+.popup .content img {
+    max-width: 100%;
+    height: auto;
+}
 
+@media screen and (max-width: 700px) {
     .popup {
         width: 70%;
     }
 }
-
-
 
 button {
     font-size: 1em;
@@ -369,13 +369,11 @@ button {
     padding: 10px;
     color: #1f1f1f;
     border: 1px solid #1f1f1f;
-    /* border-radius: 20px/50px; */
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-out;
 }
 
-/* Add this to your CSS file */
 .spinner-border {
     display: block;
     margin: auto;
@@ -383,6 +381,4 @@ button {
     height: 3rem;
     border-width: .3em;
     color: #000000;
-    
-    /* Black color for the spinner */
 }
