@@ -157,7 +157,9 @@
         <div class="row">
             <% products.forEach(product=> { %>
                 <div class="col">
-                    <div class="product-grid">
+                    <a href="/user/product/<%= product._id %>" onclick="fetchProductDetails('<%= product._id %>')" class="product-card"></a>
+                    <div class="product-grid" >
+                     
                         <div class="product-image">
                             <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
                                 <img class="img-1"  src="/images/Indian/Newfolder/<%= product.img %>">
@@ -175,7 +177,9 @@
                                 <%= product.price %>
                             </div>
                         </div>
+                    
                     </div>
+                </a>
                 </div>
             <% }); %>
         </div>

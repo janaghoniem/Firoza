@@ -179,6 +179,17 @@
         }
 
         async function addToCart(productId, price) {
+           
+         // const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the cart.');
+                return;
+            }
+
+           
             try {
                 const response = await fetch('/user/add-to-cart', {
                     method: 'POST',
@@ -201,6 +212,16 @@
         }
 
         async function addToWishlist(productId) {
+
+            //const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the wishlist.');
+                return;
+            }
+
+
             try {
                 const response = await fetch('/user/wishlist/add', {
                     method: 'POST',

@@ -521,8 +521,8 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px; /* Adjust this height as needed */
-    overflow: hidden; /* Ensures the image stays within the container bounds */
+    height: 200px; 
+    overflow: hidden; 
 }
 #similar-products {
     padding-bottom: 20px; 
