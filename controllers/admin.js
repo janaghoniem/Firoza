@@ -750,8 +750,8 @@ const editProduct = async (req, res) => {
             return res.status(404).send('Product not found');
         }
 
-        res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
-        return res.status(200).send('<script>alert("Product updated successfully"); window.history.back();</script>');
+        // res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+        res.status(200).send('<script>alert("Product updated successfully"); window.location.href = "/admin/product";</script>');
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error', error: error.message });
@@ -1016,54 +1016,56 @@ const SearchOrders = async (req, res) => {
     const { query, date } = req.body;
 
     try {
-        // Search criteria arrays
-        const userSearchCriteria = [];
-        const productSearchCriteria = [];
-        const dateSearchCriteria = {};
-
-        // Search for Users by email
-        if (query) {
-            userSearchCriteria.push({ email: { $regex: query, $options: 'i' } });
-        }
-
-        // Search for Products by name
-        if (query) {
-            productSearchCriteria.push({ name: { $regex: query, $options: 'i' } });
-        }
-
-        // Add date search criteria
-        if (date) {
-            const startDate = new Date(date);
-            const endDate = new Date(date);
-            endDate.setDate(endDate.getDate() + 1);
-
-            dateSearchCriteria.created_at = { $gte: startDate, $lt: endDate };
-        }
+        // Define search criteria
+        const userSearchCriteria = query ? { email: { $regex: query, $options: 'i' } } : {};
+        const productSearchCriteria = query ? { name: { $regex: query, $options: 'i' } } : {};
+        const dateSearchCriteria = date ? {
+            created_at: {
+                $gte: new Date(date),
+                $lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1))
+            }
+        } : {};
 
         // Fetch Users and Products based on search criteria
-        const users = await User.find({ $or: userSearchCriteria });
-        const products = await Product.find({ $or: productSearchCriteria });
+        const users = await User.find(userSearchCriteria);
+        const products = await Product.find(productSearchCriteria);
 
         // Extract User and Product IDs
         const userIds = users.map(user => user._id);
         const productIds = products.map(product => product._id);
 
-        // Search Orders by User IDs, Product IDs, and Date
-        const orders = await Order.find({
+        // Build the search query for orders
+        const orderSearchCriteria = {
             $and: [
-                { $or: [{ user_id: { $in: userIds } }, { product_ids: { $in: productIds } }] },
+                {
+                    $or: [
+                        userIds.length ? { user_id: { $in: userIds } } : {},
+                        productIds.length ? { product_ids: { $in: productIds } } : {}
+                    ]
+                },
                 dateSearchCriteria
             ]
-        }).populate('user_id').populate('product_ids');
+        };
+
+        // Remove empty criteria
+        if (orderSearchCriteria.$and[0].$or.length === 0) {
+            orderSearchCriteria.$and.splice(0, 1);
+        }
+
+        // Search Orders by User IDs, Product IDs, and Date
+        const orders = await Order.find(orderSearchCriteria)
+                                  .populate('user_id')
+                                  .populate('product_ids');
 
         // Send the results back to the client
         res.json({ orders });
     } catch (error) {
         console.error('Error searching orders:', error);
         res.status(500).send('Server Error');
-        return res.status(500).send('<script>alert("Server Error"); window.history.back();</script>');
     }
 };
+
+
 const getReviews = async (req, res) => {
     try {
         const reviews = await Review.find().populate('user').populate('prod');

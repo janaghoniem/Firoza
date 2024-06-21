@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function updateCart(productId, quantity, quantityInput) {
         try {
-            alert(quantity);
             const response = await fetch('/user/updateCart', {
                 method: 'PUT',
                 headers: {

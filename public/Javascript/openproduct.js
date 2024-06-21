@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/user/product/${productId}`)
             .then(response => response.json())
             .then(data => {
-                document.querySelector('.prod-pic img').src = `/images/Indian/Newfolder/${data.product.img}`;
+                document.querySelector('.prod-pic img').src = `${data.product.img}`;
                 document.querySelector('.price-rating h2').innerText = data.product.name;
                 document.querySelector('.price-rating p').innerText = `EGP ${data.product.price}`;
                 document.querySelector('#product-description').innerText = data.product.description;

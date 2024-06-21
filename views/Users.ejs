@@ -60,16 +60,20 @@
               <% } else { %>
                 <p>There are no users to display...</p>
                 <% } %>
+
       </ul>
+      
     </div>
 
     <script>
+      
       let originalUsers = []; // Variable to store original users list
   
       // Function to initialize originalUsers with current users
       function initializeOriginalUsers() {
         originalUsers = JSON.parse('<%- JSON.stringify(users) %>'); // Convert users to JSON and store in originalUsers
       }
+      
   
       
       // Add event listener to search input for dynamic search
@@ -183,6 +187,7 @@
   
       // Initialize originalUsers with current users on page load
       initializeOriginalUsers();
+      
     </script>
 </body>
 

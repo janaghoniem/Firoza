@@ -673,7 +673,7 @@ document.addEventListener('DOMContentLoaded',  function() {
             const name = document.createElement('a');
             name.classList.add('search-extension-a');
 
-            image.src = 'images/Indian/Newfolder/' + product.img;
+            image.src = product.img;
             
             name.innerHTML = product.name;
             a.appendChild(imgDiv);
