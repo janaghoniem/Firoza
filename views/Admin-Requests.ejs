@@ -22,22 +22,27 @@
     <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
     <title>Layout</title>
     <script>
-
-
         document.addEventListener('DOMContentLoaded', () => {
-            const disableButtonsBasedOnApprovement = () => {
-
+            const manageButtonsVisibility = () => {
                 document.querySelectorAll('tr').forEach(row => {
-                    const requestApprovement = row.querySelector('.approvement-status').innerText.trim();
-
-                    if (requestApprovement !=='No response') {
-                        row.querySelector('.accept-btn').disabled = true;
-                        row.querySelector('.reject-btn').disabled = true;
-                    }
+                    const approvementStatuses = row.querySelectorAll('.approvement-status');
+                    
+                    approvementStatuses.forEach(item => {
+                        const requestApprovement = item.innerText.trim();
+                        
+                        if (requestApprovement !== 'No response') {
+                            row.querySelector('.accept-btn').style.display = 'none';
+                            row.querySelector('.reject-btn').style.display = 'none';
+                        } else {
+                            row.querySelector('.accept-btn').style.display = 'inline-block';
+                            row.querySelector('.reject-btn').style.display = 'inline-block';
+                        }
+                    });
                 });
             };
-
-            //disableButtonsBasedOnApprovement();
+    
+            manageButtonsVisibility()
+            //  disableButtonsBasedOnApprovement();
 
             document.querySelectorAll('.accept-btn').forEach(button => {
                 button.addEventListener('click', async () => {
@@ -54,17 +59,17 @@
                         if (response.ok) {
                             console.log('Request accepted successfully');
                             alert('Request accepted successfully');
-                            button.disabled = true; // Disable the button after successful accept
-                            button.nextElementSibling.disabled = true;
+                            button.style.display = 'none'; // Disable the button after successful accept
+                            button.style.display = 'none';
                             location.reload(); // Reload the page to see the changes
-                            
+
                         } else {
                             console.error('Failed to accept request');
                             alert('Failed to accept request');
                         }
                     } catch (error) {
                         console.error('Error accepting request:', error);
-                        alert('Error accepting request');
+                        //alert('Error accepting request');
                     }
                 });
             });
@@ -93,7 +98,7 @@
                         }
                     } catch (error) {
                         console.error('Error rejecting request:', error);
-                        alert('Error rejecting request');
+                        //alert('Error rejecting request');
                     }
                 });
             });
@@ -191,16 +196,18 @@
                                     </small>
                                 </td>
                                 <td>
-                                    <% if (request.approvement === null) { %>
-                                        <small class="d-block text-muted">No response</small>
-                                    <% } else if (request.approvement === true) { %>
-                                        <small class="d-block text-success">Accepted</small>
-                                    <% } else { %>
-                                        <small class="d-block text-danger">Rejected</small>
-                                    <% } %>
+                                    <% if (request.approvement===null) { %>
+                                        <small class="d-block text-muted approvement-status">No response</small>
+                                        <% } else if (request.approvement===true) { %>
+                                            <small class="d-block text-success approvement-status">Accepted</small>
+                                            <% } else { %>
+                                                <small class="d-block text-danger approvement-status">Rejected</small>
+                                                <% } %>
                                 </td>
-                                <td><button class="accept-btn btn btn-success" data-id="<%= request._id %>">Accept</button></td>
-                                <td><button class="reject-btn btn btn-danger" data-id="<%= request._id %>">Reject</button></td>
+                                <td><button class="accept-btn btn btn-success"
+                                        data-id="<%= request._id %>">Accept</button></td>
+                                <td><button class="reject-btn btn btn-danger"
+                                        data-id="<%= request._id %>">Reject</button></td>
                                 <td>
                                     <label class="custom-control ios-switch">
                                         <input type="checkbox" class="ios-switch-control-input" checked="">
@@ -208,13 +215,13 @@
                                     </label>
                                 </td>
                             </tr>
-                        <% }) %>
+                            <% }) %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
 
 
 
