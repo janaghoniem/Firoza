@@ -531,55 +531,69 @@ const AddToCartCustomRing = async (req, res) => {
     console.log(shape);
 
     if (!color || !shape) {
-        console.log('undefined fields')
+        console.log('undefined fields');
         return res.status(400).json({ error: 'Color and shape are required' });
     }
 
     try {
-        const customProduct = await CustomizeRing.findOne({ color, shape });
+        const customProduct = await CustomizeRing.findOne({ color: color, stone: shape });
 
         if (!customProduct) {
-            console.log('no product')
+            console.log('no product');
             return res.status(404).json({ error: 'Customized product not found' });
         }
 
         if (!req.session.user) {
             if (!req.session.cart) {
-                req.session.cart = { items: [] };
+                req.session.cart = { items: [], customizedItems: [] };
             }
 
-            const existingCartItem = req.session.cart.items.find(item => item.productId.toString() === customProduct._id.toString());
+            const existingCartItem = req.session.cart.customizedItems.find(item => item.productId.toString() === customProduct._id.toString());
 
             if (existingCartItem) {
                 existingCartItem.quantity += 1;
             } else {
-                req.session.cart.items.push({
+                req.session.cart.customizedItems.push({
                     productId: customProduct._id,
                     quantity: 1,
                     price: customProduct.price
                 });
             }
+
+            // Calculate total price directly
+            let totalPrice = 0;
+            for (const item of [...req.session.cart.items, ...req.session.cart.customizedItems]) {
+                totalPrice += item.price * item.quantity;
+            }
+            req.session.cart.totalprice = totalPrice;
+
             console.log('added custom ring to cart.');
             return res.status(200).json({ message: 'Customized product added to guest cart successfully' });
         }
 
         const user = await User.findById(req.session.user._id);
-        const existingCartItem = user.cart.items.find(item => item.productId.toString() === customProduct._id.toString());
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const existingCartItem = user.cart.customizedItems.find(item => item.productId.toString() === customProduct._id.toString());
 
         if (existingCartItem) {
             existingCartItem.quantity += 1;
         } else {
-            user.cart.items.push({
+            user.cart.customizedItems.push({
                 productId: customProduct._id,
                 quantity: 1,
                 price: customProduct.price
             });
         }
 
-        user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+        user.cart.totalprice = [...user.cart.items, ...user.cart.customizedItems]
+            .reduce((total, item) => total + (item.price * item.quantity), 0);
 
         await user.save();
-        console.log('Customized product added to cart successfully')
+        console.log('Customized product added to cart successfully');
         res.status(200).json({ message: 'Customized product added to cart successfully' });
     } catch (error) {
         console.error('Error adding customized product to cart:', error);
@@ -589,15 +603,34 @@ const AddToCartCustomRing = async (req, res) => {
 
 const Cart = async (req, res) => {
     try {
+        let customized;
         if (!req.session.user) {
-            const sessionCart = req.session.cart ? req.session.cart.items : [];
+            const sessionCartItems = req.session.cart ? req.session.cart.items : [];
+            const sessionCustomizedItems = req.session.cart ? req.session.cart.customizedItems : [];
 
-            const cartItems = await Promise.all(sessionCart.map(async item => {
+            const cartItems = await Promise.all(sessionCartItems.map(async item => {
                 const product = await Product.findById(item.productId);
+                if (!product) {
+                    customized = await CustomizeRing.findById(item.productId);
+                    return {
+                        productId: customized._id,
+                        name: 'Customized Ring',
+                        color: customized.color,
+                        stone: customized.stone,
+                        img: customized.img1,
+                        quantity: item.quantity,
+                        price: customized.price,
+                        type: 'custom'
+                    };
+                }
                 return {
-                    productId: product,
+                    productId: product._id,
+                    name: product.name,
+                    description: product.description,
+                    img: product.img,
                     quantity: item.quantity,
-                    price: item.price
+                    price: item.price,
+                    type: 'standard'
                 };
             }));
 
@@ -607,22 +640,66 @@ const Cart = async (req, res) => {
             });
         }
 
-        const user = await User.findById(req.session.user._id).populate('cart.items.productId');
-
+        const user = await User.findById(req.session.user._id);
         if (!user) {
             return res.status(404).send('User not found');
         }
 
-        res.render('ShoppingCart', {
-            cart: user.cart,
+        const userCartItems = user.cart.items;
+        const userCustomizedItems = user.cart.customizedItems;
+
+        const cartItems = await Promise.all(userCartItems.map(async item => {
+            const product = await Product.findById(item.productId);
+            if (!product) {
+                customized = await CustomizeRing.findById(item.productId);
+                return {
+                    productId: customized._id,
+                    name: 'Customized Ring',
+                    color: customized.color,
+                    stone: customized.stone,
+                    img: customized.img1,
+                    quantity: item.quantity,
+                    price: customized.price,
+                    type: 'custom'
+                };
+            }
+            return {
+                productId: product._id,
+                name: product.name,
+                description: product.description,
+                img: product.img,
+                quantity: item.quantity,
+                price: item.price,
+                type: 'standard'
+            };
+        }));
+
+        const customizedCartItems = await Promise.all(userCustomizedItems.map(async item => {
+            const customized = await CustomizeRing.findById(item.productId);
+            return {
+                productId: customized._id,
+                name: 'Customized Ring',
+                color: customized.color,
+                stone: customized.stone,
+                img: customized.img1,
+                quantity: item.quantity,
+                price: customized.price,
+                type: 'custom'
+            };
+        }));
+
+        const combinedCartItems = [...cartItems, ...customizedCartItems];
+
+        return res.render('ShoppingCart', {
+            cart: { items: combinedCartItems },
             user: user
         });
+
     } catch (error) {
         console.error('Error fetching cart:', error);
         res.status(500).send('Internal Server Error');
     }
-}
-
+};
 
 const getCartDetails = async (userId) => {
     if (userId) {
@@ -647,22 +724,25 @@ const getCartDetails = async (userId) => {
     return { items: cartItems };
 };
 
-
 const updateCart = async (req, res) => {
     const { productId, quantity } = req.body;
 
     try {
-        const product = await Product.findById(productId);
+        let product = await Product.findById(productId);
+        let customized;
 
         if (!product) {
-            return res.status(404).json({ error: 'Product not found.' });
+            customized = await CustomizeRing.findById(productId);
+            if (!customized) {
+                return res.status(404).json({ error: 'Product not found.' });
+            }
         }
 
-        // Find the correct size variant and check quantity
-        const sizeVariant = product.sizes.find(size => size.quantity >= quantity);
-
-        if (!sizeVariant) {
-            return res.status(400).json({ error: 'Insufficient product quantity available.' });
+        if (product) {
+            const sizeVariant = product.sizes.find(size => size.quantity >= quantity);
+            if (!sizeVariant) {
+                return res.status(400).json({ error: 'Insufficient product quantity available.' });
+            }
         }
 
         if (!req.session.user) {
@@ -696,7 +776,8 @@ const updateCart = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        const cartItem = user.cart.items.find(item => item.productId.toString() === productId.toString());
+        const cartItem = user.cart.items.find(item => item.productId.toString() === productId.toString()) ||
+                         user.cart.customizedItems.find(item => item.productId.toString() === productId.toString());
 
         if (!cartItem) {
             return res.status(404).json({ error: 'Item not found in cart' });
@@ -706,7 +787,7 @@ const updateCart = async (req, res) => {
 
         // Calculate total price directly
         let totalPrice = 0;
-        for (const item of user.cart.items) {
+        for (const item of [...user.cart.items, ...user.cart.customizedItems]) {
             totalPrice += item.price * item.quantity;
         }
         user.cart.totalprice = totalPrice;
@@ -760,7 +841,10 @@ const removeFromCart = async (req, res) => {
 
             // Filter out the item from the user's cart
             user.cart.items = user.cart.items.filter(item => item.productId.toString() !== productId.toString());
-            user.cart.totalprice = user.cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+            user.cart.customizedItems = user.cart.customizedItems.filter(item => item.productId.toString() !== productId.toString());
+
+            user.cart.totalprice = [...user.cart.items, ...user.cart.customizedItems]
+                .reduce((total, item) => total + (item.price * item.quantity), 0);
 
             await user.save();
 
@@ -769,6 +853,11 @@ const removeFromCart = async (req, res) => {
         } else if (req.session.cart) {
             // Guest user
             req.session.cart.items = req.session.cart.items.filter(item => item.productId.toString() !== productId.toString());
+            req.session.cart.customizedItems = req.session.cart.customizedItems.filter(item => item.productId.toString() !== productId.toString());
+
+            req.session.cart.totalprice = [...req.session.cart.items, ...req.session.cart.customizedItems]
+                .reduce((total, item) => total + (item.price * item.quantity), 0);
+
             console.log('Product removed from guest cart successfully');
             res.status(200).json({ message: 'Product removed from guest cart successfully' });
         } else {
@@ -791,14 +880,18 @@ const Checkout = async (req, res) => {
             return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
         }
 
-        const user = await User.findById(req.session.user);
+        const user = await User.findById(req.session.user._id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
 
         const cartData = await getCartDetails(user._id);
         console.log('cart data fetched');
 
         const newOrder = new Orderr({
             user_id: req.session.user._id,
-            product_ids: cartData.items.map(item => item.productId),
+            product_ids: cartData.items.map(item => item.productId).concat(cartData.customizedItems.map(item => item.productId)),
             total_price: cartData.totalprice,
             status: 'pending',
             shipping_address: {
@@ -815,7 +908,7 @@ const Checkout = async (req, res) => {
         const savedOrder = await newOrder.save();
         console.log('new order saved.');
 
-        // Decrease available quantities of products
+        // Decrease available quantities of standard products
         await Promise.all(cartData.items.map(async item => {
             const dbProduct = await Product.findById(item.productId);
             if (!dbProduct) {
@@ -829,6 +922,20 @@ const Checkout = async (req, res) => {
             await dbProduct.save();
         }));
 
+        // Decrease available quantities of customized products
+        // await Promise.all(cartData.customizedItems.map(async item => {
+        //     const dbCustomProduct = await CustomizeRing.findById(item.productId);
+        //     if (!dbCustomProduct) {
+        //         console.log('custom product not found');
+        //         throw new Error(`Customized product with ID ${item.productId} not found`);
+        //     }
+        //     // Decrease the available quantity (if applicable)
+        //     console.log('decreasing custom quantity');
+        //     dbCustomProduct.quantity -= item.quantity;
+        //     dbCustomProduct.no_sales += item.quantity; // Assuming item.quantity represents the number of this customized product in the order
+        //     await dbCustomProduct.save();
+        // }));
+
         // Add order reference to user's order history (assuming a user model with order references)
         user.orders.push(savedOrder._id);
         await user.save();
@@ -837,12 +944,30 @@ const Checkout = async (req, res) => {
         // Clear user's cart after successful checkout
         user.cart = {
             items: [],
+            customizedItems: [],
             totalprice: 0
         };
         await user.save();
         console.log('cleared user cart.');
 
-        res.status(200).json();
+        res.status(200).json({ message: 'Order created successfully', orderId: savedOrder._id });
+    } catch (err) {
+        console.error('Error creating order:', err);
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+};
+
+const getCheckout = async (req, res) => {
+    console.log('checkout');
+
+    try {
+        // Check if user is logged in
+        if (!req.session.user) {
+            return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
+        }
+        const user = req.session.user;
+        res.render('Checkout', { user });
+        
     } catch (err) {
         console.error('Error creating order:', err);
         res.status(500).json({ error: 'Failed to create order' });
@@ -1373,6 +1498,7 @@ module.exports = {
     updateCartPrice,
     removeFromCart,
     Checkout,
+    getCheckout,
     getWishlist,
     AddToWishlist,
     removeFromWishlist,

@@ -58,7 +58,12 @@ const userSchema = mongoose.Schema(
             quantity: { type: Number, required: true },
             price: { type: Number, required: true }
             }],
-            totalprice: {type: Number, required: true}
+            totalprice: {type: Number, required: true}, 
+            customizedItems: [{
+                productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+                quantity: { type: Number, required: true },
+                price: { type: Number, required: true }
+            }]
         },
 
         Token:String,

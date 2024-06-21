@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (updateResponse.ok) {
-                    window.location.href = '/user/Checkout'; // Proceed to checkout page
+                    window.location.href = '/user/checkout'; // Proceed to checkout page
                 } else {
                     // const errorData = await updateResponse.json();
                     showErrorPopup('An error has occurred. Please try again later.');
@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function updateCart(productId, quantity, quantityInput) {
         try {
+            alert(quantity);
             const response = await fetch('/user/updateCart', {
                 method: 'PUT',
                 headers: {

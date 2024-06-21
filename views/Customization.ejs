@@ -1,4 +1,3 @@
-\
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,86 +17,136 @@
 <body>
     <%- include('./partials/Nav-bar.ejs') %>
 
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Ring</h4>
-                            <div class="row mb-3 item-row">
-                                <div id="loading-spinner" class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                <canvas id="Ring"></canvas>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Ring</h4>
+                        <div class="row mb-3 item-row">
+                            <div id="loading-spinner" class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
                             </div>
-                            <!-- End of repeat block -->
-
-                            <div class="mt-4">
-                                <a href="/shopAll" class="btn btn-link">&leftarrow; Back to shop</a>
-                                <button id="button1">Red</button>
-                                <button id="button2">Green</button>
-                                <button id="button3">Blue</button>
-                                <button id="button4">Yellow</button>
-                                <button id="button5">White</button>
-                                <a class="buttonP" href="#popup1">Virtal try on</a>
-                            </div>
-
-                            <div id="popup1" class="overlay">
-                                <div class="popup">
-                                    <h2>Scan with your phone</h2>
-                                    <a class="close" href="#">&times;</a>
-                                    <div class="content">
-                                        <img id="customImage" src="../images/Customization/Oval_GreenQR.png" alt="Customized Image">
-                                    </div>
-                                </div>
-                            </div>
-
+                            <canvas id="Ring"></canvas>
                         </div>
+                        <!-- End of repeat block -->
+
+                        <div class="mt-4">
+                            <a href="/shopAll" class="btn btn-link">&leftarrow; Back to shop</a>
+                            <button id="button1" class="color-btn">Red</button>
+                            <button id="button2" class="color-btn">Green</button>
+                            <button id="button3" class="color-btn">Blue</button>
+                            <button id="button4" class="color-btn">Yellow</button>
+                            <button id="button5" class="color-btn">White</button>
+                            <a class="buttonP" href="#popup1">Virtual try on</a>
+                        </div>
+
+                        <div id="popup1" class="overlay">
+                            <div class="popup">
+                                <h2>Scan with your phone</h2>
+                                <a class="close" href="#">&times;</a>
+                                <div class="content">
+                                    <img id="customImage" src="../images/Customization/Oval_GreenQR.png" alt="Customized Image">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body summary">
-                            <h5 class="card-title">Customize your ring</h5>
-                            <hr>
-                            <div class="shipping-options">
-                                <canvas id="canvas3d"></canvas>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body summary">
+                        <h5 class="card-title">Customize your ring</h5>
+                        <hr>
+                        <div class="shipping-options">
+                            <canvas id="canvas3d"></canvas>
 
-                            </div>
-                            <div class="d-flex justify-content-between mt-3 displayButton">
-
-
-                            </div>
-                            <div class="buttons">
-                                <button id="Heart">Heart</button>
-                                <button id="Pear">Pear</button>
-                                <button id="Oval">Oval</button>
-                                <button id="Emerald">Emerald</button>
-                            </div>
-                            <div class="buttons">
-                                <button id="Round">Round</button>
-                                <button id="Radient">Radient</button>
-                                <button id="Marquise">Marquise</button>
-                               
-
-                            </div>
-                            <div class="buttons">
-                                <button id="Princess">Princess</button>
-                                <button id="Cushion">Cushion</button>
-                                <button id="Asscher">Asscher</button>
-                            </div>
-                            <button class="btn btn-dark btn-block mt-4" id="checkout">Add to cart</button>
-                            <a href="/user/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                         </div>
+                        <div class="d-flex justify-content-between mt-3 displayButton">
+
+
+                        </div>
+                        <div class="buttons">
+                            <button class="shape-btn" id="Heart">Heart</button>
+                            <button class="shape-btn" id="Pear">Pear</button>
+                            <button class="shape-btn" id="Oval">Oval</button>
+                            <button class="shape-btn" id="Emerald">Emerald</button>
+                        </div>
+                        <div class="buttons">
+                            <button class="shape-btn" id="Round">Round</button>
+                            <button class="shape-btn" id="Radient">Radient</button>
+                            <button class="shape-btn" id="Marquise">Marquise</button>
+                        </div>
+                        <div class="buttons">
+                            <button class="shape-btn" id="Princess">Princess</button>
+                            <button class="shape-btn" id="Cushion">Cushion</button>
+                            <button class="shape-btn" id="Asscher">Asscher</button>
+                        </div>
+  
+                        <button class="btn btn-dark btn-block mt-4" id="addtocart">Add to cart</button>
+                        <a href="/user/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="/Javascript/nav-bar.js"></script>
-        <script type="module" src="../Javascript/diamonds.js"> </script>
-        <script type="module" src="../Javascript/ring.js"> </script>
-        <script src="../Javascript/ShoppingCart.js"></script>
+    <script src="/Javascript/nav-bar.js"></script>
+    <script type="module" src="../Javascript/diamonds.js"></script>
+    <script type="module" src="../Javascript/ring.js"></script>
+    <script src="../Javascript/ShoppingCart.js"></script>
+    <script>
+        async function addToCartCustomRing(color, shape) {
+            try {
+                const response = await fetch('/user/add-to-cart-custom', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ color, shape })
+                });
+    
+                if (response.ok) {
+                    const result = await response.json();
+                    showPopup('Customized ring added to cart successfully!');
+                } else {
+                    showErrorPopup('Failed to add customized ring to cart. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showErrorPopup('Failed to add customized ring to cart. Please try again later.');
+            }
+        }
+    
+        document.getElementById('addtocart').addEventListener('click', () => {
+            const selectedColor = document.querySelector('.color-btn.selected');
+            const selectedShape = document.querySelector('.shape-btn.selected');
+    
+            if (selectedColor && selectedShape) {
+                const color = selectedColor.textContent.trim(); // Get color text
+                const shape = selectedShape.textContent.trim(); // Get shape text
+                addToCartCustomRing(color, shape);
+            } else {
+                showErrorPopup('Please select both color and shape before adding to cart.');
+            }
+        });
+    
+        document.querySelectorAll('.color-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+    
+        document.querySelectorAll('.shape-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.shape-btn').forEach(btn => btn.classList.remove('selected'));
+                button.classList.add('selected');
+            });
+        });
+    </script>
+
 </body>
 
 </html>

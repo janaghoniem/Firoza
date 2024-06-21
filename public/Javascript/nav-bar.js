@@ -659,6 +659,7 @@ document.addEventListener('DOMContentLoaded',  function() {
     
         products.forEach(product => {
             const a = document.createElement('a');
+            a.href = '/user/product/' + product._id;
             a.classList.add('search-result-item');
 
             const imgDiv = document.createElement('div');
@@ -672,7 +673,7 @@ document.addEventListener('DOMContentLoaded',  function() {
             const name = document.createElement('a');
             name.classList.add('search-extension-a');
 
-            image.src = 'images/indian/Newfolder/' + product.img;
+            image.src = 'images/Indian/Newfolder/' + product.img;
             
             name.innerHTML = product.name;
             a.appendChild(imgDiv);

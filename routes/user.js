@@ -65,6 +65,8 @@ router.delete('/remove-from-cart/:productId', User.removeFromCart);
 // CHECKOUT
 router.post('/Billing-Information', User.BillingInformation);
 router.post('/checkout', User.Checkout);
+router.get('/checkout', User.getCheckout);
+
 
 // WISHLIST
 router.get('/wishlist', User.getWishlist);

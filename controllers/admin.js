@@ -7,8 +7,8 @@ const Request = require('../models/Requests');
 const Customization = require('../models/Customization')
 const Review = require('../models/reviews');
 const { v4: uuidv4 } = require('uuid');
-const formidable = require('formidable')
 const QuizResult = require('../models/Quiz')
+
 // Function to add an admin
 const addAdmin = async (req, res) => {
     try {

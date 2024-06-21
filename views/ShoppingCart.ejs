@@ -24,30 +24,51 @@
                  <div class="card-body">
                     <h4 class="card-title">Shopping Cart</h4>
                     <p class="text-muted items-count"><%= cart.items.filter(item => item.productId).length %> items</p>
-                    <% cart.items.forEach(item => { %>
-                        <% if (item.productId) { %>
-                            <div class="row mb-3 item-row" data-item="<%= item.productId._id %>">
-                               <div class="col-3">
-                                  <img src="/images/Indian/Newfolder/<%= item.productId.img %>" class="img-fluid rounded" alt="<%= item.productId.name %>">
-                               </div>
-                               <div class="col-6 item-info">
-                                  <h6><%= item.productId.name %></h6>
-                                  <p><%= item.productId.description %></p>
-                               </div>
-                               <div class="col-3 item-actions">
-                                  <div class="input-group">
-                                     <button class="btn btn-outline-secondary decrement" data-item="<%= item.productId._id %>">-</button>
-                                     <input type="text" class="form-control text-center quantity-input" id="quantity-<%= item.productId._id %>" value="<%= item.quantity %>" aria-label="Quantity" readonly>
-                                     <button class="btn btn-outline-secondary increment" data-item="<%= item.productId._id %>">+</button>
-                                  </div>
-                                  <p class="mb-0 item-price">EGP <%= item.price %></p>
-                                  <button type="button" class="close remove-item" aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                  </button>
-                               </div>
-                            </div>
+                     <% cart.items.forEach(item => { %>
+                        <% if (item.type === 'standard') { %>
+                           <div class="row mb-3 item-row" data-item="<%= item.productId %>">
+                              <div class="col-3">
+                                    <img src="/images/Indian/Newfolder/<%= item.img %>" class="img-fluid rounded" alt="<%= item.name %>">
+                              </div>
+                              <div class="col-6 item-info">
+                                    <h6><%= item.name %></h6>
+                                    <p><%= item.description %></p>
+                              </div>
+                              <div class="col-3 item-actions">
+                                    <div class="input-group">
+                                       <button class="btn btn-outline-secondary decrement" data-item="<%= item.productId %>">-</button>
+                                       <input type="text" class="form-control text-center quantity-input" id="quantity-<%= item.productId %>" value="<%= item.quantity %>" aria-label="Quantity" readonly>
+                                       <button class="btn btn-outline-secondary increment" data-item="<%= item.productId %>">+</button>
+                                    </div>
+                                    <p class="mb-0 item-price">EGP <%= item.price %></p>
+                                    <button type="button" class="close remove-item" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </button>
+                              </div>
+                           </div>
+                        <% } else if (item.type === 'custom') { %>
+                           <div class="row mb-3 item-row" data-item="<%= item.productId %>">
+                              <div class="col-3">
+                                    <img src="/images/Indian/Newfolder/<%= item.img %>" class="img-fluid rounded" alt="Customized Ring">
+                              </div>
+                              <div class="col-6 item-info">
+                                    <h6>Customized Ring</h6>
+                                    <p>Color: <%= item.color %>, Stone: <%= item.stone %></p>
+                              </div>
+                              <div class="col-3 item-actions">
+                                    <div class="input-group">
+                                       <button class="btn btn-outline-secondary decrement" data-item="<%= item.productId %>">-</button>
+                                       <input type="text" class="form-control text-center quantity-input" id="quantity-<%= item.productId %>" value="<%= item.quantity %>" aria-label="Quantity" readonly>
+                                       <button class="btn btn-outline-secondary increment" data-item="<%= item.productId %>">+</button>
+                                    </div>
+                                    <p class="mb-0 item-price">EGP <%= item.price %></p>
+                                    <button type="button" class="close remove-item" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                    </button>
+                              </div>
+                           </div>
                         <% } %>
-                    <% }); %>
+                  <% }) %>                 
                     <div class="mt-4">
                        <a href="/user/shopAll" class="btn btn-link">&leftarrow; Back to shop</a>
                     </div>
@@ -76,7 +97,7 @@
                        <strong>TOTAL PRICE</strong>
                        <strong class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) + 100 %></strong>
                     </div>
-                    <button class="btn btn-dark btn-block mt-4" id="checkout">CHECKOUT</button>
+                    <button class="btn btn-dark btn-block mt-4" id="checkout" href="/user/checkout">CHECKOUT</button>
                     <a href="/user/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                  </div>
               </div>
