@@ -81,19 +81,28 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="prod-details">
-                    <hr class="details-divider">
-                    <span class="description-part" onclick="toggleDetails('similar-products-content')">
-                        Similar Products <i class="fas fa-plus"></i>
-                    </span>
-                    <div id="similar-products-content" class="details-content">
-                        <p>Details about similar products...</p>
+                <div class="item">
+                    <div class="question-button-div">
+                        <h5>Similar Products </h5>
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-minus"></i>
                     </div>
-                    <p>Details about shipping and returns...</p>
-                </div> -->
+                   
+                   
+                    <div id="shipping-returns-content" >
+                        <div class="item-list">
+                            
+                        <img src="<%= product.imageUrl %>" alt="<%= product.name %>">
+                       <p><%= product.name %></p>
+                       <p><%= product.price %></p>
+                       </div>
+                    </div>
+                    
+                </div>
             </div>
             </div>
         </div>
+        
         <div class="lower-half-prod">
             <h3>Reviews</h3>
             <hr class="details-divider">

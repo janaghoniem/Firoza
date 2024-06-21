@@ -1249,6 +1249,9 @@ const getProductDetails = async (req, res) => {
         if (!product) {
             return res.status(404).send('Product not found');
         }
+
+        const similarProducts = await Product.find({ category: product.category }).limit(3);
+
          reviews = await Review.find({ prod: productId }).populate('user');
          let averageRating = 0;
         if (reviews.length > 0) {
@@ -1263,7 +1266,8 @@ const getProductDetails = async (req, res) => {
             product: product,
             reviews: reviews,
             averageRating: averageRating, // Add averageRating to template data
-            reviewCount: reviewCount 
+            reviewCount: reviewCount,
+            similarProducts: similarProducts 
         });
     } catch (err) {
         console.error('Error fetching product details:', err);
