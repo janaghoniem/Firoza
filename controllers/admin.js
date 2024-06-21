@@ -7,6 +7,7 @@ const Request = require('../models/Requests');
 const Customization = require('../models/Customization')
 const Review = require('../models/reviews');
 const { v4: uuidv4 } = require('uuid');
+const formidable = require('formidable')
 
 // Function to add an admin
 const addAdmin = async (req, res) => {
@@ -140,68 +141,86 @@ const deleteCollection = async (req, res) => {
 
 
 //edit collection on the server side
-// const editCollection = async (req, res) => {
-//     const collectionId = req.params.id;
-//     const { collectionName, description } = req.body;
-
-//     try {
-//         // Update the collection document by its collection_id
-//         const updatedCollection = await collections.findByIdAndUpdate(
-//             collectionId,
-//             {
-//                 Collection_Name: collectionName,
-//                 Collection_Description: description
-//             },
-//             { new: true }
-//         );
-
-//         if (!updatedCollection) {
-//             return res.status(404).json({ error: 'Collection not found' });
-//         }
-
-//         res.status(200).json({ success: true, data: updatedCollection });
-//     } catch (error) {
-//         console.error('Error updating collection:', error);
-//         res.status(500).json({ error: error.message });
-//     }
-// };
-
 const editCollection = async (req, res) => {
     const collectionId = req.params.id;
-    const { collectionName, description } = req.body;
-    let img;
-  
-    if (req.file) {
-      img = `/uploads/${req.file.filename}`;
-    }
-  
+    const { CollectionName, CollectionDescription } = req.body;
+
     try {
-      const updateData = {
-        Collection_Name: collectionName,
-        Collection_Description: description,
-      };
-  
-      if (img) {
-        updateData.img = img;
-      }
-  
-      const updatedCollection = await collections.findByIdAndUpdate(
-        collectionId,
-        updateData,
-        { new: true }
-      );
-  
-      if (!updatedCollection) {
-        return res.status(404).json({ error: 'Collection not found' });
-      }
-  
-      res.status(200).json({ success: true, data: updatedCollection });
+        // Update the collection document by its collection_id
+        const updatedCollection = await collections.findByIdAndUpdate(
+            collectionId,
+            {
+                Collection_Name: CollectionName,
+                Collection_Description: CollectionDescription
+            },
+            { new: true }
+        );
+
+        if (!updatedCollection) {
+            return res.status(404).json({ error: 'Collection not found' });
+        }
+
+        res.status(200).json({ success: true, data: updatedCollection });
     } catch (error) {
-      console.error('Error updating collection:', error);
-      res.status(500).json({ error: error.message });
+        console.error('Error updating collection:', error);
+        res.status(500).json({ error: error.message });
     }
-  };
-  
+};
+
+
+// const editCollection = async (req, res) => {
+   
+
+//     form.parse(req, async (err, fields, files) => {
+//         if (err) {
+//             console.error('Error parsing form data:', err);
+//             return res.status(500).json({ error: 'Failed to parse form data' });
+//         }
+
+//         const { collectionId, collectionName, collectionDescription } = fields;
+//         const updateData = {
+//             Collection_Name: collectionName,
+//             Collection_Description: collectionDescription,
+//         };
+
+//         if (files.img) {
+//             const oldPath = files.img.filepath;
+//             const newPath = path.join(__dirname, 'uploads', files.img.originalFilename);
+//             fs.rename(oldPath, newPath, (err) => {
+//                 if (err) throw err;
+//             });
+//             updateData.img = `/uploads/${files.img.originalFilename}`;
+//         }
+
+//         try {
+//             const updatedCollection = await collections.findByIdAndUpdate(collectionId, updateData, { new: true });
+
+//             if (!updatedCollection) {
+//                 return res.status(404).json({ error: 'Collection not found' });
+//             }
+
+//             res.status(200).json({ success: true, data: updatedCollection });
+//         } catch (error) {
+//             console.error('Error updating collection:', error);
+//             res.status(500).json({ error: 'Failed to update collection' });
+//         }
+//     });
+// };
+
+
+const validateCollectionName = async (req, res) => {
+    const { collectionName, collectionId } = req.body;
+    try {
+        const collection = await collections.findOne({ Collection_Name: collectionName });
+        if (collection && collection._id.toString() !== collectionId) {
+            return res.json({ isUnique: false });
+        }
+        return res.json({ isUnique: true });
+    } catch (error) {
+        console.error('Error validating collection name:', error);
+        res.status(500).json({ error: 'Error validating collection name' });
+    }
+};
 
 
 //Function to add a product
@@ -401,6 +420,21 @@ const deleteProduct = async (req, res) => {
 //         res.status(500).json({ error: 'Server error' });
 //     }
 // };
+const getEditCollectionPage = async (req, res) => {
+    try {
+        const collectionID = req.params.id;
+        // const getcollections = await collectionID.find(); // Fetch all collections
+
+        const collection = await collections.findById(collectionID);
+
+
+        res.render('EditCollection', { collection });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+};
+
+
 const getEditProductPage = async (req, res) => {
     try {
         const productId = req.params.id;
@@ -737,7 +771,9 @@ module.exports = {
     deleteUser,
     SearchOrders,
     SearchUsers,
-    getReviews
+    getReviews,
+    validateCollectionName,
+    getEditCollectionPage
 };
 
 

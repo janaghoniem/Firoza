@@ -37,7 +37,7 @@
               <small class="d-block editable" contenteditable="false" data-field="Collection_Description"><%= collection.Collection_Description %></small>
             </div>
             <div class="col col-4" >
-                <button class="edit-btn btn btn-primary"><a href="/admin/EditCollection/<%= collection._id %>" class="edit-btn btn btn-primary">Edit</a></button>
+                <button class="edit-btn btn btn-primary"><a href="/admin/editCollection/<%=collection._id %>" class="edit-btn btn btn-primary">Edit</a></button>
             </div>
             <div class="col col-5" >
                 <button class="delete-btn btn btn-danger" data-id="<%= collection._id %>">Delete</button>

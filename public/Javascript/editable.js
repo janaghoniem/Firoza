@@ -97,29 +97,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const editForm = document.getElementById('editForm');
+    const collectionId = '<%= collectionId %>'; // Pass the collection ID from the server to the client
+    document.getElementById('collectionId').value = collectionId;
 
-    editForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const formData = new FormData(editForm);
-      const collectionId = editForm.action.split('/').pop();
-  
-      fetch(`/admin/editCollection/${collectionId}`, {
-        method: 'POST',
-        body: formData,
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert('Collection updated successfully');
-        } else {
-          alert('Failed to update collection');
+    editForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(editForm);
+        formData.append('collectionId', collectionId);
+
+        try {
+            // Validate that the collection name is unique
+            const collectionName = formData.get('CollectionName');
+            const validateResponse = await fetch(`/admin/validateCollectionName`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ collectionName, collectionId }),
+            });
+            const validateResult = await validateResponse.json();
+
+            if (!validateResult.isUnique) {
+                alert('Collection name already exists. Please choose another name.');
+                return;
+            }
+
+            const response = await fetch(`/admin/editCollection/${collectionId}`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Collection updated successfully');
+            } else {
+                alert('Failed to update collection');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error updating collection');
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating collection');
-      });
     });
+
   
     deleteButtons.forEach(button => {
         button.addEventListener('click', (event) => {

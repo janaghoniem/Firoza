@@ -53,11 +53,11 @@ router.get('/addProduct', async (req, res) => {
 
 
 router.get('/EditProduct/:id',  adminController.getEditProductPage);
-
+router.post('/admin/validateCollectionName', adminController.validateCollectionName);
 
 router.get('/EditLayout', adminController.getCollections );
 router.delete('/deleteCollection/:id', adminController.deleteCollection);
-router.post('/editCollection/:id', adminController.editCollection);
+router.get('/editCollection/:id', adminController.getEditCollectionPage);
 
 router.get('/indian', async (req, res) => {
     try {
@@ -134,6 +134,7 @@ router.get('/orders', adminController.getOrders);
 
 
 router.post('/EditProduct/:id', adminController.editProduct);
+router.post('/editCollection/:id', adminController.editCollection);
 
 
 router.get('/AddCollection', (req, res) => {
