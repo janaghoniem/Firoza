@@ -61,7 +61,7 @@
                                 <ul class="product-list">
                                     <% order.product_ids.forEach(product => { %>
                                         <li class="product-item">
-                                            <img src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
+                                            <img src="<%= product.img %>" alt="<%= product.name %>">
                                             <div class="product-details">
                                                 <h2><%= product.name %></h2>
                                                 <p>Price: $<%= product.price %></p>

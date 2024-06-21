@@ -652,17 +652,20 @@ const Cart = async (req, res) => {
             const product = await Product.findById(item.productId);
             if (!product) {
                 customized = await CustomizeRing.findById(item.productId);
-                return {
-                    productId: customized._id,
-                    name: 'Customized Ring',
-                    color: customized.color,
-                    stone: customized.stone,
-                    img: customized.img1,
-                    quantity: item.quantity,
-                    price: customized.price,
-                    type: 'custom'
-                };
+                if(customized) {
+                    return {
+                        productId: customized._id,
+                        name: 'Customized Ring',
+                        color: customized.color,
+                        stone: customized.stone,
+                        img: customized.img1,
+                        quantity: item.quantity,
+                        price: customized.price,
+                        type: 'custom'
+                    };
+                }
             }
+            console.log(product._id);
             return {
                 productId: product._id,
                 name: product.name,

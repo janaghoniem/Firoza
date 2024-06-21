@@ -215,11 +215,13 @@ a:hover {
     text-transform: uppercase;
 }
 
+
 .d-flex strong {
     font-family: 'futura pt';
     font-weight: 600;
     text-transform: uppercase;
     font-size: 18px;
+    margin-top: 30px;
 }
 
 #checkout:disabled {

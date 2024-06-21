@@ -25,10 +25,10 @@
                     <h4 class="card-title">Shopping Cart</h4>
                     <p class="text-muted items-count"><%= cart.items.filter(item => item.productId).length %> items</p>
                      <% cart.items.forEach(item => { %>
-                        <% if (item.type === 'standard') { %>
+                        <% if (item.type === 'standard' && item.productId) { %>
                            <div class="row mb-3 item-row" data-item="<%= item.productId %>">
                               <div class="col-3">
-                                    <img src="/images/Indian/Newfolder/<%= item.img %>" class="img-fluid rounded" alt="<%= item.name %>">
+                                    <img src="<%= item.img %>" class="img-fluid rounded" alt="<%= item.name %>">
                               </div>
                               <div class="col-6 item-info">
                                     <h6><%= item.name %></h6>
@@ -49,7 +49,7 @@
                         <% } else if (item.type === 'custom') { %>
                            <div class="row mb-3 item-row" data-item="<%= item.productId %>">
                               <div class="col-3">
-                                    <img src="/images/Indian/Newfolder/<%= item.img %>" class="img-fluid rounded" alt="Customized Ring">
+                                    <img src="<%= item.img %>" class="img-fluid rounded" alt="Customized Ring">
                               </div>
                               <div class="col-6 item-info">
                                     <h6>Customized Ring</h6>
@@ -91,8 +91,8 @@
                           <option value="fast">Fast Delivery - EGP 150.00</option>
                        </select>
                     </div>
-                    <p>DISCOUNT CODE</p>
-                    <input id="code" class="form-control" placeholder="Enter your code">
+                    <!-- <p>DISCOUNT CODE</p>
+                    <input id="code" class="form-control" placeholder="Enter your code"> -->
                     <div class="d-flex justify-content-between mt-3">
                        <strong>TOTAL PRICE</strong>
                        <strong class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) + 100 %></strong>
