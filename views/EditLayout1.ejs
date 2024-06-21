@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="vewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/layout.css">
+    <script src="/Javascript/layout.js"></script>
+    <script src="/Javascript/editable.js"></script>
+    <script src="/Javascript/nav-bar.js"></script>
+    <script src="/Javascript/adminNavbar.js"></script>
+    <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
+    <title>Layout</title>
+</head>
+
+<body>
+    <!-- <%- include('./partials/Admin-NavBar.ejs') %> -->
+
+        <div class="content">
+
+            <div class="container">
+                <h2 class="mb-5"></h2>
+
+                <div class="table-responsive">
+
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <label class="control control--checkbox">
+                                        <!-- <input type="checkbox" class="js-check-all" />
+                                        <div class="control__indicator"></div> -->
+                                    </label>
+                                </th>
+                                <th scope="col">Collection ID</th>
+                                <th scope="col">Collection Name</th>
+                                <th scope="col">Collation description</th>
+                                <th scope="col">Launch Date</th>
+                                <th scope="col">Edit Collection</th>
+                                <th scope="col">Delete Collection</th>
+                                <th scope="col">
+                                    <label class="custom-control ios-switch" style="position: relative; top: 10px;">
+                                        <input type="checkbox" class="ios-switch-control-input js-ios-switch-all">
+                                        <span class="ios-switch-control-indicator"></span>
+                                    </label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% getC.forEach(collection => { %>
+
+                            <tr scope="row" class="">
+                                <td>
+                                    <label class="control control--checkbox">
+                                        <!-- <input type="checkbox" />
+                                        <div class="control__indicator"></div> -->
+                                    </label>
+                                </td>
+                                <td>
+                                    <%= collection._id %>
+                                </td>
+                                <td class="pl-0">
+                                    <div class="d-flex align-items-center">
+
+
+                                        <a href="#" class="name"> <span class="editable" contenteditable="false" data-field="Collection_Name"><%= collection.Collection_Name %></span></a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <small class="d-block editable" contenteditable="false" data-field="Collection_Description"><%= collection.Collection_Description %></small>
+                                </td>
+                                <td>+63 983 0962 971</td>
+                                <td><button class="edit-btn btn btn-primary" data-id="<%= collection._id %>">Edit</button></td>
+                                
+                                  <td><button class="delete-btn btn btn-danger" data-id="<%= collection._id %>">Delete</button></td>
+                              
+                              
+                               
+                                <td>
+                                    <label class="custom-control ios-switch">
+                                        <input type="checkbox" class="ios-switch-control-input" checked="">
+                                        <span class="ios-switch-control-indicator"></span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                            <% }) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+</body>
+
+</html>
