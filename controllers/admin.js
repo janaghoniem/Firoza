@@ -6,8 +6,18 @@ const Order = require('../models/Orders');
 const Request = require('../models/Requests');
 const Customization = require('../models/Customization')
 const Review = require('../models/reviews');
+const upload = require('../middleware/multerSetup');
+const multer = require('multer');
+const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const QuizResult = require('../models/Quiz')
+
+
+// const Customization = require('../models/Customization');
+// const upload = require('../middleware/multerSetup');
+// const multer = require('multer');
+// const path = require('path');
+// const Review = require('../models/reviews');
 
 // Function to add an admin
 const addAdmin = async (req, res) => {
@@ -259,78 +269,225 @@ const validateCollectionName = async (req, res) => {
 
 
 //Function to add a product
+// const addProduct = async (req, res) => {
+//     const {
+//         product_id,
+//         collection_id,
+//         name,
+//         description,
+//         category,
+//         price,
+//         img,
+//         material,
+//         color,
+//         rating,
+//         no_sales,
+//         sizes,
+//         quantities
+//     } = req.body;
+
+//     try {
+//         // Validate input
+//         if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !quantities) {
+//             return res.status(400).json({ message: 'All fields are required' });
+//         }
+
+//         // Ensure sizes and quantities arrays are the same length
+//         if (sizes.length !== quantities.length) {
+//             return res.status(400).json({ message: 'Add a size or quantity' });
+//         }
+
+//         // Create size-quantity pairs
+//         const sizeQuantityPairs = sizes.map((size, index) => ({
+//             size,
+//             quantity: quantities[index]
+//         }));
+
+//         // Create a new Product object based on the schema
+//         const newProduct = new Product({
+//             product_id,
+//             collection_id,
+//             name,
+//             description,
+//             category,
+//             price,
+//             img,
+//             sizes: sizeQuantityPairs,
+//             rating: rating || 0,
+//             material,
+//             color,
+//             no_sales: no_sales || 0
+//         });
+
+//         // Save the product to the database
+//         await newProduct.save();
+
+//         res.status(201).json({ message: 'Product added successfully', data: newProduct });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+
+
+// const path = require('path');
 const addProduct = async (req, res) => {
-    const {
-        product_id,
-        collection_id,
-        name,
-        description,
-        category,
-        price,
-        img,
-        img2,
-        img3,
-        img4,
-        img5,
-        material,
-        color,
-        rating,
-        no_sales,
-        sizes,
-        quantities
-    } = req.body;
-
-    try {
-        // Validate input
-        if (!collection_id || !name || !description || !category || !price || !img || !material || !color || !quantities) {
-            // return res.status(400).json({ message: 'All fields are required' });
-            return res.status(400).send('<script>alert("All fields are required"); window.history.back();</script>');
+    upload.fields([
+        { name: 'img', maxCount: 1 },
+        { name: 'img2', maxCount: 1 },
+        { name: 'img3', maxCount: 1 },
+        { name: 'img4', maxCount: 1 },
+        { name: 'img5', maxCount: 1 }
+    ])(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            console.error('Multer error:', err);
+            return res.status(500).json({ error: err.message });
+        } else if (err) {
+            console.error('Unknown error:', err);
+            return res.status(500).json({ error: err.message });
         }
 
-        // Ensure sizes and quantities arrays are the same length
-        if (sizes.length !== quantities.length) {
-            // return res.status(400).json({ message: 'Add a size or quantity' });
-            return res.status(400).send('<script>alert("Add a size or quantity"); window.history.back();</script>');
-        }
-
-        // Create size-quantity pairs
-        const sizeQuantityPairs = sizes.map((size, index) => ({
-            size,
-            quantity: quantities[index]
-        }));
-
-        // Create an array of images
-        const images = [ img2, img3, img4, img5].filter(Boolean); // Filter out undefined or null values
-
-        // Create a new Product object based on the schema
-        const newProduct = new Product({
-            product_id,
+        const {
             collection_id,
             name,
             description,
             category,
             price,
-            img,
-            images,
-            sizes: sizeQuantityPairs,
-            rating: rating || 0,
             material,
             color,
-            no_sales: no_sales || 0
-        });
+            rating,
+            no_sales,
+            sizes,
+            quantities
+        } = req.body;
 
-        // Save the product to the database
-        await newProduct.save();
-        return res.status(201).send('<script>alert("Product added successfully"); window.history.back();</script>');
-        // res.status(201).json({ message: 'Product added successfully', data: newProduct });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
-    }
+        try {
+            // Validate input
+            if (!collection_id || !name || !description || !category || !price || !material || !color || !sizes || !quantities) {
+                return res.status(400).send('<script>alert("All fields are required"); window.history.back();</script>');
+            }
+
+            // Ensure sizes and quantities arrays are the same length
+            if (sizes.length !== quantities.length) {
+                return res.status(400).send('<script>alert("Add a size or quantity"); window.history.back();</script>');
+            }
+
+            // Create size-quantity pairs
+            const sizeQuantityPairs = sizes.map((size, index) => ({
+                size,
+                quantity: quantities[index]
+            }));
+
+            // Get uploaded image filenames
+            const mainImage = req.files['img'] ? '/images/Indian/Newfolder/' + req.files['img'][0].filename : null;
+            const additionalImages = ['img2', 'img3', 'img4', 'img5'].map(img => req.files[img] ? '/images/Indian/Newfolder/' + req.files[img][0].filename : null).filter(Boolean);
+
+            if (!mainImage) {
+                return res.status(400).json({ message: 'Main image file is required' });
+            }
+
+            // Create a new Product object based on the schema
+            const newProduct = new Product({
+                collection_id,
+                name,
+                description,
+                category,
+                price,
+                img: mainImage, // Save main image path here
+                images: additionalImages, // Save additional images path here
+                sizes: sizeQuantityPairs,
+                rating: rating || 0,
+                material,
+                color,
+                no_sales: no_sales || 0
+            });
+
+            // Save the product to the database
+            await newProduct.save();
+
+            return res.status(201).send('<script>alert("Product added successfully"); window.history.back();</script>');
+        } catch (error) {
+            console.error('Error saving product:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
 };
 
 
 
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, path.join(__dirname, '../public/images/Indian/Newfolder'));
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + '-' + file.originalname);
+//     }
+// });
+
+// const upload = multer({ storage: storage }).single('img');
+
+// const addProduct = async (req, res) => {
+//     upload.single('img')(req, res, async function (err) {
+//         if (err instanceof multer.MulterError) {
+//             console.error('Multer error:', err);
+//             return res.status(500).json({ error: err.message });
+//         } else if (err) {
+//             console.error('Unknown error:', err);
+//             return res.status(500).json({ error: err.message });
+//         }
+
+//         try {
+//             // Validate input
+//             const { collection_id, name, description, category, price, material, color, rating, no_sales, sizes, quantities } = req.body;
+//             if (!collection_id || !name || !description || !category || !price || !material || !color || !sizes || !quantities) {
+//                 return res.status(400).json({ message: 'All fields are required' });
+//             }
+
+//             // Ensure sizes and quantities arrays are the same length
+//             if (sizes.length !== quantities.length) {
+//                 return res.status(400).json({ message: 'Sizes and quantities must match' });
+//             }
+
+//             // Create size-quantity pairs
+//             const sizeQuantityPairs = sizes.map((size, index) => ({
+//                 size,
+//                 quantity: quantities[index]
+//             }));
+
+//             // Check if the file was uploaded successfully
+//             if (!req.file) {
+//                 return res.status(400).json({ message: 'Image file is required' });
+//             }
+
+//             // Get uploaded image filename
+//             const img = '/images/Indian/Newfolder/' + req.file.filename;
+
+//             // Create a new Product object based on the schema
+//             const newProduct = new Product({
+//                 collection_id,
+//                 name,
+//                 description,
+//                 category,
+//                 price,
+//                 img, // Save image path here
+//                 sizes: sizeQuantityPairs,
+//                 rating: rating || 0,
+//                 material,
+//                 color,
+//                 no_sales: no_sales || 0
+//             });
+
+//             // Save the product to the database
+//             await newProduct.save();
+
+//             res.status(201).json({ message: 'Product added successfully', data: newProduct });
+//         } catch (error) {
+//             console.error('Error saving product:', error);
+//             res.status(500).json({ error: error.message });
+//         }
+//     });
+// };
 
 const GetAllUsers = (req, res) => {
     User.find()
@@ -544,7 +701,7 @@ const editProduct = async (req, res) => {
 const getDashboard = async (req, res) => {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    
+
 
     try {
         const userCount = await User.countDocuments({ isAdmin: false });
@@ -577,7 +734,7 @@ const getDashboard = async (req, res) => {
             ordersLast30Days: orderCount,
             revenueLast30Days,
             productsOutOfStock,
-            count:userCount
+            count: userCount
         });
     } catch (error) {
         console.error('Error fetching order count:', error);
@@ -767,7 +924,7 @@ const SearchUsers = async (req, res) => {
         const regex = new RegExp(query, 'i'); // Case-insensitive search
         const users = await User.find({
             $or: [
-                 // Searching by user ID (if matches)
+                // Searching by user ID (if matches)
                 { email: regex }, // Searching by email
                 { firstname: regex }, // Searching by firstname
                 { lastname: regex } // Searching by lastname
