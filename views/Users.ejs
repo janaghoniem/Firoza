@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Users</title>
   <link rel="stylesheet" href="/CSS/Orders.css">
-  <link rel="stylesheet" href="/CSS/Admin-NavBar.css">
-  <script src="/Javascript/nav-bar.js"></script>
+  <link rel="stylesheet" href="/CSS/nav-bar-white.css">
+  <script src="/Javascript/nav-bar-.js"></script>
   <script src="/Javascript/adminNavbar.js"></script>
 </head>
 
@@ -71,6 +71,7 @@
         originalUsers = JSON.parse('<%- JSON.stringify(users) %>'); // Convert users to JSON and store in originalUsers
       }
   
+      
       // Add event listener to search input for dynamic search
       const searchInput = document.getElementById('searchInput');
       const searchCount = document.getElementById('searchCount'); // Reference to search count element
