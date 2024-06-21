@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Didact+Gothic&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-
 * {
     font-family: "Nunito Sans", 'PT Sans', 'Didact Gothic', 'Garet', sans-serif;
     font-weight: 100;
@@ -14,40 +13,40 @@
     scroll-behavior: smooth;
     transition: all .3s cubic-bezier(.39, .575, .565, 1);
     -webkit-font-smoothing: antialiased;
-
 }
 
 body {
-    background-color: #FEF8F1;
-    background: url(../images/Admin/chat-background.jpeg) no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
+    background-color: #F3F3F3;
 }
 
-
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 10px;
     padding-right: 10px;
-   padding-top:200px;
+    padding-top: 200px;
 }
 
+.table-header {
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color:black;
+}
 h2 {
     font-size: 26px;
     margin: 20px 0;
     text-align: center;
+}
 
-    small {
-        font-size: 0.5em;
-    }
+.expanding-orders {
+    display: none;
 }
-.expanding-orders{
-    display:none;
-}
+
 .responsive-table {
-    
     li {
         border-radius: 3px;
         padding: 25px 30px;
@@ -57,37 +56,21 @@ h2 {
     }
 
     .table-header {
-        background-color: #F6E8C0;
+        background-color: #000000;
         font-size: 18px;
         text-transform: uppercase;
         letter-spacing: 0.03em;
-        font-weight:bolder;
+        font-weight: bolder;
     }
 
     .table-row {
         background-color: #ffffff;
-        opacity: 92%;;
+        opacity: 92%;
         box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
     }
 
-    .responsive-table .col-2 {
-        flex-basis: 18%; /* Adjusted from original value */
-    }
-    
-    .responsive-table .col-3 {
-        flex-basis: 18%; /* Adjusted from original value */
-    }
-    
-    .responsive-table .col-4 {
-        flex-basis: 18%; /* Adjusted from original value */
-    }
-    
-    .responsive-table .col-5 {
-        flex-basis: 18%; /* Adjusted from original value */
-    }
-    
-    .responsive-table .col-6 {
-        flex-basis: 10%; /* Adjusted from original value */
+    .col {
+        flex-basis: 16%; /* Increased from original value */
     }
 
     @media all and (max-width: 767px) {
@@ -95,34 +78,27 @@ h2 {
             display: none;
         }
 
-        .table-row {}
-
         li {
             display: block;
         }
 
         .col {
-
             flex-basis: 100%;
-
         }
 
         .col {
             display: flex;
             padding: 10px 0;
-
             &:before {
                 color: #6C7A89;
                 padding-right: 10px;
                 content: attr(data-label);
-                flex-basis: 50%;
+                flex-basis: 10%;
                 text-align: right;
             }
         }
     }
 }
-
-
 
 .icon {
     display: none;
@@ -142,7 +118,6 @@ h2 {
 
     .logo {
         margin-right: 0;
-
     }
 
     .responsive {
@@ -169,42 +144,73 @@ h2 {
 
 .search-bar {
     display: flex;
-    justify-content: center; /* Center align the search bar */
+    justify-content: center;
     margin-bottom: 20px;
-  }
+}
 
-  #searchInput {
-    width: 40%; /* Increase the width of the search input */
+#searchInput {
+    width: 40%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px; /* Add margin to the right of the input */
-  }
+    margin-right: 10px;
+}
 
-  #searchBtn, #resetBtn {
-    padding: 10px 20px; /* Add padding for better spacing */
+#searchBtn, #resetBtn {
+    padding: 10px 20px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
+}
 
-  #resetBtn {
-    background-color: #ae2920; /* Red background for reset button */
+#resetBtn {
+    background-color: #ae2920;
     color: white;
-  }
+}
 
-  #searchCount {
+#searchCount {
     margin-left: 20px;
     font-size: 16px;
-    align-self: center; /* Align the search count vertically */
-  }
-  
-  #searchDate {
+    align-self: center;
+}
+
+#searchDate {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
-    width: 180px; /* Adjust width as needed */
+    width: 180px;
+}
+
+
+button {
+    background: rgba(0, 0, 0, 0);
+    font-family: 'futura pt';
+    font-weight: 500;
+    color: #1f1f1f;
+    border: 1px solid #1f1f1f;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: 15px;
+    text-align: center;
+    width: 140px;
+    padding: 15px 43px;
+    text-decoration: none;
+    line-height: 0.8rem;
+    cursor: pointer;
+    /* margin-bottom: 20px;
+    margin-top: -10px; */
+}
+
+button:hover {
+    color: #fff;
+    background-color: #000000;
+   
+}
+a:hover{
+    color: #fff;
+    /* background-color: #000000; */
 }
