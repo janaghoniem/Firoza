@@ -716,50 +716,65 @@ const getEditProductPage = async (req, res) => {
         return res.status(500).send('<script>alert("erver error"); window.history.back();</script>');
     }
 };
+const uploadFields = upload.fields([
+    { name: 'img', maxCount: 1 },
+    { name: 'img2', maxCount: 1 },
+    { name: 'img3', maxCount: 1 },
+    { name: 'img4', maxCount: 1 },
+    { name: 'img5', maxCount: 1 }
+]);
 
-
-// Function to handle product edits
 const editProduct = async (req, res) => {
-    try {
-        const productId = req.params.id;
-        const updatedData = req.body;
-
-        // Ensure the sizes are processed correctly if they come as arrays
-        if (Array.isArray(updatedData.sizes) && Array.isArray(updatedData.quantities)) {
-            updatedData.sizes = updatedData.sizes.map((size, index) => ({
-                size,
-                quantity: updatedData.quantities[index]
-            }));
+    uploadFields(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            console.error('Multer error:', err);
+            return res.status(500).json({ error: err.message });
+        } else if (err) {
+            console.error('Unknown error:', err);
+            return res.status(500).json({ error: err.message });
         }
 
-        // Handle additional images
-        const images = [
-            updatedData.img2,
-            updatedData.img3,
-            updatedData.img4,
-            updatedData.img5
-        ].filter(Boolean); // Filter out undefined or null values
+        try {
+            const productId = req.params.id;
+            const updatedData = req.body;
 
-        if (images.length > 0) {
-            updatedData.images = images;
+            console.log('Request body:', updatedData);
+            console.log('Request files:', req.files);
+
+            // Ensure the sizes are processed correctly if they come as arrays
+            if (Array.isArray(updatedData.sizes) && Array.isArray(updatedData.quantities)) {
+                updatedData.sizes = updatedData.sizes.map((size, index) => ({
+                    size,
+                    quantity: updatedData.quantities[index]
+                }));
+            }
+
+            // Handle image updates
+            const mainImage = req.files && req.files['img'] ? '/images/Indian/Newfolder/' + req.files['img'][0].filename : null;
+            const additionalImages = ['img2', 'img3', 'img4', 'img5'].map(img => req.files && req.files[img] ? '/images/Indian/Newfolder/' + req.files[img][0].filename : null).filter(Boolean);
+
+            if (mainImage) {
+                updatedData.img = mainImage;
+            }
+
+            if (additionalImages.length > 0) {
+                updatedData.images = additionalImages;
+            }
+
+            const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
+
+            if (!updatedProduct) {
+                return res.status(404).send('Product not found');
+            }
+
+            res.status(200).send('<script>alert("Product updated successfully"); window.location.href = "/admin/product";</script>');
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Server error', error: error.message });
         }
-
-        const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
-
-        if (!updatedProduct) {
-            return res.status(404).send('Product not found');
-        }
-
-
-        // res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
-        res.status(200).send('<script>alert("Product updated successfully"); window.location.href = "/admin/product";</script>');
-        
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
+    });
 };
-
 //-------------------------------------------------------habiba-------------------------------------------
 
 const getDashboard = async (req, res) => {

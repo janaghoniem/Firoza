@@ -13,7 +13,7 @@
 <body>
     <% include('./partials/Admin-NavBar.ejs') %>
     <div class="container" id="container">
-        <form action="/admin/EditProduct/<%= product._id %>" method="POST">
+        <form action="/admin/EditProduct/<%= product._id %>" method="POST" enctype="multipart/form-data">
             <h1>Edit product</h1>
             <input type="text" name="product_id" placeholder="Product ID" value="<%= product._id %>" required disabled>
             <input type="text" name="name" placeholder="Product Name" value="<%= product.name %>" required>
@@ -21,7 +21,7 @@
             <select name="collection_id" id="Collections" required>
                 <option value="0">none</option>
                 <% getcollections.forEach(function(collection) { %>
-                    <option value="<%= collection.Collection_Name %>" <%= product.collection_id === "collection.Collection_Name " ? "selected" : "" %>><%= collection.Collection_Name %></option>
+                    <option value="<%= collection.Collection_Name %>" <%= product.collection_id === collection.Collection_Name ? "selected" : "" %>><%= collection.Collection_Name %></option>
                 <% }); %>
             </select>
             <select name="category" id="Category" required>
@@ -32,16 +32,16 @@
                 <option value="Bracelet" <%= product.category === "Bracelet" ? "selected" : "" %>>Bracelet</option>
             </select>
             <div class="uploadOuter">
-                <label for="uploadFile" class="btn btn-primary" ">Upload Image</label>
+                <label for="uploadFile" class="btn btn-primary">Upload Image</label>
                 <strong>OR</strong>
                 <span class="dragBox">
                     Drag and Drop image here
-                    <input  type="file" name="img" id="uploadFile" accept="image/*" onchange="previewImage(event)" value="<%= product.img %>" />
+                    <input type="file" name="img" id="uploadFile" accept="image/*" onchange="previewImage(event)" />
                     <input type="hidden" name="previous_img" value="<%= product.img %>" id="previousImg">
                 </span>
                 <!-- Image preview -->
                 <div id="imagePreview" class="image-preview">
-                    <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>">
+                    <img class="img-1" src="<%= product.img %>" alt="Preview Image">
                 </div>
             </div>
             <div class="multiple-upload">
@@ -64,7 +64,7 @@
             <div id="sizes-container">
                 <% product.sizes.forEach(size => { %>
                     <div class="size-quantity-pair">
-                        <select name="sizes[]" class="size-select" required style="display: none;">
+                        <select name="sizes[]" class="size-select" required>
                             <option value="0" <%= size.size === "0" ? "selected" : "" %>>Standard</option>
                         </select>
                         <input type="number" name="quantities[]" placeholder="Quantity" min="1" value="<%= size.quantity %>" required>
@@ -104,32 +104,6 @@
             reader.readAsDataURL(file);
         }
 
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     const submitButton = document.getElementById('submitButton');
-
-        //     submitButton.addEventListener('click', function(event) {
-        //         const inputField = document.querySelector('input[name="name"]');
-        //         const numberField = document.querySelector('input[name="price"]');
-        //         const categories = document.getElementById('Category');
-        //         const collections = document.getElementById('Collections');
-        //         const imageInput = document.getElementById('uploadFile');
-        //         const previousImgInput = document.getElementById('previousImg');
-
-        //         const sureMessage = document.querySelector('.sure');
-
-        //         if (inputField.value === "" || numberField.value === "" || categories.value === "" || collections.value === "") {
-        //             event.preventDefault(); // Prevent form submission
-        //             sureMessage.innerHTML = "Please fill all required fields.";
-        //         }
-
-        //         if (!imageInput.value) {
-        //             previousImgInput.disabled = false;
-        //         } else {
-        //             previousImgInput.disabled = true;
-        //         }
-        //     });
-        // });
-
         document.addEventListener("DOMContentLoaded", function () {
             const submitButton = document.getElementById('submitButton');
 
@@ -150,16 +124,12 @@
 
                 if (!imageInput.value) {
                     previousImgInput.disabled = false;
-                    imageInput.value=previousImgInput.value;
-
-                }
-                else if(imageInput.value===previousImgInput.value){
+                    imageInput.value = previousImgInput.value;
+                } else if(imageInput.value === previousImgInput.value) {
                     previousImgInput.disabled = false;
-                    imageInput.value=previousImgInput.value;
-                } 
-                else {
+                    imageInput.value = previousImgInput.value;
+                } else {
                     previousImgInput.disabled = true;
-
                 }
             });
         });
@@ -201,22 +171,22 @@
         });
         
         document.addEventListener('DOMContentLoaded', function() {
-    const sizeSelects = document.querySelectorAll('.size-select');
+            const sizeSelects = document.querySelectorAll('.size-select');
 
-    sizeSelects.forEach(select => {
-        select.addEventListener('change', function() {
-            const selectedSize = this.value;
-            sizeSelects.forEach(otherSelect => {
-                if (otherSelect !== this) {
-                    const sameSizeOption = otherSelect.querySelector(`option[value="${selectedSize}"]`);
-                    if (sameSizeOption) {
-                        sameSizeOption.disabled = true;
-                    }
-                }
+            sizeSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const selectedSize = this.value;
+                    sizeSelects.forEach(otherSelect => {
+                        if (otherSelect !== this) {
+                            const sameSizeOption = otherSelect.querySelector(`option[value="${selectedSize}"]`);
+                            if (sameSizeOption) {
+                                sameSizeOption.disabled = true;
+                            }
+                        }
+                    });
+                });
             });
         });
-    });
-});
 
     </script>
 </body>
