@@ -486,6 +486,8 @@ a {
     letter-spacing: 0.06rem;
     font-size: 15px;
     margin: 20px 0 0 0;
+    height:200px; 
+    width:200px;
 }
 
 .item.active img {
