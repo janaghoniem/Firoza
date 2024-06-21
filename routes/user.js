@@ -8,14 +8,16 @@ const QuizResult = require('../models/Quiz');
 
 const restrictedPaths = [
     '/myAccount',
-    '/Checkout'
+    '/Checkout',
+    '/admin', 
+    '/admin/Dashboard'
 ];
 
 // Middleware to check authorization
 router.use((req, res, next) => {
     if (req.session.user === undefined && restrictedPaths.includes(req.path)) {
         console.log('You are not authorized to access this path');
-        res.status(403).send('You are not authorized to access this path');
+        res.status(403).render('notAuthorized');
     } else {
         next();
     }
@@ -98,7 +100,7 @@ router.delete('/wishlist/remove/:productId', User.removeFromWishlist);
 router.get('/stores',User.getStore);
 router.post('/filter', User.filterProducts); 
 
-router.get('/shopAll',User.getShopAllProducts);
+router.get('/shopAll', User.getShopAllProducts);
 
 router.get('/indian',User.getIndianProducts);
 
