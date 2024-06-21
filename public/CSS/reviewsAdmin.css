@@ -1,15 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.cdnfonts.com/css/futura-pt');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'futura pt', sans-serif;
     background-color: #f8f8f8;
     height: 100vh;
     width: 100vw;
-    margin-top:0;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
 .main-content {
-    margin-top: 10%;
+    margin-top: 5%;
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -19,31 +22,32 @@ body {
 .review-container {
     display: flex;
     border: 1px solid #ddd;
-    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 800px;  
+    width: 800px;
     overflow: hidden;
     background-color: white;
 }
 
-.reviewer-info {
-    background-color: #D2B48C;
+.prod-info {
+    background-color: #000000;
     padding: 20px;
-    width: 250px; 
+    width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
-.profile-pic {
+.prod-pic {
     width: 100px;
     height: 100px;
     background-color: red;
     margin-bottom: 10px;
 }
 
-.reviewer-info .reviewer-name {
+.prod-name {
+    font-family: 'Libre Caslon Text', serif;
     font-size: 16px;
     font-weight: bold;
 }
@@ -51,17 +55,23 @@ body {
 .review-content {
     background-color: white;
     padding: 20px;
-    width: 550px; 
+    width: 550px;
 }
 
 .review-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     margin-bottom: 15px;
 }
 
-.review-header .stars {
+.reviewer-name {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stars {
     color: #f5a623;
     font-size: 16px;
 }
@@ -70,9 +80,14 @@ body {
     font-size: 16px;
 }
 
+.review-body p {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
 .review-footer {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 15px;
     font-size: 14px;
@@ -80,14 +95,17 @@ body {
 }
 
 .review-footer .action-button {
-    background: none;
+    background: #000;
     border: none;
-    color: #555;
+    color: white;
     cursor: pointer;
-    margin-right: 10px;
     display: flex;
     align-items: center;
     font-size: 16px;
+    padding: 10px 20px;
+    font-family: 'Libre Caslon Text', serif;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    text-transform: uppercase;
 }
 
 .review-footer .action-button i {
@@ -95,10 +113,9 @@ body {
 }
 
 .review-footer .action-button:hover {
-    color: #000;
+    background-color: #444;
 }
 
-/* Footer styles */
 .footer {
     background-color: #333;
     color: white;
@@ -106,4 +123,5 @@ body {
     padding: 10px 0;
     width: 100%;
     position: relative;
+    font-family: 'Libre Caslon Text', serif;
 }
