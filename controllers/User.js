@@ -1402,7 +1402,8 @@ const getProductDetails = async (req, res) => {
             reviews: reviews,
             averageRating: averageRating, // Add averageRating to template data
             reviewCount: reviewCount,
-            similarProducts: similarProducts 
+            similarProducts: similarProducts,
+            productId: productId 
         });
     } catch (err) {
         console.error('Error fetching product details:', err);

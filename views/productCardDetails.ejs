@@ -133,47 +133,57 @@
                     </div>
                    
                    
-                    <div id="similar-products" >
-                        <div class="item-list1">
-                            <div class="product-grid smaller-card">
-                              <div class="product-image">
-                                <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
-                                  <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
-                                </a>
-                                <ul class="product-links">
-                                    <li>
-                                        <% if (isAvailable) { %>
-                                            <a onclick="addToWishlist('<%= product._id %>')">
-                                                <i class="fa fa-heart"></i>
-                                            </a>
-                                        <% } else { %>
-                                            <span class="disabled-box">
-                                                <i class="fa fa-heart"></i>
-                                            </span>
-                                        <% } %>
-                                    </li>
-                                    <li>
-                                        <% if (isAvailable) { %>
-                                            <a onclick="addToCart('<%= product._id %>', '<%= product.price %>')">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </a>
-                                        <% } else { %>
-                                            <span class="disabled-box">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </span>
-                                        <% } %>
-                                    </li>
-                                </ul>
-                              </div>
-                              <div class="product-content">
-                                <h3 class="title"><a href="#"> <%= product.name %> </a></h3>
-                                <div class="price"> <%= product.price %> </div>
-                               
+                    <div id="similar-products">
+                        <% similarProducts.forEach(product => { %>
+                            <% let isAvailable = false; %>
+                    
+                            <% if (product.sizes && product.sizes.length > 0) { %>
+                                <% product.sizes.forEach(size => { %>
+                                    <% if (size.quantity > 0) { %>
+                                        <% isAvailable = true; %>
+                                        <% return; %>
+                                    <% } %>
+                                <% }) %>
+                            <% } %>
+                    
+                            <!-- Render similar product card -->
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="/user/product/<%= product._id %>" class="image" onclick="fetchProductDetails('<%= product._id %>')">
+                                        <img class="img-1" src="/images/Indian/Newfolder/<%= product.img %>" alt="<%= product.name %>">
+                                    </a>
+                                    <ul class="product-links">
+                                        <li>
+                                            <% if (isAvailable) { %>
+                                                <a onclick="addToWishlist('<%= product._id %>')">
+                                                    <i class="fa fa-heart"></i>
+                                                </a>
+                                            <% } else { %>
+                                                <span class="disabled-box">
+                                                    <i class="fa fa-heart"></i>
+                                                </span>
+                                            <% } %>
+                                        </li>
+                                        <li>
+                                            <% if (isAvailable) { %>
+                                                <a onclick="addToCart('<%= product._id %>', '<%= product.price %>')">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </a>
+                                            <% } else { %>
+                                                <span class="disabled-box">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </span>
+                                            <% } %>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="title"><a href="/user/product/<%= product._id %>"><%= product.name %></a></h3>
+                                    <div class="price">EGP <%= product.price %></div>
+                                </div>
                             </div>
-                          
-                              </div>
-                            </div>
-                          </div>
+                        <% }) %>
+                    </div>
                     </div>
                     
                 </div>
