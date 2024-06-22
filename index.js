@@ -14,10 +14,11 @@ const Request = require('./models/Requests');
 const Customa = require('./models/Customization');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 //database connection and sessions
-const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
+//const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
+const dbURI=process.env.VARIABLE_NAME;
 //const fetchCollections = require('./middleware/authentication');
 
 mongoose.connect(dbURI).then((result) => {
@@ -55,7 +56,7 @@ app.use((req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Example app listening on port ${port}`);
 });
 
 

@@ -1029,13 +1029,66 @@ const SearchUsers = async (req, res) => {
 
 
 
+// const SearchOrders = async (req, res) => {
+//     const { query, date } = req.body;
+
+//     try {
+//         // Define search criteria
+//         const userSearchCriteria = query ? { email: { $regex: query, $options: 'i' } } : {};
+//         const productSearchCriteria = query ? { name: { $regex: query, $options: 'i' } } : {};
+//         const dateSearchCriteria = date ? {
+//             created_at: {
+//                 $gte: new Date(date),
+//                 $lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1))
+//             }
+//         } : {};
+
+//         // Fetch Users and Products based on search criteria
+//         const users = await User.find(userSearchCriteria);
+//         const products = await Product.find(productSearchCriteria);
+
+//         // Extract User and Product IDs
+//         const userIds = users.map(user => user._id);
+//         const productIds = products.map(product => product._id);
+
+//         // Build the search query for orders
+//         const orderSearchCriteria = {
+//             $and: [
+//                 {
+//                     $or: [
+//                         userIds.length ? { user_id: { $in: userIds } } : {},
+//                         productIds.length ? { product_ids: { $in: productIds } } : {}
+//                     ]
+//                 },
+//                 dateSearchCriteria
+//             ]
+//         };
+
+//         // Remove empty criteria
+//         if (orderSearchCriteria.$and[0].$or.length === 0) {
+//             orderSearchCriteria.$and.splice(0, 1);
+//         }
+
+//         // Search Orders by User IDs, Product IDs, and Date
+//         const orders = await Order.find(orderSearchCriteria)
+//                                   .populate('user_id')
+//                                   .populate('product_ids');
+
+//         // Send the results back to the client
+//         res.json({ orders });
+//     } catch (error) {
+//         console.error('Error searching orders:', error);
+//         res.status(500).send('Server Error');
+//     }
+// };
+
 const SearchOrders = async (req, res) => {
     const { query, date } = req.body;
 
     try {
-        // Define search criteria
-        const userSearchCriteria = query ? { email: { $regex: query, $options: 'i' } } : {};
-        const productSearchCriteria = query ? { name: { $regex: query, $options: 'i' } } : {};
+        // Define search criteria with efficient use of regex and indices
+        const userSearchCriteria = query ? { email: new RegExp(query, 'i') } : {};
+        const productSearchCriteria = query ? { name: new RegExp(query, 'i') } : {};
         const dateSearchCriteria = date ? {
             created_at: {
                 $gte: new Date(date),
@@ -1044,8 +1097,8 @@ const SearchOrders = async (req, res) => {
         } : {};
 
         // Fetch Users and Products based on search criteria
-        const users = await User.find(userSearchCriteria);
-        const products = await Product.find(productSearchCriteria);
+        const users = await User.find(userSearchCriteria).select('_id');
+        const products = await Product.find(productSearchCriteria).select('_id');
 
         // Extract User and Product IDs
         const userIds = users.map(user => user._id);
@@ -1064,23 +1117,18 @@ const SearchOrders = async (req, res) => {
             ]
         };
 
-        // Remove empty criteria
-        if (orderSearchCriteria.$and[0].$or.length === 0) {
-            orderSearchCriteria.$and.splice(0, 1);
-        }
-
-        // Search Orders by User IDs, Product IDs, and Date
+        // Fetch Orders based on the compiled search criteria
         const orders = await Order.find(orderSearchCriteria)
-                                  .populate('user_id')
-                                  .populate('product_ids');
+            .populate('user_id', 'email')
+            .populate('product_ids', 'name');
 
-        // Send the results back to the client
-        res.json({ orders });
+        res.status(200).json({ orders });
     } catch (error) {
         console.error('Error searching orders:', error);
-        res.status(500).send('Server Error');
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
 
 
 const getReviews = async (req, res) => {
