@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded',  function() {
             buttonCount2--;
         }
         else {
-            alert("Hena its supposed to search");
+            // alert("Hena its supposed to search");
         }
     }
 });

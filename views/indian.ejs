@@ -7,6 +7,7 @@
 <title>Firoza | Collection</title>
     <link rel="stylesheet" href="/CSS/nav-bar-white.css">
     <link rel="stylesheet" href="/CSS/Footer.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/Javascript/nav-bar.js"></script>
     <script src="/Javascript/openproduct.js"></script>
@@ -213,7 +214,7 @@
 </head>
 
 <body>
-    <%- include('./partials/Nav-bar.ejs') %>
+    <%- include('partials/Nav-bar.ejs') %>
         <div class="head">
             <img src="/images/Indian/Newfolder/<%= img %>" alt="<%= Collection_Name %>" >
             <div class="img-text">
@@ -255,11 +256,11 @@
 
         <div id="category-dropdown" class="dropdown-content">
             <div class="arrow"></div>
-            <label class="containerr" style="font-size: 12px;">Bracelets
+            <label class="containerr" style="font-size: 12px;">Bracelet
                 <input type="checkbox" onchange="applyFilters()">
                 <span class="checkmark"></span>
             </label>
-            <label class="containerr" style="font-size: 12px;">Necklaces
+            <label class="containerr" style="font-size: 12px;">Necklace
                 <input type="checkbox" onchange="applyFilters()">
                 <span class="checkmark"></span>
             </label>

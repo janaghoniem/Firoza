@@ -7,15 +7,16 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
-   <link rel="stylesheet" href="/css/shoppingcart.css">
-   <link rel="stylesheet" href="/css/nav-bar-white.css">
-   <link rel="stylesheet" href="/css/Footer.css">
+   <link rel="stylesheet" href="/CSS/ShoppingCart.css">
+   <link rel="stylesheet" href="/CSS/nav-bar-white.css">
+   <link rel="icon" type="image/x-icon" href="/images/logo.ico">
+   <link rel="stylesheet" href="/CSS/Footer.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <script src="/Javascript/nav-bar.js"></script>
 </head>
 <body>
     <!-- Header -->
-    <%- include('./partials/Nav-bar.ejs') %>
+    <%- include('partials/Nav-bar.ejs') %>
     
     <div class="container mt-5">
         <div class="row">
@@ -98,14 +99,14 @@
                        <strong class="total-price">EGP <%= cart.items.reduce((total, item) => item.productId ? total + (item.price * item.quantity) : total, 0) + 100 %></strong>
                     </div>
                     <button class="btn btn-dark btn-block mt-4" id="checkout" href="/user/checkout">CHECKOUT</button>
-                    <a href="/user/shopAll.ejs" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
+                    <a href="/user/shopAll" class="btn btn-dark btn-block mt-4">CONTINUE SHOPPING</a>
                  </div>
               </div>
            </div>
         </div>
      </div>
    <!-- <link rel="stylesheet" href="/css/Footer.css"> -->
-   <script src="../Javascript/ShoppingCart.js"></script>
+   <script src="/Javascript/ShoppingCart.js"></script>
      
 </body>
 </html>

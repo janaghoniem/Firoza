@@ -226,7 +226,7 @@ form.addEventListener('submit', async (event) => {
         
         const data = await response.json();
         console.log('Response Data:', data); // Debug statement to log response data
-        alert('Request submitted successfully!'); 
+        // alert('Request submitted successfully!'); 
         // Handle success response
         console.log('Request submitted successfully:', data.message);
     } catch (error) {

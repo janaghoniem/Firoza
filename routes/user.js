@@ -7,15 +7,16 @@ const Product = require('../models/product');
 const QuizResult = require('../models/Quiz');
 
 const restrictedPaths = [
-    '/myAccount',
+    '/user/myAccount',
     '/Checkout',
+    '/user/checkout',
     '/admin', 
     '/admin/Dashboard'
 ];
 
 // Middleware to check authorization
 router.use((req, res, next) => {
-    if (req.session.user === undefined && restrictedPaths.includes(req.path)) {
+    if ((req.session.user === undefined || req.session.user.isAdmin) && restrictedPaths.includes(req.path)) {
         console.log('You are not authorized to access this path');
         res.status(403).render('notAuthorized');
     } else {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/collections.css">
     <link rel="stylesheet" href="/CSS/nav-bar.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico"> 
     <link rel="stylesheet" href="/CSS/Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/Javascript/nav-bar.js"></script>
@@ -13,7 +14,7 @@
 </head>
 
 <body>
-    <%- include('./partials/Nav-bar.ejs') %>
+    <%- include('partials/Nav-bar.ejs') %>
 
         <section class="main" id="main">
             <video src="/videos/Collections/background.mp4" id="video-background" autoplay loop muted></video>
@@ -125,7 +126,7 @@
             <% }); %>
         </div>
         
-        <%- include('./partials/footer.ejs') %>
+        <%- include('partials/footer.ejs') %>
 </body>
 
 </html>

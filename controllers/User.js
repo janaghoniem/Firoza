@@ -880,7 +880,7 @@ const Checkout = async (req, res) => {
     try {
         // Check if user is logged in
         if (!req.session.user) {
-            return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
+            return res.status(403).render('notAuthorized');;
         }
 
         const user = await User.findById(req.session.user._id);
@@ -966,7 +966,7 @@ const getCheckout = async (req, res) => {
     try {
         // Check if user is logged in
         if (!req.session.user) {
-            return res.status(403).json({ error: 'Guest users cannot checkout. Please log in or create an account.' });
+            return res.status(403).render('notAuthorized');
         }
         const user = req.session.user;
         res.render('Checkout', { user });
@@ -1086,7 +1086,7 @@ const getWishlist = async (req, res) => {
                 return product;
             }));
 
-            return res.render('Wishlist', {
+            return res.render('wishlist', {
                 wishlist: wishlistItems,
                 user: null
             });
@@ -1101,7 +1101,7 @@ const getWishlist = async (req, res) => {
             return res.status(404).send('User not found');
         }
 
-        res.render('Wishlist', {
+        res.render('wishlist', {
             wishlist: user.wishlist,
             user: user
         });
@@ -1111,8 +1111,8 @@ const getWishlist = async (req, res) => {
     }
 };
 
-
-
+ 
+ 
 const AddToWishlist = async (req, res) => {
     console.log('entered wishlist addition function');
     const { productId } = req.body;
@@ -1346,11 +1346,11 @@ const logout = (req, res) => {
 
 
 const getcontactus = async (req, res) => {
-    res.render("ContactUs.ejs");
+    res.render("ContactUs");
 };
 
 const getcontactusform = async (req, res) => {
-    res.render("ContactUsForm.ejs");
+    res.render("ContactUsForm");
 };
 
 const addRequest = async (req, res) => {

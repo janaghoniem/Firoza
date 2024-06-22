@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/CSS/Quiz.css">
     <script src="/Javascript/nav-bar.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico">
     <script src="/Javascript/quiz.js"></script>
     <link rel="stylesheet" href="/CSS/shopAll.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -240,12 +241,101 @@
             </form>
         </section>
     </footer>
+    
 
     <div id="results-header">Results</div>
+    <div class="login-message-popup" id="login-message-popup">
+        <h2>Login Successful</h2>
+        <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div class="login-message-popup" id="login-message-error-popup">
+        <h2></h2>
+        <i class="fa-solid fa-circle-xmark" style="color: #d60000;"></i>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
+    <script>
+        function showPopup(message) {
+            const popup = document.getElementById('login-message-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        function showErrorPopup(message) {
+            const popup = document.getElementById('login-message-error-popup');
+            const popupMessage = popup.querySelector('h2');
+            popupMessage.textContent = message;
+
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        async function addToCart(productId, price) {
+            const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the cart.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/user/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId, price })
+                });
+
+                if (response.ok) {
+                    showPopup('Product added to cart successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to cart. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showErrorPopup('Failed to add product to cart. Please try again later.');
+            }
+        }
+
+        async function addToWishlist(productId) {
+            const productContainer = document.querySelector(`[data-product-id="${productId}"]`);
+            const isSoldOut = productContainer.querySelector('.sold-out-label') !== null;
+
+            if (isSoldOut) {
+                showErrorPopup('This product is sold out and cannot be added to the wishlist.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/user/wishlist/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId })
+                });
+
+                if (response.ok) {
+                    showPopup('Product added to wishlist successfully!');
+                } else {
+                    showErrorPopup('Failed to add product to wishlist. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error adding to wishlist:', error);
+            }
+        }
+    </script>
 </body>
 
 </html>

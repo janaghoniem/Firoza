@@ -27,7 +27,7 @@ async function confirmCancel() {
             });
             const data = await response.json();
             if (data.success) {
-                alert("Order cancelled successfully");
+                // alert("Order cancelled successfully");
                 window.location.reload();
             } else {
                 alert("Failed to cancel order: " + data.message);
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             location.reload(); 
             showPopup('User information updated successfully');
         } else {
-            alert('not available')
+            alert('Not available')
             emailStatus.textContent = 'Email is already taken.';
             emailStatus.style.color = 'red';
             emailInput.style.borderColor = 'red';

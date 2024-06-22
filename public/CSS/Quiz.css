@@ -1107,3 +1107,50 @@ ul.icons.alt li a.icon:hover:before {
         width: 200px;
     }
 }
+
+.login-message-popup{
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    display: none;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.496); /* Semi-transparent background for popup */
+    backdrop-filter: blur(4px); /* Blur effect for background */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.759); /* Optional: Box shadow for depth */
+    /* transition: opacity 0.5s ease-in-out; */
+    animation: fadeinout 3s;
+    z-index: 99999999999999;
+}
+
+@keyframes fadeinout {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.login-message-popup.show {
+    display: flex;
+    /* opacity: 1; */
+}
+
+.login-message-popup h2 {
+    font-family: 'futura pt';
+    color: #ffffff;
+    font-weight: 500;
+    font-size: medium;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.login-message-popup i {
+    color: rgb(54, 192, 84);
+    font-size: larger;
+}

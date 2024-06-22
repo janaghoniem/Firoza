@@ -41,7 +41,7 @@ router.get('/addProduct', async (req, res) => {
     try {
         const collections = await getCollections.find(); // Fetch all collections
         console.log('Collections fetched:', collections); // Debugging output
-        res.render('addProduct', { collections }); // Pass collections to the template
+        res.render('Addproduct', { collections }); // Pass collections to the template
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });

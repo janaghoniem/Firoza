@@ -20,6 +20,7 @@ const port = 3000;
 const dbURI = 'mongodb+srv://firoza:firoza123@firoza.okdf9xk.mongodb.net/database-firoza?retryWrites=true&w=majority&appName=Firoza';
 //const fetchCollections = require('./middleware/authentication');
 
+
 mongoose.connect(dbURI).then((result) => {
     console.log('connected to database!');
 }).catch((err) => {
