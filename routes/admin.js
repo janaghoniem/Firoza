@@ -183,4 +183,6 @@ router.delete('/deleteUser/:id', adminController.deleteUser);
 router.post('/searchUsers',adminController.SearchUsers);
 router.post('/searchOrders', adminController.SearchOrders);
 router.get('/reviewsAdmin', adminController.getReviews);
+
+router.delete('/reviewsAdmin/:reviewid', adminController.deleteReview);
 module.exports = router;

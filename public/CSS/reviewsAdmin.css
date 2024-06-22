@@ -108,7 +108,7 @@ body {
     align-items: center;
     font-size: 16px;
     padding: 10px 20px;
-    font-family: 'Libre Caslon Text', serif;
+    font-family: 'futura pt', sans-serif;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     text-transform: uppercase;
 }

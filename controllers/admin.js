@@ -1093,6 +1093,21 @@ const getReviews = async (req, res) => {
         // res.status(500).send('Internal Server Error');
     }
 };
+
+const deleteReview = async (req, res) => {
+    const reviewId = req.params.id;
+    try {
+        const review = await Review.findByIdAndDelete(reviewId);
+        if (review) {
+            res.status(200).json({ message: 'Review deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Review not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting review:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
 module.exports = {
     addAdmin,
     addCollection,
@@ -1118,7 +1133,8 @@ module.exports = {
     SearchUsers,
     getReviews,
     validateCollectionName,
-    getEditCollectionPage
+    getEditCollectionPage,
+    deleteReview
 };
 
 
