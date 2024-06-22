@@ -1096,18 +1096,23 @@ const getReviews = async (req, res) => {
 
 const deleteReview = async (req, res) => {
     const reviewId = req.params.id;
+    console.log(`Attempting to delete review with ID: ${reviewId}`); // Debugging log
+
     try {
         const review = await Review.findByIdAndDelete(reviewId);
         if (review) {
+            console.log(`Review with ID: ${reviewId} deleted successfully`); // Debugging log
             res.status(200).json({ message: 'Review deleted successfully' });
         } else {
+            console.error(`Review with ID: ${reviewId} not found`);
             res.status(404).json({ message: 'Review not found' });
         }
     } catch (error) {
-        console.error('Error deleting review:', error);
+        console.error(`Error deleting review with ID: ${reviewId}`, error);
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 module.exports = {
     addAdmin,
     addCollection,

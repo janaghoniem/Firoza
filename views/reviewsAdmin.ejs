@@ -64,7 +64,7 @@
                 button.addEventListener('click', async (event) => {
                     const reviewId = event.target.closest('button').dataset.reviewId;
                     try {
-                        const response = await fetch(`/reviews/${reviewId}`, {
+                        const response = await fetch(`/admin/reviewsAdmin/${reviewId}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json'
