@@ -8,17 +8,25 @@ A fully responsive e-commerce platform designed for browsing and purchasing a va
 Features
 
 •	User Authentication: Create and manage user accounts for personalized experiences.
+
 •	Product Filtering: Easily search and filter jewelry items by category, price, and other attributes.
+
 •	Secure Checkout: Safe and secure payment processing with multiple payment options.
+
 •	Map API Integration: Locate nearby jewelry stores for in-person pickups.
+
 •	3D Ring Models: Interactive viewing of rings from multiple angles.
+
 •	VR Camera: Virtually try on rings in real-time for an immersive shopping experience.
 
 Technologies Used
 
 •	Frontend: HTML, CSS, JavaScript
-•	Backend: Node.js
+
+•	Backend: Node.js, Express.js
+
 •	Database: MongoDB
+
 •	APIs: Map API, 3D modeling libraries
 
 Deployment
